@@ -1,4 +1,4 @@
-name: Spec CI
+name: CDEvents
 
 # Controls when the workflow will run
 on:
