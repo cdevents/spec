@@ -7,6 +7,8 @@ This non-normative document provides an overview of the CDEvents specification. 
 ## Table of Contents
 
 <!-- toc -->
+- [History](#history)
+- [Acknowledgments](#acknowledgments)
 <!-- /toc -->
 
 ## History
