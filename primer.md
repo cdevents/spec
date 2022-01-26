@@ -18,8 +18,9 @@ TBD
 
 ## Relations to CloudEvents
 
-CDEvents defines a specification  that provides a set of JSON object schemas
-(one for each event type, covering mandatory and optional attributes etc.)
+CDEvents defines a [specification](./cloudevents-binding.md) that provides a set
+of JSON object schemas (one for each event type, covering mandatory and optional
+attributes etc.)
 
 When used with CloudEvents, CDEvents passes the JSON schema  via the
 [`dataschema`](https://github.com/cloudevents/spec/blob/v1.0.1/spec.md#dataschema)
