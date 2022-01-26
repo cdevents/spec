@@ -9,8 +9,65 @@ This phase includes events related to changes in Source Code repositories that a
 These events are related to Source Code repositories
 
 - **Repository Created Event**: a new Source Code Repository was created to host source code for a project
+
+  Example:
+  ```json
+  {
+    "data": {
+      "otherrepositorydata": "data",
+      "repositoryid": "repository_id",
+      "repositoryname": "Name of repository",
+      "repositoryurl": "http://my-repository",
+    },
+    "datacontenttype": "application/json",
+    "id": "15929a3b-09c9-42ee-a48d-32c17d9e8621",
+    "source": "cde-cli",
+    "specversion": "1.0",
+    "time": "2021-07-20T13:36:12.6814715Z",
+    "type": "cd.repository.created.v1"
+  }
+  ```
+
 - **Repository Modified Event**: a Source Code Repository modified some of its attributes, like location, or owner
+
+  Example:
+  ```json
+  {
+    "data": {
+      "otherrepositorydata": "data",
+      "repositoryid": "repository_id",
+      "repositoryname": "Name of repository",
+      "repositoryurl": "http://my-repository",
+    },
+    "datacontenttype": "application/json",
+    "id": "7bdc0e0e-a080-4da4-b709-643a8706be22",
+    "source": "cde-cli",
+    "specversion": "1.0",
+    "time": "2021-07-20T13:36:42.2070274Z",
+    "type": "cd.repository.modified.v1"
+  }
+  ```
+
 - **Repository Deleted Event**: a Source Code Repository was deleted and it is not longer available
+
+  Example:
+  ```json
+  {
+    "data": {
+      "otherrepositorydata": "data",
+      "repositoryid": "repository_id",
+      "repositoryname": "Name of repository",
+      "repositoryurl": "http://my-repository",
+    },
+    "datacontenttype": "application/json",
+    "id": "465d1142-5bbd-44f5-bad3-6605c5f0cb5a",
+    "source": "cde-cli",
+    "specversion": "1.0",
+    "time": "2021-07-20T13:38:29.7678693Z",
+    "type": "cd.repository.deleted.v1"
+  }
+  ```
+
 - **Branch Created Event**: a Branch inside the Repository was created
 - **Branch Deleted Event**: a Branch inside the Repository was deleted
 
