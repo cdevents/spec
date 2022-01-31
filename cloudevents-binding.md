@@ -1,3 +1,11 @@
+<!--
+---
+linkTitle: "CloudEvents Binding"
+weight: 100
+description: >
+   CloudEvents Binding for CDEvents
+---
+-->
 # CloudEvents Binding for CDEvents - Draft
 
 ## Abstract
