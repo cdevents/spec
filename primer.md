@@ -1,3 +1,11 @@
+<!--
+---
+linkTitle: "Primer"
+weight: 20
+description: >
+    A CDEvents primer
+---
+-->
 # CDEvents Primer - Draft
 
 ## Abstract
