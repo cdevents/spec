@@ -23,7 +23,12 @@ This non-normative document provides an overview of the CDEvents specification. 
 
 ## History
 
-TBD
+The [Events in CI/CD Worksteam](https://github.com/cdfoundation/sig-interoperability/tree/master/workstreams/archived/events_in_cicd)
+was originally formed by the [CDF Interoperability Special Interest Group](https://github.com/cdfoundation/sig-interoperability)
+with the mission to *Standardize events to be used in a CI/CD process*. The workstream later evolved into [Event Special Interest Group](https://github.com/cdfoundation/sig-events/), which defined the initial vocabulary for CI/CD events, developed a golang
+SDK and a first proof of concept which involved [Tekton](https://tekton.dev) and [keptn](https://keptn.sh).
+
+The initial vocabulary then became [CDEvents](https://cdevents.dev), a new standalone [CDF](https://cd.foundation) incubated project.
 
 ## Relations to CloudEvents
 
