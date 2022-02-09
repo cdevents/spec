@@ -26,7 +26,7 @@ The term Environment represent any platform which has all the means to run a Ser
 
 Continuous Deployment Events MUST include the following attributes:
 
-- __Event Type__: the type is restricted to include `cd.__` prefix. For example `cd.service.upgraded` or `cd.environment.created`
+- __Event Type__: the type is restricted to include `dev.cdevents.__` prefix. For example `dev.cdevents.service.upgraded` or `dev.cdevents.environment.created`
 - __Environment ID__: unique identifier for the Environment
 
 Optional attributes:

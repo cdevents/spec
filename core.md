@@ -29,7 +29,7 @@ Each pipeline is defined as a set of Tasks to be performed in sequence, hence tr
 
 Pipeline Events MUST include the following attributes:
 
-- __Event Type__: the type is restricted to include `cd.__` prefix. For example `cd.pipelinerun.queued` or `cd.tests.started`
+- __Event Type__: the type is restricted to include `dev.cdevents.__` prefix. For example `dev.cdevents.pipelinerun.queued` or `dev.cdevents.tests.started`
 - __PipelineRun Id__: unique identifier for a pipeline execution
 - __Pipeline Name__: unique identifier for the pipeline, not for the instance. A pipeline can have multiple instances/runs.
 - __PipelineRun Status__: current status of the PipelineRun at the time when the event was emitted. If the pipeline is finished, this attribute should reflect if it finished successfully or if there was an error on the execution. Possible statuses: [Running, Finished, Error]
