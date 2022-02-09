@@ -24,7 +24,7 @@ These events are related to Source Code repositories
 
 Repository Events MUST include the following attributes:
 
-- __Event Type__: the type is restricted to include `cd.__` prefix. For example `cd.repository.created` or `cd.repository.changeapproved`
+- __Event Type__: the type is restricted to include `dev.cdevents.__` prefix. For example `dev.cdevents.repository.created` or `dev.cdevents.repository.changeapproved`
 - __Repository URL__: indicates the location of the source code repository for API operations, this URL needs to include the protocol used to connect to the repository. For example `git://` , `ssh://`, `https://`
 - __Repository Name__: friendly name to list this repository to users
 

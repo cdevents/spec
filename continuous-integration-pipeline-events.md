@@ -33,7 +33,7 @@ Finally, events needs to be generated for the output of the pipeline such as the
 
 CI Events MUST include the following attributes:
 
-- __Event Type__: the type is restricted to include `cd.__` prefix. For example `cd.build.queued` or `cd.artifact.packaged`
+- __Event Type__: the type is restricted to include `dev.cdevents.__` prefix. For example `dev.cdevents.build.queued` or `dev.cdevents.artifact.packaged`
 
 Optional attributes:
 
