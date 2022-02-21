@@ -87,17 +87,129 @@ predicate are defined in the [vocabulary](#vocabulary).
 
 ## Context
 
+### REQUIRED Event Attributes
+
 The following attributes are REQUIRED to be present in all the Events defined in
 this vocabulary:
 
-- __Event ID__: defines an identifier for the event. The Event ID MUST be unique
-  within the given Event Source.
-- __Event Type__: defines the type of event, as combination of a *subject* and
+#### id
+
+- Type: [`String`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+- Description: Identifier for an event. The `ID` MUST be unique within the given
+  `Source`. Subsequent delivery attempts of the same event MAY share the same
+  `ID`. This fields matches the syntax and semantics of the
+  [`id`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#id)
+  attribute of CloudEvents.
+
+- Constraints:
+  - REQUIRED
+  - MUST be a non-empty string
+  - MUST be unique within the scope of the producer
+- Examples:
+  - An [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+
+#### type
+
+- Type: [`String`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+- Description: defines the type of event, as combination of a *subject* and
   *predicate*. Valid event types are defined in the [vocabulary](#vocabulary).
   All event types should be prefixed with `dev.cdevents.`. One occurrence may
   have multiple events associated, as long as they have different event types
-- __Event Source__: defines the context in which an event happened
-- __Event Timestamp__: defines the time when the event was produced
+
+- Constraints:
+  - REQUIRED
+  - MUST be defined in the [vocabulary](#vocabulary)
+- Examples:
+  - dev.cdevents.taskrun.started
+  - dev.cdevents.environment.created
+  - dev.cdevents.<subject>.<predicate>
+
+#### source
+
+- Type: [`URI-Reference`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+- Description: defines the context in which an event happened. The main purpose
+  of the source is to provide global uniqueness for `source` + `id`.
+
+  The source MAY identify a single producer or a group of producer that belong
+  to the same application.
+
+  When selecting the format for the source, it may be useful to think about how
+  clients may use it. Using the [root use cases](./primer.md#use-cases) as
+  reference:
+
+  - A client may want to react only to events sent by a specific service, like
+    the instance of Tekton that runs in a specific cluster or the instance of
+    Jenkins managed by team X
+  - A client may want to collate all events coming from a specific source for
+    monitoring, observability or visualization purposes
+
+- Constraints:
+  - REQUIRED
+  - MUST be a non-empty URI-reference
+  - An absolute URI is RECOMMENDED
+
+- Examples:
+
+  - If there is a single "context" (cloud, cluster or platform of some kind)
+    - `/tekton`
+    - `https://www.jenkins.io/`
+
+  - If there are multiple "contexts":
+    - `/cloud1/spinnaker-A`
+    - `/cluster2/keptn-A`
+    - `/teamX/knative-1`
+
+#### timestamp
+
+- Type: [timestamp](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+- Description: defines the time of the occurrence. When the time of the
+  occurrence is not available, the time when the event was produced MAY be used.
+
+  In case the transport layer should require a re-transmission of the event,
+  the timestamp SHOULD NOT be updated, i.e. it should be the same for the same
+  `source` + `id` combination.
+- Constraints:
+  - REQUIRED
+  - MUST adhere to the format specified in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
+
+#### version
+
+- Type: `String`
+- Description: The version of the CDEvents specification which the event
+  uses. This enables the interpretation of the context. Compliant event
+  producers MUST use a value of `draft` when referring to this version of the
+  specification.
+
+- Constraints:
+  - REQUIRED
+  - MUST be a non-empty string
+
+#### subject
+
+- Type: `Object`
+- Description: This provides all the relevant details of the `subject`. The
+  format of the subject depends on the event `type`.
+
+  The attributes available for each subject are defined in the
+  [`vocabulary`](#vocabulary). The REQUIRED and OPTIONAL attributes depend on
+  the event `type` and are specified in the [`vocabulary`](#vocabulary).
+
+- Constraints:
+  - REQUIRED
+  - If present, MUST comply with the spec from the [`vocabulary`](#vocabulary).
+
+- Example:
+  - Considering the event type `dev.cdevents.taskrun.started`, an example of
+    subject, serialised as JSON, is:
+
+    ```json
+        "taskrun" : {
+          "id": "my-taskrun-123",
+          "task": "my-task",
+          "status": "Running",
+          "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+        }
+    ```
 
 ## Vocabulary
 
