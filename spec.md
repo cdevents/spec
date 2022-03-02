@@ -122,7 +122,7 @@ this vocabulary:
 - Examples:
   - dev.cdevents.taskrun.started
   - dev.cdevents.environment.created
-  - dev.cdevents.<subject>.<predicate>
+  - dev.cdevents.\<subject\>.\<predicate\>
 
 #### source
 
