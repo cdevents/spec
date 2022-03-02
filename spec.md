@@ -106,7 +106,7 @@ this vocabulary:
   - MUST be a non-empty string
   - MUST be unique within the scope of the producer
 - Examples:
-  - An [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+  - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
 
 #### type
 
