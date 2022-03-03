@@ -104,7 +104,7 @@ this vocabulary:
 - Constraints:
   - REQUIRED
   - MUST be a non-empty string
-  - MUST be unique within the scope of the producer
+  - MUST be unique within the given `source` (in the scope of the producer)
 - Examples:
   - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
 
