@@ -95,7 +95,7 @@ this vocabulary:
 #### id
 
 - Type: [`String`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
-- Description: Identifier for an event. The `ID` MUST be unique within the given
+- Description: Identifier for an event.
   `Source`. Subsequent delivery attempts of the same event MAY share the same
   `id`. This attribute matches the syntax and semantics of the
   [`id`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#id)
