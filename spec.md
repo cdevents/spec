@@ -97,14 +97,14 @@ this vocabulary:
 - Type: [`String`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
 - Description: Identifier for an event.
   Subsequent delivery attempts of the same event MAY share the same
-  `id`. This attribute matches the syntax and semantics of the
+  [`id`](#id). This attribute matches the syntax and semantics of the
   [`id`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#id)
   attribute of CloudEvents.
 
 - Constraints:
   - REQUIRED
   - MUST be a non-empty string
-  - MUST be unique within the given `source` (in the scope of the producer)
+  - MUST be unique within the given [`source`](#source) (in the scope of the producer)
 - Examples:
   - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
 
@@ -120,15 +120,16 @@ this vocabulary:
   - REQUIRED
   - MUST be defined in the [vocabulary](#vocabulary)
 - Examples:
-  - dev.cdevents.taskrun.started
-  - dev.cdevents.environment.created
-  - dev.cdevents.\<subject\>.\<predicate\>
+  - `dev.cdevents.taskrun.started`
+  - `dev.cdevents.environment.created`
+  - `dev.cdevents.<subject>.<predicate>`
 
 #### source
 
 - Type: [`URI-Reference`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
 - Description: defines the context in which an event happened. The main purpose
-  of the source is to provide global uniqueness for `source` + `id`.
+  of the source is to provide global uniqueness for [`source`](#source) +
+  [`id`](#id).
 
   The source MAY identify a single producer or a group of producer that belong
   to the same application.
@@ -167,7 +168,8 @@ this vocabulary:
 
   In case the transport layer should require a re-transmission of the event,
   the timestamp SHOULD NOT be updated, i.e. it should be the same for the same
-  `source` + `id` combination.
+  [`source`](#source) + [`id`](#id) combination.
+
 - Constraints:
   - REQUIRED
   - MUST adhere to the format specified in [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
@@ -187,12 +189,12 @@ this vocabulary:
 #### subject
 
 - Type: `Object`
-- Description: This provides all the relevant details of the `subject`. The
-  format of the subject depends on the event `type`.
+- Description: This provides all the relevant details of the [`subject`](#subject). The
+  format of the [`subject`](#subject-1) depends on the event [`type`](#type).
 
   The attributes available for each subject are defined in the
   [`vocabulary`](#vocabulary). The REQUIRED and OPTIONAL attributes depend on
-  the event `type` and are specified in the [`vocabulary`](#vocabulary).
+  the event [`type`](#type) and are specified in the [`vocabulary`](#vocabulary).
 
 - Constraints:
   - REQUIRED
