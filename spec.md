@@ -90,7 +90,7 @@ predicate are defined in the [vocabulary](#vocabulary).
 ### REQUIRED Event Attributes
 
 The following attributes are REQUIRED to be present in all the Events defined in
-this vocabulary:
+the [vocabulary](#vocabulary):
 
 #### id
 
@@ -193,12 +193,12 @@ this vocabulary:
   format of the [`subject`](#subject-1) depends on the event [`type`](#type).
 
   The attributes available for each subject are defined in the
-  [`vocabulary`](#vocabulary). The REQUIRED and OPTIONAL attributes depend on
-  the event [`type`](#type) and are specified in the [`vocabulary`](#vocabulary).
+  [vocabulary](#vocabulary). The REQUIRED and OPTIONAL attributes depend on
+  the event [`type`](#type) and are specified in the [vocabulary](#vocabulary).
 
 - Constraints:
   - REQUIRED
-  - If present, MUST comply with the spec from the [`vocabulary`](#vocabulary).
+  - If present, MUST comply with the spec from the [vocabulary](#vocabulary).
 
 - Example:
   - Considering the event type `dev.cdevents.taskrun.started`, an example of
