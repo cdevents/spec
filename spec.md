@@ -15,7 +15,7 @@ of the CDEvents project. You are very welcome to
 ## Abstract
 
 CDEvents is a common specification for Continuous Delivery events. For more
-background information please see our [README.md](#README.md).
+background information please see our [README.md](README.md).
 
 ## Overview
 
