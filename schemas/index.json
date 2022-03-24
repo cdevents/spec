@@ -1,0 +1,40 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://cdevents.dev/draft/schema",
+    "title": "CDEvents",
+    "description": "JSON serialization of CDEvents",
+    "type": "object",
+    "required": [ "id", "type", "source", "timestamp", "version", "subject"],
+    "properties": {
+        "id": {
+          "description": "Identifier of the event",
+          "type": "string"
+        },
+        "type": {
+            "description": "Type of the event",
+            "type": "string"
+        },
+        "source": {
+            "description": "The source of the event",
+            "type": "string"
+        },
+        "timestamp": {
+            "description": "The time of the occurrence",
+            "type": "string"
+        },
+        "version": {
+            "description": "The CDEvents specification version",
+            "type": "string"
+        },
+        "subject": {
+            "description": "Subject of the event",
+            "anyOf": [
+                {"$href": "https://cdevents.dev/draft/schema/core/pipelinerunqueued"},
+                {"$href": "https://cdevents.dev/draft/schema/core/pipelinerunstarted"},
+                {"$href": "https://cdevents.dev/draft/schema/core/pipelinerunfinished"},
+                {"$href": "https://cdevents.dev/draft/schema/core/taskrunstarted"},
+                {"$href": "https://cdevents.dev/draft/schema/core/taskrunfinished"}
+            ]
+        }
+    }
+}

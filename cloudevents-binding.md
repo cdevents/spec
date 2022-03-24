@@ -15,6 +15,116 @@ The CloudEvents Binding for CDEvents defines how CDEvents are mapped to CloudEve
 ## Table Of Contents
 
 <!-- toc -->
+- [Context](#context)
+  - [specversion](#specversion)
+  - [id](#id)
+  - [source](#source)
+  - [type](#type)
+  - [subject](#subject)
+  - [time](#time)
+  - [datacontenttype](#datacontenttype)
+  - [dataschema](#dataschema)
+- [Event Data](#event-data)
+- [Example](#example)
 <!-- /toc -->
 
-TBD
+## Context
+
+The CloudEvents context is built by the event producer using some of the data
+from the [CDEvents context](spec.md#context).
+
+### specversion
+
+The [CloudEvents `specversion`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#specversion)
+MUST be set to `1.0`.
+
+### id
+
+The [CloudEvents `id`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#id)
+MUST be set to the CDEvents [`id`](spec.md#id).
+
+### source
+
+The [CloudEvents `source`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#source-1)
+MUST be set to the CDEvents [`source`](spec.md#source).
+
+### type
+
+The [CloudEvents `type`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type)
+MUST be set to the [`type`](spec.md#type) of the CDEvent.
+
+### subject
+
+The [CloudEvents `subject`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#subject)
+MUST be set to the [subject `id`](spec.md#subjectid) of the CDEvent.
+__Note__: since the *subject* is mandatory in CDEvents, the `subject` in the
+CloudEvents format will always be set - even if it's not mandated by the
+CloudEvents specification.
+
+### time
+
+The [CloudEvents `time`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#subject)
+MUST be set to the [`timestamp`](spec.md#timestamp) of the CDEvent. The
+CloudEvents specification allows for `time` to be set to either the current time
+or the time of the occurrence, but it requires all producers to be chose the
+same option. CDEvents requires all producers to use the `timestamp` from the
+CDEvent to meet the CloudEvents specification.
+
+### datacontenttype
+
+The [CloudEvents `datacontenttype`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#datacontenttype)
+is optional. When set, its value MUST be `"application/json"`.
+
+### dataschema
+
+The [CloudEvents `dataschema`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#dataschema)
+is MAY be set to a URL that points to the event data schema included in this
+specification.
+
+## Event Data
+
+The [CloudEvents Event Data](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#event-data)
+MUST include the full CDEvents [`context`](spec.md#context) rendered as JSON
+in the format specified by the [schema](./schemas/) for the event type.
+
+## Example
+
+Here is a full example of a CDEvents rendered to be transported via CloudEvents.
+
+CloudEvents Context:
+
+```json
+{
+   "specversion" : "1.0",
+   "id" : "A234-1234-1234",
+   "source" : "/staging/tekton/",
+   "type" : "dev.cdevents.taskrun.started",
+   "subject" : "/namespace/taskrun-123",
+   "time" : "2018-04-05T17:31:00Z",
+   "datacontenttype" : "text/json",
+}
+```
+
+CDEvent Context:
+
+```json
+{
+   "version" : "draft",
+   "id" : "A234-1234-1234",
+   "source" : "/staging/tekton/",
+   "type" : "dev.cdevents.taskrun.started",
+   "subject" : "/namespace/taskrun-123",
+   "timestamp" : "2018-04-05T17:31:00Z",
+   "subject" : {
+      "taskrun" : {
+          "id": "/namespace/taskrun-123",
+          "task": "my-task",
+          "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+          "pipelinerun": {
+             "id": "/somewherelse/pipelinerun-123",
+             "source": "/staging/jenkins/"
+          }
+      }
+   }
+}
+```

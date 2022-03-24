@@ -36,15 +36,17 @@ CDEvents is a common specification for Continuous Delivery events.
     - [version](#version)
     - [subject](#subject-1)
 - [Vocabulary](#vocabulary)
+  - [Format of <em>subjects</em>](#format-of-subjects)
+  - [Vocabulary Stages](#vocabulary-stages)
 <!-- /toc -->
 
 ## Overview
 
-The specification is structured in two main parts:
+The specification is structured in three main parts:
 
-- The [*context*](context), made of mandatory and optional *attributes*, shared
+- The [*context*](#context), made of mandatory and optional *attributes*, shared
   by all events
-- The [*vocabulary*](vocabulary), which identifies *event types*, structures as
+- The [*vocabulary*](#vocabulary), which identifies *event types*, structures as
   *subjects* and *predicates*
 
 ## Notations and Terminology
@@ -242,7 +244,6 @@ the [vocabulary](#vocabulary):
         "taskrun" : {
           "id": "my-taskrun-123",
           "task": "my-task",
-          "status": "Running",
           "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
         }
     ```
@@ -275,7 +276,7 @@ may extend:
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
-| ID    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/12345-abcde` |
+| <a id="subjectid">ID</a>    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/12345-abcde` |
 | Source | `URI-Reference` | [source](spec.md#source) from the context | |
 
 The `ID` field is a mandatory in all cases. The `source` field is only
