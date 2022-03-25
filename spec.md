@@ -14,8 +14,7 @@ of the CDEvents project. You are very welcome to
 
 ## Abstract
 
-CDEvents is a common specification for Continuous Delivery events. For more
-background information please see our [README.md](README.md).
+CDEvents is a common specification for Continuous Delivery events.
 
 ## Overview
 
@@ -25,6 +24,9 @@ The specification is structured in two main parts:
   by all events
 - The [*vocabulary*](vocabulary), which identifies *event types*, structures as
   *subjects* and *predicates*
+
+For an introduction see [README.md](README.md) and for  more background
+information please see our [primer.md](primer.md).
 
 ## Notations and Terminology
 

@@ -30,63 +30,11 @@ communicate in a interoperable way.
 We extend other efforts such as CloudEvents by introducing purpose and semantics
 to the event.
 
-We thus build on top of the work from other players as the following stack
-pictures exemplifies.
-
 ![stack](./images/stack.png)
 
-By providing an interoperable way of tools to communicate we also provide means to
-give an overview picture increasing observability, but also to give measuring
+By providing an interoperable way of tools to communicate we also provide means
+to give an overview picture increasing observability, but also to give measuring
 points for metrics.
-
-#### How does it enable tools to communicate in an interoperable way?
-
-By creating a language, we define how tools and services communicate with each
-other about occurrences in a CI/CD system. As this language does not tie to a
-specific tool it serves a neutral ground for communication.
-
-Using this language we define a set of events with purpose and semantic
-meaning. With such a well-defined language, tools know what events to send, and receivers know how to
-interpret the information received. This enables tools to have a common
-understanding of the information sent in the events.
-
-The language enables creating an ecosystem of tools for monitoring, tracing,
-measuring, and orchestrating using our events without having to write a
-"plugin" for every tool.
-
-#### Why use events?
-
-Reading from the
-[CloudEvents primer - design goals](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/primer.md#design-goals)
-
-> The goal of the CloudEvents specification is to define interoperability of
-> event systems that allow services to produce or consume events, where the
-> producer and consumer can be developed and deployed independently. A producer
-> can generate events before a consumer is listening, and a consumer can express
-> an interest in an event or class of events that is not yet being produced.
-
-We believe that using events will lead to a more decoupled systems with services
-and tools developed and deployed independently. This makes us agnostic of the
-underlying infrastructure
-
-#### Why not point-to-point communication?
-
-We believe that using integrations based on point-to-point communication will
-create a system that will:
-
-* Not scale - when trying to add new consumers or producers each tool have to make
-  an update
-* Create a coupled architecture - using point-to-point communication creates a
-  tightly intertwined architecture difficult to expand and monitor.
-
-#### Why not webhooks?
-
-We think
-[webhooks](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/http-webhook.md)
-deliver value when used well but to define a system based on them would make it:
-
-* Based on point-to-point communication
-* Dependent on synchronous communication
 
 ## CDEvents Specification
 
