@@ -15,7 +15,7 @@ https://github.com/cdfoundation/sig-events
 https://github.com/cdfoundation/toc/blob/master/proposals/cdevents/cdevents.md
 -->
 In a complex and fast moving CI/CD world with a lot of different tools and
-platform that need to communicate with each other interoperability stands as a
+platforms that need to communicate with each other interoperability stands as a
 crucial thing. The maintainer of a CI/CD system needs to swap out tools in short
 time with little to no stops.
 
@@ -28,25 +28,25 @@ The CDEvents protocol defines a vocabulary of events enabling tools to
 communicate in a interoperable way.
 
 We extend other efforts such as CloudEvents by introducing purpose and semantics
-meaning of an event.
+to the event.
 
 We thus build on top of the work from other players as the following stack
 pictures exemplifies.
 
 ![stack](./images/stack.png)
 
-By providing a interoperable way of tool to communicate we also provide means to
-give an overview picture increasing observability, but also provides measuring
+By providing an interoperable way of tools to communicate we also provide means to
+give an overview picture increasing observability, but also to give measuring
 points for metrics.
 
-#### How does it enable tools to communicate in a interoperable way?
+#### How does it enable tools to communicate in an interoperable way?
 
 By creating a language, we define how tools and services communicate with each
 other about occurrences in a CI/CD system. As this language does not tie to a
 specific tool it serves a neutral ground for communication.
 
-Using this language we defining a set of events that has purpose and semantic
-meaning. With this tools know what events to send and receivers know how to
+Using this language we define a set of events with purpose and semantic
+meaning. With such a well-defined language, tools know what events to send, and receivers know how to
 interpret the information received. This enables tools to have a common
 understanding of the information sent in the events.
 
@@ -74,7 +74,7 @@ underlying infrastructure
 We believe that using integrations based on point-to-point communication will
 create a system that will:
 
-* Not scale - when trying to add new consumers or senders each tools have to make
+* Not scale - when trying to add new consumers or producers each tool have to make
   an update
 * Create a coupled architecture - using point-to-point communication creates a
   tightly intertwined architecture difficult to expand and monitor.
