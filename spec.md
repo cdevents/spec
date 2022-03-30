@@ -25,7 +25,7 @@ The specification is structured in two main parts:
 - The [*vocabulary*](vocabulary), which identifies *event types*, structures as
   *subjects* and *predicates*
 
-For an introduction see [README.md](README.md) and for  more background
+For an introduction see [README.md](README.md) and for more background
 information please see our [primer.md](primer.md).
 
 ## Notations and Terminology
