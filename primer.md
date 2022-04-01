@@ -16,8 +16,8 @@ This non-normative document provides an overview of the CDEvents specification. 
 
 <!-- toc -->
 - [History](#history)
-- [Relations to CloudEvents](#relations-to-cloudevents)
 - [Design reflections](#design-reflections)
+- [Relations to CloudEvents](#relations-to-cloudevents)
 - [Acknowledgments](#acknowledgments)
 - [Use Cases](#use-cases)
 <!-- /toc -->
