@@ -6,6 +6,36 @@ interoperability in the complete software production ecosystem.
 It's an incubated project at the
 [Continuous Delivery Foundation](https://cd.foundation) (CDF).
 
+## Background
+<!--
+Resources used for the background text
+https://cd.foundation/blog/2021/03/16/cd-foundation-announces-industry-initiative-to-standardize-events-from-ci-cd-systems/
+https://github.com/cdfoundation/toc/blob/master/sigs/sig-events.md
+https://github.com/cdfoundation/sig-events
+https://github.com/cdfoundation/toc/blob/master/proposals/cdevents/cdevents.md
+-->
+In a complex and fast moving CI/CD world with a lot of different tools and
+platforms that need to communicate with each other interoperability stands as a
+crucial thing. The maintainer of a CI/CD system needs to swap out tools in short
+time with little to no stops.
+
+The larger and more complex a CI/CD system becomes, challenges increase in
+knowing how the tools communicate and what they do.
+
+### What we provide
+
+The CDEvents protocol defines a vocabulary of events enabling tools to
+communicate in a interoperable way.
+
+We extend other efforts such as CloudEvents by introducing purpose and semantics
+to the event.
+
+![stack](./images/stack.png)
+
+By providing an interoperable way of tools to communicate we also provide means
+to give an overview picture increasing observability, but also to give measuring
+points for metrics.
+
 ## CDEvents Specification
 
 The [CDEvents Specification](./spec.md) is available on our
