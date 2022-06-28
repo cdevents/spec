@@ -73,7 +73,8 @@ CDEvent to meet the CloudEvents specification.
 ### datacontenttype
 
 The [CloudEvents `datacontenttype`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#datacontenttype)
-is optional. When set, its value MUST be `"application/json"`.
+is optional, its use depends on the specific CloudEvents binding and mode in
+use. See the [event data](#event-data) section for more details.
 
 ### dataschema
 
@@ -81,50 +82,82 @@ The [CloudEvents `dataschema`](https://github.com/cloudevents/spec/blob/v1.0.2/c
 is MAY be set to a URL that points to the event data schema included in this
 specification.
 
-## Event Data
+## Events Data
 
-The [CloudEvents Event Data](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#event-data)
+The content and format of the event data depends on the specific CloudEvents
+binding in use. All the example, unless otherwise stated, refer to the
+[HTTP binding](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/bindings/http-protocol-binding.md)
+in [binary content mode](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/bindings/http-protocol-binding.md#31-binary-content-mode). In this format, the
+CloudEvents context is stored in HTTP headers.
+
+### Content Modes
+
+This specification defines two content modes for transferring events:
+*structured* and *binary*. The *structured* mode can be used in all cases, the
+*binary* mode may only be used in conjunction with the HTTP CloudEvent binding
+in *binary* mode:
+
+| CloudEvents / CDEvents | Structured | Binary |
+|------------------------|------------|--------|
+| HTTP Binary            | V          | V      |
+| HTTP Structured        | V          | X      |
+| HTTP Batch             | V          | X      |
+| Other Binding          | V          | X      |
+
+#### Structured Content Mode
+
+In *structured* content mode, the [CloudEvents Event Data](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#event-data)
 MUST include the full CDEvents [`context`](spec.md#context) rendered as JSON
 in the format specified by the [schema](./schemas/) for the event type.
 
-## Example
+In CloudEvents HTTP binary mode, the `Content-Type` HTTP header MUST be set to
+`application/cdevents+json`. In CloudEvents HTTP structured mode, the same
+information is carried in the CloudEvents context field `datacontenttype`.
 
-Here is a full example of a CDEvents rendered to be transported via CloudEvents.
+##### Structured Mode Examples
 
-CloudEvents Context:
-
-```json
-{
-   "specversion" : "1.0",
-   "id" : "A234-1234-1234",
-   "source" : "/staging/tekton/",
-   "type" : "dev.cdevents.taskrun.started",
-   "subject" : "/namespace/taskrun-123",
-   "time" : "2018-04-05T17:31:00Z",
-   "datacontenttype" : "text/json",
-}
-```
-
-CDEvent Context:
+Full example of a CDEvents in *structured* content mode, transported through a
+CloudEvent in HTTP *binary* mode:
 
 ```json
+POST /sink HTTP/1.1
+Host: cdevents.example.com
+ce-specversion: 1.0
+ce-type: dev.cdevents.taskrun.started
+ce-time: 2018-04-05T17:31:00Z
+ce-id: A234-1234-1234
+ce-source: /staging/tekton/
+ce-subject: /namespace/taskrun-123
+Content-Type: application/cdevents+json; charset=utf-8
+Content-Length: nnnn
+
 {
-   "version" : "draft",
-   "id" : "A234-1234-1234",
-   "source" : "/staging/tekton/",
-   "type" : "dev.cdevents.taskrun.started",
-   "subject" : "/namespace/taskrun-123",
-   "timestamp" : "2018-04-05T17:31:00Z",
+   "meta": {
+      "version" : "draft",
+      "id" : "A234-1234-1234",
+      "source" : "/staging/tekton/",
+      "type" : "dev.cdevents.taskrun.started",
+      "timestamp" : "2018-04-05T17:31:00Z",
+   }
    "subject" : {
-      "taskrun" : {
-          "id": "/namespace/taskrun-123",
-          "task": "my-task",
-          "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
-          "pipelinerun": {
-             "id": "/somewherelse/pipelinerun-123",
-             "source": "/staging/jenkins/"
-          }
+      "id": "/namespace/taskrun-123",
+      "type": "taskrun",
+      "content": {
+         "task": "my-task",
+         "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+         "pipelinerun": {
+            "id": "/somewherelse/pipelinerun-123",
+            "source": "/staging/jenkins/"
+         }
       }
    }
 }
 ```
+
+#### Binary Content Mode
+
+TBD
+
+##### Binary Mode Examples
+
+TBD

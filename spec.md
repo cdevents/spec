@@ -121,6 +121,8 @@ defined by the CloudEvents project, plus some CDEvents specific types
   - Keys are of type `String`. Valid keys can be defined by this spec
   - Values can be any of the other kind
 
+  Object key names are by convention defined in [CamelCase](https://en.wikipedia.org/wiki/Camel_case).
+
 ## Context
 
 ### REQUIRED Event Attributes
