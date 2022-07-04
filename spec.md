@@ -42,7 +42,7 @@ CDEvents is a common specification for Continuous Delivery events.
 
 ## Overview
 
-The specification is structured in three main parts:
+The specification is structured in two main parts:
 
 - The [*context*](#context), made of mandatory and optional *attributes*, shared
   by all events
@@ -285,21 +285,31 @@ The `ID` field is a mandatory in all cases. The `source` field is only
 required when a `subject` does not belong to the *source* of the event.
 
 For instance, in case of a distributed pipeline, a `TaskRun` subject could
-belong to a `PipelineRun` associated to a different *source*:
+belong to a `PipelineRun` associated to a different *source*.
+Example payload in *structured* mode:
 
 ```json
 {
-  "source": "/tenant1/jenkins",
-  "subject": {
-    "taskrun" : {
+   "meta": {
+      "version" : "draft",
+      "id" : "A234-1234-1234",
+      "source" : "/staging/tekton/",
+      "type" : "dev.cdevents.taskrun.started",
+      "timestamp" : "2018-04-05T17:31:00Z",
+   }
+   "subject" : {
       "id": "my-taskrun-123",
-      "task": "my-task",
-      "status": "Running",
-      "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
-      "pipelinerun": {
-        "id": "my-distributed-pipelinerun",
-        "source": "/tenant1/tekton"
-}}}}
+      "type": "taskrun",
+      "content": {
+         "task": "my-task",
+         "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+         "pipelinerun": {
+            "id": "my-distributed-pipelinerun",
+            "source": "/tenant1/tekton/"
+         }
+      }
+   }
+}
 ```
 
 ### Vocabulary Stages
