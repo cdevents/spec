@@ -246,7 +246,7 @@ the [vocabulary](#vocabulary):
         "taskrun" : {
           "id": "my-taskrun-123",
           "task": "my-task",
-          "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+          "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
         }
     ```
 
@@ -279,18 +279,18 @@ may extend:
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
 | <a id="subjectid">ID</a>    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/12345-abcde` |
-| Source | `URI-Reference` | [source](spec.md#source) from the context | |
+| source | `URI-Reference` | [source](spec.md#source) from the context | |
 
 The `ID` field is a mandatory in all cases. The `source` field is only
 required when a `subject` does not belong to the *source* of the event.
 
-For instance, in case of a distributed pipeline, a `TaskRun` subject could
-belong to a `PipelineRun` associated to a different *source*.
+For instance, in case of a distributed pipeline, a `taskRun` subject could
+belong to a `pipelineRun` associated to a different *source*.
 Example payload in *structured* mode:
 
 ```json
 {
-   "meta": {
+   "context": {
       "version" : "draft",
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
@@ -299,11 +299,11 @@ Example payload in *structured* mode:
    }
    "subject" : {
       "id": "my-taskrun-123",
-      "type": "taskrun",
+      "type": "taskRun",
       "content": {
          "task": "my-task",
-         "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
-         "pipelinerun": {
+         "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+         "pipelineRun": {
             "id": "my-distributed-pipelinerun",
             "source": "/tenant1/tekton/"
          }

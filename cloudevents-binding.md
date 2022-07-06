@@ -132,7 +132,7 @@ Content-Type: application/cdevents+json; charset=utf-8
 Content-Length: nnnn
 
 {
-   "meta": {
+   "context": {
       "version" : "draft",
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
@@ -141,11 +141,11 @@ Content-Length: nnnn
    }
    "subject" : {
       "id": "/namespace/taskrun-123",
-      "type": "taskrun",
+      "type": "taskRun",
       "content": {
          "task": "my-task",
-         "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
-         "pipelinerun": {
+         "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+         "pipelineRun": {
             "id": "/somewherelse/pipelinerun-123",
             "source": "/staging/jenkins/"
          }
