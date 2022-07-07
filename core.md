@@ -20,7 +20,7 @@ The definition of *pipelines* and *tasks* is an authoring process, and has no ev
 
 | Subject | Description | Predicates |
 |---------|-------------|------------|
-| [`pipelineRun`](#pipelinerun) | An instance of a *pipeline* | [`Queued`](#pipelinerun-queued), [`started`](#pipelinerun-started), [`finished`](#pipelinerun-finished)|
+| [`pipelineRun`](#pipelinerun) | An instance of a *pipeline* | [`queued`](#pipelinerun-queued), [`started`](#pipelinerun-started), [`finished`](#pipelinerun-finished)|
 | [`taskRun`](#taskrun) | An instance of a *task* | [`started`](#taskrun-started), [`finished`](#taskrun-finished)|
 
 ### `pipelineRun`
@@ -60,14 +60,14 @@ associated, in which case it is acceptable to generate only taskRun events.
 
 ## Events
 
-### `pipelineRun Queued`
+### `pipelineRun queued`
 
 Due the dynamic nature of Pipelines, most of actual work needs to be queued to
-happen in a distributed way, hence Queued events are added. Adopters can choose
+happen in a distributed way, hence queued events are added. Adopters can choose
 to ignore these events if they don't apply to their use cases.
 
 - Event Type: __`dev.cdevents.pipelinerun.queued`__
-- Predicate: Queued
+- Predicate: queued
 - Subject: [`pipelineRun`](#pipelinerun)
 
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
@@ -82,7 +82,7 @@ to ignore these events if they don't apply to their use cases.
 A pipelineRun has started and it is running.
 
 - Event Type: __`dev.cdevents.pipelinerun.started`__
-- Predicate: Started
+- Predicate: started
 - Subject: [`pipelineRun`](#pipelinerun)
 
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
@@ -97,7 +97,7 @@ A pipelineRun has started and it is running.
 A pipelineRun has finished, successfully or not.
 
 - Event Type: __`dev.cdevents.pipelinerun.finished`__
-- Predicate: Finished
+- Predicate: finished
 - Subject: [`pipelineRun`](#pipelinerun)
 
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
@@ -106,7 +106,7 @@ A pipelineRun has finished, successfully or not.
 | source | `URI-Reference` | [source](spec.md#source) from the context | | ⚪ |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | ⚪ |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | ⚪ |
-| url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | ⚪ |
+| outcome | `Enum` | outcome of a finished `pipelineRun` | `success`, `error` or `failure`| ⚪ |
 | errors | `String` | In case of error or failed pipeline, provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun cancelled by user`, `Unit tests failed`| ⚪ |
 
 ### `taskRun Started`
@@ -114,7 +114,7 @@ A pipelineRun has finished, successfully or not.
 A taskRun has started and it is running.
 
 - Event Type: __`dev.cdevents.taskrun.started`__
-- Predicate: Started
+- Predicate: started
 - Subject: [`taskRun`](#taskrun)
 
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
@@ -130,7 +130,7 @@ A taskRun has started and it is running.
 A taskRun has finished, successfully or not.
 
 - Event Type: __`dev.cdevents.taskrun.finished`__
-- Predicate: Finished
+- Predicate: finished
 - Subject: [`taskRun`](#taskrun)
 
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
