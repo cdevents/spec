@@ -68,7 +68,7 @@ A new Source Code Repository was created to host source code for a project.
 
 A Source Code Repository modified some of its attributes, like location, or owner.
 
-- Event Type: __`dev.cdevents.repository.created`__
+- Event Type: __`dev.cdevents.repository.modified`__
 - Predicate: modified
 - Subject: [`repository`](#repository)
 
@@ -83,7 +83,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 
 ### `repository deleted`
 
-- Event Type: __`dev.cdevents.repository.created`__
+- Event Type: __`dev.cdevents.repository.deleted`__
 - Predicate: modified
 - Subject: [`repository`](#repository)
 
