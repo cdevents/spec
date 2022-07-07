@@ -16,13 +16,37 @@ of the CDEvents project. You are very welcome to
 
 CDEvents is a common specification for Continuous Delivery events.
 
+## Table of Contents
+
+<!-- toc -->
+- [Overview](#overview)
+- [Notations and Terminology](#notations-and-terminology)
+  - [Notational Conventions](#notational-conventions)
+  - [Terminology](#terminology)
+    - [Event](#event)
+    - [Subject](#subject)
+    - [Predicate](#predicate)
+  - [Types](#types)
+- [Context](#context)
+  - [REQUIRED Event Attributes](#required-event-attributes)
+    - [id](#id)
+    - [type](#type)
+    - [source](#source)
+    - [timestamp](#timestamp)
+    - [version](#version)
+    - [subject](#subject-1)
+- [Vocabulary](#vocabulary)
+  - [Format of <em>subjects</em>](#format-of-subjects)
+  - [Vocabulary Stages](#vocabulary-stages)
+<!-- /toc -->
+
 ## Overview
 
 The specification is structured in two main parts:
 
-- The [*context*](context), made of mandatory and optional *attributes*, shared
+- The [*context*](#context), made of mandatory and optional *attributes*, shared
   by all events
-- The [*vocabulary*](vocabulary), which identifies *event types*, structures as
+- The [*vocabulary*](#vocabulary), which identifies *event types*, structures as
   *subjects* and *predicates*
 
 For an introduction see [README.md](README.md) and for more background
@@ -87,6 +111,20 @@ A "predicate" is what happened to a subject in an occurrence.
 For instance in case of a software build, started is a valid predicate in the
 occurrence, or in case of a service, deployed in a valid predicate. Valid
 predicate are defined in the [vocabulary](#vocabulary).
+
+### Types
+
+Attributes in CDEvents are defined with as typed. We use a the
+[types system](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+defined by the CloudEvents project, plus some CDEvents specific types
+
+- `Enum`: an attribute of type `String`, constrained to a fixed set of options
+- `List`: a list of values of the same type
+- `Object`: a map of (key, value) tuples
+  - Keys are of type `String`. Valid keys can be defined by this spec
+  - Values can be any of the other kind
+
+  Object key names are by convention defined in [CamelCase](https://en.wikipedia.org/wiki/Camel_case).
 
 ## Context
 
@@ -191,7 +229,7 @@ the [vocabulary](#vocabulary):
 
 #### subject
 
-- Type: `Object`
+- Type: [`Object`](#types)
 - Description: This provides all the relevant details of the [`subject`](#subject). The
   format of the [`subject`](#subject-1) depends on the event [`type`](#type).
 
@@ -211,8 +249,7 @@ the [vocabulary](#vocabulary):
         "taskrun" : {
           "id": "my-taskrun-123",
           "task": "my-task",
-          "status": "Running",
-          "URL": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+          "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
         }
     ```
 
@@ -220,10 +257,11 @@ the [vocabulary](#vocabulary):
 
 The vocabulary defines *event types*, which are made of *subjects*, and
 *predicates*. An example of *subject* is a `build`. The `build` can be `started`
-or `finished`, which are the predicates. The `build` subject has several
-*attributes* associated; the *event type* schema defines which ones are
-mandatory and which ones are optional. *Subjects* can represent the core context
-of an event, but may also be referenced to in other areas of the protocol.
+or `finished`, which are the predicates. The `build` is of type `Object` and
+has several *attributes* associated; the *event type* schema defines which ones
+are mandatory and which ones are optional. *Subjects* can represent the core
+context of an event, but may also be referenced to in other areas of the
+protocol.
 
 The *subjects* are grouped, to help browsing the spec, in different *stages*,
 which are associated to different parts of a Continuous Delivery process where
@@ -235,6 +273,49 @@ scenarios. The CDEvents project collaborates with the
 [SIG Interoperability](https://github.com/cdfoundation/sig-interoperability) to
 identify a the common terminology to be used and how it maps to different terms
 in different platforms.
+
+### Format of *subjects*
+
+All subjects are of type `Object` and they share a base `Object` which they
+may extend:
+
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| <a id="subjectid">ID</a>    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/12345-abcde` |
+| source | `URI-Reference` | [source](spec.md#source) from the context | |
+
+The `ID` field is a mandatory in all cases. The `source` field is only
+required when a `subject` does not belong to the *source* of the event.
+
+For instance, in case of a distributed pipeline, a `taskRun` subject could
+belong to a `pipelineRun` associated to a different *source*.
+Example payload in *structured* mode:
+
+```json
+{
+   "context": {
+      "version" : "draft",
+      "id" : "A234-1234-1234",
+      "source" : "/staging/tekton/",
+      "type" : "dev.cdevents.taskrun.started",
+      "timestamp" : "2018-04-05T17:31:00Z",
+   }
+   "subject" : {
+      "id": "my-taskrun-123",
+      "type": "taskRun",
+      "content": {
+         "task": "my-task",
+         "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+         "pipelineRun": {
+            "id": "my-distributed-pipelinerun",
+            "source": "/tenant1/tekton/"
+         }
+      }
+   }
+}
+```
+
+### Vocabulary Stages
 
 The *stages* defined are:
 

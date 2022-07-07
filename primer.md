@@ -116,3 +116,16 @@ There are two root use cases that we are considering:
   The same events can be used to track different metrics over time, to be visualized through a dashboard.
 
 The use cases are work in progress - the list is being drafted in a [separate document](https://hackmd.io/ZCS2KYKZTpKBqhU9PMuCew).
+
+## Design Decisions
+
+### Keys, Values and Types
+
+The CDEvents specification defines event types, keys and, for ENUM types, values.
+
+Event types are defined as all lowercase, separated by dots. The first part of
+each type is always "dev.cdevents" which is the reverse DNS domain of the
+CDEvents project.
+
+Keys and ENUM values are always written in [lowerCamelCase](https://en.wikipedia.org/wiki/Camel_case)
+for readability purposes.
