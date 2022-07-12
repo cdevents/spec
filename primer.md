@@ -17,9 +17,14 @@ This non-normative document provides an overview of the CDEvents specification. 
 <!-- toc -->
 - [History](#history)
 - [Design reflections](#design-reflections)
+  - [How does CDEvents enable tools to communicate in an interoperable way?](#how-does-cdevents-enable-tools-to-communicate-in-an-interoperable-way)
+  - [Why use events?](#why-use-events)
+  - [Why not point-to-point communication?](#why-not-point-to-point-communication)
 - [Relations to CloudEvents](#relations-to-cloudevents)
 - [Acknowledgments](#acknowledgments)
 - [Use Cases](#use-cases)
+- [Design Decisions](#design-decisions)
+  - [Keys, Values and Types](#keys-values-and-types)
 <!-- /toc -->
 
 ## History

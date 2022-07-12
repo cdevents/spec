@@ -10,31 +10,207 @@ description: >
 
 __Note:__ This is a work-in-progress draft version and is being worked on by members of the Events SIG. You are very welcome to join the work and the discussions!
 
-These events are related to __Continuous Integration(CI)__ activities. CI usually include activities such as building, testing, packaging and releasing software artifacts.
+Continuous Integration (CI) events include the subject and predicates related to CI activities such as building software, producing artifacts and running tests.
 
-The following events represent concrete Tasks that are associated with the execution of CI pipelines:
+## Subjects
 
-- __Build Queued__: a Build task has been queued, this build process usually is in charge of producing a binary from source code
-- __Build Started__: a Build task has started
-- __Build Finished__: a Build task has finished, the event will contain the finished status, success, error or failure
+This specification defines three subjects in this stage: `builds`, `artifacts` and `tests`. Events associated with these subjects are typically generated either by a CI system that orchestrates the process or by a specific build or test tool directly. Some artifact events may be triggered by the system that stores the artifact as well.
 
-The following Test events are defined in two separate categories __Test Case__ and __Test Suite__. A __Test Case__ is the smallest unit of testing that the user wants to track. A __Test Suite__ is a collection of test case executions and/or other test suite executions. __Test Cases__ executed, and Test Suites are for grouping purposes. For this reason, __Test Cases__ can be queued.
+| Subject | Description | Predicates |
+|---------|-------------|------------|
+| [`build`](#build) | A software build | [`queued`](#build-queued), [`started`](#build-started), [`finished`](#build-finished)|
+| [`testCase`](#testcase) | A software test case | [`queued`](#testcase-queued), [`started`](#testcase-started), [`finished`](#testcase-finished)|
+| [`testSuite`](#testsuite) | A collection of test cases | [`started`](#testsuite-started), [`finished`](#testsuite-finished)|
+| [`artifact`](#artifact) | An artifact produced by a build | [`packaged`](#artifact-packaged), [`published`](#artifact-published)|
 
-- __Test Case Queued__: a Test task has been queued, and it is waiting to be started
-- __Test Case Started__: a Test task has started
-- __Test Case Finished__: a Test task has finished, the event will contain the finished status: success, error or failure
-- __Test Suite Started__: a Test Suite has started
-- __Test Suite Finished__: a Test Suite has finished, the event will contain the finished status: success, error or failure
+### `build`
 
-Finally, events needs to be generated for the output of the pipeline such as the artifacts that were packaged and released for others to use.
+A `build` is a process that uses a recipe to produce an artifact from source code.
 
-- __Artifact Packaged__: an artifact has been packaged for distribution, this artifact is now versioned with a fixed version
-- __Artifact Published__: an artifact has been published and it can be advertised for others to use
+__Note:__ The data model for `builds`, apart from `id` and `source`, only includes the identifier of the artifact produced by the build. The inputs to the build process are not specified yet.
 
-CI Events MUST include the following attributes:
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
+| artifactId | `String` | Identifier of the artifact produced by the build | `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl`|
 
-- __Event Type__: the type is restricted to include `dev.cdevents.__` prefix. For example `dev.cdevents.build.queued` or `dev.cdevents.artifact.packaged`
+### `testCase`
 
-Optional attributes:
+A `testCase` is a process that performs a test against an input software artifact of some kind, for instance source code, a binary, a container image or else. A `testCase`  is the smallest unit of testing that the user wants to track. `testCases` are executed, and `testSuites` are for grouping purposes. For this reason, `testCases` can be queued.
 
-- __Artifact Id__: the unique identifier of the artifact that the event is referring to.
+__Note:__ The data model for `testCase` only includes `id` and `source`, inputs and outputs of the process are not specified yet, as well as the relation to `testSuite`.
+
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
+
+### `testSuite`
+
+A `testSuite` represents a set of one or more `testCases`.
+
+__Note:__ The data model for `testSuite` only includes `id` and `source`, inputs and outputs of the process are not specified yet, as well as the relation to `testCase`.
+
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| id    | `String` | Uniquely identifies the subject within the source. | `unit`, `e2e`, `security` |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
+
+### `artifact`
+
+An `artifact` is usually produced as output of a build pipeline. Events needs to be generated to indicate that an `artifact` have been packaged and released for others to use. These events can be produced by the artifact producer or by the artifact storage system.
+
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| id    | `String` | Uniquely identifies the subject within the source. | `abcde-12344-a2b35`, `sh0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427a1234`, `myimage@sha256:123456abcded`, `six-1.14.0-py2.py3-none-any.whl`|
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
+
+## Events
+
+### `build queued`
+
+This event represents a Build task that has been queued; this build process usually is in charge of producing a binary from source code.
+
+- Event Type: __`dev.cdevents.build.queued`__
+- Predicate: queued
+- Subject: [`build`](#build)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+
+🚧 The build model is work in progress.
+
+### `build started`
+
+This event represents a Build task that has been started; this build process usually is in charge of producing a binary from source code.
+
+- Event Type: __`dev.cdevents.build.started`__
+- Predicate: started
+- Subject: [`build`](#build)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+
+🚧 The build model is work in progress.
+
+### `build finished`
+
+This event represents a Build task that has finished; the event will contain the finished status, success, error or failure
+
+- Event Type: __`dev.cdevents.build.finished`__
+- Predicate: finished
+- Subject: [`build`](#build)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| artifactId | `String` | Identifier of the artifact produced by the build | `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `-six-1.14.0-py2.py3-none-any.whl`| ⚪ |
+
+🚧 The build model is work in progress.
+
+### `testCase queued`
+
+This event represents a Test task that has been queued, and it is waiting to be started.
+
+- Event Type: __`dev.cdevents.testcase.queued`__
+- Predicate: queued
+- Subject: [`testCase`](#testcase)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+
+🚧 The testCase model is work in progress.
+
+### `testCase started`
+
+This event represents a Test task that has started.
+
+- Event Type: __`dev.cdevents.testcase.started`__
+- Predicate: started
+- Subject: [`testCase`](#testcase)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+
+🚧 The testCase model is work in progress.
+
+### `testCase finished`
+
+This event represents a Test task that has finished, the event will contain the finished status: success, error or failure.
+
+- Event Type: __`dev.cdevents.testcase.finished`__
+- Predicate: finished
+- Subject: [`testCase`](#testcase)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+
+🚧 The testCase model is work in progress.
+
+### `testSuite started`
+
+This event represents a Test suite that has been started.
+
+- Event Type: __`dev.cdevents.testsuite.started`__
+- Predicate: started
+- Subject: [`testSuite`](#testsuite)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `unit`, `e2e`, `security` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+
+🚧 The testSuite model is work in progress.
+
+### `testSuite finished`
+
+This event represents a Test suite that has has finished, the event will contain the finished status: success, error or failure.
+
+- Event Type: __`dev.cdevents.testsuite.finished`__
+- Predicate: finished
+- Subject: [`testSuite`](#testsuite)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `unit`, `e2e`, `security` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+
+🚧 The testSuite model is work in progress.
+
+### `artifact packaged`
+
+The event represents an artifact that has been packaged for distribution; this artifact is now versioned with a fixed version.
+
+- Event Type: __`dev.cdevents.artifact.packaged`__
+- Predicate: packaged
+- Subject: [`artifact`](#artifact)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `abcde-12344-a2b35`, `sh0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427a1234`, `myimage@sha256:123456abcded`, `six-1.14.0-py2.py3-none-any.whl` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+
+### `artifact published`
+
+The event represents an artifact that has been published and it can be advertised for others to use.
+
+- Event Type: __`dev.cdevents.artifact.published`__
+- Predicate: published
+- Subject: [`artifact`](#artifact)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `abcde-12344-a2b35`, `sh0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427a1234`, `myimage@sha256:123456abcded`, `six-1.14.0-py2.py3-none-any.whl` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |

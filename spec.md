@@ -61,13 +61,13 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
 
 For clarity, when a feature is marked as "OPTIONAL" this means that it is
-OPTIONAL for both the [Producer](#producer) and [Consumer](#consumer) of a
+OPTIONAL for both the [Producer][producer] and [Consumer][consumer] of a
 message to support that feature. In other words, a producer can choose to
 include that feature in a message if it wants, and a consumer can choose to
 support that feature if it wants. A consumer that does not support that feature
 will then silently ignore that part of the message. The producer needs to be
 prepared for the situation where a consumer ignores that feature. An
-[Intermediary](#intermediary) SHOULD forward OPTIONAL attributes.
+[Intermediary][intermediary] SHOULD forward OPTIONAL attributes.
 
 ### Terminology
 
@@ -75,11 +75,11 @@ __Note__: CDEvents adopts, wherever applicable, the terminology used by
 [CloudEvents](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#notational-conventions).
 Specifically, the following terms are borrowed from the CloudEvents spec:
 
-- [*Occurrence*](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#occurrence)
-- [*Producer*](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#producer)
-- [*Source*](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#source)
-- [*Consumer*](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#consumer)
-- [*Intermediary*](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#intermediary)
+- [*Occurrence*][occurrence]
+- [*Producer*][producer]
+- [*Source*][source]
+- [*Consumer*][consumer]
+- [*Intermediary*][intermediary]
 
 The CDEvents specification additionally defines the following terms:
 
@@ -135,7 +135,7 @@ the [vocabulary](#vocabulary):
 
 #### id
 
-- Type: [`String`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+- Type: [`String`][typesystem]
 - Description: Identifier for an event.
   Subsequent delivery attempts of the same event MAY share the same
   [`id`](#id). This attribute matches the syntax and semantics of the
@@ -151,7 +151,7 @@ the [vocabulary](#vocabulary):
 
 #### type
 
-- Type: [`String`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+- Type: [`String`][typesystem]
 - Description: defines the type of event, as combination of a *subject* and
   *predicate*. Valid event types are defined in the [vocabulary](#vocabulary).
   All event types should be prefixed with `dev.cdevents.`. One occurrence may
@@ -167,7 +167,7 @@ the [vocabulary](#vocabulary):
 
 #### source
 
-- Type: [`URI-Reference`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+- Type: [`URI-Reference`][typesystem]
 - Description: defines the context in which an event happened. The main purpose
   of the source is to provide global uniqueness for [`source`](#source) +
   [`id`](#id).
@@ -203,7 +203,7 @@ the [vocabulary](#vocabulary):
 
 #### timestamp
 
-- Type: [timestamp](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system)
+- Type: [timestamp][typesystem]
 - Description: defines the time of the occurrence. When the time of the
   occurrence is not available, the time when the event was produced MAY be used.
 
@@ -337,3 +337,10 @@ The *stages* defined are:
 The grouping may serve in future as a reference for different CDEvents
 compliance profiles, which can be supported individually by implementing
 platforms.
+
+[source]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#source
+[producer]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#producer
+[consumer]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#consumer
+[intermediary]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#intermediary
+[occurrence]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#occurrence
+[typesystem]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system

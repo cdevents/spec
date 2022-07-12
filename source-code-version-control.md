@@ -19,6 +19,7 @@ This specification defines two subjects in this stage: `repository` and `change`
 | Subject | Description | Predicates |
 |---------|-------------|------------|
 | [`repository`](#repository) | A software configuration management (SCM)repository | [`created`](#repository-created), [`modified`](#repository-modified), [`deleted`](#repository-deleted)|
+| [`branch`](#branch) | A branch in a software configuration management (SCM)repository | [`created`](#branch-created), [`deleted`](#branch-deleted)|
 | [`change`](#change) | A change proposed to the content of a *repository* | [`created`](#change-created), [`reviewed`](#change-reviewed), [`merged`](#change-merged), [`abandoned`](#change-abandoned), [`updated`](#change-updated)|
 
 Each `repository` can emit events related with proposed source code `changes`. Each `change` can include a single or multiple commits that can also be tracked.
@@ -35,6 +36,15 @@ An SCM `repository` is identified by a `name`, an `owner` which can be a user or
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`|
 | url | `URI` | URL to the `repository` for API operations. This URL needs to include the protocol used to connect to the repository. | `git://my-git.example/an-org/a-repo` |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`|
+
+### `branch`
+
+A `branch` in an SCM repository is identified by its `id`.
+
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`|
 
 ### `change`
 
@@ -96,15 +106,33 @@ A Source Code Repository modified some of its attributes, like location, or owne
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ⚪ |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`| ⚪ |
 
-### `repository branch created`
+### `branch created`
 
 A branch inside the Repository was created.
 
+- Event Type: __`dev.cdevents.branch.created`__
+- Predicate: created
+- Subject: [`branch`](#branch)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
+
 🚧 The branch model is work in progress.
 
-### `repository branch deleted`
+### `branch deleted`
 
 A branch inside the Repository was deleted.
+
+- Event Type: __`dev.cdevents.branch.deleted`__
+- Predicate: deleted
+- Subject: [`branch`](#branch)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
 
 🚧 The branch model is work in progress.
 
@@ -112,11 +140,29 @@ A branch inside the Repository was deleted.
 
 A source code change was created and submitted to a repository specific branch. Examples: PullRequest sent to Github, MergeRequest sent to Gitlab, Change created in Gerrit.
 
+- Event Type: __`dev.cdevents.change.created`__
+- Predicate: created
+- Subject: [`change`](#change)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
+
 🚧 The change model is work in progress.
 
 ### `change reviewed`
 
 Someone (user) or an automated system submitted an review to the source code change. A user or an automated system needs to be in charge of understanding how many approvals/rejections are needed for this change to be merged or rejected. The review event needs to include if the change is approved by the reviewer, more changes are needed or if the change is rejected.
+
+- Event Type: __`dev.cdevents.change.reviewed`__
+- Predicate: reviewed
+- Subject: [`change`](#change)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
 
 🚧 The change model is work in progress.
 
@@ -124,16 +170,43 @@ Someone (user) or an automated system submitted an review to the source code cha
 
 A change is merged to the target branch where it was submitted.
 
+- Event Type: __`dev.cdevents.change.merged`__
+- Predicate: merged
+- Subject: [`change`](#change)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
+
 🚧 The change model is work in progress.
 
 ### `change abandoned`
 
 A tool or a user decides that the change has been inactive for a while and it can be considered abandoned.
 
+- Event Type: __`dev.cdevents.change.abandoned`__
+- Predicate: abandoned
+- Subject: [`change`](#change)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
+
 🚧 The change model is work in progress.
 
 ### `change updated`
 
 A Change has been updated, for example a new commit is added or removed from an existing Change.
+
+- Event Type: __`dev.cdevents.change.updated`__
+- Predicate: updated
+- Subject: [`change`](#change)
+
+| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
 
 🚧 The change model is work in progress.

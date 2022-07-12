@@ -24,8 +24,12 @@ The CloudEvents Binding for CDEvents defines how CDEvents are mapped to CloudEve
   - [time](#time)
   - [datacontenttype](#datacontenttype)
   - [dataschema](#dataschema)
-- [Event Data](#event-data)
-- [Example](#example)
+- [Events Data](#events-data)
+  - [Content Modes](#content-modes)
+    - [Structured Content Mode](#structured-content-mode)
+      - [Structured Mode Examples](#structured-mode-examples)
+    - [Binary Content Mode](#binary-content-mode)
+      - [Binary Mode Examples](#binary-mode-examples)
 <!-- /toc -->
 
 ## Context
@@ -74,7 +78,7 @@ CDEvent to meet the CloudEvents specification.
 
 The [CloudEvents `datacontenttype`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#datacontenttype)
 is optional, its use depends on the specific CloudEvents binding and mode in
-use. See the [event data](#event-data) section for more details.
+use. See the [event data](#events-data) section for more details.
 
 ### dataschema
 

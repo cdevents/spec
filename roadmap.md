@@ -20,7 +20,7 @@ The continuous delivery ecosystem is quite large as it includes tools and servic
 from the design of software, through its implementation, build, test, release, deployment and
 operation.
 
-In 2022 we want to focus on a few [key use cases](#use-cases) and make sure that we can fully support
+In 2022 we want to focus on a few [key use cases](primer.md#use-cases) and make sure that we can fully support
 them with the protocol specification. More specifically:
 
 - Capture our key use cases and design decisions in the [CDEvents primer](primer.md) document
