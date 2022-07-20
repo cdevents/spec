@@ -1,7 +1,7 @@
 <!--
 ---
 linkTitle: "Continuous Deployment Events"
-weight: 50
+weight: 60
 description: >
    Continuous Deployment Events
 ---
