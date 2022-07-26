@@ -94,14 +94,14 @@ CloudEvents context is stored in HTTP headers.
 
 This specification defines two content modes for transferring events:
 *structured* and *binary*. The *structured* mode can be used in all cases, the
-*binary* mode may only be used in conjunction with the HTTP CloudEvent binding
-in *binary* mode:
+*binary* mode may only be used in conjunction with any of the CloudEvent
+bindings that support *binary* mode:
 
 | CloudEvents / CDEvents | Structured | Binary |
 |------------------------|------------|--------|
-| HTTP Binary            | V          | V      |
-| HTTP Structured        | V          | X      |
-| HTTP Batch             | V          | X      |
+| any Binary             | V          | V      |
+| any Structured         | V          | X      |
+| any Batch              | V          | X      |
 | Other Binding          | V          | X      |
 
 #### Structured Content Mode
@@ -137,7 +137,7 @@ Content-Length: nnnn
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
       "type" : "dev.cdevents.taskrun.started",
-      "timestamp" : "2018-04-05T17:31:00Z",
+      "timestamp" : "2018-04-05T17:32:00Z",
    }
    "subject" : {
       "id": "/namespace/taskrun-123",
@@ -156,8 +156,41 @@ Content-Length: nnnn
 
 #### Binary Content Mode
 
-TBD
+In *binary* content mode, the [CloudEvents Event Data](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#event-data)
+is reserved to vendor content. The CDEvents [`context`](spec.md#context) is
+rendered as headers appropriate to the specific CloudEvents binding in use.
+
+In CDEvents binary mode, all CDEvents context attributes names are prefixed
+by `cdevents-`, except for `type` and `source` which are already available as
+`ce-` headers. The subject `id` is already available in `ce-subject` and not
+repeated. The subject `type` is implied by the `ce-type`. All other subject
+fields are prefixed by `cdevents-subject-`. In case the content is a map, the
+content is represented by semicolon separated key-value couples.
 
 ##### Binary Mode Examples
 
-TBD
+Full example of a CDEvents in *binary* content mode, transported through a
+CloudEvent in HTTP *binary* mode:
+
+```json
+POST /sink HTTP/1.1
+Host: cdevents.example.com
+ce-specversion: 1.0
+ce-type: dev.cdevents.taskrun.started
+ce-time: 2018-04-05T17:31:00Z
+ce-id: A234-1234-1234
+ce-source: /staging/tekton/
+ce-subject: /namespace/taskrun-123
+cdevents-version: draft
+cdevents-id: A234-1234-1234
+cdevents-timestamp: 2018-04-05T17:32:00Z
+cdevents-subject-task: my-task
+cdevents-subject-url: /apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123
+cdevents-subject-pipelineRun: id=/somewherelse/pipelinerun-123; source=/staging/jenkins/
+Content-Type: application/json; charset=utf-8
+Content-Length: nnnn
+
+{
+   (...) application content
+}
+```

@@ -23,7 +23,7 @@ The term Environment represent any platform which has all the means to run a Ser
 - __Service Upgraded__: an existing instance of a Service has been upgraded to a new version
 - __Service Rolledback__: an existing instance of a Service has been rolledback to a previous version
 - __Service Removed__: an existing instance of a Service has been terminated an it is no longer present in an environment
-- __Service Published__: an existing instance of a Service has an accessible URL for users to interact with it. This event can be used to let other tools know that the service is ready and also available for consumption. 
+- __Service Published__: an existing instance of a Service has an accessible URL for users to interact with it. This event can be used to let other tools know that the service is ready and also available for consumption.
 
 Continuous Deployment Events MUST include the following attributes:
 
