@@ -61,7 +61,7 @@ This event represents an environment that has been created. Such an environment 
 
 ### `environment modified`
 
-This event represents an environment that has been modified, this event advertise the changes made in the environment
+This event represents an environment that has been modified.
 
 - Event Type: __`dev.cdevents.environment.modified`__
 - Predicate: modified
