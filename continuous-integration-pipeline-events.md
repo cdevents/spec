@@ -146,7 +146,7 @@ This event represents a Test task that has started.
 
 ### `testCase finished`
 
-This event represents a Test task that has finished, the event will contain the finished status: success, error or failure.
+This event represents a Test task that has finished. This event will eventually contain the finished status: success, error or failure.
 
 - Event Type: __`dev.cdevents.testcase.finished`__
 - Predicate: finished
