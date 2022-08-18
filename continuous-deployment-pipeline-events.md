@@ -46,7 +46,7 @@ A `service` can represent a binary that is running, a daemon, an application, a 
 
 ### `environment created`
 
-This event represents an environment that has been created and it can be used to deploy services.
+This event represents an environment that has been created. Such an environment can be used to deploy services in.
 
 - Event Type: __`dev.cdevents.environment.created`__
 - Predicate: created
