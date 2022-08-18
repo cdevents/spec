@@ -34,7 +34,7 @@ An `environment` is a platform which may run a `service`.
 
 ### `service`
 
-A `service` can represent a binary that is running, a daemon, an application, a docker container.
+A `service` can represent for example a binary that is running, a daemon, an application or a docker container.
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
