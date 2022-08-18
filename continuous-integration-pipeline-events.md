@@ -59,7 +59,7 @@ __Note:__ The data model for `testSuite` only includes `id` and `source`, inputs
 
 ### `artifact`
 
-An `artifact` is usually produced as output of a build pipeline. Events needs to be generated to indicate that an `artifact` have been packaged and released for others to use. These events can be produced by the artifact producer or by the artifact storage system.
+An `artifact` is usually produced as output of a build process. Events need to be generated to indicate that an `artifact` has been packaged and released for others to use. These events can be produced by the artifact producer or by the artifact storage system.
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
