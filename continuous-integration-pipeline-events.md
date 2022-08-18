@@ -100,7 +100,7 @@ This event represents a Build task that has been started; this build process usu
 
 ### `build finished`
 
-This event represents a Build task that has finished; the event will contain the finished status, success, error or failure
+This event represents a Build task that has finished. This event will eventually contain the finished status, success, error or failure
 
 - Event Type: __`dev.cdevents.build.finished`__
 - Predicate: finished
