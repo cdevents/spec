@@ -76,7 +76,7 @@ This event represents an environment that has been modified.
 
 ### `environment deleted`
 
-This event represents an environment that has been modified, this event advertise the changes made in the environment
+This event represents an environment that has been deleted.```
 
 - Event Type: __`dev.cdevents.environment.deleted`__
 - Predicate: deleted
