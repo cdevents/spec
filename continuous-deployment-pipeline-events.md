@@ -142,7 +142,7 @@ This event represents the removal of a previously deployed service instance and 
 
 ### `service published`
 
-This event represents an existing of a service that has an accessible URL for users to interact with it. This event can be used to let other tools know that the service is ready and also available for consumption.
+This event represents an existing instance of a service that has an accessible URL for users to interact with it. This event can be used to let other tools know that the service is ready and also available for consumption.
 
 - Event Type: __`dev.cdevents.service.published`__
 - Predicate: published
