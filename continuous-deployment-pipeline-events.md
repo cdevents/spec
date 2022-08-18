@@ -129,7 +129,7 @@ This event represents an existing of a service that has been rolledback to a pre
 
 ### `service removed`
 
-This event represents an existing of a service that has been terminated an it is not longer present in an environment
+This event represents the removal of a previously deployed service instance and is thus not longer present in the specified environment
 
 - Event Type: __`dev.cdevents.service.removed`__
 - Predicate: removed
