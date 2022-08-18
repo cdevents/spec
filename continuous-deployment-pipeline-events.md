@@ -18,7 +18,7 @@ This specification defines two subjects in this stage: `environment` and `servic
 
 | Subject | Description | Predicates |
 |---------|-------------|------------|
-| [`environment`](#environment) | A environment where to run services | [`created`](#environment-created), [`modified`](#environment-modified), [`deleted`](#environment-deleted)|
+| [`environment`](#environment) | An environment where to run services | [`created`](#environment-created), [`modified`](#environment-modified), [`deleted`](#environment-deleted)|
 | [`service`](#service) | A service | [`deployed`](#service-deployed), [`upgraded`](#service-upgraded), [`rolledback`](#service-rolledback), [`removed`](#service-removed), [`published`](#service-published)|
 
 ### `environment`
