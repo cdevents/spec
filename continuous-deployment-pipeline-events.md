@@ -99,7 +99,7 @@ This event represents a new instance of a service that has been deployed
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
-| environmentId | `String` | Id of the environment where the service runs | `dev`, `staging`, `production`, `ci-123`| ✅ |
+| environmentId | `String` | Id of the environment where the service is deployed| `dev`, `staging`, `production`, `ci-123`| ✅ |
 
 ### `service upgraded`
 
