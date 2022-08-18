@@ -116,7 +116,7 @@ This event represents an existing instance of a service that has been upgraded t
 
 ### `service rolledback`
 
-This event represents an existing of a service that has been rolledback to a previous version
+This event represents an existing instance of a service that has been rolled back to a previous version
 
 - Event Type: __`dev.cdevents.service.rolledback`__
 - Predicate: rolledback
