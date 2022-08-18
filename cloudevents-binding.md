@@ -25,11 +25,7 @@ The CloudEvents Binding for CDEvents defines how CDEvents are mapped to CloudEve
   - [datacontenttype](#datacontenttype)
   - [dataschema](#dataschema)
 - [Events Data](#events-data)
-  - [Content Modes](#content-modes)
-    - [Structured Content Mode](#structured-content-mode)
-      - [Structured Mode Examples](#structured-mode-examples)
-    - [Binary Content Mode](#binary-content-mode)
-      - [Binary Mode Examples](#binary-mode-examples)
+  - [Examples](#examples)
 <!-- /toc -->
 
 ## Context
@@ -39,89 +35,48 @@ from the [CDEvents context](spec.md#context).
 
 ### specversion
 
-The [CloudEvents `specversion`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#specversion)
-MUST be set to `1.0`.
+The [CloudEvents `specversion`][ce-version] MUST be set to `1.0`.
 
 ### id
 
-The [CloudEvents `id`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#id)
-MUST be set to the CDEvents [`id`](spec.md#id).
+The [CloudEvents `id`][ce-id] MUST be set to the CDEvents [`id`](spec.md#id).
 
 ### source
 
-The [CloudEvents `source`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#source-1)
-MUST be set to the CDEvents [`source`](spec.md#source).
+The [CloudEvents `source`][ce-source] MUST be set to the CDEvents [`source`](spec.md#source).
 
 ### type
 
-The [CloudEvents `type`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type)
-MUST be set to the [`type`](spec.md#type) of the CDEvent.
+The [CloudEvents `type`][ce-type] MUST be set to the [`type`](spec.md#type) of the CDEvent.
 
 ### subject
 
-The [CloudEvents `subject`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#subject)
-MUST be set to the [subject `id`](spec.md#subjectid) of the CDEvent.
-__Note__: since the *subject* is mandatory in CDEvents, the `subject` in the
-CloudEvents format will always be set - even if it's not mandated by the
-CloudEvents specification.
+The [CloudEvents `subject`][ce-subject] MUST be set to the [subject `id`](spec.md#subjectid) of the CDEvent.
+__Note__: since the *subject* is mandatory in CDEvents, the `subject` in the CloudEvents format will always be set - even if it's not mandated by the CloudEvents specification.
 
 ### time
 
-The [CloudEvents `time`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#subject)
-MUST be set to the [`timestamp`](spec.md#timestamp) of the CDEvent. The
-CloudEvents specification allows for `time` to be set to either the current time
-or the time of the occurrence, but it requires all producers to be chose the
-same option. CDEvents requires all producers to use the `timestamp` from the
-CDEvent to meet the CloudEvents specification.
+The [CloudEvents `time`][ce-time] MUST be set to the [`timestamp`](spec.md#timestamp) of the CDEvent. The CloudEvents specification allows for `time` to be set to either the current time or the time of the occurrence, but it requires all producers to be chose the same option. CDEvents requires all producers to use the `timestamp` from the CDEvent to meet the CloudEvents specification.
 
 ### datacontenttype
 
-The [CloudEvents `datacontenttype`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#datacontenttype)
-is optional, its use depends on the specific CloudEvents binding and mode in
-use. See the [event data](#events-data) section for more details.
+The [CloudEvents `datacontenttype`][ce-contenttype] is optional, its use depends on the specific CloudEvents binding and mode in use. See the [event data](#events-data) section for more details.
 
 ### dataschema
 
-The [CloudEvents `dataschema`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#dataschema)
-is MAY be set to a URL that points to the event data schema included in this
-specification.
+The [CloudEvents `dataschema`][ce-dataschema] is MAY be set to a URL that points to the event data schema included in this specification.
 
 ## Events Data
 
-The content and format of the event data depends on the specific CloudEvents
-binding in use. All the example, unless otherwise stated, refer to the
-[HTTP binding](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/bindings/http-protocol-binding.md)
-in [binary content mode](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/bindings/http-protocol-binding.md#31-binary-content-mode). In this format, the
-CloudEvents context is stored in HTTP headers.
+The content and format of the event data depends on the specific CloudEvents binding in use. All the examples, unless otherwise stated, refer to the[HTTP binding][ce-http-binding] in [binary content mode][ce-binary]. In this format, the CloudEvents context is stored in HTTP headers.
 
-### Content Modes
+The [CloudEvents Event Data][ce-eventdata] MUST include the full CDEvents [`context`](spec.md#context) rendered as JSON in the format specified by the [schema](./schemas/) for the event type.
 
-This specification defines two content modes for transferring events:
-*structured* and *binary*. The *structured* mode can be used in all cases, the
-*binary* mode may only be used in conjunction with the HTTP CloudEvent binding
-in *binary* mode:
+In CloudEvents HTTP binary mode, the `Content-Type` HTTP header MUST be set to `application/cdevents+json`. In CloudEvents HTTP structured mode, the same information is carried in the CloudEvents context field `datacontenttype`.
 
-| CloudEvents / CDEvents | Structured | Binary |
-|------------------------|------------|--------|
-| HTTP Binary            | V          | V      |
-| HTTP Structured        | V          | X      |
-| HTTP Batch             | V          | X      |
-| Other Binding          | V          | X      |
+### Examples
 
-#### Structured Content Mode
-
-In *structured* content mode, the [CloudEvents Event Data](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#event-data)
-MUST include the full CDEvents [`context`](spec.md#context) rendered as JSON
-in the format specified by the [schema](./schemas/) for the event type.
-
-In CloudEvents HTTP binary mode, the `Content-Type` HTTP header MUST be set to
-`application/cdevents+json`. In CloudEvents HTTP structured mode, the same
-information is carried in the CloudEvents context field `datacontenttype`.
-
-##### Structured Mode Examples
-
-Full example of a CDEvents in *structured* content mode, transported through a
-CloudEvent in HTTP *binary* mode:
+Full example of a CDEvents transported through a CloudEvent in HTTP *binary* mode:
 
 ```json
 POST /sink HTTP/1.1
@@ -158,10 +113,14 @@ Content-Length: nnnn
 }
 ```
 
-#### Binary Content Mode
-
-TBD
-
-##### Binary Mode Examples
-
-TBD
+[ce-id]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#id
+[ce-version]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#specversion
+[ce-source]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#source-1
+[ce-type]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type
+[ce-subject]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#subject
+[ce-time]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#time
+[ce-contenttype]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#datacontenttype
+[ce-dataschema]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#dataschema
+[ce-http-binding]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/bindings/http-protocol-binding.md
+[ce-binary]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/bindings/http-protocol-binding.md#31-binary-content-mode
+[ce-eventdata]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#event-data
