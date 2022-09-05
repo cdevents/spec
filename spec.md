@@ -58,7 +58,8 @@ Each CDEvent is structured into three parts:
 - The [*subject*](#cdevent-subject): part of its root structure is common to all
   CDEvents, some of its content may vary from event to event, as described in
   the *vocabulary*
-- The [*customData*](#cdevent-data): this part is dedicated to extra data, not specified by this spec
+- The [*customData*](#cdevent-customdata): this part is dedicated to extra data,
+  not specified by this spec
 
 The specification is structured in two main parts:
 
