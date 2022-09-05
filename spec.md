@@ -54,7 +54,7 @@ CDEvents is a common specification for Continuous Delivery events.
 
 Each CDEvent is structured into three parts:
 
-- The [*context*](#cdevent-context): its structure is common to all CDEvent
+- The [*context*](#cdevent-context): its structure is common to all CDEvents
 - The [*subject*](#cdevent-subject): part of its root structure is common to all
   CDEvents, some of its content may vary from event to event, as described in
   the *vocabulary*
