@@ -43,10 +43,10 @@ CDEvents is a common specification for Continuous Delivery events.
     - [source (subject)](#source-subject)
     - [type (subject)](#type-subject)
   - [Subject example](#subject-example)
-- [CDEvent custom data](#cdevent-custom-data)
+- [CDEvents custom data](#cdevents-custom-data)
   - [OPTIONAL Custom Data attributes](#optional-custom-data-attributes)
-    - [<code>customData</code>](#)
-    - [<code>customDataEncoding</code>](#-1)
+    - [customData](#customdata)
+    - [customDataEncoding](#customdataencoding)
   - [Examples](#examples)
     - [JSON Data](#json-data)
     - [Generic Data](#generic-data)
@@ -56,14 +56,15 @@ CDEvents is a common specification for Continuous Delivery events.
 
 ## Overview
 
-Each CDEvent is structured into three parts:
+Each CDEvent is structured into two mandatory parts:
 
 - The [*context*](#cdevent-context): its structure is common to all CDEvents
 - The [*subject*](#cdevent-subject): part of its root structure is common to all
   CDEvents, some of its content may vary from event to event, as described in
   the *vocabulary*
-- The [*customData*](#cdevent-customdata): this part is dedicated to extra data,
-  not specified by this spec
+
+plus two optional attributes `customData` and `customDataEncoding`, that host
+[*CDEvents custom data*](#cdevents-custom-data).
 
 The specification is structured in two main parts:
 
@@ -373,14 +374,14 @@ The following example shows `context` and `subject` together, rendered as JSON.
 }
 ```
 
-## CDEvent custom data
+## CDEvents custom data
 
 The `customData` and `customDataEncoding` fields can be used to carry additional
 data in CDEvents.
 
 ### OPTIONAL Custom Data attributes
 
-#### `customData`
+#### customData
 
 - Type: [`String`][typesystem]
 - Description: custom data. The content of the `customData` field is not
@@ -394,7 +395,7 @@ data in CDEvents.
   - '{"mydata1": "myvalue1"}'
   - 'VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg=='
 
-#### `customDataEncoding`
+#### customDataEncoding
 
 - Type: `Enum`
 - Description: custom encoding of the data.
