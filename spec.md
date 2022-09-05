@@ -70,8 +70,10 @@ The specification is structured in two main parts:
   - How to include additional [*data*](#cdevent-customdata) in a CDEvent
 
 - The [*vocabulary*](#vocabulary) describes *event types*, with their event
-  specific mandatory and optional attributes. The [*vocabulary*](#vocabulary) is
-  organized in *stages*, each specified in a dedicated document in the spec.
+  specific mandatory and optional attributes. These attributes are all located
+  in the [*subject*](#cdevent-subject) object within the event. The
+  [*vocabulary*](#vocabulary) is organized in *stages*, each specified in a
+  dedicated document in the spec.
 
 For an introduction see the [CDEvents README](README.md) and for more background
 information please see our [CDEvents primer](primer.md).
@@ -147,6 +149,7 @@ defined by the CloudEvents project, plus some CDEvents specific types
 - `Object`: a map of (key, value) tuples
   - Keys are of type `String`. Valid keys can be defined by this spec
   - Values can be any of the other kind
+  - An object key is referred to as an "attribute"
 
   Object key names are by convention defined in [CamelCase](https://en.wikipedia.org/wiki/Camel_case).
 
@@ -386,7 +389,7 @@ example:
   "subject" : {
     (...)
   },
-  "data": {
+  "customData": {
     "mydata1": {
       "f1": "f1",
       "f2": "f2"
