@@ -369,12 +369,13 @@ The following example shows `context` and `subject` together, rendered as JSON.
 
 ## CDEvent customData
 
-The `customData` field can be used to carry additional data in CDEvents.
-This is entirely optional. The content of the `customData` field is not
-specified in CDEvent and typically require tool specific knowledge to be parsed.
+The `customData` and `customDataEncoding` fields can be used to carry additional
+data in CDEvents. They are entirely optional. The content of the `customData`
+field is not specified in CDEvent and typically require tool specific knowledge
+to be parsed.
 
 The format of the data in `customData` must be compatible with that of the
-CDEvent format.
+CDEvent format; when not JSON, the content must be base64 encoded.
 
 ### JSON Data
 
@@ -411,10 +412,8 @@ Generic (non-JSON) data, must be base64 encoded:
   "subject" : {
     (...)
   },
-  "customData": {
-    "encoding": "base64",
-    "value": "VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg=="
-  }
+  "customData": "VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg==",
+  "customDataEncoding": "base64"
 }
 ```
 
