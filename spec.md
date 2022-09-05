@@ -39,13 +39,17 @@ CDEvents is a common specification for Continuous Delivery events.
   - [REQUIRED Subject Attributes](#required-subject-attributes)
     - [id (subject)](#id-subject)
     - [content](#content)
-  - [Optional Subject Attributes](#optional-subject-attributes)
+  - [OPTIONAL Subject Attributes](#optional-subject-attributes)
     - [source (subject)](#source-subject)
     - [type (subject)](#type-subject)
   - [Subject example](#subject-example)
-- [CDEvent customData](#cdevent-customdata)
-  - [JSON Data](#json-data)
-  - [Generic Data](#generic-data)
+- [CDEvent custom data](#cdevent-custom-data)
+  - [OPTIONAL Custom Data attributes](#optional-custom-data-attributes)
+    - [<code>customData</code>](#)
+    - [<code>customDataEncoding</code>](#-1)
+  - [Examples](#examples)
+    - [JSON Data](#json-data)
+    - [Generic Data](#generic-data)
 - [Vocabulary](#vocabulary)
   - [Vocabulary Stages](#vocabulary-stages)
 <!-- /toc -->
@@ -268,6 +272,7 @@ This is an example of a full CDEvent context, rendered in JSON format:
     "source" : "/staging/tekton/",
     "type" : "dev.cdevents.taskrun.started",
     "timestamp" : "2018-04-05T17:31:00Z"
+  }
 }
 ```
 
@@ -297,8 +302,8 @@ defined in the [vocabulary](#vocabulary):
 
 - Type: [`Object`](#types)
 - Description: This provides all the relevant details of the
-  [`subject`](#cdevent-subject). The format of the [`subject`](#cdevent-subject)
-  depends on the event [`type`](#type-context). All attributes in the subject
+  [`content`](#content). The format of the [`content`](#content) depends on the
+  event [`type`](#type-context). All attributes in the subject
   [`content`](#content), REQUIRED and OPTIONAL ones, MUST comply with the
   specification from the [vocabulary](#vocabulary). The [`content`](#content)
   may be empty.
@@ -317,7 +322,7 @@ defined in the [vocabulary](#vocabulary):
         }
     ```
 
-### Optional Subject Attributes
+### OPTIONAL Subject Attributes
 
 #### source (subject)
 
@@ -368,17 +373,41 @@ The following example shows `context` and `subject` together, rendered as JSON.
 }
 ```
 
-## CDEvent customData
+## CDEvent custom data
 
 The `customData` and `customDataEncoding` fields can be used to carry additional
-data in CDEvents. They are entirely optional. The content of the `customData`
-field is not specified in CDEvent and typically require tool specific knowledge
-to be parsed.
+data in CDEvents.
 
-The format of the data in `customData` must be compatible with that of the
-CDEvent format; when not JSON, the content must be base64 encoded.
+### OPTIONAL Custom Data attributes
 
-### JSON Data
+#### `customData`
+
+- Type: [`String`][typesystem]
+- Description: custom data. The content of the `customData` field is not
+  specified in CDEvent and typically require tool specific knowledge
+  to be parsed.
+
+- Constraints:
+  - OPTIONAL
+
+- Examples:
+  - '{"mydata1": "myvalue1"}'
+  - 'VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg=='
+
+#### `customDataEncoding`
+
+- Type: `Enum`
+- Description: custom encoding of the data.
+- Valid values: `json`, `base64`
+- Default value: `json`
+
+- Constraints:
+  - REQUIRED if `customData` is set, and the content is base64 encoded
+  - OPTIONAL otherwise
+
+### Examples
+
+#### JSON Data
 
 JSON data can be included directly in a `customData` field, as in the following
 example:
@@ -401,7 +430,7 @@ example:
 }
 ```
 
-### Generic Data
+#### Generic Data
 
 Generic (non-JSON) data, must be base64 encoded:
 
