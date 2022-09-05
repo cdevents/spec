@@ -43,7 +43,7 @@ CDEvents is a common specification for Continuous Delivery events.
     - [source (subject)](#source-subject)
     - [type (subject)](#type-subject)
   - [Subject example](#subject-example)
-- [CDEvent data](#cdevent-data)
+- [CDEvent customData](#cdevent-customdata)
   - [JSON Data](#json-data)
   - [Generic Data](#generic-data)
 - [Vocabulary](#vocabulary)
@@ -67,7 +67,7 @@ The specification is structured in two main parts:
   - The [*context*](#cdevent-context), made of mandatory and optional
     *attributes*
   - The common part of the [*subject*](#cdevent-subject)
-  - How to include third-party [*data*](#cdevent-data) in a CDEvent
+  - How to include additional [*data*](#cdevent-customdata) in a CDEvent
 
 - The [*vocabulary*](#vocabulary) describes *event types*, with their event
   specific mandatory and optional attributes. The [*vocabulary*](#vocabulary) is
@@ -263,7 +263,7 @@ This is an example of a full CDEvent context, rendered in JSON format:
     "id" : "A234-1234-1234",
     "source" : "/staging/tekton/",
     "type" : "dev.cdevents.taskrun.started",
-    "timestamp" : "2018-04-05T17:31:00Z",
+    "timestamp" : "2018-04-05T17:31:00Z"
 }
 ```
 
@@ -364,17 +364,18 @@ The following example shows `context` and `subject` together, rendered as JSON.
 }
 ```
 
-## CDEvent data
+## CDEvent customData
 
-The data container can be used to carry third-party data in CDEvents.
-This is entirely optional. The content of the `data` field is not specified in
-CDEvent and typically require tool specific knowledge to be parsed.
+The `customData` field can be used to carry additional data in CDEvents.
+This is entirely optional. The content of the `customData` field is not
+specified in CDEvent and typically require tool specific knowledge to be parsed.
 
-The format of the data must be compatible with that of the CDEvent format.
+The format of the data in `customData` must be compatible with that of the
+CDEvent format.
 
 ### JSON Data
 
-JSON data can be included directly in a `data` field, as in the following
+JSON data can be included directly in a `customData` field, as in the following
 example:
 
 ```json
@@ -388,7 +389,7 @@ example:
   "data": {
     "mydata1": {
       "f1": "f1",
-      "f2": "f2",
+      "f2": "f2"
     },
     "mydata2": "myvalue1"
   }
@@ -407,7 +408,7 @@ Generic (non-JSON) data, must be base64 encoded:
   "subject" : {
     (...)
   },
-  "data": {
+  "customData": {
     "encoding": "base64",
     "value": "VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg=="
   }
