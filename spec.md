@@ -46,7 +46,7 @@ CDEvents is a common specification for Continuous Delivery events.
 - [CDEvents custom data](#cdevents-custom-data)
   - [OPTIONAL Custom Data attributes](#optional-custom-data-attributes)
     - [customData](#customdata)
-    - [customDataEncoding](#customdataencoding)
+    - [customDataContentType](#customdatacontenttype)
   - [Examples](#examples)
     - [JSON Data](#json-data)
     - [Generic Data](#generic-data)
@@ -73,7 +73,7 @@ The specification is structured in two main parts:
   - The [*context*](#cdevent-context), made of mandatory and optional
     *attributes*
   - The common part of the [*subject*](#cdevent-subject)
-  - How to include additional [*data*](#cdevent-custom-data) in a CDEvent
+  - How to include additional [*data*](#cdevents-custom-data) in a CDEvent
 
 - The [*vocabulary*](#vocabulary) describes *event types*, with their event
   specific mandatory and optional attributes. These attributes are all located
@@ -376,8 +376,8 @@ The following example shows `context` and `subject` together, rendered as JSON.
 
 ## CDEvents custom data
 
-The `customData` and `customDataEncoding` fields can be used to carry additional
-data in CDEvents.
+The `customData` and `customDataContentType` fields can be used to carry
+additional data in CDEvents.
 
 ### OPTIONAL Custom Data attributes
 
@@ -395,23 +395,32 @@ data in CDEvents.
   - '{"mydata1": "myvalue1"}'
   - 'VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg=='
 
-#### customDataEncoding
+#### customDataContentType
 
-- Type: `Enum`
-- Description: custom encoding of the data.
-- Valid values: "json", "base64"
-- Default value: "json"
+The `customDataContentType` is modelled after the [CloudEvent][datacontenttype].
+
+- Type: [`String`][typesystem]
+- Description: Content type of `customData` value. This attribute enables data
+  to carry any type of content, whereby format and encoding might differ from
+  that of the chosen event format. For example, an event rendered using the
+  [CloudEvents](cloudevents-binding.md) format might carry an XML payload in
+  data, and the consumer is informed by this attribute being set to
+  "application/xml". The rules for how data content is rendered for different
+  `customDataContentType` values are defined in the specific binding
+  specification
+
+- Default value: "application/json"
 
 - Constraints:
-  - REQUIRED if `customData` is set, and the content is base64 encoded
-  - OPTIONAL otherwise
+  - OPTIONAL
+  - If present, MUST adhere to the format specified in [RFC 2046][rfc2406]
 
 ### Examples
 
 #### JSON Data
 
-JSON data can be included directly in a `customData` field, as in the following
-example:
+Data with the default "application/json" content-type can be included directly
+in the `customData` field, as in the following example:
 
 ```json
 {
@@ -443,8 +452,8 @@ Generic (non-JSON) data, must be base64 encoded:
   "subject" : {
     (...)
   },
-  "customData": "VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg==",
-  "customDataEncoding": "base64"
+  "customData": "PGRhdGE+VkdobElIWnZZMkZpZFd4aGNua2daR1ZtYVc1bGN5QXFaWFpsYm5RZ2RIbHdaWE1xTENCM2FHbGphQ0JoY21VZ2JXRmtaU0J2WmlBcWMzVmlhbVZqZEhNcUNnPT08L2RhdGE+Cg==",
+  "customDataContentType": "application/xml"
 }
 ```
 
@@ -499,3 +508,5 @@ platforms.
 [intermediary]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#intermediary
 [occurrence]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#occurrence
 [typesystem]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system
+[datacontenttype]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#datacontenttype
+[rfc2406]: https://tools.ietf.org/html/rfc2046

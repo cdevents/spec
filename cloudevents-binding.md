@@ -6,7 +6,11 @@ description: >
    CloudEvents Binding for CDEvents
 ---
 -->
-# CloudEvents Binding for CDEvents - Draft
+# CloudEvents Binding for CDEvents
+
+__Note:__ This is an __unreleased__, work-in-progress version of the spec,
+and is being worked on by members of the CDEvents project.
+You are very welcome to [join the work and the discussions](https://github.com/cdevents)!
 
 ## Abstract
 
@@ -15,7 +19,7 @@ The CloudEvents Binding for CDEvents defines how CDEvents are mapped to CloudEve
 ## Table Of Contents
 
 <!-- toc -->
-- [Context](#context)
+- [CloudEvents Context](#cloudevents-context)
   - [specversion](#specversion)
   - [id](#id)
   - [source](#source)
@@ -24,11 +28,11 @@ The CloudEvents Binding for CDEvents defines how CDEvents are mapped to CloudEve
   - [time](#time)
   - [datacontenttype](#datacontenttype)
   - [dataschema](#dataschema)
-- [Events Data](#events-data)
+- [CloudEvents Data](#cloudevents-data)
   - [Examples](#examples)
 <!-- /toc -->
 
-## Context
+## CloudEvents Context
 
 The CloudEvents context is built by the event producer using some of the data
 from the [CDEvents context](spec.md#context).
@@ -60,19 +64,27 @@ The [CloudEvents `time`][ce-time] MUST be set to the [`timestamp`](spec.md#times
 
 ### datacontenttype
 
-The [CloudEvents `datacontenttype`][ce-contenttype] is optional, its use depends on the specific CloudEvents binding and mode in use. See the [event data](#events-data) section for more details.
+The [CloudEvents `datacontenttype`][ce-contenttype] is optional, its use depends on the specific CloudEvents binding and mode in use. See the [event data](#cloudevents-data) section for more details.
 
 ### dataschema
 
 The [CloudEvents `dataschema`][ce-dataschema] is MAY be set to a URL that points to the event data schema included in this specification.
 
-## Events Data
+## CloudEvents Data
 
 The content and format of the event data depends on the specific CloudEvents binding in use. All the examples, unless otherwise stated, refer to the[HTTP binding][ce-http-binding] in [binary content mode][ce-binary]. In this format, the CloudEvents context is stored in HTTP headers.
 
-The [CloudEvents Event Data][ce-eventdata] MUST include the full CDEvents [`context`](spec.md#context) rendered as JSON in the format specified by the [schema](./schemas/) for the event type.
+The [CloudEvents Event Data][ce-eventdata] MUST include the full CDEvents, i.e.
+[`context`](spec.md#cdevents-context), [`subject`](spec.md#cdevents-subject)
+and any [custom data](spec.md#cdevents-custom-data), rendered as JSON in the
+format specified by the [schema](./schemas/) for the event type.
 
-In CloudEvents HTTP binary mode, the `Content-Type` HTTP header MUST be set to `application/cdevents+json`. In CloudEvents HTTP structured mode, the same information is carried in the CloudEvents context field `datacontenttype`.
+[Custom data](spec.md#cdevents-custom-data) of type "application/json" MUST be
+embedded as it in the [`customData`](spec.md#customdata) field. Any other
+content-type MUST be base64 encoded and set as value for the
+[`customData`](spec.md#customdata) field.
+
+In CloudEvents HTTP binary mode, the `Content-Type` HTTP header MUST be set to `application/json`. In CloudEvents HTTP structured mode, the same information is carried in the CloudEvents context field `datacontenttype`.
 
 ### Examples
 
@@ -87,7 +99,7 @@ ce-time: 2018-04-05T17:31:00Z
 ce-id: A234-1234-1234
 ce-source: /staging/tekton/
 ce-subject: /namespace/taskrun-123
-Content-Type: application/cdevents+json; charset=utf-8
+Content-Type: application/json; charset=utf-8
 Content-Length: nnnn
 
 {
