@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/cdevents/sdk-go/pkg/api/service-removed-event",
+  "$id": "https://cdevents.dev/draft/schema/service-removed-event",
   "properties": {
     "context": {
       "properties": {
@@ -81,6 +81,13 @@
         "type",
         "content"
       ]
+    },
+    "customData": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "customDataContentType": {
+      "type": "string"
     }
   },
   "additionalProperties": false,

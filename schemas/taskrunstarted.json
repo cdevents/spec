@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/cdevents/sdk-go/pkg/api/task-run-started-event",
+  "$id": "https://cdevents.dev/draft/schema/task-run-started-event",
   "properties": {
     "context": {
       "properties": {
@@ -87,6 +87,13 @@
         "type",
         "content"
       ]
+    },
+    "customData": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "customDataContentType": {
+      "type": "string"
     }
   },
   "additionalProperties": false,

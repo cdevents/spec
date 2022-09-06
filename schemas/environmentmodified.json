@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/cdevents/sdk-go/pkg/api/environment-modified-event",
+  "$id": "https://cdevents.dev/draft/schema/environment-modified-event",
   "properties": {
     "context": {
       "properties": {
@@ -71,6 +71,13 @@
         "type",
         "content"
       ]
+    },
+    "customData": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "customDataContentType": {
+      "type": "string"
     }
   },
   "additionalProperties": false,
