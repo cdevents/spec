@@ -6,11 +6,11 @@ description: >
     Introduction to CDEvents and specification of common metadata
 ---
 -->
-# CDEvents - Draft
+# CDEvents
 
-__Note:__ This is a work-in-progress version and is being worked on by members
-of the CDEvents project. You are very welcome to
-[join the work and the discussions](https://github.com/cdevents)!
+__Note:__ This is an __unreleased__, work-in-progress version of the spec,
+and is being worked on by members of the CDEvents project.
+You are very welcome to [join the work and the discussions](https://github.com/cdevents)!
 
 ## Abstract
 
@@ -27,30 +27,62 @@ CDEvents is a common specification for Continuous Delivery events.
     - [Subject](#subject)
     - [Predicate](#predicate)
   - [Types](#types)
-- [Context](#context)
-  - [REQUIRED Event Attributes](#required-event-attributes)
-    - [id](#id)
-    - [type](#type)
-    - [source](#source)
+- [CDEvent context](#cdevent-context)
+  - [REQUIRED Context Attributes](#required-context-attributes)
+    - [id (context)](#id-context)
+    - [type (context)](#type-context)
+    - [source (context)](#source-context)
     - [timestamp](#timestamp)
     - [version](#version)
-    - [subject](#subject-1)
+  - [Context example](#context-example)
+- [CDEvent subject](#cdevent-subject)
+  - [REQUIRED Subject Attributes](#required-subject-attributes)
+    - [id (subject)](#id-subject)
+    - [content](#content)
+  - [OPTIONAL Subject Attributes](#optional-subject-attributes)
+    - [source (subject)](#source-subject)
+    - [type (subject)](#type-subject)
+  - [Subject example](#subject-example)
+- [CDEvents custom data](#cdevents-custom-data)
+  - [OPTIONAL Custom Data attributes](#optional-custom-data-attributes)
+    - [customData](#customdata)
+    - [customDataContentType](#customdatacontenttype)
+  - [Examples](#examples)
+    - [JSON Data](#json-data)
+    - [Generic Data](#generic-data)
 - [Vocabulary](#vocabulary)
-  - [Format of <em>subjects</em>](#format-of-subjects)
   - [Vocabulary Stages](#vocabulary-stages)
 <!-- /toc -->
 
 ## Overview
 
+Each CDEvent is structured into two mandatory parts:
+
+- The [*context*](#cdevent-context): its structure is common to all CDEvents
+- The [*subject*](#cdevent-subject): part of its root structure is common to all
+  CDEvents, some of its content may vary from event to event, as described in
+  the *vocabulary*
+
+plus two optional attributes `customData` and `customDataEncoding`, that host
+[*CDEvents custom data*](#cdevents-custom-data).
+
 The specification is structured in two main parts:
 
-- The [*context*](#context), made of mandatory and optional *attributes*, shared
-  by all events
-- The [*vocabulary*](#vocabulary), which identifies *event types*, structures as
-  *subjects* and *predicates*
+- [This](#cdevents) document describes the part of the spec that are common to
+  __all__ events:
+  - The [*context*](#cdevent-context), made of mandatory and optional
+    *attributes*
+  - The common part of the [*subject*](#cdevent-subject)
+  - How to include custom / additional [*data*](#cdevents-custom-data) in a CDEvent
 
-For an introduction see [README.md](README.md) and for more background
-information please see our [primer.md](primer.md).
+- The [*vocabulary*](#vocabulary) describes *event types*, with their event
+  specific mandatory and optional attributes. These attributes are all located
+  in the [*subject*](#cdevent-subject) object within the event. The
+  [*vocabulary*](#vocabulary) is organized in *stages*, each specified in a
+  dedicated document in the spec.
+
+For an introduction see the [CDEvents README](README.md) and for more background
+information please see our [CDEvents primer](primer.md).
 
 ## Notations and Terminology
 
@@ -123,33 +155,35 @@ defined by the CloudEvents project, plus some CDEvents specific types
 - `Object`: a map of (key, value) tuples
   - Keys are of type `String`. Valid keys can be defined by this spec
   - Values can be any of the other kind
+  - An object key is referred to as an "attribute"
 
   Object key names are by convention defined in [CamelCase](https://en.wikipedia.org/wiki/Camel_case).
 
-## Context
+## CDEvent context
 
-### REQUIRED Event Attributes
+### REQUIRED Context Attributes
 
-The following attributes are REQUIRED to be present in all the Events defined in
-the [vocabulary](#vocabulary):
+The following context attributes are REQUIRED to be present in all the Events
+defined in the [vocabulary](#vocabulary):
 
-#### id
+#### id (context)
 
 - Type: [`String`][typesystem]
 - Description: Identifier for an event.
   Subsequent delivery attempts of the same event MAY share the same
-  [`id`](#id). This attribute matches the syntax and semantics of the
+  [`id`](#id-context). This attribute matches the syntax and semantics of the
   [`id`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#id)
   attribute of CloudEvents.
 
 - Constraints:
   - REQUIRED
   - MUST be a non-empty string
-  - MUST be unique within the given [`source`](#source) (in the scope of the producer)
+  - MUST be unique within the given [`source`](#source-context) (in the scope of
+    the producer)
 - Examples:
   - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
 
-#### type
+#### type (context)
 
 - Type: [`String`][typesystem]
 - Description: defines the type of event, as combination of a *subject* and
@@ -165,12 +199,12 @@ the [vocabulary](#vocabulary):
   - `dev.cdevents.environment.created`
   - `dev.cdevents.<subject>.<predicate>`
 
-#### source
+#### source (context)
 
 - Type: [`URI-Reference`][typesystem]
 - Description: defines the context in which an event happened. The main purpose
-  of the source is to provide global uniqueness for [`source`](#source) +
-  [`id`](#id).
+  of the source is to provide global uniqueness for [`source`](#source-context) +
+  [`id`](#id-context).
 
   The source MAY identify a single producer or a group of producer that belong
   to the same application.
@@ -209,7 +243,7 @@ the [vocabulary](#vocabulary):
 
   In case the transport layer should require a re-transmission of the event,
   the timestamp SHOULD NOT be updated, i.e. it should be the same for the same
-  [`source`](#source) + [`id`](#id) combination.
+  [`source`](#source-context) + [`id`](#id-context) combination.
 
 - Constraints:
   - REQUIRED
@@ -227,31 +261,202 @@ the [vocabulary](#vocabulary):
   - REQUIRED
   - MUST be a non-empty string
 
-#### subject
+### Context example
 
-- Type: [`Object`](#types)
-- Description: This provides all the relevant details of the [`subject`](#subject). The
-  format of the [`subject`](#subject-1) depends on the event [`type`](#type).
+This is an example of a full CDEvent context, rendered in JSON format:
 
-  The attributes available for each subject are defined in the
-  [vocabulary](#vocabulary). The REQUIRED and OPTIONAL attributes depend on
-  the event [`type`](#type) and are specified in the [vocabulary](#vocabulary).
+```json
+{
+    "context": {
+    "version" : "draft",
+    "id" : "A234-1234-1234",
+    "source" : "/staging/tekton/",
+    "type" : "dev.cdevents.taskrun.started",
+    "timestamp" : "2018-04-05T17:31:00Z"
+  }
+}
+```
+
+## CDEvent subject
+
+### REQUIRED Subject Attributes
+
+The following subject attributes are REQUIRED to be present in all the event
+defined in the [vocabulary](#vocabulary):
+
+#### id (subject)
+
+- Type: [`String`][typesystem]
+- Description: Identifier for a subject.
+  Subsequent events associated to the same subject MUST use the same subject
+  [`id`](#id-subject).
 
 - Constraints:
   - REQUIRED
-  - If present, MUST comply with the spec from the [vocabulary](#vocabulary).
+  - MUST be a non-empty string
+  - MUST be unique within the given [`source`](#source-subject) (in the scope of
+    the producer)
+- Examples:
+  - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
+
+#### content
+
+- Type: [`Object`](#types)
+- Description: This provides all the relevant details of the
+  [`content`](#content). The format of the [`content`](#content) depends on the
+  event [`type`](#type-context). All attributes in the subject
+  [`content`](#content), REQUIRED and OPTIONAL ones, MUST comply with the
+  specification from the [vocabulary](#vocabulary). The [`content`](#content)
+  may be empty.
+
+- Constraints:
+  - REQUIRED
 
 - Example:
   - Considering the event type `dev.cdevents.taskrun.started`, an example of
-    subject, serialised as JSON, is:
+    subject, serialized as JSON, is:
 
     ```json
-        "taskrun" : {
-          "id": "my-taskrun-123",
+        "content" : {
           "task": "my-task",
           "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
         }
     ```
+
+### OPTIONAL Subject Attributes
+
+#### source (subject)
+
+- Type: [`URI-Reference`][typesystem]
+- Description: defines the context in which the subject originated. In most
+  cases the [`source`](#source-subject) of the subject matches the
+  [`source`](#source-context) of the event. This field should be used only in
+  cases where the [`source`](#source-subject) of the *subject* is different from
+  the [`source`](#source-context) of the event.
+
+  The format and semantic of the *subject* [`source`](#source-subject) are the
+  same of those of the *context* [`source`](#source-context).
+
+#### type (subject)
+
+- Type: `Enum`
+- Description: A string defined in the [vocabulary](#vocabulary) that
+  identifies the type of [`subject`](#cdevent-subject).
+
+- Constraints:
+  - REQUIRED when [`content`](#content) is not empty
+
+### Subject example
+
+The following example shows `context` and `subject` together, rendered as JSON.
+
+```json
+{
+   "context": {
+      "version" : "draft",
+      "id" : "A234-1234-1234",
+      "source" : "/staging/tekton/",
+      "type" : "dev.cdevents.taskrun.started",
+      "timestamp" : "2018-04-05T17:31:00Z"
+   },
+   "subject" : {
+      "id": "my-taskrun-123",
+      "type": "taskRun",
+      "content": {
+         "task": "my-task",
+         "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
+         "pipelineRun": {
+            "id": "my-distributed-pipelinerun",
+            "source": "/tenant1/tekton/"
+         }
+      }
+   }
+}
+```
+
+## CDEvents custom data
+
+The `customData` and `customDataContentType` fields can be used to carry
+additional data in CDEvents.
+
+### OPTIONAL Custom Data attributes
+
+#### customData
+
+- Type: This specification does not place any restriction on the type of this
+  information.
+- Description: custom data. The content of the `customData` field is not
+  specified in CDEvent and typically require tool specific knowledge
+  to be parsed.
+
+- Constraints:
+  - OPTIONAL
+
+- Examples:
+  - '{"mydata1": "myvalue1"}'
+  - 'VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg=='
+
+#### customDataContentType
+
+The `customDataContentType` is modelled after the [CloudEvents datacontenttype][datacontenttype].
+
+- Type: [`String`][typesystem]
+- Description: Content type of `customData` value. This attribute enables data
+  to carry any type of content, whereby format and encoding might differ from
+  that of the chosen event format. For example, an event rendered using the
+  [CloudEvents](cloudevents-binding.md) format might carry an XML payload in
+  data, and the consumer is informed by this attribute being set to
+  "application/xml". The rules for how data content is rendered for different
+  `customDataContentType` values are defined in the specific binding
+  specification
+
+- Default value: "application/json"
+
+- Constraints:
+  - OPTIONAL
+  - If present, MUST adhere to the format specified in [RFC 2046][rfc2406]
+
+### Examples
+
+#### JSON Data
+
+Data with the default "application/json" content-type can be included directly
+in the `customData` field, as in the following example:
+
+```json
+{
+  "context": {
+    (...)
+  },
+  "subject" : {
+    (...)
+  },
+  "customData": {
+    "mydata1": {
+      "f1": "f1",
+      "f2": "f2"
+    },
+    "mydata2": "myvalue1"
+  }
+}
+```
+
+#### Generic Data
+
+Generic (non-JSON) data, must be base64 encoded:
+
+```json
+{
+  "context": {
+    (...)
+  },
+  "subject" : {
+    (...)
+  },
+  "customData": "PGRhdGE+VkdobElIWnZZMkZpZFd4aGNua2daR1ZtYVc1bGN5QXFaWFpsYm5RZ2RIbHdaWE1xTENCM2FHbGphQ0JoY21VZ2JXRmtaU0J2WmlBcWMzVmlhbVZqZEhNcUNnPT08L2RhdGE+Cg==",
+  "customDataContentType": "application/xml"
+}
+```
 
 ## Vocabulary
 
@@ -274,65 +479,25 @@ scenarios. The CDEvents project collaborates with the
 identify a the common terminology to be used and how it maps to different terms
 in different platforms.
 
-### Format of *subjects*
-
-All subjects are of type `Object` and they share a base `Object` which they
-may extend:
-
-| Field | Type | Description | Examples |
-|-------|------|-------------|----------|
-| <a id="subjectid">ID</a>    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/12345-abcde` |
-| source | `URI-Reference` | [source](spec.md#source) from the context | |
-
-The `ID` field is a mandatory in all cases. The `source` field is only
-required when a `subject` does not belong to the *source* of the event.
-
-For instance, in case of a distributed pipeline, a `taskRun` subject could
-belong to a `pipelineRun` associated to a different *source*.
-Example payload in *structured* mode:
-
-```json
-{
-   "context": {
-      "version" : "draft",
-      "id" : "A234-1234-1234",
-      "source" : "/staging/tekton/",
-      "type" : "dev.cdevents.taskrun.started",
-      "timestamp" : "2018-04-05T17:31:00Z",
-   }
-   "subject" : {
-      "id": "my-taskrun-123",
-      "type": "taskRun",
-      "content": {
-         "task": "my-task",
-         "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
-         "pipelineRun": {
-            "id": "my-distributed-pipelinerun",
-            "source": "/tenant1/tekton/"
-         }
-      }
-   }
-}
-```
-
 ### Vocabulary Stages
 
-The *stages* defined are:
+The [*vocabulary*](#vocabulary) is organized in *stages*, each specified in a
+dedicated document in the spec:
 
 - __[Core](core.md)__: includes core events related to core activities and
   orchestration that needs to exist to be able to deterministically and
   continuously being able to delivery software to users.
 - __[Source Code Version Control](source-code-version-control.md)__: Events
-  emitted by changes in source code or by the creation, modification or deletion
-  of new repositories that hold source code.
+  emitted by changes in source code or by the creation, modification or
+  deletion of new repositories that hold source code.
 - __[Continuous Integration](continuous-integration-pipeline-events.md)__:
   includes events related to building, testings, packaging and releasing
   software artifacts, usually binaries.
-- __[Continuous Deployment](continuous-deployment-pipeline-events.md)__: include
-  events related with environments where the artifacts produced by the
+- __[Continuous Deployment](continuous-deployment-pipeline-events.md)__:
+  include events related with environments where the artifacts produced by the
   integration pipelines actually run. These are usually services running in a
-  specific environment (dev, QA, production), or embedded software running in a
-  specific hardware.
+  specific environment (dev, QA, production), or embedded software running in
+  a specific hardware.
 
 The grouping may serve in future as a reference for different CDEvents
 compliance profiles, which can be supported individually by implementing
@@ -344,3 +509,5 @@ platforms.
 [intermediary]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#intermediary
 [occurrence]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#occurrence
 [typesystem]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system
+[datacontenttype]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#datacontenttype
+[rfc2406]: https://tools.ietf.org/html/rfc2046
