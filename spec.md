@@ -397,7 +397,7 @@ additional data in CDEvents.
 
 #### customDataContentType
 
-The `customDataContentType` is modelled after the [CloudEvent][datacontenttype].
+The `customDataContentType` is modelled after the [CloudEvents datacontenttype][datacontenttype].
 
 - Type: [`String`][typesystem]
 - Description: Content type of `customData` value. This attribute enables data
