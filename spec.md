@@ -383,7 +383,8 @@ additional data in CDEvents.
 
 #### customData
 
-- Type: [`String`][typesystem]
+- Type: This specification does not place any restriction on the type of this
+  information.
 - Description: custom data. The content of the `customData` field is not
   specified in CDEvent and typically require tool specific knowledge
   to be parsed.
