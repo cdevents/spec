@@ -73,7 +73,7 @@ The specification is structured in two main parts:
   - The [*context*](#cdevent-context), made of mandatory and optional
     *attributes*
   - The common part of the [*subject*](#cdevent-subject)
-  - How to include additional [*data*](#cdevents-custom-data) in a CDEvent
+  - How to include custom / additional [*data*](#cdevents-custom-data) in a CDEvent
 
 - The [*vocabulary*](#vocabulary) describes *event types*, with their event
   specific mandatory and optional attributes. These attributes are all located
