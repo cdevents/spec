@@ -80,7 +80,7 @@ and any [custom data](spec.md#cdevents-custom-data), rendered as JSON in the
 format specified by the [schema](./schemas/) for the event type.
 
 [Custom data](spec.md#cdevents-custom-data) of type "application/json" MUST be
-embedded as it in the [`customData`](spec.md#customdata) field. Any other
+embedded as is in the [`customData`](spec.md#customdata) field. Data with any other
 content-type MUST be base64 encoded and set as value for the
 [`customData`](spec.md#customdata) field.
 
