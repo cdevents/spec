@@ -94,7 +94,7 @@ Full example of a CDEvents transported through a CloudEvent in HTTP *binary* mod
 POST /sink HTTP/1.1
 Host: cdevents.example.com
 ce-specversion: 1.0
-ce-type: dev.cdevents.taskrun.started
+ce-type: dev.cdevents.taskrun.started.0.1-draft
 ce-time: 2018-04-05T17:31:00Z
 ce-id: A234-1234-1234
 ce-source: /staging/tekton/
