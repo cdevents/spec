@@ -1,15 +1,15 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/draft/schema/artifact-published-event",
+  "$schema": "https://json-schema.org/0.1.0-draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.1.0-draft/schema/artifact-published-event",
   "properties": {
     "context": {
       "properties": {
         "version": {
           "type": "string",
           "enum": [
-            "draft"
+            "0.1.0-draft"
           ],
-          "default": "draft"
+          "default": "0.1.0-draft"
         },
         "id": {
           "type": "string",
