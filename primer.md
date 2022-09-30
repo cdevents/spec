@@ -100,52 +100,62 @@ extensions](https://github.com/cloudevents/spec/blob/v1.0.1/documented-extension
 
 ## Versioning
 
-The CDEvents specification and events are versioned independently, both following the
-principle of semantic versioning.
+The CDEvents specification and events are versioned independently, both
+following the principle of semantic versioning.
 
 ### Versioning of CDEvents
 
-Individual CDEvents are versioned using semantic versioning, with a `major.minor`
-format of the version.
+Individual CDEvents are versioned using semantic versioning, with a
+`major.minor.patch` format of the version.
 
-- Backward compatible changes to events are identified by a change in the minor
-  version of the event, for instance 0.1 -> 0.2. This means that an unmodified
-  consumer can parse a more recent minor version of an event, as long as it ignores
-  extra fields. Fields introduced in the new minor version will be ignored, but
-  everything else will work as before.
+Backward compatible changes are changes that allow existing consumers to parse
+messages with a newer version, have access to the same data as before, as long
+the extra fields are ignored. Broadening the accepted values for a property is a
+backward incompatible change, as the consumer may not be prepared to manage the
+new format of value.
 
-- Backward incompatible changes to events are identified by a change in the major
-  version of the event, for instance 0.3 -> 1.0. Moved or removed fields will
-  require a new major version.
+Note that this means that consumers SHOULD be prepared to handle (and disregard)
+unrecognized properties in higher minor versions than they are familiar with.
 
-while the specification of an event is work in progress, its version is tagged with
-an extra `-draft` at the end.
+- Major versions (e.g. 0.3.1 -> 1.0.0): backward incompatible changes to events.
+  Renamed, moved or removed fields requires a new major version.
 
-The version of an event is included in its type. This allows for easy filtering of
-events of a specific version, by looking at a single field in the context. Examples
-of full event versions are:
+- Minor versions (e.g. 0.1.2 -> 0.2.0): backward compatible changes to events
+  that involve a structural change in the schema. A new field is added, a copy
+  of an existing field is added and the old location deprecated, or a new
 
-- `dev.cdevents.build.queued.0.1-draft`
-- `dev.cdevents.environment.deleted.0.1`
+- Patch versions (e.g. 0.1.0 -> 0.1.1): backward compatible changes to events
+  that do not involve any structural change in the schema, for instance
+  narrowing the accepted values for a property
+
+While the specification of an event is work in progress, its version is tagged
+with an extra `-draft` at the end.
+
+The version of an event is included in its type. This allows for easy filtering
+of events of a specific version, by looking at a single field in the context.
+Examples of full event versions are:
+
+- `dev.cdevents.build.queued.0.1.0-draft`
+- `dev.cdevents.environment.deleted.0.1.0`
 
 ### Versioning of the CDEvents specification
 
-The overall CDEvents specification is versioned using semantic versioning, with a
-`major.minor.patch` format of the version. The specification version is associated
-to a git version (tag) in the `cdevents/spec` repository, in the format
-`vMajor.Minor.Patch`.
+The overall CDEvents specification is versioned using semantic versioning, with
+a `major.minor.patch` format of the version. The specification version is
+associated to a git version (tag) in the `cdevents/spec` repository, in the
+format `vMajor.Minor.Patch`.
 
-- A specification that includes only cosmetic fixes is identified by a change in the
-  patch version, for instance 0.1.0 -> 0.1.1
+- A specification that includes only cosmetic fixes is identified by a change in
+  the patch version, for instance 0.1.0 -> 0.1.1
 
-- A specification that includes only backwards compatible change is identified by
-  a change in the minor version, for instance 0.1.3 -> 0.2.0
+- A specification that includes only backwards compatible change is identified
+  by a change in the minor version, for instance 0.1.3 -> 0.2.0
 
 - A specification that includes at least one backward incompatible change, is
   identified by a change in the major version, for instance 0.1.2 -> 2.0.0
 
-While a version of the specification is work in progress, its version is tagged with
-an extra `-draft` at the end, for instance 0.1.0-draft.
+While a version of the specification is work in progress, its version is tagged
+with an extra `-draft` at the end, for instance 0.1.0-draft.
 
 ### Development of a new version
 
