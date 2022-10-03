@@ -190,7 +190,7 @@ defined in the [vocabulary](#vocabulary):
   *predicate* and *version*. Valid event types are defined in the [vocabulary](#vocabulary).
   All event types should be prefixed with `dev.cdevents.`. One occurrence may
   have multiple events associated, as long as they have different event types.
-  *Versions* are semantic in the *major.minor* format.  For more details about versions
+  *Versions* are semantic in the *major.minor.patch* format.  For more details about versions
   see the the see [versioning](primer.md#versioning) documentation.
 
 - Constraints:
