@@ -186,10 +186,12 @@ defined in the [vocabulary](#vocabulary):
 #### type (context)
 
 - Type: [`String`][typesystem]
-- Description: defines the type of event, as combination of a *subject* and
-  *predicate*. Valid event types are defined in the [vocabulary](#vocabulary).
+- Description: defines the type of event, as combination of a *subject*,
+  *predicate* and *version*. Valid event types are defined in the [vocabulary](#vocabulary).
   All event types should be prefixed with `dev.cdevents.`. One occurrence may
-  have multiple events associated, as long as they have different event types
+  have multiple events associated, as long as they have different event types.
+  *Versions* are semantic in the *major.minor.patch* format.  For more details about versions
+  see the the see [versioning](primer.md#versioning) documentation.
 
 - Constraints:
   - REQUIRED
@@ -254,8 +256,8 @@ defined in the [vocabulary](#vocabulary):
 - Type: `String`
 - Description: The version of the CDEvents specification which the event
   uses. This enables the interpretation of the context. Compliant event
-  producers MUST use a value of `draft` when referring to this version of the
-  specification.
+  producers MUST use a value of `0.1.0-draft` when referring to this version of the
+  specification. For more details see [versioning](primer.md#versioning).
 
 - Constraints:
   - REQUIRED
@@ -268,7 +270,7 @@ This is an example of a full CDEvent context, rendered in JSON format:
 ```json
 {
     "context": {
-    "version" : "draft",
+    "version" : "0.1.0-draft",
     "id" : "A234-1234-1234",
     "source" : "/staging/tekton/",
     "type" : "dev.cdevents.taskrun.started",
@@ -353,7 +355,7 @@ The following example shows `context` and `subject` together, rendered as JSON.
 ```json
 {
    "context": {
-      "version" : "draft",
+      "version" : "0.1.0-draft",
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
       "type" : "dev.cdevents.taskrun.started",
