@@ -38,7 +38,7 @@ document is updated accordingly to reflect the design decisions behind the chang
 
 ## History
 
-The [Events in CI/CD Worksteam][workstream] was originally formed by the [CDF
+The [Events in CI/CD Workstream][workstream] was originally formed by the [CDF
 Interoperability Special Interest Group][sig-interop] with the mission to
 *Standardize events to be used in a CI/CD process*. The workstream later evolved
 into [Event Special Interest Group][sig-events], which defined the initial

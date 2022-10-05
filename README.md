@@ -25,7 +25,7 @@ knowing how the tools communicate and what they do.
 ### What we provide
 
 The CDEvents protocol defines a vocabulary of events enabling tools to
-communicate in a interoperable way.
+communicate in an interoperable way.
 
 We extend other efforts such as CloudEvents by introducing purpose and semantics
 to the event.
