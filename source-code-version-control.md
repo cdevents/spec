@@ -45,6 +45,7 @@ A `branch` in an SCM repository is identified by its `id`.
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`|
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
 
 ### `change`
 
@@ -54,6 +55,7 @@ A `change` identifies a proposed set of changes to the content of a `repository`
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`|
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
 
 ## Events
 
@@ -118,8 +120,7 @@ A branch inside the Repository was created.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
-
-🚧 The branch model is work in progress.
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | ✅ |
 
 ### `branch deleted`
 
@@ -133,8 +134,7 @@ A branch inside the Repository was deleted.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
-
-🚧 The branch model is work in progress.
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | ✅ |
 
 ### `change created`
 
@@ -148,8 +148,7 @@ A source code change was created and submitted to a repository specific branch. 
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
-
-🚧 The change model is work in progress.
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | ✅ |
 
 ### `change reviewed`
 
@@ -163,8 +162,7 @@ Someone (user) or an automated system submitted an review to the source code cha
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
-
-🚧 The change model is work in progress.
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | ✅ |
 
 ### `change merged`
 
@@ -178,8 +176,7 @@ A change is merged to the target branch where it was submitted.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
-
-🚧 The change model is work in progress.
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | ✅ |
 
 ### `change abandoned`
 
@@ -193,8 +190,7 @@ A tool or a user decides that the change has been inactive for a while and it ca
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
-
-🚧 The change model is work in progress.
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | ✅ |
 
 ### `change updated`
 
@@ -208,5 +204,4 @@ A Change has been updated, for example a new commit is added or removed from an 
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| ⚪ |
-
-🚧 The change model is work in progress.
+| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | ✅ |
