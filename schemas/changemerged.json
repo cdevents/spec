@@ -52,9 +52,29 @@
           "minLength": 1
         },
         "content": {
-          "properties": {},
+          "properties": {
+            "repository": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
+            }
+          },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "repository"
+          ]
         }
       },
       "additionalProperties": false,
