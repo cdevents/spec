@@ -89,6 +89,17 @@ create a system that will:
 * Create a coupled architecture - using point-to-point communication creates a
   tightly intertwined architecture difficult to expand and monitor.
 
+### Simplified data model
+
+In the initial version of CDEvents we tackled a simple scenario in which 
+each artifact is build from a single repository and each service is deployed
+from a single artifact.
+
+This data model is somewhat limiting, but is has allowed us to put more focus
+on the overall structure of the protocol in the first release.
+
+We plan to extend the data model to more complex scenarios in upcoming releases.
+
 ## Relations to CloudEvents
 
 CDEvents defines a [specification](./cloudevents-binding.md) that provides a set
