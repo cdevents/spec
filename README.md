@@ -55,7 +55,7 @@ CDEvents is developing as set of SDKs:
 
 ### How to get involved
 
-[Reach out](governance.md#project-communication-channels) to see what we're up
+[Reach out](https://github.com/cdevents/community/blob/main/governance.md#project-communication-channels) to see what we're up
 via:
 
 * [slack](https://cdeliveryfdn.slack.com/archives/C030SKZ0F4K)
@@ -71,4 +71,4 @@ guidelines.
 
 The project has been started by the CDF
 [SIG Events](https://github.com/cdfoundation/sig-events) and is currently
-[governed](governance.md) by a few members of the SIG.
+[governed](https://github.com/cdevents/community/blob/main/governance.md) by a few members of the SIG.
