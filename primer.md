@@ -189,6 +189,16 @@ Once a specification is ready for release, its number if updated, the event vers
 are finalized (`-draft` is removed), schemas are updated and a git tag is created for
 this last commit.
 
+### Artifacts
+
+The specification has chosen for v0.1.0 to adopt [package-urls][purl] (or purls)
+as the format for any artifact identifier included in the spec. Purls provide a
+consistent format for artifact identifiers across different package types.
+
+CDEvents wishes for a format that can be used to reference to an artifact, or
+package, that is independent from the hosting storage, which is a property which
+purls satisfy for several artifact types.
+
 ## Acknowledgments
 
 The initial structure of the CDEvents specification format was based on the
@@ -249,3 +259,4 @@ created and its mission.
 [whitepaper]: https://cd.foundation/blog/2022/06/07/cdevents-publishes-first-whitepaper/
 [ce-design-goals]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/primer.md#design-goals
 [ce-partitioning]: https://github.com/cloudevents/spec/blob/v1.0.1/extensions/partitioning.md
+[purl]: https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst

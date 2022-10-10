@@ -156,6 +156,7 @@ defined by the CloudEvents project, plus some CDEvents specific types
   - Keys are of type `String`. Valid keys can be defined by this spec
   - Values can be any of the other kind
   - An object key is referred to as an "attribute"
+- `Purl`: a string in [package-url][purl-spec] format
 
   Object key names are by convention defined in [CamelCase](https://en.wikipedia.org/wiki/Camel_case).
 
@@ -513,3 +514,4 @@ platforms.
 [typesystem]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#type-system
 [datacontenttype]: https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#datacontenttype
 [rfc2406]: https://tools.ietf.org/html/rfc2046
+[purl-spec]: https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst
