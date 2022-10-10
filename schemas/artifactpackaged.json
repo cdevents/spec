@@ -52,10 +52,29 @@
           "minLength": 1
         },
         "content": {
-          "properties": {},
+          "properties": {
+            "change": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
+            }
+          },
           "additionalProperties": false,
-          "type": "object"
-        }
+          "type": "object",
+          "required": [
+            "change"
+          ]
       },
       "additionalProperties": false,
       "type": "object",

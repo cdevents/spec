@@ -65,6 +65,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `abcde-12344-a2b35`, `sh0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427a1234`, `myimage@sha256:123456abcded`, `six-1.14.0-py2.py3-none-any.whl`|
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
+| change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` |
 
 ## Events
 
