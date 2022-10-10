@@ -91,14 +91,15 @@ create a system that will:
 
 ### Simplified data model
 
-In the initial version of CDEvents we tackled a simple scenario in which 
-each artifact is build from a single repository and each service is deployed
+In the initial version of CDEvents we tackled a simple scenario in which
+each artifact is built from a single repository and each service is deployed
 from a single artifact.
 
-This data model is somewhat limiting, but is has allowed us to put more focus
+This data model is somewhat limited, but is has allowed us to put more focus
 on the overall structure of the protocol in the first release.
 
-We plan to extend the data model to more complex scenarios in upcoming releases.
+We plan to extend the data model to support more complex scenarios in upcoming
+releases.
 
 ## Relations to CloudEvents
 
