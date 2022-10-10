@@ -68,6 +68,9 @@
               "required": [
                 "id"
               ]
+            },
+            "artifactId": {
+              "type": "string"
             }
           },
           "additionalProperties": false,

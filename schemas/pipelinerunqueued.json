@@ -58,12 +58,6 @@
             },
             "url": {
               "type": "string"
-            },
-            "outcome": {
-              "type": "string"
-            },
-            "errors": {
-              "type": "string"
             }
           },
           "additionalProperties": false,
