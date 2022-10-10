@@ -68,10 +68,18 @@
               "required": [
                 "id"
               ]
+            },
+            "artifactId": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "environment",
+            "artifactId"
+          ]
         }
       },
       "additionalProperties": false,
