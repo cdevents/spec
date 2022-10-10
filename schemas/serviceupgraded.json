@@ -74,7 +74,11 @@
             }
           },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "environment",
+            "artifactId"
+          ]
         }
       },
       "additionalProperties": false,
