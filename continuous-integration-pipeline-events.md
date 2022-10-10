@@ -33,7 +33,7 @@ __Note:__ The data model for `builds`, apart from `id` and `source`, only includ
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
-| artifactId | `String` | Identifier of the artifact produced by the build | `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl`|
+| artifactId | `String` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
 
 ### `testCase`
 
@@ -63,7 +63,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
-| id    | `String` | Uniquely identifies the subject within the source. | `abcde-12344-a2b35`, `sh0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427a1234`, `myimage@sha256:123456abcded`, `six-1.14.0-py2.py3-none-any.whl`|
+| id    | `String` | Uniquely identifies the subject within the source. | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` |
 
@@ -111,7 +111,7 @@ This event represents a Build task that has finished. This event will eventually
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
-| artifactId | `String` | Identifier of the artifact produced by the build | `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `-six-1.14.0-py2.py3-none-any.whl`| ⚪ |
+| artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ⚪ |
 
 🚧 The build model is work in progress.
 
@@ -200,7 +200,7 @@ The event represents an artifact that has been packaged for distribution; this a
 
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | Uniquely identifies the subject within the source. | `abcde-12344-a2b35`, `sh0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427a1234`, `myimage@sha256:123456abcded`, `six-1.14.0-py2.py3-none-any.whl` | ✅ |
+| id    | `Purl` | Uniquely identifies the subject within the source. | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
 
 ### `artifact published`
@@ -213,5 +213,5 @@ The event represents an artifact that has been published and it can be advertise
 
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | Uniquely identifies the subject within the source. | `abcde-12344-a2b35`, `sh0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427a1234`, `myimage@sha256:123456abcded`, `six-1.14.0-py2.py3-none-any.whl` | ✅ |
+| id    | `Purl` | Uniquely identifies the subject within the source. | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
