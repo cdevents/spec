@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/0.1.0-draft/2020-12/schema",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.1.0-draft/schema/pipeline-run-finished-event",
   "properties": {
     "context": {
