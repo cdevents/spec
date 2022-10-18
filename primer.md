@@ -40,11 +40,11 @@ document is updated accordingly to reflect the design decisions behind the chang
   - [Producer-side architectures](#producer-side-architectures)
     - [External event producer](#external-event-producer)
     - [External event adapter](#external-event-adapter)
-    - [Multiple event formats](#multiple-event-formats)
+    - [Multiple event formats produced](#multiple-event-formats-produced)
   - [Consumer-side architectures](#consumer-side-architectures)
     - [Multiple event formats through adapter](#multiple-event-formats-through-adapter)
-    - [Consumer side adapters](#consumer-side-adapters)
-    - [Multiple received](#multiple-received)
+    - [Consumer-side adapters](#consumer-side-adapters)
+    - [Multiple event formats consumed](#multiple-event-formats-consumed)
 - [Acknowledgments](#acknowledgments)
 - [Use Cases](#use-cases)
 - [Design Decisions](#design-decisions)
@@ -109,15 +109,21 @@ create a system that will:
 
 ### Declarative vs. imperative events
 
-With imperative events we intend events that are sent with the intent to trigger
-a specific reaction, like "start a pipeline" or "deploy an application".
-Imperative events create coupling between producer and consumer, and typically
-require some form of acknowledgement to be send back by the consumer of the
-original event back to the producer.
+CDEvents are declarative events. With "declarative" we refer to event through
+which the producer sends information about an occurrence, but it does not know
+how the event will be used on the receiving side or even who will receive it.
 
-CDEvents are declarative events. With "declarative" we intend that the event
-producer sends information about an occurrence, but it does not now how this
-event will be used on the receiving side.
+With imperative events we refer to events that are sent with the intent of
+triggering a specific reaction, like "start a pipeline" or "deploy an
+application". CDEvents do not support imperative events today; the specification
+may include imperative events in future to foster interoperability in systems
+that rely on imperative events today.
+
+Imperative events create coupling between producer and consumer as they
+typically require some form of acknowledgement to be send back by the
+consumer of the original event back to the producer. Imperative events are
+useful to implement workflows where the orchestration logic is centrally
+managed by a single component.
 
 A behavior similar to that of imperative events can be achieved by moving part
 of the business logic to an adapter that listens for specific declarative events
@@ -234,16 +240,17 @@ solution, since consumers don't know how to process this extra data, unless they
 implement producer specific logic and sacrifice part of the interoperability
 benefit of using CDEvents.
 
-Adding a new field to existing an existing CDEvent type is a backward compatible
-change. Aspects to consider when proposing a new field are:
+Adding a new field to an existing CDEvent type is considered a backward
+compatible change - see the [versioning](#versioning) for more details.
+Aspects to consider when proposing a new field are:
 
 - is the field generally useful to the CD community? Data that is unique to a
   single platform is likely to be rejected
 - what are the use cases where this field will be used?
 - what is the format for the new field? Please be as specific as possible
 - what is the name of the new field? Check the [SIG interoperability
-  vocabulary][sig-interop-vocabulariy] if a standard name exists. If not
-  consider proposing the new field name for the vocabulary as well.
+  vocabulary][sig-interop-vocabulary] if a standard name exists. If not
+  propose the new field name for the vocabulary as well.
 
 ### Adding new event types
 
@@ -267,7 +274,7 @@ change. Aspects to consider when proposing a new event type are:
 - if the event includes a new kind of subject, what is the data model of the
   subject? What is the format of its ID? Please be as specific as possible
 - what is the name of the new type? Check the [SIG interoperability
-  vocabulary][sig-interop-vocabulariy] if a standard name exists. If not
+  vocabulary][sig-interop-vocabulary] if a standard name exists. If not
   consider proposing the new field name for the vocabulary as well.
 
 ## Adopting CDEvents
@@ -276,7 +283,7 @@ When adopting CDEvents, producers and consumers alike may adopt different
 strategies to support existing event producers and consumers that want to
 consider existing messaging systems, formats and event producers and consumers
 that are in place.
-CDEvents is a new specifications, but neither CloudEvents not events in general
+CDEvents is a new specification, but neither CloudEvents nor events in general
 are a new idea, and several tools may already be using events or webhooks with a
 tool specific data model.
 
@@ -301,7 +308,7 @@ interface for the tool, and it may change over time without notice.
 
 ![watcher-producer](images/watcher-producer.svg)
 
-This is approach is certainly valid to build a proof-of-concept or experiment
+This approach is certainly valid to build a proof-of-concept or to experiment
 with events in an existing environment.
 
 If the output of the tool is structured and part of the tool API, this may also
@@ -321,7 +328,7 @@ control, we cannot alter the content of the events, so we may request the tool
 maintainers to either add the extra data or, like in the next scenario, start
 producing CDEvents natively.
 
-#### Multiple event formats
+#### Multiple event formats produced
 
 A tool may start producing CDEvents natively. If the tool previously produced
 events, some consumers may expect the pre-existing event format. This can be
@@ -336,21 +343,21 @@ for instance if both formats are CloudEvents based.
 
 Typically it won't be possible for all existing event consumers to switch to
 CDEvents at the same time. The following scenarios show how an incremental
-approach can be used to migrate consumers through CDEvents gradually.
+approach can be used to migrate consumers towards CDEvents gradually.
 
 #### Multiple event formats through adapter
 
-In a variation of the previous two producer scenarios, the tool produces only
-one format of events, which is sent to the broker. The adapter subscribes to
-the events, converts them and publishes them back to the broker. Consumer may
-then subscribe to the type of events that they prefer.
+In a variation of the previously mentioned producer-side architectures, the tool
+produces only one format of events, which is sent to the broker. The adapter
+subscribes to the events, converts them and publishes them back to the broker.
+Consumer may then subscribe to the type of events that they prefer.
 
 ![original-adapter](images/original-adapter.svg)
 
 With this architecture, the adapter may even be able to convert messages from
 different tools, instead of just one.
 
-#### Consumer side adapters
+#### Consumer-side adapters
 
 In this scenario, the tool and some consumers use CDEvents. New consumers are
 added that do not understand CDEvents, or that do not support events in general.
@@ -360,7 +367,7 @@ side.
 
 ![consumer-adapter](images/consumer-adapter.svg)
 
-#### Multiple received
+#### Multiple event formats consumed
 
 In this scenario, a new tool is added that produces CDEvents. An existing
 consumer wants to benefit from existing events as well as the events from the
@@ -382,7 +389,7 @@ There are two root use cases that we are considering:
 - *Interoperability through CDEvents*: In this use case, platforms from the CD
   landscape either produce or consume CDEvents. On the producing side, a system
   broadcasts that certain value has been produced, like a code change, an
-  artifact or a test result. On the consumer side, a system takes an action that
+  artifact or a test result. On the consumer-side, a system takes an action that
   takes advantage of that value that has been produced.
 
 - *Observability & Metrics*: In this use case, platforms from the CD landscape
@@ -454,5 +461,5 @@ created and its mission.
 [ce-partitioning]: https://github.com/cloudevents/spec/blob/v1.0.1/extensions/partitioning.md
 [purl]:
     https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst
-[sig-interop-vocabulariy]:
+[sig-interop-vocabulary]:
     https://github.com/cdfoundation/sig-interoperability/blob/main/docs/vocabulary.md
