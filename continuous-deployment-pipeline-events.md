@@ -40,7 +40,7 @@ A `service` can represent for example a binary that is running, a daemon, an app
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
-| environmentId | `String` | Id of the environment where the service runs | `dev`, `staging`, `production`, `ci-123`|
+| environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
 
 ## Events
@@ -100,7 +100,7 @@ This event represents a new instance of a service that has been deployed
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
-| environmentId | `String` | Id of the environment where the service is deployed| `dev`, `staging`, `production`, `ci-123`| ✅ |
+| environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl` | ✅ |
 
 ### `service upgraded`
@@ -114,7 +114,7 @@ This event represents an existing instance of a service that has been upgraded t
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
-| environmentId | `String` | Id of the environment where the service runs | `dev`, `staging`, `production`, `ci-123`| ✅ |
+| environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |`pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 
 ### `service rolledback`
@@ -128,7 +128,7 @@ This event represents an existing instance of a service that has been rolled bac
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
-| environmentId | `String` | Id of the environment where the service runs | `dev`, `staging`, `production`, `ci-123`| ✅ |
+| environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 
 ### `service removed`
@@ -142,7 +142,7 @@ This event represents the removal of a previously deployed service instance and 
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
-| environmentId | `String` | Id of the environment where the service runs | `dev`, `staging`, `production`, `ci-123`| ✅ |
+| environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
 
 ### `service published`
 
@@ -155,4 +155,4 @@ This event represents an existing instance of a service that has an accessible U
 | Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
-| environmentId | `String` | Id of the environment where the service runs | `dev`, `staging`, `production`, `ci-123`| ✅ |
+| environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |

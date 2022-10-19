@@ -55,7 +55,7 @@ A `change` identifies a proposed set of changes to the content of a `repository`
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`|
-| repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
+| repository | `Object` ([`repository`](#repository)) | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
 
 ## Events
 
