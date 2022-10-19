@@ -66,8 +66,15 @@
       ]
     },
     "customData": {
-      "type": "string",
-      "contentEncoding": "base64"
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string",
+          "contentEncoding": "base64"
+        }
+      ]
     },
     "customDataContentType": {
       "type": "string"

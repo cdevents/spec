@@ -396,8 +396,8 @@ additional data in CDEvents.
   - OPTIONAL
 
 - Examples:
-  - '{"mydata1": "myvalue1"}'
-  - 'VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg=='
+  - `{"mydata1": "myvalue1"}`
+  - `"VGhlIHZvY2FidWxhcnkgZGVmaW5lcyAqZXZlbnQgdHlwZXMqLCB3aGljaCBhcmUgbWFkZSBvZiAqc3ViamVjdHMqCg=="`
 
 #### customDataContentType
 
