@@ -8,10 +8,6 @@ description: >
 -->
 # CloudEvents Binding for CDEvents
 
-__Note:__ This is an __unreleased__, work-in-progress version of the spec,
-and is being worked on by members of the CDEvents project.
-You are very welcome to [join the work and the discussions](https://github.com/cdevents)!
-
 ## Abstract
 
 The CloudEvents Binding for CDEvents defines how CDEvents are mapped to CloudEvents headers and body.
