@@ -403,10 +403,11 @@ There are two root use cases that we are considering:
   to correlate them with each other and build an end to end view. With the same
   events, we want to measure DevOps performance as well. The same events can be
   used to track different metrics over time, to be visualized through a
-  dashboard.
+  dashboard. The current events provide enough data to calculate two of the four
+  [DORA DevOps metrics][dora]:
 
-The use cases are work in progress - the list is being drafted in a [separate
-document](https://hackmd.io/ZCS2KYKZTpKBqhU9PMuCew).
+  - Lead time for changes: the amount of time it takes a commit to get into production
+  - Deployment frequency: how often an organization successfully releases to production
 
 ## Design Decisions
 
@@ -463,3 +464,4 @@ created and its mission.
     https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst
 [sig-interop-vocabulary]:
     https://github.com/cdfoundation/sig-interoperability/blob/main/docs/vocabulary.md
+[dora]: https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance
