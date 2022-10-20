@@ -377,11 +377,6 @@ new tool.
 
 A single consumer may receive events from heterogenous sources.
 
-## Acknowledgments
-
-The initial structure of the CDEvents specification format was based on the
-specification of the [CloudEvents](https://github.com/cloudevents/spec) project.
-
 ## Use Cases
 
 There are two root use cases that we are considering:
@@ -408,6 +403,17 @@ There are two root use cases that we are considering:
 
   - Lead time for changes: the amount of time it takes a commit to get into production
   - Deployment frequency: how often an organization successfully releases to production
+
+## Terminology
+
+The [CDF Interoperability Special Interest Group][sig-interop] has produced a
+[table of the terms][tool-terms] used by different CI/CD tools and how they
+related to each other. The SIG is also working on distilling a recommended
+[shared terminology][shared-terms]. CDEvents strives to adopt to the shared
+terminology and collaborate with the SIG Interoperability.
+
+Work to align terms to those identified by the SIG will continue in upcoming
+CDEvents releases.
 
 ## Design Decisions
 
@@ -454,6 +460,11 @@ audience of DevOps Engineers, Project Managers/Directors, CTOs, and Cloud
 Architects who are interested in learning more about CDEvents, why it was
 created and its mission.
 
+## Acknowledgments
+
+The initial structure of the CDEvents specification format was based on the
+specification of the [CloudEvents](https://github.com/cloudevents/spec) project.
+
 [workstream]: https://github.com/cdfoundation/sig-interoperability/tree/master/workstreams/archived/events_in_cicd
 [sig-interop]: https://github.com/cdfoundation/sig-interoperability
 [sig-events]: https://github.com/cdfoundation/sig-events/
@@ -464,4 +475,9 @@ created and its mission.
     https://github.com/package-url/purl-spec/blob/master/PURL-SPECIFICATION.rst
 [sig-interop-vocabulary]:
     https://github.com/cdfoundation/sig-interoperability/blob/main/docs/vocabulary.md
-[dora]: https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance
+[dora]:
+    https://cloud.google.com/blog/products/devops-sre/using-the-four-keys-to-measure-your-devops-performance
+[tool-terms]:
+    https://github.com/cdfoundation/sig-interoperability/blob/main/docs/tools-terminology.md
+[shared-terms]:
+    https://github.com/cdfoundation/sig-interoperability/blob/main/docs/pipelines-terminology.md
