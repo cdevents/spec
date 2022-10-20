@@ -8,8 +8,6 @@ description: >
 -->
 # Continuous Integration Events
 
-__Note:__ This is a work-in-progress draft version and is being worked on by members of the Events SIG. You are very welcome to join the work and the discussions!
-
 Continuous Integration (CI) events include the subject and predicates related to CI activities such as building software, producing artifacts and running tests.
 
 ## Subjects
