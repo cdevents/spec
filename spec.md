@@ -257,7 +257,7 @@ defined in the [vocabulary](#vocabulary):
 - Type: `String`
 - Description: The version of the CDEvents specification which the event
   uses. This enables the interpretation of the context. Compliant event
-  producers MUST use a value of `0.1.0-draft` when referring to this version of the
+  producers MUST use a value of `0.1.0` when referring to this version of the
   specification. For more details see [versioning](primer.md#versioning).
 
 - Constraints:
@@ -271,7 +271,7 @@ This is an example of a full CDEvent context, rendered in JSON format:
 ```json
 {
     "context": {
-    "version" : "0.1.0-draft",
+    "version" : "0.1.0",
     "id" : "A234-1234-1234",
     "source" : "/staging/tekton/",
     "type" : "dev.cdevents.taskrun.started",
@@ -356,7 +356,7 @@ The following example shows `context` and `subject` together, rendered as JSON.
 ```json
 {
    "context": {
-      "version" : "0.1.0-draft",
+      "version" : "0.1.0",
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
       "type" : "dev.cdevents.taskrun.started",
