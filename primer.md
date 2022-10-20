@@ -6,7 +6,7 @@ description: >
     A CDEvents primer
 ---
 -->
-# CDEvents Primer - Draft
+# CDEvents Primer
 
 ## Abstract
 
@@ -187,7 +187,7 @@ The version of an event is included in its type. This allows for easy filtering
 of events of a specific version, by looking at a single field in the context.
 Examples of full event versions are:
 
-- `dev.cdevents.build.queued.0.1.0-draft`
+- `dev.cdevents.build.queued.0.1.0`
 - `dev.cdevents.environment.deleted.0.1.0`
 
 ### Versioning of the CDEvents specification
@@ -207,7 +207,7 @@ format `vMajor.Minor.Patch`.
   identified by a change in the major version, for instance 0.1.2 -> 2.0.0
 
 While a version of the specification is work in progress, its version is tagged
-with an extra `-draft` at the end, for instance 0.1.0-draft.
+with an extra `-draft` at the end, for instance 0.1.0.
 
 ### Development of a new version
 

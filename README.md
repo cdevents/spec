@@ -38,18 +38,19 @@ points for metrics.
 
 ## CDEvents Specification
 
-The [CDEvents Specification](./spec.md) is available on our
-[website](https://cdevents.dev/docs).
+The latest release of the specification is
+[v0.1](https://github.com/cdevents/spec/tree/0.1.0/spec.md).
 
-The specification is currently draft and not ready for implementation.
-We are working towards our
-[first release v0.1](https://github.com/orgs/cdevents/projects/1).
+You can also preview the ongoing work on the [CDEvents Specification](./spec.md)
+on the `main` branch.
 
 ## CDEvents SDKs
 
 CDEvents is developing as set of SDKs:
 
 * [Go](https://github.com/cdevents/sdk-go)
+* [Python](https://github.com/cdevents/sdk-python)
+* [Java](https://github.com/cdevents/sdk-java)
 
 ## Community
 

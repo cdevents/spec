@@ -73,7 +73,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 
 This event represents a Build task that has been queued; this build process usually is in charge of producing a binary from source code.
 
-- Event Type: __`dev.cdevents.build.queued.0.1.0-draft`__
+- Event Type: __`dev.cdevents.build.queued.0.1.0`__
 - Predicate: queued
 - Subject: [`build`](#build)
 
@@ -82,13 +82,11 @@ This event represents a Build task that has been queued; this build process usua
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
 
-🚧 The build model is work in progress.
-
 ### `build started`
 
 This event represents a Build task that has been started; this build process usually is in charge of producing a binary from source code.
 
-- Event Type: __`dev.cdevents.build.started.0.1.0-draft`__
+- Event Type: __`dev.cdevents.build.started.0.1.0`__
 - Predicate: started
 - Subject: [`build`](#build)
 
@@ -97,13 +95,11 @@ This event represents a Build task that has been started; this build process usu
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
 
-🚧 The build model is work in progress.
-
 ### `build finished`
 
 This event represents a Build task that has finished. This event will eventually contain the finished status, success, error or failure
 
-- Event Type: __`dev.cdevents.build.finished.0.1.0-draft`__
+- Event Type: __`dev.cdevents.build.finished.0.1.0`__
 - Predicate: finished
 - Subject: [`build`](#build)
 
@@ -113,13 +109,11 @@ This event represents a Build task that has finished. This event will eventually
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
 | artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ⚪ |
 
-🚧 The build model is work in progress.
-
 ### `testCase queued`
 
 This event represents a Test task that has been queued, and it is waiting to be started.
 
-- Event Type: __`dev.cdevents.testcase.queued.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testcase.queued.0.1.0`__
 - Predicate: queued
 - Subject: [`testCase`](#testcase)
 
@@ -128,13 +122,11 @@ This event represents a Test task that has been queued, and it is waiting to be 
 | id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
 
-🚧 The testCase model is work in progress.
-
 ### `testCase started`
 
 This event represents a Test task that has started.
 
-- Event Type: __`dev.cdevents.testcase.started.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testcase.started.0.1.0`__
 - Predicate: started
 - Subject: [`testCase`](#testcase)
 
@@ -142,14 +134,12 @@ This event represents a Test task that has started.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
-
-🚧 The testCase model is work in progress.
 
 ### `testCase finished`
 
 This event represents a Test task that has finished. This event will eventually contain the finished status: success, error or failure.
 
-- Event Type: __`dev.cdevents.testcase.finished.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testcase.finished.0.1.0`__
 - Predicate: finished
 - Subject: [`testCase`](#testcase)
 
@@ -158,13 +148,11 @@ This event represents a Test task that has finished. This event will eventually 
 | id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
 
-🚧 The testCase model is work in progress.
-
 ### `testSuite started`
 
 This event represents a Test suite that has been started.
 
-- Event Type: __`dev.cdevents.testsuite.started.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testsuite.started.0.1.0`__
 - Predicate: started
 - Subject: [`testSuite`](#testsuite)
 
@@ -173,13 +161,11 @@ This event represents a Test suite that has been started.
 | id    | `String` | Uniquely identifies the subject within the source. | `unit`, `e2e`, `security` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
 
-🚧 The testSuite model is work in progress.
-
 ### `testSuite finished`
 
 This event represents a Test suite that has has finished, the event will contain the finished status: success, error or failure.
 
-- Event Type: __`dev.cdevents.testsuite.finished.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testsuite.finished.0.1.0`__
 - Predicate: finished
 - Subject: [`testSuite`](#testsuite)
 
@@ -188,13 +174,11 @@ This event represents a Test suite that has has finished, the event will contain
 | id    | `String` | Uniquely identifies the subject within the source. | `unit`, `e2e`, `security` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
 
-🚧 The testSuite model is work in progress.
-
 ### `artifact packaged`
 
 The event represents an artifact that has been packaged for distribution; this artifact is now versioned with a fixed version.
 
-- Event Type: __`dev.cdevents.artifact.packaged.0.1.0-draft`__
+- Event Type: __`dev.cdevents.artifact.packaged.0.1.0`__
 - Predicate: packaged
 - Subject: [`artifact`](#artifact)
 
@@ -207,7 +191,7 @@ The event represents an artifact that has been packaged for distribution; this a
 
 The event represents an artifact that has been published and it can be advertised for others to use.
 
-- Event Type: __`dev.cdevents.artifact.published.0.1.0-draft`__
+- Event Type: __`dev.cdevents.artifact.published.0.1.0`__
 - Predicate: published
 - Subject: [`artifact`](#artifact)
 

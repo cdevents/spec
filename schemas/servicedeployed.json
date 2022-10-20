@@ -1,15 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.1.0-draft/schema/service-deployed-event",
+  "$id": "https://cdevents.dev/0.1.0/schema/service-deployed-event",
   "properties": {
     "context": {
       "properties": {
         "version": {
           "type": "string",
           "enum": [
-            "0.1.0-draft"
+            "0.1.0"
           ],
-          "default": "0.1.0-draft"
+          "default": "0.1.0"
         },
         "id": {
           "type": "string",
@@ -96,8 +96,8 @@
           "type": "object"
         },
         {
-          "type": "string",
-          "contentEncoding": "base64"
+      "type": "string",
+      "contentEncoding": "base64"
         }
       ]
     },
