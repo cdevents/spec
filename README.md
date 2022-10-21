@@ -39,11 +39,9 @@ points for metrics.
 ## CDEvents Specification
 
 The latest release of the specification is
-[v0.1](https://github.com/cdevents/spec/tree/0.1.0/spec.md).
+[v0.1.0](https://github.com/cdevents/spec/tree/0.1.0/spec.md), and you can continuously follow the latest updates
 
-You can also preview the ongoing work on the [CDEvents Specification](./spec.md)
-on the `main` branch.
-
+The concepts and ideas that have formed the current specification are outlined in the [CDEvents Primer](./primer.md).
 ## CDEvents SDKs
 
 CDEvents is developing as set of SDKs:
