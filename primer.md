@@ -187,7 +187,7 @@ The version of an event is included in its type. This allows for easy filtering
 of events of a specific version, by looking at a single field in the context.
 Examples of full event versions are:
 
-- `dev.cdevents.build.queued.0.1.0`
+- `dev.cdevents.build.queued.0.1.0-draft`
 - `dev.cdevents.environment.deleted.0.1.0`
 
 ### Versioning of the CDEvents specification
@@ -207,7 +207,7 @@ format `vMajor.Minor.Patch`.
   identified by a change in the major version, for instance 0.1.2 -> 2.0.0
 
 While a version of the specification is work in progress, its version is tagged
-with an extra `-draft` at the end, for instance 0.1.0.
+with an extra `-draft` at the end, for instance 0.1.0-draft.
 
 ### Development of a new version
 
@@ -408,11 +408,11 @@ There are two root use cases that we are considering:
 
 The [CDF Interoperability Special Interest Group][sig-interop] has produced a
 [table of the terms][tool-terms] used by different CI/CD tools and how they
-related to each other. The SIG is also working on distilling a recommended
-[shared terminology][shared-terms]. CDEvents strives to adopt to the shared
-terminology and collaborate with the SIG Interoperability.
+relate to each other. The SIG Interoperability is also working on distilling a
+recommended [shared terminology][shared-terms]. CDEvents strives to adopt to the
+shared terminology and collaborate with the SIG Interoperability.
 
-Work to align terms to those identified by the SIG will continue in upcoming
+Work to align terms to those identified by the SIG Interoperability will continue in upcoming
 CDEvents releases.
 
 ## Design Decisions
