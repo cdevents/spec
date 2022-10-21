@@ -306,7 +306,7 @@ limitation can be worked-around by adding the missing data in the tool output.
 This solution may be brittle, because the tool output may not be a stable
 interface for the tool, and it may change over time without notice.
 
-![watcher-producer](watcher-producer.svg)
+![watcher-producer](images/watcher-producer.svg)
 
 This approach is certainly valid to build a proof-of-concept or to experiment
 with events in an existing environment.
@@ -320,7 +320,7 @@ tool itself and the process of generating events.
 If a tool does produce events, it may be possible to use an external adapter
 component to convert the existing events into CDEvents.
 
-![adapter](adapter.svg)
+![adapter](images/adapter.svg)
 
 Similar to the [previous case](#external-event-producer), incoming events may be
 missing data required by CDEvents. If the events come from a tool that we do not
@@ -337,7 +337,7 @@ solved on the producer side by sending both format of events in parallel.
 In some cases it may be possible to use a single broker for both event types,
 for instance if both formats are CloudEvents based.
 
-![multiple-produced](multiple-produced.svg)
+![multiple-produced](images/multiple-produced.svg)
 
 ### Consumer-side architectures
 
@@ -352,7 +352,7 @@ produces only one format of events, which is sent to the broker. The adapter
 subscribes to the events, converts them and publishes them back to the broker.
 Consumer may then subscribe to the type of events that they prefer.
 
-![original-adapter](original-adapter.svg)
+![original-adapter](images/original-adapter.svg)
 
 With this architecture, the adapter may even be able to convert messages from
 different tools, instead of just one.
@@ -365,7 +365,7 @@ An adapter can be used to convert a CDEvent into the consumer specific format or
 to extract data from a CDEvent and use it to invoke an API for the receiving
 side.
 
-![consumer-adapter](consumer-adapter.svg)
+![consumer-adapter](images/consumer-adapter.svg)
 
 #### Multiple event formats consumed
 
@@ -373,7 +373,7 @@ In this scenario, a new tool is added that produces CDEvents. An existing
 consumer wants to benefit from existing events as well as the events from the
 new tool.
 
-![multiple-received](multiple-received.svg)
+![multiple-received](images/multiple-received.svg)
 
 A single consumer may receive events from heterogenous sources.
 
