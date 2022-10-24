@@ -71,10 +71,7 @@
             }
           },
           "additionalProperties": false,
-          "type": "object",
-          "required": [
-            "repository"
-          ]
+          "type": "object"
         }
       },
       "additionalProperties": false,
