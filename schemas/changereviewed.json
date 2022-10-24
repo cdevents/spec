@@ -7,7 +7,6 @@
         "version": {
           "type": "string",
           "enum": [
-            "0.1.0",
             "0.1.1"
           ],
           "default": "0.1.1"
