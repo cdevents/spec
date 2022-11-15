@@ -209,6 +209,14 @@ format `vMajor.Minor.Patch`.
 While a version of the specification is work in progress, its version is tagged
 with an extra `-draft` at the end, for instance 0.1.0-draft.
 
+The version is in each schema as part of the schema id and it's included in
+each event in the "version" field. The version field does not include enum nor
+default values in the schema because that would require changing the event
+version every time the spec version is changed. Examples:
+
+- Schema: `"$id": "https://cdevents.dev/0.1.1/schema/artifact-packaged-event",`
+- Event: `"version": "0.1.1"`
+
 ### Development of a new version
 
 The specification on the main branch is versioned with the number of the next
