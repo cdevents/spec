@@ -38,7 +38,7 @@ points for metrics.
 
 ## CDEvents Specification
 
-The latest release of the specification is
+The latest release of the specification on this branch is
 [v0.1.1](https://github.com/cdevents/spec/tree/v0.1.1/spec.md), and you can
 continuously follow the latest updates of the specification on [the `main`
 branch](./spec.md).
