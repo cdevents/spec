@@ -269,7 +269,7 @@ This is an example of a full CDEvent context, rendered in JSON format:
 ```json
 {
     "context": {
-    "version" : "0.1.1",
+    "version": "0.2.0-draft",
     "id" : "A234-1234-1234",
     "source" : "/staging/tekton/",
     "type" : "dev.cdevents.taskrun.started",
@@ -354,7 +354,7 @@ The following example shows `context` and `subject` together, rendered as JSON.
 ```json
 {
    "context": {
-      "version" : "0.1.1",
+      "version": "0.2.0-draft",
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
       "type" : "dev.cdevents.taskrun.started",

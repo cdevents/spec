@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.1.1/schema/service-upgraded-event",
+  "$id": "https://cdevents.dev/0.2.0-draft/schema/service-upgraded-event",
   "properties": {
     "context": {
       "properties": {
