@@ -17,31 +17,33 @@
 
 function usage() {
     cat <<EOF
-spec-release.sh is tool to manage spec releases
+event-version.sh is tool to manage event versions
 
 Usage:
-  spec-release.sh -s
-  spec-release.sh -m
-  spec-release.sh -e
-  spec-release.sh -p
-  spec-release.sh -v Major.minor.patch
+  event-version.sh -u subject.predicate -s
+  event-version.sh -u subject.predicate -m
+  event-version.sh -u subject.predicate -e
+  event-version.sh -u subject.predicate -p
+  event-version.sh -u subject.predicate -v Major.minor.patch
 
--s  Start a new release on the main branch by incrementing the minor version by one.
+-u  Specify the subject.predicate of the event to be updated
 
--m  Start a new release on the main branch by incrementing the major version by one.
+-s  Start a new event version by incrementing the minor version by one.
 
--e  End the current draft release.
+-m  Start a new version by incrementing the major version by one.
 
--p  Patch the release on a spec-vM.m branch by increasing the latest patch available by one.
+-e  End the current draft version.
 
--v  Set the version to Major.minor.patch
+-p  Patch the event version by increasing the latest patch available by one.
+
+-v  Set the event version to Major.minor.patch
 
 Examples:
-  spec-release.sh -s -> updates all release references on main fom from M.m.0 to M.m+1.0-draft
-  spec-release.sh -m -> updates all release references on main from from M.m.0 to M+1.0.0-draft
-  spec-release.sh -e -> updates all release references on main from M.m.0-draft to M.m.0
-  spec-release.sh -p -> updates all release references on spec-vM.m from M.m.p to M.m.p+1
-  spec-release.sh -v 1.2.3 -> updates all release references to 1.2.3
+  event-version.sh -u artifact.packaged -s -> updates all event references from M.m.0 to M.m+1.0-draft
+  event-version.sh -u artifact.packaged -m -> updates all event references from M.m.0 to M+1.0.0-draft
+  event-version.sh -u artifact.packaged -e -> updates all event references from M.m.0-draft to M.m.0
+  event-version.sh -u artifact.packaged -p -> updates all event references from M.m.p to M.m.p+1
+  event-version.sh -u artifact.packaged -v 1.2.3 -> updates all event references to 1.2.3
 EOF
 }
 
@@ -49,7 +51,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-declare COMMAND INCREMENT VERSION NEW_VERSION
+declare COMMAND INCREMENT VERSION NEW_VERSION EVENT_SUBJECT_PREDICATE
 declare VERSION_FILE=version.txt
 
 START_COMMAND=start
@@ -61,7 +63,7 @@ VERSION_COMMAND=version
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 cd "${ROOT}" 
 
-while getopts ":smepv:" o; do
+while getopts ":smepv:u:" o; do
     case "${o}" in
         s)
             COMMAND="${START_COMMAND}"
@@ -80,6 +82,8 @@ while getopts ":smepv:" o; do
         v)  COMMAND="${VERSION_COMMAND}"
             NEW_VERSION=${OPTARG}
             ;;
+        u)  EVENT_SUBJECT_PREDICATE=${OPTARG}
+            ;;
         *)
             usage
             exit 1
@@ -88,7 +92,7 @@ while getopts ":smepv:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${COMMAND}" ]; then
+if [[ -z "${COMMAND}" || -z "${EVENT_SUBJECT_PREDICATE}" ]]; then
     usage
 fi
 
@@ -97,7 +101,14 @@ if [ ! -f "$VERSION_FILE" ]; then
     exit 1
 fi
 
-OLD_VERSION=$(cat ${VERSION_FILE})
+# Evaluate the event subject.predicate
+SPLIT_EVENT=(${EVENT_SUBJECT_PREDICATE//./ })
+SUBJECT=${SPLIT_EVENT[0]}
+PREDICATE=${SPLIT_EVENT[1]}
+SCHEMA_FILE="schemas/${SUBJECT}${PREDICATE}.json"
+
+# Evaluate the event version
+OLD_VERSION=$(sed -n -e '/"default": "dev.cdevents.'${SUBJECT}'.'${PREDICATE}'./s/.*\.\([0-9]\.[0-9]\.[0-9]\)"/\1/p' ${SCHEMA_FILE})
 VERSION="${NEW_VERSION:-$OLD_VERSION}"
 SPLIT_VERSION=(${VERSION//./ })
 MAJOR_VERSION=${SPLIT_VERSION[0]}
@@ -144,21 +155,12 @@ fi
 VERSION="${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}${DRAFT_VERSION}"
 
 # Replace the version in the schema IDs
-find schemas -name '*json' | \
-    xargs sed -i ".backup" -e 's,https://cdevents.dev/'${OLD_VERSION}'/schema/,https://cdevents.dev/'${VERSION}'/schema/,g'
+sed -i ".backup" -e 's,"dev.cdevents.*","dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'",g' "${SCHEMA_FILE}"
 
 # Update examples in docs
-for doc in cloudevents-binding spec; do
-    sed -i ".backup" -e 's;"version": "'${OLD_VERSION}'",;"version": "'${VERSION}'",;g' "${doc}.md"
+for doc in core source-code-version-control continuous-integration-pipeline-events continuous-deployment-pipeline-events; do
+    sed -i ".backup" -e 's,__`dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.*`__,__`dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'`__,g' "${doc}.md"
 done
-
-# Do not set the release in the main README for in progress releases
-if [[ "${COMMAND}" != "${START_COMMAND}" ]]; then
-    sed -i ".backup" -e 's;v'${OLD_VERSION}';v'${VERSION}';g' "README.md"
-fi
 
 # Cleanup backup files
 find . -name '*.backup' | xargs rm
-
-# Set the new version in the version file
-echo "${VERSION}" > "${VERSION_FILE}"

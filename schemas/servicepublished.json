@@ -18,7 +18,10 @@
         },
         "type": {
           "type": "string",
-          "minLength": 1
+          "enum": [
+            "dev.cdevents.service.published.0.1.0"
+          ],
+          "default": "dev.cdevents.service.published.0.1.0"
         },
         "timestamp": {
           "type": "string",
