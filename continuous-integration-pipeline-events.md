@@ -2,6 +2,8 @@
 ---
 linkTitle: "Continuous Integration Events"
 weight: 50
+hide_summary: true
+icon: "fa-solid fa-network-wired"
 description: >
    Continuous Integration Events
 ---

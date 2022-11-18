@@ -1,14 +1,16 @@
 <!--
 ---
-linkTitle: "Source Code Version Control Events"
+linkTitle: "Source Code Control Events"
 weight: 40
+hide_summary: true
+icon: "fa-solid fa-code-branch"
 description: >
-   Source Code Version Control Events
+   Source Code Control Events
 ---
 -->
-# Source Code Version Control Events
+# Source Code Control Events
 
-Source Code Version Control events includes the subjects and predicates related to changes in Source Code repositories that are relevant from a Continuous Delivery perspective.
+Source Code Control events includes the subjects and predicates related to changes in Source Code repositories that are relevant from a Continuous Delivery perspective.
 
 ## Subjects
 
