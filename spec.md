@@ -2,6 +2,8 @@
 ---
 linkTitle: "Common Metadata"
 weight: 30
+icon: "fas fa-info-circle"
+hide_summary: true
 description: >
     Introduction to CDEvents and specification of common metadata
 ---

@@ -2,6 +2,8 @@
 ---
 linkTitle: "CloudEvents Binding"
 weight: 100
+hide_summary: true
+icon: "fa-solid fa-arrow-right-arrow-left"
 description: >
    CloudEvents Binding for CDEvents
 ---

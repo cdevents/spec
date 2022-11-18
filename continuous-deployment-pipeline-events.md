@@ -2,6 +2,8 @@
 ---
 linkTitle: "Continuous Deployment Events"
 weight: 60
+hide_summary: true
+icon: "fa-solid fa-satellite-dish"
 description: >
    Continuous Deployment Events
 ---
