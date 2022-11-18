@@ -491,14 +491,18 @@ dedicated document in the spec:
 - __[Source Code Version Control](source-code-version-control.md)__: Events
   emitted by changes in source code or by the creation, modification or
   deletion of new repositories that hold source code.
-- __[Continuous Integration](continuous-integration-pipeline-events.md)__:
+- __[Continuous Integration](continuous-integration.md)__:
   includes events related to building, testings, packaging and releasing
   software artifacts, usually binaries.
-- __[Continuous Deployment](continuous-deployment-pipeline-events.md)__:
+- __[Continuous Deployment](continuous-deployment.md)__:
   include events related with environments where the artifacts produced by the
   integration pipelines actually run. These are usually services running in a
   specific environment (dev, QA, production), or embedded software running in
   a specific hardware.
+- __[Continuous Operations](continuous-operations.md)__: include events related
+  to the health of the services deployed and running in a specific environment.
+  Health may refer to different aspects such as performance, availability,
+  response time and more.
 
 The grouping may serve in future as a reference for different CDEvents
 compliance profiles, which can be supported individually by implementing

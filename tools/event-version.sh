@@ -158,7 +158,7 @@ VERSION="${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}${DRAFT_VERSION}"
 sed -i ".backup" -e 's,"dev.cdevents.*","dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'",g' "${SCHEMA_FILE}"
 
 # Update examples in docs
-for doc in core source-code-version-control continuous-integration-pipeline-events continuous-deployment-pipeline-events; do
+for doc in core source-code-version-control continuous-integration continuous-deployment; do
     sed -i ".backup" -e 's,__`dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.*`__,__`dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'`__,g' "${doc}.md"
 done
 
