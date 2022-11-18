@@ -2,6 +2,8 @@
 ---
 linkTitle: "Primer"
 weight: 20
+icon: "fa-solid fa-graduation-cap"
+hide_summary: true
 description: >
     A CDEvents primer
 ---
