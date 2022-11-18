@@ -2,6 +2,8 @@
 ---
 linkTitle: "Core Events"
 weight: 30
+hide_summary: true
+icon: "fa-solid fa-bars-staggered"
 description: >
    Continuous Delivery Core Events
 ---
