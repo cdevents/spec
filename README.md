@@ -70,11 +70,15 @@ Definition of specific events that are fundamental to pipeline execution and orc
 
 Handling Events relating to changes in version management of Source Code and related assets
 
-### [Continuous Integration Events](./continuous-integration-pipeline-events.md)
+### [Continuous Integration Events](./continuous-integration.md)
 
 Handling Events associated with Continuous Integration activities, typically involving build and test
 
-### [Continuous Deployment Events](./continuous-deployment-pipeline-events.md)
+### [Continuous Deployment Events](./continuous-deployment.md)
+
+Handling Events associated with Continuous Deployment activities
+
+### [Continuous Operatorations](./continuous-operations.md)
 
 Handling Events associated with Continuous Deployment activities
 
