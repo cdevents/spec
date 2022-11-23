@@ -77,10 +77,10 @@ This event represents a Build task that has been queued; this build process usua
 - Predicate: queued
 - Subject: [`build`](#build)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
 
 ### `build started`
 
@@ -90,10 +90,10 @@ This event represents a Build task that has been started; this build process usu
 - Predicate: started
 - Subject: [`build`](#build)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
 
 ### `build finished`
 
@@ -103,11 +103,11 @@ This event represents a Build task that has finished. This event will eventually
 - Predicate: finished
 - Subject: [`build`](#build)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
-| artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | |
 
 ### `testCase queued`
 
@@ -117,10 +117,10 @@ This event represents a Test task that has been queued, and it is waiting to be 
 - Predicate: queued
 - Subject: [`testCase`](#testcase)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
 
 ### `testCase started`
 
@@ -130,10 +130,10 @@ This event represents a Test task that has started.
 - Predicate: started
 - Subject: [`testCase`](#testcase)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
 
 ### `testCase finished`
 
@@ -143,10 +143,10 @@ This event represents a Test task that has finished. This event will eventually 
 - Predicate: finished
 - Subject: [`testCase`](#testcase)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
 
 ### `testSuite started`
 
@@ -156,10 +156,10 @@ This event represents a Test suite that has been started.
 - Predicate: started
 - Subject: [`testSuite`](#testsuite)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `unit`, `e2e`, `security` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
 
 ### `testSuite finished`
 
@@ -169,10 +169,10 @@ This event represents a Test suite that has has finished, the event will contain
 - Predicate: finished
 - Subject: [`testSuite`](#testsuite)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `unit`, `e2e`, `security` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
 
 ### `artifact packaged`
 
@@ -182,10 +182,10 @@ The event represents an artifact that has been packaged for distribution; this a
 - Predicate: packaged
 - Subject: [`artifact`](#artifact)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `Purl` | Uniquely identifies the subject within the source. | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
 
 ### `artifact published`
 
@@ -195,7 +195,7 @@ The event represents an artifact that has been published and it can be advertise
 - Predicate: published
 - Subject: [`artifact`](#artifact)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `Purl` | Uniquely identifies the subject within the source. | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |

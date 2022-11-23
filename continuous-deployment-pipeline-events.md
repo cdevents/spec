@@ -53,12 +53,12 @@ This event represents an environment that has been created. Such an environment 
 - Predicate: created
 - Subject: [`environment`](#environment)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
-| name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| ⚪ |
-| url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| |
+| url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| |
 
 ### `environment modified`
 
@@ -68,12 +68,12 @@ This event represents an environment that has been modified.
 - Predicate: modified
 - Subject: [`environment`](#environment)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
-| name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| ⚪ |
-| url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| |
+| url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| |
 
 ### `environment deleted`
 
@@ -83,11 +83,11 @@ This event represents an environment that has been deleted.```
 - Predicate: deleted
 - Subject: [`environment`](#environment)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | ⚪ |
-| name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| ⚪ |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| |
 
 ### `service deployed`
 
@@ -97,7 +97,7 @@ This event represents a new instance of a service that has been deployed
 - Predicate: deployed
 - Subject: [`service`](#service)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
@@ -111,7 +111,7 @@ This event represents an existing instance of a service that has been upgraded t
 - Predicate: upgraded
 - Subject: [`service`](#service)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
@@ -125,7 +125,7 @@ This event represents an existing instance of a service that has been rolled bac
 - Predicate: rolledback
 - Subject: [`service`](#service)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
@@ -139,7 +139,7 @@ This event represents the removal of a previously deployed service instance and 
 - Predicate: removed
 - Subject: [`service`](#service)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
@@ -152,7 +152,7 @@ This event represents an existing instance of a service that has an accessible U
 - Predicate: published
 - Subject: [`service`](#service)
 
-| Field | Type | Description | Examples | Mandatory ✅ \| Optional ⚪ |
+| Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `service/myapp`, `daemonset/myapp` | ✅ |
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
