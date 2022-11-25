@@ -43,7 +43,7 @@ The latest release of the specification on is
 continuously follow the latest updates of the specification on [the `main`
 branch](./spec.md).
 
-The concepts and ideas that have formed the current specification are outlined in the [CDEvents Primer](./primer.md).
+The concepts and ideas that have formed the current specification are outlined in the [CDEvents Primer](./primer/_index.md).
 ## CDEvents SDKs
 
 CDEvents is developing as set of SDKs:
