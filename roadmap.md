@@ -1,3 +1,14 @@
+<!--
+---
+linkTitle: "Roadmap"
+weight: 40
+icon: "fa-solid fa-map"
+hide_summary: true
+toc_hide: true
+description: >
+    Mission and Roadmap
+---
+-->
 # CDEvents Mission and Roadmap
 
 This document describes the mission of the CDEvents and its overall roadmap for 2022.
