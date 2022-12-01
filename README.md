@@ -43,7 +43,45 @@ The latest release of the specification on is
 continuously follow the latest updates of the specification on [the `main`
 branch](./spec.md).
 
-The concepts and ideas that have formed the current specification are outlined in the [CDEvents Primer](./primer/_index.md).
+To understand more about the concepts and ideas that have formed the current published
+specification, visit the [CDEvents Documentation](https://cdevents.dev/docs/) site.
+
+The reference specification is maintained in this repository.
+
+Key assets are as follows:
+
+### [White Paper](./CDEvents_Whitepaper.pdf)
+
+The Continuous Delivery Foundation White Paper on CDEvents
+
+### [Primer](https://cdevents.dev/docs/primer/)
+
+An introduction to CDEvents and associated concepts
+
+### [Common Metadata](./spec.md)
+
+An overview of Metadata common across the CDEvents Specification
+
+### [Core Events](./core.md)
+
+Definition of specific events that are fundamental to pipeline execution and orchestration
+
+### [Source Code Control Events](./source-code-version-control.md)
+
+Handling Events relating to changes in version management of Source Code and related assets
+
+### [Continuous Integration Events](./continuous-integration-pipeline-events.md)
+
+Handling Events associated with Continuous Integration activities, typically involving build and test
+
+### [Continuous Deployment Events](./continuous-deployment-pipeline-events.md)
+
+Handling Events associated with Continuous Deployment activities
+
+### [CloudEvents Binding and Transport](./cloudevents-binding.md)
+
+Defining how CDEvents are mapped to CloudEvents for transportation and delivery
+
 ## CDEvents SDKs
 
 CDEvents is developing as set of SDKs:
@@ -51,6 +89,7 @@ CDEvents is developing as set of SDKs:
 * [Go](https://github.com/cdevents/sdk-go)
 * [Python](https://github.com/cdevents/sdk-python)
 * [Java](https://github.com/cdevents/sdk-java)
+
 
 ## Community
 
@@ -65,7 +104,7 @@ via:
 
 ### Contributing
 
-If you would like to contribute, see our [contributing](https://github.com/cdevents/.github/blob/main/docs/CONTRIBUTING.md)
+If you would like to contribute, see our [contributing](https://cdevents.dev/community/contribution-guidelines/)
 guidelines.
 
 ### Governance
