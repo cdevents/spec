@@ -28,12 +28,12 @@ This specification defines three subjects in this stage: `testCase`, `testSuite`
 A `testCase` is a process that performs a test against an input software artifact of some kind, for instance source code, a binary, a container image or else.
 A `testCase` is the smallest unit of testing that the user wants to track. `testCases` are executed, and `testSuites` are for grouping purposes.
 
-| Field     | Type            | Description                                                                                                                            | Examples                                                     |
-|-----------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
-| id        | `String`        | Uniquely identifies the subject within the source.                                                                                     | `unitest-abc`, `e2e-test1`, `scan-image1`                    |
-| source    | `URI-Reference` | [source](spec.md#source--context-) from the context                                                                                    | `staging/tekton`, `tekton-dev-123`                           |
-| type      | `String`        | Type type of test, must be one of the following: `unit`, `functional`, `performance`, `integration`, `security`, `compliance`, `other` | `functional`                                                 |
-| url       | `URI-Reference` | An optional reference to view/access the specified testCase                                                                            | `https://testkube.mycluster.internal/testCases/untitest-abc` |         
+| Field  | Type            | Description                                                 | Examples                                                     |
+|--------|-----------------|-------------------------------------------------------------|--------------------------------------------------------------|
+| id     | `String`        | Uniquely identifies the subject within the source.          | `unitest-abc`, `e2e-test1`, `scan-image1`                    |
+| source | `URI-Reference` | [source](spec.md#source--context-) from the context         | `staging/tekton`, `tekton-dev-123`                           |
+| type   | `String`        | An optional type of test                                    | `functional`, `unit`, `performance`, `security`              |
+| url    | `URI-Reference` | An optional reference to view/access the specified testCase | `https://testkube.mycluster.internal/testCases/untitest-abc` |         
 
 ### `testSuite`
 
@@ -88,6 +88,8 @@ This event represents a Test task that has finished. This event will eventually 
 | source      | `URI-Reference` | [source](spec.md#source--context-) from the context                             |                                           |          |
 | executionId | `String`        | An optional execution ID to enable handling of multiple simultaneous executions |                                           |          |
 | status      | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted`     |                                           | ✅        |
+| reason      | `String`        | An optional reason related to the status of the execution                       | `Cancelled by user`, `Failed assertion`   |          |
+
 
 ### `testSuite started`
 
@@ -111,11 +113,12 @@ This event represents a Test suite that has has finished, the event will contain
 - Predicate: finished
 - Subject: [`testSuite`](#testsuite)
 
-| Field  | Type            | Description                                                                 | Examples                  | Required |
-|--------|-----------------|-----------------------------------------------------------------------------|---------------------------|----------|
-| id     | `String`        | Uniquely identifies the subject within the source.                          | `unit`, `e2e`, `security` | ✅        |
-| source | `URI-Reference` | [source](spec.md#source--context-) from the context                         |                           |          |
-| status | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted` |                           | ✅        |
+| Field  | Type            | Description                                                                 | Examples                               | Required |
+|--------|-----------------|-----------------------------------------------------------------------------|----------------------------------------|----------|
+| id     | `String`        | Uniquely identifies the subject within the source.                          | `unit`, `e2e`, `security`              | ✅        |
+| source | `URI-Reference` | [source](spec.md#source--context-) from the context                         |                                        |          |
+| status | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted` |                                        | ✅        |
+| reason | `String`        | An optional reason related to the status of the execution                   | `Cancelled by user`, `Failed testCase` |          |
 
 ### `testArtifact published`
 
