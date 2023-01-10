@@ -28,12 +28,13 @@ This specification defines three subjects in this stage: `testCase`, `testSuite`
 A `testCase` is a process that performs a test against an input software artifact of some kind, for instance source code, a binary, a container image or else.
 A `testCase` is the smallest unit of testing that the user wants to track. `testCases` are executed, and `testSuites` are for grouping purposes.
 
-| Field  | Type            | Description                                                 | Examples                                                     |
-|--------|-----------------|-------------------------------------------------------------|--------------------------------------------------------------|
-| id     | `String`        | Uniquely identifies the subject within the source.          | `unitest-abc`, `e2e-test1`, `scan-image1`                    |
-| source | `URI-Reference` | [source](spec.md#source--context-) from the context         | `staging/tekton`, `tekton-dev-123`                           |
-| type   | `String`        | An optional type of test                                    | `functional`, `unit`, `performance`, `security`              |
-| url    | `URI-Reference` | An optional reference to view/access the specified testCase | `https://testkube.mycluster.internal/testCases/untitest-abc` |         
+| Field    | Type            | Description                                                            | Examples                                                     |
+|----------|-----------------|------------------------------------------------------------------------|--------------------------------------------------------------|
+| id       | `String`        | Uniquely identifies the subject within the source.                     | `unitest-abc`, `e2e-test1`, `scan-image1`                    |
+| source   | `URI-Reference` | [source](spec.md#source--context-) from the context                    | `staging/tekton`, `tekton-dev-123`                           |
+| type     | `String`        | An optional type of test                                               | `functional`, `unit`, `performance`, `security`              |
+| severity | `String`        | An optional severity, one of `warn`, `critical`, `low`, `high`, `info` | `functional`, `unit`, `performance`, `security`              |
+| url      | `URI-Reference` | An optional reference to view/access the specified testCase            | `https://testkube.mycluster.internal/testCases/untitest-abc` |         
 
 ### `testSuite`
 
