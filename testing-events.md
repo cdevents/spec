@@ -30,11 +30,11 @@ A `testCase` is the smallest unit of testing that the user wants to track. `test
 
 | Field    | Type            | Description                                                            | Examples                                                     |
 |----------|-----------------|------------------------------------------------------------------------|--------------------------------------------------------------|
-| id       | `String`        | Uniquely identifies the subject within the source.                     | `unitest-abc`, `e2e-test1`, `scan-image1`                    |
+| id       | `String`        | Uniquely identifies the subject within the source.                     | `integration-test-abc`, `e2e-test1`, `scan-image1`                    |
 | source   | `URI-Reference` | [source](spec.md#source--context-) from the context                    | `staging/tekton`, `tekton-dev-123`                           |
 | type     | `String`        | An optional type of test                                               | `functional`, `unit`, `performance`, `security`              |
-| severity | `String`        | An optional severity, one of `warn`, `critical`, `low`, `high`, `info` | `functional`, `unit`, `performance`, `security`              |
-| url      | `URI-Reference` | An optional reference to view/access the specified testCase            | `https://testkube.mycluster.internal/testCases/untitest-abc` |         
+| severity | `String`        | An optional severity, one of `critical`, `low`, `medium`, `high`       | `critical`, `low`, `medium`, `high`              |
+| url      | `URI-Reference` | An optional reference to view/access the specified testCase            | `https://testkube.mycluster.internal/testCases/untitest-abc` |
 
 ### `testSuite`
 
@@ -57,6 +57,10 @@ One ore more `testArtifact`s are usually produced as the result of a test execut
 | type   | `String`        | The type of artifact, one of `report`, `video`, `image`, `log`, `other` | `video`                                                  |
 | format | `String`        | The Content-Type of the artifact                                        | `application/pdf`, `image/png`, `application/json`       |         
 | url    | `URI-Reference` | A reference to retrieve the specified artifact                          | `https://testkube.mycluster.internal/artifacts/23123123` |         
+
+| testCaseId    | `URI-Reference` | A reference to the testCase
+`https://testkube.mycluster.internal/artifacts/23123123` |         
+
 
 ## Events
 
