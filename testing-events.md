@@ -11,7 +11,7 @@ description: >
 # Testing Events
 
 Testing events covers the subjects and predicates related to test-execution 
-which is performed independently of CI/CD pipelines. 
+performed independently of CI/CD pipelines. 
 
 ## Subjects
 
@@ -48,19 +48,16 @@ A `testSuite` represents a set of one or more `testCases`.
 
 ### `testArtifact`
 
-One ore more `testArtifact`s are usually produced as the result of a test execution.  
+One or more `testArtifact`s are usually produced as the result of a test execution.  
 
-| Field  | Type            | Description                                                             | Examples                                                 |
-|--------|-----------------|-------------------------------------------------------------------------|----------------------------------------------------------|
-| id     | `String`        | Uniquely identifies the subject within the source.                      | `23123123`                                               |
-| source | `URI-Reference` | [source](spec.md#source--context-) from the context                     | `staging/tekton`, `tekton-dev-123`                       |
-| type   | `String`        | The type of artifact, one of `report`, `video`, `image`, `log`, `other` | `video`                                                  |
-| format | `String`        | The Content-Type of the artifact                                        | `application/pdf`, `image/png`, `application/json`       |         
-| url    | `URI-Reference` | A reference to retrieve the specified artifact                          | `https://testkube.mycluster.internal/artifacts/23123123` |         
-
-| testCaseId    | `URI-Reference` | A reference to the testCase
-`https://testkube.mycluster.internal/artifacts/23123123` |         
-
+| Field      | Type            | Description                                                             | Examples                                                 |
+|------------|-----------------|-------------------------------------------------------------------------|----------------------------------------------------------|
+| id         | `String`        | Uniquely identifies the subject within the source.                      | `23123123`                                               |
+| source     | `URI-Reference` | [source](spec.md#source--context-) from the context                     | `staging/tekton`, `tekton-dev-123`                       |
+| type       | `String`        | The type of artifact, one of `report`, `video`, `image`, `log`, `other` | `video`                                                  |
+| format     | `String`        | The Content-Type of the artifact                                        | `application/pdf`, `image/png`, `application/json`       |         
+| url        | `URI-Reference` | A reference to retrieve the specified artifact                          | `https://testkube.mycluster.internal/artifacts/23123123` |         
+| testCaseId | `URI-Reference` | An optional reference to the testCase resulting in this testArtifact    | `https://testkube.mycluster.internal/testCase/123123`    |         
 
 ## Events
 
