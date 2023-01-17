@@ -19,9 +19,9 @@ This specification defines three subjects in this stage: `builds`, `artifacts` a
 | Subject | Description | Predicates |
 |---------|-------------|------------|
 | [`build`](#build) | A software build | [`queued`](#build-queued), [`started`](#build-started), [`finished`](#build-finished)|
-| [`testCase`](#testcase) | A software test case | [`queued`](#testcase-queued), [`started`](#testcase-started), [`finished`](#testcase-finished)|
-| [`testSuite`](#testsuite) | A collection of test cases | [`started`](#testsuite-started), [`finished`](#testsuite-finished)|
 | [`artifact`](#artifact) | An artifact produced by a build | [`packaged`](#artifact-packaged), [`published`](#artifact-published)|
+
+> `testCase`/`testSuite` events have moved to their own top-level bucket [Testing Events](testing-events.md)
 
 ### `build`
 
@@ -31,34 +31,9 @@ __Note:__ The data model for `builds`, apart from `id` and `source`, only includ
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
-| id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](spec.md#type-subject) | `build` |
+| id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` |
+| source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
 | artifactId | `String` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
-
-### `testCase`
-
-A `testCase` is a process that performs a test against an input software artifact of some kind, for instance source code, a binary, a container image or else. A `testCase`  is the smallest unit of testing that the user wants to track. `testCases` are executed, and `testSuites` are for grouping purposes. For this reason, `testCases` can be queued.
-
-__Note:__ The data model for `testCase` only includes `id` and `source`, inputs and outputs of the process are not specified yet, as well as the relation to `testSuite`.
-
-| Field | Type | Description | Examples |
-|-------|------|-------------|----------|
-| id    | `String` | See [id](spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](spec.md#type-subject) | `testCase` |
-
-### `testSuite`
-
-A `testSuite` represents a set of one or more `testCases`.
-
-__Note:__ The data model for `testSuite` only includes `id` and `source`, inputs and outputs of the process are not specified yet, as well as the relation to `testCase`.
-
-| Field | Type | Description | Examples |
-|-------|------|-------------|----------|
-| id    | `String` | See [id](spec.md#id-subject)| `unit`, `e2e`, `security` |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](spec.md#type-subject) | `testSuite` |
 
 ### `artifact`
 
@@ -115,76 +90,6 @@ This event represents a Build task that has finished. This event will eventually
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | |
 | artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | `build` | |
-
-### `testCase queued`
-
-This event represents a Test task that has been queued, and it is waiting to be started.
-
-- Event Type: __`dev.cdevents.testcase.queued.0.1.1`__
-- Predicate: queued
-- Subject: [`testCase`](#testcase)
-
-| Field | Type | Description | Examples | Required |
-|-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `testCase` | |
-
-### `testCase started`
-
-This event represents a Test task that has started.
-
-- Event Type: __`dev.cdevents.testcase.started.0.1.1`__
-- Predicate: started
-- Subject: [`testCase`](#testcase)
-
-| Field | Type | Description | Examples | Required |
-|-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `testCase` | |
-
-### `testCase finished`
-
-This event represents a Test task that has finished. This event will eventually contain the finished status: success, error or failure.
-
-- Event Type: __`dev.cdevents.testcase.finished.0.1.1`__
-- Predicate: finished
-- Subject: [`testCase`](#testcase)
-
-| Field | Type | Description | Examples | Required |
-|-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `testCase` | |
-
-### `testSuite started`
-
-This event represents a Test suite that has been started.
-
-- Event Type: __`dev.cdevents.testsuite.started.0.1.1`__
-- Predicate: started
-- Subject: [`testSuite`](#testsuite)
-
-| Field | Type | Description | Examples | Required |
-|-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](spec.md#id-subject)| `unit`, `e2e`, `security` | ✅ |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `testSuite` | |
-
-### `testSuite finished`
-
-This event represents a Test suite that has has finished, the event will contain the finished status: success, error or failure.
-
-- Event Type: __`dev.cdevents.testsuite.finished.0.1.1`__
-- Predicate: finished
-- Subject: [`testSuite`](#testsuite)
-
-| Field | Type | Description | Examples | Required |
-|-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](spec.md#id-subject)| `unit`, `e2e`, `security` | ✅ |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `testSuite` | |
 
 ### `artifact packaged`
 
