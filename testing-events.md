@@ -68,12 +68,14 @@ This event represents a started testCase execution.
 - Predicate: started
 - Subject: [`testCase`](#testcase)
 
-| Field       | Type            | Description                                                                                | Examples                                  | Required |
-|-------------|-----------------|--------------------------------------------------------------------------------------------|-------------------------------------------|----------|
-| id          | `String`        | Uniquely identifies the subject within the source.                                         | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅        |
-| source      | `URI-Reference` | [source](spec.md#source--context-) from the context                                        |                                           |          |
-| executionId | `String`        | An optional execution ID to enable handling of multiple simultaneous executions            |                                           |          |
-| testSuiteId | `String`        | An optional `testSuite` ID if this `testCase` was started as part of a testSuite execution |                                           |          |
+| Field        | Type            | Description                                                                                                  | Examples                                  | Required |
+|--------------|-----------------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------|----------|
+| id           | `String`        | Uniquely identifies the subject within the source.                                                           | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅        |
+| source       | `URI-Reference` | [source](spec.md#source--context-) from the context                                                          |                                           |          |
+| executionId  | `String`        | An optional execution ID to enable handling of multiple simultaneous executions                              |                                           |          |
+| trigger.type | `String`        | An optional cause of what triggered this testCase, one of `manual`, `pipeline`, `event`, `schedule`, `other` ||
+| trigger.uri  | `URI-Reference` | An optional uri reference to what triggered this testCase                                                    ||
+| testSuiteId  | `String`        | An optional `testSuite` ID if this `testCase` was started as part of a testSuite execution                   |                                           |          |
 
 ### `testCase finished`
 
@@ -101,11 +103,13 @@ This event represents a started testSuite execution.
 - Predicate: started
 - Subject: [`testSuite`](#testsuite)
 
-| Field       | Type            | Description                                                                     | Examples                  | Required |
-|-------------|-----------------|---------------------------------------------------------------------------------|---------------------------|----------|
-| id          | `String`        | Uniquely identifies the subject within the source.                              | `unit`, `e2e`, `security` | ✅        |
-| source      | `URI-Reference` | [source](spec.md#source--context-) from the context                             |                           |          |
-| executionId | `String`        | An optional execution ID to enable handling of multiple simultaneous executions |                           |          |
+| Field        | Type            | Description                                                                                                   | Examples                  | Required |
+|--------------|-----------------|---------------------------------------------------------------------------------------------------------------|---------------------------|----------|
+| id           | `String`        | Uniquely identifies the subject within the source.                                                            | `unit`, `e2e`, `security` | ✅        |
+| source       | `URI-Reference` | [source](spec.md#source--context-) from the context                                                           |                           |          |
+| executionId  | `String`        | An optional execution ID to enable handling of multiple simultaneous executions                               |                           |          |
+| trigger.type | `String`        | An optional cause of what triggered this testSuite, one of `manual`, `pipeline`, `event`, `schedule`, `other` ||
+| trigger.uri  | `URI-Reference` | An optional uri reference to what triggered this testSuite                                                    ||
 
 ### `testSuite finished`
 
