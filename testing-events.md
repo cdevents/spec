@@ -73,7 +73,7 @@ This event represents a started testCase execution.
 | source       | `URI-Reference` | [source](spec.md#source--context-) from the context                                                          |                                           |          |
 | trigger.type | `String`        | An optional cause of what triggered this testCase, one of `manual`, `pipeline`, `event`, `schedule`, `other` ||
 | trigger.uri  | `URI-Reference` | An optional uri reference to what triggered this testCase                                                    ||
-| testSuiteId  | `String`        | An optional `testSuite` ID if this `testCase` was started as part of a testSuite execution                   |                                           |          |
+| environment  | `String`        | An optional identifier for the environment in which this testCase is executing                               | `dev`, `prod`                             |
 | executionId  | `String`        | An optional execution ID to enable handling of multiple simultaneous executions of this testCase             |                                           |          |
 
 ### `testCase finished`
@@ -109,6 +109,7 @@ This event represents a started testSuite execution.
 | executionId  | `String`        | An optional execution ID to enable handling of multiple simultaneous executions                               |                           |          |
 | trigger.type | `String`        | An optional cause of what triggered this testSuite, one of `manual`, `pipeline`, `event`, `schedule`, `other` |||
 | trigger.uri  | `URI-Reference` | An optional uri reference to what triggered this testSuite                                                    |||
+| environment  | `String`        | An optional identifier for the environment in which this testSuite is executing                               | `dev`, `prod`             |
 
 ### `testSuite finished`
 
