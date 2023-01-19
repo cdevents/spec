@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.2.0/schema/test-case-finished-event",
+  "$id": "https://cdevents.dev/0.2.0-draft/schema/test-case-finished-event",
   "properties": {
     "context": {
       "properties": {
@@ -14,15 +14,14 @@
         },
         "source": {
           "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
+          "minLength": 1
         },
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcase.finished.0.1.1"
+            "dev.cdevents.testcase.finished.0.2.0-draft"
           ],
-          "default": "dev.cdevents.testcase.finished.0.1.1"
+          "default": "dev.cdevents.testcase.finished.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -46,22 +45,45 @@
           "minLength": 1
         },
         "source": {
-          "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
+          "type": "string"
         },
         "type": {
           "type": "string",
-          "minLength": 1,
-          "enum": [
-            "testCase"
-          ],
-          "default": "testCase"
+          "minLength": 1
         },
         "content": {
-          "properties": {},
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "fail",
+                "aborted"
+              ]
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "critical",
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "description": "an optional reason to why the testCase ended as it did"
+            },
+            "executionId": {
+              "type": "string",
+              "description": "an optional identifier of the testCase execution"
+            }
+          },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "status"
+          ]
         }
       },
       "additionalProperties": false,

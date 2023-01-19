@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.2.0/schema/test-case-queued-event",
+  "$id": "https://cdevents.dev/0.2.0-draft/schema/test-output-published-event",
   "properties": {
     "context": {
       "properties": {
@@ -14,15 +14,14 @@
         },
         "source": {
           "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
+          "minLength": 1
         },
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcase.queued.0.1.1"
+            "dev.cdevents.testoutput.published.0.2.0-draft"
           ],
-          "default": "dev.cdevents.testcase.queued.0.1.1"
+          "default": "dev.cdevents.testoutput.published.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -46,22 +45,46 @@
           "minLength": 1
         },
         "source": {
-          "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
+          "type": "string"
         },
         "type": {
           "type": "string",
-          "minLength": 1,
-          "enum": [
-            "testCase"
-          ],
-          "default": "testCase"
+          "minLength": 1
         },
         "content": {
-          "properties": {},
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "report",
+                "video",
+                "image",
+                "log",
+                "other"
+              ]
+            },
+            "format": {
+              "type": "string",
+              "description": "The content-type of the output artifact",
+              "example": "application/pdf"
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "an optional URI to the actual testOutput artifact"
+            },
+            "executionId": {
+              "type": "string",
+              "description": "an optional identifier of the testCase or testSuite execution that produced this output"
+            }
+          },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "type",
+            "format",
+            "uri"
+          ]
         }
       },
       "additionalProperties": false,

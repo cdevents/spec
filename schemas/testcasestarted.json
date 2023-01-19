@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.2.0/schema/test-case-started-event",
+  "$id": "https://cdevents.dev/0.2.0-draft/schema/test-case-started-event",
   "properties": {
     "context": {
       "properties": {
@@ -14,15 +14,14 @@
         },
         "source": {
           "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
+          "minLength": 1
         },
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcase.started.0.1.1"
+            "dev.cdevents.testcase.started.0.2.0-draft"
           ],
-          "default": "dev.cdevents.testcase.started.0.1.1"
+          "default": "dev.cdevents.testcase.started.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -46,20 +45,61 @@
           "minLength": 1
         },
         "source": {
-          "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
+          "type": "string"
         },
         "type": {
           "type": "string",
-          "minLength": 1,
-          "enum": [
-            "testCase"
-          ],
-          "default": "testCase"
+          "minLength": 1
         },
         "content": {
-          "properties": {},
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "load",
+                "functional",
+                "unit",
+                "security",
+                "compliance",
+                "integration",
+                "e2e",
+                "other"
+              ]
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "an optional URI to the actual testCase"
+            },
+            "trigger": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "manual",
+                    "pipeline",
+                    "event",
+                    "schedule",
+                    "other"
+                  ]
+                },
+                "uri": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "description": "an optional description of what triggered this testCase execution"
+              }
+            },
+            "environment": {
+              "type": "string",
+              "description": "an optional identifier of the environment in which this testCase is running"
+            },
+            "executionId": {
+              "type": "string",
+              "description": "an optional identifier of the testCase execution"
+            }
+          },
           "additionalProperties": false,
           "type": "object"
         }

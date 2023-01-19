@@ -54,8 +54,7 @@ One or more `testOutput` artifacts are usually produced as the result of a test 
 | source     | `URI-Reference` | [source](spec.md#source--context-) from the context                     | `staging/tekton`, `tekton-dev-123`                       |
 | type       | `String`        | The type of output, one of `report`, `video`, `image`, `log`, `other`   | `video`                                                  |
 | format     | `String`        | The Content-Type of the output artifact                                 | `application/pdf`, `image/png`, `application/json`       |         
-| url        | `URI-Reference` | A reference to retrieve the specified output artifact                   | `https://testkube.mycluster.internal/artifacts/23123123` |         
-| testCaseId | `URI-Reference` | An optional reference to the testCase resulting in this output artifact | `https://testkube.mycluster.internal/testCase/123123`    |         
+| uri        | `URI-Reference` | A reference to retrieve the specified output artifact                   | `https://testkube.mycluster.internal/artifacts/23123123` |         
 
 ## Events
 
@@ -84,14 +83,14 @@ This event represents a finished testCase execution. The event will contain the 
 - Predicate: finished
 - Subject: [`testCase`](#testcase)
 
-| Field       | Type            | Description                                                                                       | Examples                                  | Required |
-|-------------|-----------------|---------------------------------------------------------------------------------------------------|-------------------------------------------|----------|
-| id          | `String`        | Uniquely identifies the subject within the source.                                                | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅        |
-| source      | `URI-Reference` | [source](spec.md#source--context-) from the context                                               |                                           |          |
-| status      | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted`                       |                                           | ✅        |
-| severity    | `String`        | An optional severity if the test failed, one of `critical`, `low`, `medium`, `high`               | `critical`, `low`, `medium`, `high`       |
-| reason      | `String`        | An optional reason related to the status of the execution                                         | `Cancelled by user`, `Failed assertion`   |          |
-| executionId | `String`        | An optional execution ID to enable handling of multiple simultaneous executions of this testSuite |                                           |          |
+| Field       | Type            | Description                                                                                      | Examples                                  | Required |
+|-------------|-----------------|--------------------------------------------------------------------------------------------------|-------------------------------------------|----------|
+| id          | `String`        | Uniquely identifies the subject within the source.                                               | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅        |
+| source      | `URI-Reference` | [source](spec.md#source--context-) from the context                                              |                                           |          |
+| status      | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted`                      |                                           | ✅        |
+| severity    | `String`        | An optional severity if the test failed, one of `critical`, `low`, `medium`, `high`              | `critical`, `low`, `medium`, `high`       |
+| reason      | `String`        | An optional reason related to the status of the execution                                        | `Cancelled by user`, `Failed assertion`   |          |
+| executionId | `String`        | An optional execution ID to enable handling of multiple simultaneous executions of this testCase |                                           |          |
 
 
 ### `testSuite started`
@@ -119,13 +118,14 @@ This event represents a finished testSuite execution. The event will contain the
 - Predicate: finished
 - Subject: [`testSuite`](#testsuite)
 
-| Field    | Type            | Description                                                                              | Examples                               | Required |
-|----------|-----------------|------------------------------------------------------------------------------------------|----------------------------------------|----------|
-| id       | `String`        | Uniquely identifies the subject within the source.                                       | `unit`, `e2e`, `security`              | ✅        |
-| source   | `URI-Reference` | [source](spec.md#source--context-) from the context                                      |                                        |          |
-| status   | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted`              |                                        | ✅        |
-| severity | `String`        | An optional severity if the testSuite failed, one of `critical`, `low`, `medium`, `high` | `critical`, `low`, `medium`, `high`    |
-| reason   | `String`        | An optional reason related to the status of the execution                                | `Cancelled by user`, `Failed testCase` |          |
+| Field       | Type            | Description                                                                                       | Examples                               | Required |
+|-------------|-----------------|---------------------------------------------------------------------------------------------------|----------------------------------------|----------|
+| id          | `String`        | Uniquely identifies the subject within the source.                                                | `unit`, `e2e`, `security`              | ✅        |
+| source      | `URI-Reference` | [source](spec.md#source--context-) from the context                                               |                                        |          |
+| status      | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted`                       |                                        | ✅        |
+| severity    | `String`        | An optional severity if the testSuite failed, one of `critical`, `low`, `medium`, `high`          | `critical`, `low`, `medium`, `high`    |
+| reason      | `String`        | An optional reason related to the status of the execution                                         | `Cancelled by user`, `Failed testCase` |          |
+| executionId | `String`        | An optional execution ID to enable handling of multiple simultaneous executions of this testSuite |                                        |          |
 
 ### `testOutput published`
 
