@@ -333,7 +333,7 @@ defined in the [vocabulary](#vocabulary):
   cases the [`source`](#source--subject-) of the subject matches the
   [`source`](#source--context-) of the event. This field should be used only in
   cases where the [`source`](#source--subject-) of the *subject* is different from
-  the [`source`](#source-context) of the event.
+  the [`source`](#source--context-) of the event.
 
   The format and semantic of the *subject* [`source`](#source--subject-) are the
   same of those of the *context* [`source`](#source--context-).
