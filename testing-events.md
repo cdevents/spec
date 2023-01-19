@@ -10,8 +10,7 @@ description: >
 -->
 # Testing Events
 
-Testing events covers the subjects and predicates related to test-execution 
-performed independently of CI/CD pipelines. 
+Testing events covers the subjects and predicates related to test-execution performed either independently or as part of CI/CD pipelines. 
 
 ## Subjects
 
@@ -64,7 +63,7 @@ One or more `testOutput` artifacts are usually produced as the result of a test 
 
 This event represents a started testCase execution. 
 
-- Event Type: __`dev.cdevents.testcase.started.0.1.1`__
+- Event Type: __`dev.cdevents.testcase.started.0.2.0-draft`__
 - Predicate: started
 - Subject: [`testCase`](#testcase)
 
@@ -72,34 +71,34 @@ This event represents a started testCase execution.
 |--------------|-----------------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------|----------|
 | id           | `String`        | Uniquely identifies the subject within the source.                                                           | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅        |
 | source       | `URI-Reference` | [source](spec.md#source--context-) from the context                                                          |                                           |          |
-| executionId  | `String`        | An optional execution ID to enable handling of multiple simultaneous executions                              |                                           |          |
 | trigger.type | `String`        | An optional cause of what triggered this testCase, one of `manual`, `pipeline`, `event`, `schedule`, `other` ||
 | trigger.uri  | `URI-Reference` | An optional uri reference to what triggered this testCase                                                    ||
 | testSuiteId  | `String`        | An optional `testSuite` ID if this `testCase` was started as part of a testSuite execution                   |                                           |          |
+| executionId  | `String`        | An optional execution ID to enable handling of multiple simultaneous executions of this testCase             |                                           |          |
 
 ### `testCase finished`
 
 This event represents a finished testCase execution. The event will contain the finished status and additional metadata as applicable.
 
-- Event Type: __`dev.cdevents.testcase.finished.0.1.1`__
+- Event Type: __`dev.cdevents.testcase.finished.0.2.0-draft`__
 - Predicate: finished
 - Subject: [`testCase`](#testcase)
 
-| Field       | Type            | Description                                                                         | Examples                                  | Required |
-|-------------|-----------------|-------------------------------------------------------------------------------------|-------------------------------------------|----------|
-| id          | `String`        | Uniquely identifies the subject within the source.                                  | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅        |
-| source      | `URI-Reference` | [source](spec.md#source--context-) from the context                                 |                                           |          |
-| executionId | `String`        | An optional execution ID to enable handling of multiple simultaneous executions     |                                           |          |
-| status      | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted`         |                                           | ✅        |
-| severity    | `String`        | An optional severity if the test failed, one of `critical`, `low`, `medium`, `high` | `critical`, `low`, `medium`, `high`       |
-| reason      | `String`        | An optional reason related to the status of the execution                           | `Cancelled by user`, `Failed assertion`   |          |
+| Field       | Type            | Description                                                                                       | Examples                                  | Required |
+|-------------|-----------------|---------------------------------------------------------------------------------------------------|-------------------------------------------|----------|
+| id          | `String`        | Uniquely identifies the subject within the source.                                                | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅        |
+| source      | `URI-Reference` | [source](spec.md#source--context-) from the context                                               |                                           |          |
+| status      | `String`        | The status of the testSuite execution, one of `passed`, `failed`, `aborted`                       |                                           | ✅        |
+| severity    | `String`        | An optional severity if the test failed, one of `critical`, `low`, `medium`, `high`               | `critical`, `low`, `medium`, `high`       |
+| reason      | `String`        | An optional reason related to the status of the execution                                         | `Cancelled by user`, `Failed assertion`   |          |
+| executionId | `String`        | An optional execution ID to enable handling of multiple simultaneous executions of this testSuite |                                           |          |
 
 
 ### `testSuite started`
 
 This event represents a started testSuite execution.
 
-- Event Type: __`dev.cdevents.testsuite.started.0.1.0`__
+- Event Type: __`dev.cdevents.testsuite.started.0.2.0-draft`__
 - Predicate: started
 - Subject: [`testSuite`](#testsuite)
 
@@ -108,8 +107,8 @@ This event represents a started testSuite execution.
 | id           | `String`        | Uniquely identifies the subject within the source.                                                            | `unit`, `e2e`, `security` | ✅        |
 | source       | `URI-Reference` | [source](spec.md#source--context-) from the context                                                           |                           |          |
 | executionId  | `String`        | An optional execution ID to enable handling of multiple simultaneous executions                               |                           |          |
-| trigger.type | `String`        | An optional cause of what triggered this testSuite, one of `manual`, `pipeline`, `event`, `schedule`, `other` ||
-| trigger.uri  | `URI-Reference` | An optional uri reference to what triggered this testSuite                                                    ||
+| trigger.type | `String`        | An optional cause of what triggered this testSuite, one of `manual`, `pipeline`, `event`, `schedule`, `other` |||
+| trigger.uri  | `URI-Reference` | An optional uri reference to what triggered this testSuite                                                    |||
 
 ### `testSuite finished`
 
@@ -131,7 +130,7 @@ This event represents a finished testSuite execution. The event will contain the
 
 The event represents a test execution output artifact that has been published.
 
-- Event Type: __`dev.cdevents.testoutput.published.0.1.0`__
+- Event Type: __`dev.cdevents.testoutput.published.0.2.0-draft`__
 - Predicate: published
 - Subject: [`testOutput`](#testoutput)
 

@@ -27,19 +27,19 @@ CDEvents is a common specification for Continuous Delivery events.
   - [Types](#types)
 - [CDEvent context](#cdevent-context)
   - [REQUIRED Context Attributes](#required-context-attributes)
-    - [id (context)](#id-context)
-    - [type (context)](#type-context)
-    - [source (context)](#source-context)
+    - [id (context)](#id--context-)
+    - [type (context)](#type--context-)
+    - [source (context)](#source--context-)
     - [timestamp](#timestamp)
     - [version](#version)
   - [Context example](#context-example)
 - [CDEvent subject](#cdevent-subject)
   - [REQUIRED Subject Attributes](#required-subject-attributes)
-    - [id (subject)](#id-subject)
+    - [id (subject)](#id--subject-)
     - [content](#content)
   - [OPTIONAL Subject Attributes](#optional-subject-attributes)
-    - [source (subject)](#source-subject)
-    - [type (subject)](#type-subject)
+    - [source (subject)](#source--subject-)
+    - [type (subject)](#type--subject-)
   - [Subject example](#subject-example)
 - [CDEvents custom data](#cdevents-custom-data)
   - [OPTIONAL Custom Data attributes](#optional-custom-data-attributes)
@@ -170,14 +170,14 @@ defined in the [vocabulary](#vocabulary):
 - Type: [`String`][typesystem]
 - Description: Identifier for an event.
   Subsequent delivery attempts of the same event MAY share the same
-  [`id`](#id-context). This attribute matches the syntax and semantics of the
+  [`id`](#id--context-). This attribute matches the syntax and semantics of the
   [`id`](https://github.com/cloudevents/spec/blob/v1.0.2/cloudevents/spec.md#id)
   attribute of CloudEvents.
 
 - Constraints:
   - REQUIRED
   - MUST be a non-empty string
-  - MUST be unique within the given [`source`](#source-context) (in the scope of
+  - MUST be unique within the given [`source`](#source--context-) (in the scope of
     the producer)
 - Examples:
   - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
@@ -204,8 +204,8 @@ defined in the [vocabulary](#vocabulary):
 
 - Type: [`URI-Reference`][typesystem]
 - Description: defines the context in which an event happened. The main purpose
-  of the source is to provide global uniqueness for [`source`](#source-context) +
-  [`id`](#id-context).
+  of the source is to provide global uniqueness for [`source`](#source--context-) +
+  [`id`](#id--context-).
 
   The source MAY identify a single producer or a group of producer that belong
   to the same application.
@@ -244,7 +244,7 @@ defined in the [vocabulary](#vocabulary):
 
   In case the transport layer should require a re-transmission of the event,
   the timestamp SHOULD NOT be updated, i.e. it should be the same for the same
-  [`source`](#source-context) + [`id`](#id-context) combination.
+  [`source`](#source--context-) + [`id`](#id--context-) combination.
 
 - Constraints:
   - REQUIRED
@@ -290,12 +290,12 @@ defined in the [vocabulary](#vocabulary):
 - Type: [`String`][typesystem]
 - Description: Identifier for a subject.
   Subsequent events associated to the same subject MUST use the same subject
-  [`id`](#id-subject).
+  [`id`](#id--subject-).
 
 - Constraints:
   - REQUIRED
   - MUST be a non-empty string
-  - MUST be unique within the given [`source`](#source-subject) (in the scope of
+  - MUST be unique within the given [`source`](#source--subject-) (in the scope of
     the producer)
 - Examples:
   - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
@@ -305,7 +305,7 @@ defined in the [vocabulary](#vocabulary):
 - Type: [`Object`](#types)
 - Description: This provides all the relevant details of the
   [`content`](#content). The format of the [`content`](#content) depends on the
-  event [`type`](#type-context). All attributes in the subject
+  event [`type`](#type--context-). All attributes in the subject
   [`content`](#content), REQUIRED and OPTIONAL ones, MUST comply with the
   specification from the [vocabulary](#vocabulary). The [`content`](#content)
   may be empty.
@@ -330,13 +330,13 @@ defined in the [vocabulary](#vocabulary):
 
 - Type: [`URI-Reference`][typesystem]
 - Description: defines the context in which the subject originated. In most
-  cases the [`source`](#source-subject) of the subject matches the
-  [`source`](#source-context) of the event. This field should be used only in
-  cases where the [`source`](#source-subject) of the *subject* is different from
+  cases the [`source`](#source--subject-) of the subject matches the
+  [`source`](#source--context-) of the event. This field should be used only in
+  cases where the [`source`](#source--subject-) of the *subject* is different from
   the [`source`](#source-context) of the event.
 
-  The format and semantic of the *subject* [`source`](#source-subject) are the
-  same of those of the *context* [`source`](#source-context).
+  The format and semantic of the *subject* [`source`](#source--subject-) are the
+  same of those of the *context* [`source`](#source--context-).
 
 #### type (subject)
 
