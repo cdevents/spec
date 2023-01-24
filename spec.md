@@ -80,7 +80,7 @@ The specification is structured in two main parts:
   dedicated document in the spec.
 
 For an introduction see the [CDEvents README](README.md) and for more background
-information please see our [CDEvents primer](/docs/primer).
+information please see our [CDEvents primer](https://cdevents.dev/docs/primer/).
 
 ## Notations and Terminology
 
@@ -190,7 +190,7 @@ defined in the [vocabulary](#vocabulary):
   All event types should be prefixed with `dev.cdevents.`. One occurrence may
   have multiple events associated, as long as they have different event types.
   *Versions* are semantic in the *major.minor.patch* format.  For more details about versions
-  see the the see [versioning](/docs/primer#versioning) documentation.
+  see the the see [versioning](https://cdevents.dev/docs/primer/#versioning) documentation.
 
 - Constraints:
   - REQUIRED
@@ -211,7 +211,7 @@ defined in the [vocabulary](#vocabulary):
   to the same application.
 
   When selecting the format for the source, it may be useful to think about how
-  clients may use it. Using the [root use cases](/docs/primer#use-cases) as
+  clients may use it. Using the [root use cases](https://cdevents.dev/docs/primer/#use-cases) as
   reference:
 
   - A client may want to react only to events sent by a specific service, like
@@ -256,7 +256,7 @@ defined in the [vocabulary](#vocabulary):
 - Description: The version of the CDEvents specification which the event
   uses. This enables the interpretation of the context. Compliant event
   producers MUST use a value of `0.1.1` when referring to this version of the
-  specification. For more details see [versioning](/docs/primer#versioning).
+  specification. For more details see [versioning](https://cdevents.dev/docs/primer/#versioning).
 
 - Constraints:
   - REQUIRED
