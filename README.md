@@ -78,9 +78,9 @@ Handling Events associated with Continuous Integration activities, typically inv
 
 Handling Events associated with Continuous Deployment activities
 
-### [Continuous Operatorations](./continuous-operations.md)
+### [Continuous Operations](./continuous-operations.md)
 
-Handling Events associated with Continuous Deployment activities
+Handling Events associated with the health of the services deployed and running in a specific environment
 
 ### [CloudEvents Binding and Transport](./cloudevents-binding.md)
 
