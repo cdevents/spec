@@ -19,7 +19,7 @@ This specification defines one subject in this stage, the [`incident`](#incident
 
 | Subject | Description | Predicates |
 |---------|-------------|------------|
-| [`incident`](#incident) | A problem in a production environment | [`reported`](#incident-reported), [`resolved`](#incident-resolved)|
+| [`incident`](#incident) | A problem in a production environment | [`detected`](#incident-detected), [`resolved`](#incident-resolved)|
 
 ### `incident`
 
@@ -36,12 +36,12 @@ An `incident` represents a problem in a production environment.
 
 ## Events
 
-### `incident reported`
+### `incident detected`
 
 This event represents an incident that has been detected by a system or human.
 
-- Event Type: __`dev.cdevents.incident.reported.0.1.0-draft`__
-- Predicate: reported
+- Event Type: __`dev.cdevents.incident.detected.0.1.0-draft`__
+- Predicate: detected
 - Subject: [`incident`](#incident)
 
 | Field | Type | Description | Examples | Mandatory ✅ |
