@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.2.0-draft/schema/test-suite-started-event",
+  "$id": "https://cdevents.dev/0.1.0-draft/schema/test-suite-run-queued-event",
   "properties": {
     "context": {
       "properties": {
@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testsuite.started.0.2.0-draft"
+            "dev.cdevents.testsuiterun.queued.0.1.0-draft"
           ],
-          "default": "dev.cdevents.testsuite.started.0.2.0-draft"
+          "default": "dev.cdevents.testsuiterun.queued.0.1.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -60,6 +60,7 @@
             },
             "trigger": {
               "type": "object",
+              "description": "an optional definition of what triggered this testCase execution",
               "properties": {
                 "type": {
                   "type": "string",
@@ -74,13 +75,32 @@
                 "uri": {
                   "type": "string",
                   "format": "uri"
-                },
-                "description": "an optional description of what triggered this testSuite execution"
+                }
               }
             },
             "environment": {
-              "type": "string",
-              "description": "an optional identifier of the environment in which this testSuite is running"
+              "description": "the environment in which this testSuiteRun started",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
             },
             "executionId": {
               "type": "string",

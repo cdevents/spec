@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.1.0-draft/schema/test-output-published-event",
+  "$id": "https://cdevents.dev/0.1.0-draft/schema/test-case-run-finished-event",
   "properties": {
     "context": {
       "properties": {
@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testoutput.published.0.1.0-draft"
+            "dev.cdevents.testcaserun.finished.0.1.0-draft"
           ],
-          "default": "dev.cdevents.testoutput.published.0.1.0-draft"
+          "default": "dev.cdevents.testcaserun.finished.0.1.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -53,37 +53,65 @@
         },
         "content": {
           "properties": {
-            "type": {
+            "status": {
               "type": "string",
               "enum": [
-                "report",
-                "video",
-                "image",
-                "log",
-                "other"
+                "pass",
+                "fail",
+                "abort",
+                "error"
               ]
             },
-            "format": {
+            "severity": {
               "type": "string",
-              "description": "The content-type of the output artifact",
-              "example": "application/pdf"
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
             },
-            "uri": {
+            "reason": {
               "type": "string",
-              "format": "uri",
-              "description": "an optional URI to the actual testOutput artifact"
+              "description": "an optional reason to why the testCase ended as it did"
             },
-            "executionId": {
+            "environment": {
+              "description": "the environment in which this testCaseRun is being queued",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
+            },
+            "testSuiteRunId": {
               "type": "string",
-              "description": "an optional identifier of the testCase or testSuite execution that produced this output"
+              "description": "an optional identifier of the containing testSuiteRun"
+            },
+            "testCaseId": {
+              "type": "string",
+              "description": "an optional identifier of the queued testCase"
             }
           },
           "additionalProperties": false,
           "type": "object",
           "required": [
-            "type",
-            "format",
-            "uri"
+            "status"
           ]
         }
       },

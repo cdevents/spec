@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.2.0-draft/schema/test-case-started-event",
+  "$id": "https://cdevents.dev/0.1.0-draft/schema/test-case-run-queued-event",
   "properties": {
     "context": {
       "properties": {
@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcase.started.0.2.0-draft"
+            "dev.cdevents.testcaserun.queued.0.1.0-draft"
           ],
-          "default": "dev.cdevents.testcase.started.0.2.0-draft"
+          "default": "dev.cdevents.testcaserun.queued.0.1.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -56,7 +56,7 @@
             "type": {
               "type": "string",
               "enum": [
-                "load",
+                "performance",
                 "functional",
                 "unit",
                 "security",
@@ -73,6 +73,7 @@
             },
             "trigger": {
               "type": "object",
+              "description": "an optional definition of what triggered this testCase queueing",
               "properties": {
                 "type": {
                   "type": "string",
@@ -87,17 +88,40 @@
                 "uri": {
                   "type": "string",
                   "format": "uri"
-                },
-                "description": "an optional description of what triggered this testCase execution"
+                }
               }
             },
             "environment": {
-              "type": "string",
-              "description": "an optional identifier of the environment in which this testCase is running"
+              "description": "the environment in which this testCaseRun is being queued",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
             },
-            "executionId": {
+            "testSuiteRunId": {
               "type": "string",
-              "description": "an optional identifier of the testCase execution"
+              "description": "an optional identifier of the containing testSuiteRun"
+            },
+            "testCaseId": {
+              "type": "string",
+              "description": "an optional identifier of the queued testCase"
             }
           },
           "additionalProperties": false,

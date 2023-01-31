@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.1.0-draft/schema/test-case-run-started-event",
+  "properties": {
+    "context": {
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "dev.cdevents.testcaserun.started.0.1.0-draft"
+          ],
+          "default": "dev.cdevents.testcaserun.started.0.1.0-draft"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "version",
+        "id",
+        "source",
+        "type",
+        "timestamp"
+      ]
+    },
+    "subject": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content": {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "performance",
+                "functional",
+                "unit",
+                "security",
+                "compliance",
+                "integration",
+                "e2e",
+                "other"
+              ]
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "an optional URI to the actual testCase"
+            },
+            "trigger": {
+              "type": "object",
+              "description": "an optional definition of what triggered this testCase execution",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "manual",
+                    "pipeline",
+                    "event",
+                    "schedule",
+                    "other"
+                  ]
+                },
+                "uri": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            },
+            "environment": {
+              "description": "the environment in which this testCaseRun started",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
+            },
+            "testSuiteRunId": {
+              "type": "string",
+              "description": "an optional identifier of the containing testSuiteRun"
+            },
+            "testCaseId": {
+              "type": "string",
+              "description": "an optional identifier of the running testCase"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "content"
+      ]
+    },
+    "customData": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string",
+          "contentEncoding": "base64"
+        }
+      ]
+    },
+    "customDataContentType": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "context",
+    "subject"
+  ]
+}

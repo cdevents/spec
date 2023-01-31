@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.2.0-draft/schema/test-case-finished-event",
+  "$id": "https://cdevents.dev/0.1.0-draft/schema/test-suite-run-started-event",
   "properties": {
     "context": {
       "properties": {
@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcase.finished.0.2.0-draft"
+            "dev.cdevents.testsuiterun.started.0.1.0-draft"
           ],
-          "default": "dev.cdevents.testcase.finished.0.2.0-draft"
+          "default": "dev.cdevents.testsuiterun.started.0.1.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -53,37 +53,62 @@
         },
         "content": {
           "properties": {
-            "status": {
+            "uri": {
               "type": "string",
-              "enum": [
-                "pass",
-                "fail",
-                "aborted"
-              ]
+              "format": "uri",
+              "description": "an optional URI to the actual testSuite"
             },
-            "severity": {
-              "type": "string",
-              "enum": [
-                "critical",
-                "low",
-                "medium",
-                "high"
-              ]
+            "trigger": {
+              "type": "object",
+              "description": "an optional definition of what triggered this testCase execution",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "manual",
+                    "pipeline",
+                    "event",
+                    "schedule",
+                    "other"
+                  ]
+                },
+                "uri": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
             },
-            "reason": {
-              "type": "string",
-              "description": "an optional reason to why the testCase ended as it did"
+            "environment": {
+              "description": "the environment in which this testSuiteRun started",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
             },
             "executionId": {
               "type": "string",
-              "description": "an optional identifier of the testCase execution"
+              "description": "an optional identifier of the testSuite execution"
             }
           },
           "additionalProperties": false,
-          "type": "object",
-          "required": [
-            "status"
-          ]
+          "type": "object"
         }
       },
       "additionalProperties": false,
