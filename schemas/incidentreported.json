@@ -72,6 +72,11 @@
                 "id"
               ]
             },
+            "ticketURI": {
+              "type": "string",
+              "format": "uri",
+              "minLength": 1
+            },
             "service": {
               "properties": {
                 "id": {
@@ -96,7 +101,8 @@
           "additionalProperties": false,
           "type": "object",
           "required": [
-            "environment"
+            "environment",
+            "tickerURI"
           ]
         }
       },

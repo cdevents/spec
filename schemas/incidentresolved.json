@@ -94,7 +94,10 @@
             }
           },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "environment"
+          ]
         }
       },
       "additionalProperties": false,
