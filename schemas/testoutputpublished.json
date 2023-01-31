@@ -73,7 +73,7 @@
               "format": "uri",
               "description": "an optional URI to the actual testOutput artifact"
             },
-            "executionId": {
+            "testCaseRunId": {
               "type": "string",
               "description": "an optional identifier of the testCase or testSuite execution that produced this output"
             }
