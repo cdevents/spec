@@ -8,7 +8,7 @@ description: >
 -->
 # Continuous Operations Events
 
-Continuous Operations events are related to the operation of services deployed in target environments, tracking of incidents and their remediation. Incidents, and their resolution, can be detected by a number of different actors, like the end-user, a quality gate, a monitoring system, an SRE through a ticketing system or event the service itself.
+Continuous Operations events are related to the operation of services deployed in target environments, tracking of incidents and their resolution. Incidents, and their resolution, can be detected by a number of different actors, like the end-user, a quality gate, a monitoring system, an SRE through a ticketing system or even the service itself.
 Multiple events may be associated to the same incident as well as its resolution, coming from diverse sources.
 
 ## Subjects
@@ -67,13 +67,13 @@ This event represents an incident that has been reported through a ticketing sys
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `region1/production`, `monitoring-system/metricA`| |
 | description | `String` | Short, free style description of the incident | "Response time above 10ms", "New CVE-123 detected" | |
 | environment | `Object` ([`environment`](./continuous-deployment.md#environment)) | Reference to the environment | `{"id": "production"}`, `{"id": "staging"}`, `{"id": "prod123", "source": "iaas-region-1"}` | ✅ |
-| tickerURI | `URI` | URI of the ticket |  `example.issues.com/ticket123` | ✅ |
+| ticketURI | `URI` | URI of the ticket |  `example.issues.com/ticket123` | ✅ |
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` | |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl` | |
 
 ### `incident resolved`
 
-This event represents an environment that has been modified.
+This event represents an incident that has been resolved, meaning that the situation identified by the incident has been addressed or that it ceased to happen or that it has been acknowledged.
 
 - Event Type: __`dev.cdevents.incident.resolved.0.1.0-draft`__
 - Predicate: resolved

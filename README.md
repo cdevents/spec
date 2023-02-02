@@ -78,7 +78,7 @@ Handling Events associated with Continuous Integration activities, typically inv
 
 Handling Events associated with Continuous Deployment activities
 
-### [Continuous Operations](./continuous-operations.md)
+### [Continuous Operations Events](./continuous-operations.md)
 
 Handling Events associated with the health of the services deployed and running in a specific environment
 
