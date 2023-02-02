@@ -109,7 +109,7 @@
           "type": "object",
           "required": [
             "environment",
-            "tickerURI"
+            "ticketURI"
           ]
         }
       },
