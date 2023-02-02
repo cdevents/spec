@@ -1,0 +1,32 @@
+{
+  "context": {
+      "version": "0.2.0-draft",
+      "id": "F4BD2B55-B6F6-4F44-AF72-BD2D0E7A8708",
+      "source": "/monitoring/prod1",
+      "type": "dev.cdevents.incident.resolved.0.1.0-draft",
+      "timestamp": "2022-11-11T13:52:20.079Z"
+  },
+  "subject": {
+      "id": "incident-123",
+      "source": "/monitoring/prod1",
+      "type": "incident",
+      "content": {
+          "description": "Response time restored below 100ms",
+          "environment": {
+              "id": "prod1",
+              "source": "/iaas/geo1"
+          },
+          "service": {
+              "id": "myApp",
+              "source": "/clusterA/namespaceB"
+          },
+          "artifactId": "pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93439"
+      }
+  },
+  "customData": {
+    "metric": "responseTime",
+    "threshold": "100ms",
+    "value": "70ms"
+  },
+  "customDataContentType": "application/json"
+}
