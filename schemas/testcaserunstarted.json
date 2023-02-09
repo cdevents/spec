@@ -115,17 +115,33 @@
                 "id"
               ]
             },
-            "testSuiteRunId": {
-              "type": "string",
-              "description": "an optional identifier of the containing testSuiteRun"
+            "testSuiteRun": {
+              "type": "object",
+              "description": "an optional reference to the containing testSuiteRun",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
             },
             "testCaseId": {
               "type": "string",
-              "description": "an optional identifier of the running testCase"
+              "description": "an optional external identifier of the running testCase"
             }
           },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "environment"
+          ]
         }
       },
       "additionalProperties": false,

@@ -54,6 +54,34 @@
         "content": {
           "properties": {
             "properties": {
+              "environment": {
+                "description": "the environment in which this testSuiteRun started",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "id"
+                ]
+              },
+              "testSuiteId": {
+                "type": "string",
+                "description": "an optional external identifier of the testSuite execution"
+              },
               "status": {
                 "type": "string",
                 "enum": [
@@ -75,16 +103,13 @@
               "reason": {
                 "type": "string",
                 "description": "an optional reason to why the testSuite ended as it did"
-              },
-              "executionId": {
-                "type": "string",
-                "description": "an optional identifier of the testSuite execution"
               }
             },
             "additionalProperties": false,
             "type": "object",
             "required": [
-              "status"
+              "status",
+              "environment"
             ]
           },
           "additionalProperties": false,

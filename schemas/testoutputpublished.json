@@ -71,11 +71,24 @@
             "uri": {
               "type": "string",
               "format": "uri",
-              "description": "an optional URI to the actual testOutput artifact"
+              "description": "an optional URI reference to the actual testOutput artifact"
             },
-            "testCaseRunId": {
-              "type": "string",
-              "description": "an optional identifier of the testCase or testSuite execution that produced this output"
+            "testCaseRun": {
+              "type": "object",
+              "description": "an optional reference to the testCaseRun that generated this output",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
             }
           },
           "additionalProperties": false,

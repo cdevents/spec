@@ -53,11 +53,6 @@
         },
         "content": {
           "properties": {
-            "uri": {
-              "type": "string",
-              "format": "uri",
-              "description": "an optional URI to the actual testSuite"
-            },
             "trigger": {
               "type": "object",
               "description": "an optional definition of what triggered this testCase execution",
@@ -102,13 +97,16 @@
                 "id"
               ]
             },
-            "executionId": {
+            "testSuiteId": {
               "type": "string",
-              "description": "an optional identifier of the testSuite execution"
+              "description": "an optional external identifier of the testSuite execution"
             }
           },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "environment"
+          ]
         }
       },
       "additionalProperties": false,

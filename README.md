@@ -84,7 +84,7 @@ Handling Events associated with the health of the services deployed and running 
 
 ### [Testing Events](./testing-events.md)
 
-Handling Events associated with Test execution performed independently of CI/CD pipelines.
+Handling Events associated with Test execution performed independently or as part of CI/CD pipelines.
 
 ### [CloudEvents Binding and Transport](./cloudevents-binding.md)
 
