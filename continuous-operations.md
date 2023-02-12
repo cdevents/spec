@@ -9,7 +9,6 @@ description: >
 # Continuous Operations Events
 
 Continuous Operations events are related to the operation of services deployed in target environments, tracking of incidents and their resolution. Incidents, and their resolution, can be detected by a number of different actors, like the end-user, a quality gate, a monitoring system, an SRE through a ticketing system or even the service itself.
-Multiple events may be associated to the same incident as well as its resolution, coming from diverse sources.
 
 ## Subjects
 
@@ -73,7 +72,7 @@ This event represents an incident that has been reported through a ticketing sys
 
 ### `incident resolved`
 
-This event represents an incident that has been resolved, meaning that the situation identified by the incident has been addressed or that it ceased to happen or that it has been acknowledged.
+This event represents an incident that has been resolved, meaning that the problem identified by the incident has been solved or recalled.
 
 - Event Type: __`dev.cdevents.incident.resolved.0.1.0-draft`__
 - Predicate: resolved
