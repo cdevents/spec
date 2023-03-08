@@ -58,7 +58,7 @@
               "enum": [
                 "pass",
                 "fail",
-                "abort",
+                "cancel",
                 "error"
               ]
             },
