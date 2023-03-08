@@ -16,38 +16,38 @@ Testing events covers the subjects and predicates related to test-execution perf
 
 ## Subjects
 
-This specification defines three subjects in this stage: `testCase`, `testSuite` and `testArtifact`. 
+This specification defines three subjects in this stage: `testCase`, `testSuite` and `testOutput`. 
 
-| Subject                         | Description                                  | Predicates                                                                                                                                  |
-|---------------------------------|----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| [`testCaseRun`](#testcaserun)   | The execution of a software testCase         | [`queued`](#testcaserun-queued), [`finished`](#testcaserun-finished) [`started`](#testcaserun-started), [`finished`](#testcaserun-finished) |
-| [`testSuiteRun`](#testsuiterun) | The execution of a software testSuite        | [`queued`](#testsuiterun-queued), [`started`](#testsuiterun-started), [`finished`](#testsuiterun-finished)                                  |
-| [`testOutput`](#testoutput)     | An output artifact produced by a testCaseRun | [`published`](#testoutput-published)                                                                                                        |
+| Subject                         | Description                                  | Predicates                                                                                                 |
+|---------------------------------|----------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| [`testCaseRun`](#testcaserun)   | The execution of a software testCase         | [`queued`](#testcaserun-queued), [`started`](#testcaserun-started) [`finished`](#testcaserun-finished)     |
+| [`testSuiteRun`](#testsuiterun) | The execution of a software testSuite        | [`queued`](#testsuiterun-queued), [`started`](#testsuiterun-started), [`finished`](#testsuiterun-finished) |
+| [`testOutput`](#testoutput)     | An output artifact produced by a testCaseRun | [`published`](#testoutput-published)                                                                       |
 
 ### `testCaseRun`
 
 A `testCaseRun` is a process that performs a test against an input software artifact of some kind, for instance source code, a binary, a container image or else.
 A `testCaseRun` is the smallest unit of testing that the user wants to track, `testSuiteRuns` are for grouping purposes.
 
-| Field        | Type                                                                            | Description                                                                                     | Examples                                           |
-|--------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------|
-| id           | `String`                                                                        | Uniquely identifies the subject within the source.                                              | `integration-test-abc`, `e2e-test1`, `scan-image1` |
-| source       | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                             | `staging/tekton`, `tekton-dev-123`                 |
-| type         | `String`                                                                        | An optional type of test                                                                        | `functional`, `unit`, `performance`, `security`    |
-| environment  | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testCaseRun is executing                                          | `dev`, `prod`                                      |
-| testCaseId   | `String`                                                                        | An optional testCase ID to enable collation of events related to a specific testCase definition |                                                    |          |
-| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                                        | An optional testSuiteRun to associate this testCaseRun with a containing testSuiteRun           |                                                    |          |
+| Field        | Type                                                                            | Description                                                                                     | Examples                                                      |
+|--------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| id           | `String`                                                                        | Uniquely identifies the subject within the source.                                              | `integration-test-abc`, `e2e-test1`, `scan-image1`            |
+| source       | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                             | `staging/tekton`, `tekton-dev-123`                            |
+| type         | `String`                                                                        | An optional type of test                                                                        | `functional`, `unit`, `performance`, `security`               |
+| environment  | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testCaseRun is executing                                          | `{"id": "1234"}`, `{"id": "dev", "source": "tekton-dev-123"}` |
+| testCaseId   | `String`                                                                        | An optional testCase ID to enable collation of events related to a specific testCase definition |                                                               |          |
+| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                                        | An optional testSuiteRun to associate this testCaseRun with a containing testSuiteRun           |                                                               |          |
 
 ### `testSuiteRun`
 
 A `testSuiteRun` represents the execution of a grouped set of one or more `testCaseRuns`.
 
-| Field       | Type                                                                            | Description                                                                                       | Examples                           |
-|-------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|------------------------------------|
-| id          | `String`                                                                        | Uniquely identifies the subject within the source.                                                | `my-testsuite`, `regression-123`   |
-| source      | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                               | `staging/tekton`, `tekton-dev-123` |
-| environment | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testSuiteRun is executing                                           | `dev`, `prod`                      |
-| testSuiteId | `String`                                                                        | An optional testSuite ID to enable collation of events related to a specific testSuite definition |                                    |          |
+| Field       | Type                                                                            | Description                                                                                       | Examples                                                      |
+|-------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------|
+| id          | `String`                                                                        | Uniquely identifies the subject within the source.                                                | `my-testsuite`, `regression-123`                              |
+| source      | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                               | `staging/tekton`, `tekton-dev-123`                            |
+| environment | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testSuiteRun is executing                                           | `{"id": "1234"}`, `{"id": "dev", "source": "tekton-dev-123"}` |
+| testSuiteId | `String`                                                                        | An optional testSuite ID to enable collation of events related to a specific testSuite definition |                                                               |          |
 
 ### `testOutput`
 
@@ -73,14 +73,14 @@ This event represents when a testCaseRun has been queued for execution - and is 
 - Predicate: queued
 - Subject: [`testCaseRun`](#testcaserun)
 
-| Field        | Type                                                                            | Description                                                                                             | Examples                                        | Required |
-|--------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------|----------|
-| id           | `String`                                                                        | Uniquely identifies the subject within the source.                                                      | `unitest-abc`, `e2e-test1`, `scan-image1`       | ✅        |
-| source       | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                     |                                                 |          |
-| type         | `String`                                                                        | An optional type of test                                                                                | `functional`, `unit`, `performance`, `security` |
-| environment  | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testCaseRun is queued                                                     | `dev`, `prod`                                   | ✅        |
-| testCaseId   | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testCase definition |                                                 |          |
-| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                                        | An optional testSuiteRun to associate this testCaseRun with a containing testSuiteRun                   |                                                 |          |
+| Field        | Type                                                                            | Description                                                                                             | Examples                                                      | Required |
+|--------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|----------|
+| id           | `String`                                                                        | Uniquely identifies the subject within the source.                                                      | `unitest-abc`, `e2e-test1`, `scan-image1`                     | ✅        |
+| source       | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                     |                                                               |          |
+| type         | `String`                                                                        | An optional type of test                                                                                | `functional`, `unit`, `performance`, `security`               |
+| environment  | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testCaseRun is queued                                                     | `{"id": "1234"}`, `{"id": "dev", "source": "tekton-dev-123"}` | ✅        |
+| testCaseId   | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testCase definition |                                                               |          |
+| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                                        | An optional testSuiteRun to associate this testCaseRun with a containing testSuiteRun                   |                                                               |          |
 | trigger      | `Object` [trigger](#trigger)                                                    | What triggered the queuing of this testCaseRun                                                          ||
 
 ### `testCaseRun started`
@@ -91,14 +91,14 @@ This event represents a started testCase execution.
 - Predicate: started
 - Subject: [`testCaseRun`](#testcaserun)
 
-| Field        | Type                                                                            | Description                                                                                             | Examples                                        | Required |
-|--------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------|----------|
-| id           | `String`                                                                        | Uniquely identifies the subject within the source.                                                      | `unitest-abc`, `e2e-test1`, `scan-image1`       | ✅        |
-| source       | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                     |                                                 |          |
-| type         | `String`                                                                        | An optional type of test                                                                                | `functional`, `unit`, `performance`, `security` |
-| environment  | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testCaseRun is running                                                    | `dev`, `prod`                                   | ✅        |
-| testCaseId   | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testCase definition |                                                 |          |
-| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                                        | An optional testSuiteRun to associate this testCaseRun with a containing testSuiteRun                   |                                                 |          |
+| Field        | Type                                                                            | Description                                                                                             | Examples                                                      | Required |
+|--------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|----------|
+| id           | `String`                                                                        | Uniquely identifies the subject within the source.                                                      | `unitest-abc`, `e2e-test1`, `scan-image1`                     | ✅        |
+| source       | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                     |                                                               |          |
+| type         | `String`                                                                        | An optional type of test                                                                                | `functional`, `unit`, `performance`, `security`               |
+| environment  | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testCaseRun is running                                                    | `{"id": "1234"}`, `{"id": "dev", "source": "tekton-dev-123"}` | ✅        |
+| testCaseId   | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testCase definition |                                                               |          |
+| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                                        | An optional testSuiteRun to associate this testCaseRun with a containing testSuiteRun                   |                                                               |          |
 | trigger      | `Object` [trigger](#trigger)                                                    | What triggered this testCaseRun                                                                         ||
 
 ### `testCaseRun finished`
@@ -109,17 +109,17 @@ This event represents a finished testCase execution. The event will contain the 
 - Predicate: finished
 - Subject: [`testCaseRun`](#testcaserun)
 
-| Field        | Type                                                                            | Description                                                                                             | Examples                                             | Required |
-|--------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|------------------------------------------------------|----------|
-| id           | `String`                                                                        | Uniquely identifies the subject within the source.                                                      | `unitest-abc`, `e2e-test1`, `scan-image1`            | ✅        |
-| source       | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                     |                                                      |          |
-| type         | `String`                                                                        | An optional type of test                                                                                | `functional`, `unit`, `performance`, `security`      |
-| environment  | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testCaseRun was running                                                   | `dev`, `prod`                                        | ✅        |
-| testCaseId   | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testCase definition |                                                      |          |
-| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                                        | An optional testSuiteRun to associate this testCaseRun with a containing testSuiteRun                   |                                                      |          |
-| status       | `String`                                                                        | The status of the testSuite execution, one of `pass`, `fail`, `cancel`, `error`                         |                                                      | ✅        |
-| severity     | `String`                                                                        | An optional severity if the test failed, one of `low`, `medium`, `high`, `critical`                     | `critical`, `low`, `medium`, `high`                  |
-| reason       | `String`                                                                        | An optional reason related to the `status` of the execution                                             | `Cancelled by user`, `Failed assertion`, `Timed out` |          |
+| Field        | Type                                                                            | Description                                                                                             | Examples                                                      | Required |
+|--------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|----------|
+| id           | `String`                                                                        | Uniquely identifies the subject within the source.                                                      | `unitest-abc`, `e2e-test1`, `scan-image1`                     | ✅        |
+| source       | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                     |                                                               |          |
+| type         | `String`                                                                        | An optional type of test                                                                                | `functional`, `unit`, `performance`, `security`               |
+| environment  | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testCaseRun was running                                                   | `{"id": "1234"}`, `{"id": "dev", "source": "tekton-dev-123"}` | ✅        |
+| testCaseId   | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testCase definition |                                                               |          |
+| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                                        | An optional testSuiteRun to associate this testCaseRun with a containing testSuiteRun                   |                                                               |          |
+| status       | `String`                                                                        | The status of the testSuite execution, one of `pass`, `fail`, `cancel`, `error`                         |                                                               | ✅        |
+| severity     | `String`                                                                        | An optional severity if the test failed, one of `low`, `medium`, `high`, `critical`                     | `critical`, `low`, `medium`, `high`                           |
+| reason       | `String`                                                                        | An optional reason related to the `status` of the execution                                             | `Cancelled by user`, `Failed assertion`, `Timed out`          |          |
 
 ### `testSuiteRun queued`
 
@@ -130,12 +130,12 @@ This event represents when a testSuiteRun has been queued for execution - and is
 - Predicate: queued
 - Subject: [`testSuiteRun`](#testsuiterun)
 
-| Field       | Type                                                                            | Description                                                                                              | Examples                                  | Required |
-|-------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|-------------------------------------------|----------|
-| id          | `String`                                                                        | Uniquely identifies the subject within the source.                                                       | `unitest-abc`, `e2e-test1`, `scan-image1` | ✅        |
-| source      | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                      |                                           |          |
-| environment | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testSuiteRun is queued                                                     | `dev`, `prod`                             | ✅        |
-| testSuiteId | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testSuite definition |                                           |          |
+| Field       | Type                                                                            | Description                                                                                              | Examples                                                      | Required |
+|-------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|----------|
+| id          | `String`                                                                        | Uniquely identifies the subject within the source.                                                       | `unitest-abc`, `e2e-test1`, `scan-image1`                     | ✅        |
+| source      | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                      |                                                               |          |
+| environment | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testSuiteRun is queued                                                     | `{"id": "1234"}`, `{"id": "dev", "source": "tekton-dev-123"}` | ✅        |
+| testSuiteId | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testSuite definition |                                                               |          |
 | trigger     | `Object` [trigger](#trigger)                                                    | What triggered this testSuiteRun                                                                         ||
 
 ### `testSuiteRun started`
@@ -146,12 +146,12 @@ This event represents a started testSuite execution.
 - Predicate: started
 - Subject: [`testSuiteRun`](#testsuiterun)
 
-| Field       | Type                                                                            | Description                                                                                              | Examples                  | Required |
-|-------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|---------------------------|----------|
-| id          | `String`                                                                        | Uniquely identifies the subject within the source.                                                       | `unit`, `e2e`, `security` | ✅        |
-| source      | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                      |                           |          |
-| environment | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testSuiteRun is running                                                    | `dev`, `prod`             | ✅        |
-| testSuiteId | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testSuite definition |                           |          |
+| Field       | Type                                                                            | Description                                                                                              | Examples                                                      | Required |
+|-------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|----------|
+| id          | `String`                                                                        | Uniquely identifies the subject within the source.                                                       | `unit`, `e2e`, `security`                                     | ✅        |
+| source      | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                                      |                                                               |          |
+| environment | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testSuiteRun is running                                                    | `{"id": "1234"}`, `{"id": "dev", "source": "tekton-dev-123"}` | ✅        |
+| testSuiteId | `String`                                                                        | An optional external identifier to enable collation of events related to a specific testSuite definition |                                                               |          |
 | trigger     | `Object` [trigger](#trigger)                                                    | What triggered this testSuiteRun                                                                         ||
 
 ### `testSuiteRun finished`
@@ -162,15 +162,15 @@ This event represents a finished testSuite execution. The event will contain the
 - Predicate: finished
 - Subject: [`testSuiteRun`](#testsuiterun)
 
-| Field       | Type                                                                            | Description                                                                                       | Examples                               | Required |
-|-------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|----------------------------------------|----------|
-| id          | `String`                                                                        | Uniquely identifies the subject within the source.                                                | `unit`, `e2e`, `security`              | ✅        |
-| source      | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                               |                                        |          |
-| environment | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testSuiteRun was running                                            | `dev`, `prod`                          | ✅        |
-| testSuiteId | `String`                                                                        | An optional testSuite ID to enable collation of events related to a specific testSuite definition |                                        |          |
-| status      | `String`                                                                        | The status of the testSuite execution, one of `pass`, `fail`, `cancel`, `error`                   |                                        | ✅        |
-| severity    | `String`                                                                        | An optional severity if the test failed, one of `low`, `medium`, `high`, `critical`               | `critical`, `low`, `medium`, `high`    |
-| reason      | `String`                                                                        | An optional reason related to the status of the execution                                         | `Cancelled by user`, `Failed testCase` |          |
+| Field       | Type                                                                            | Description                                                                                       | Examples                                                      | Required |
+|-------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------|----------|
+| id          | `String`                                                                        | Uniquely identifies the subject within the source.                                                | `unit`, `e2e`, `security`                                     | ✅        |
+| source      | `URI-Reference`                                                                 | [source](spec.md#source--context-) from the context                                               |                                                               |          |
+| environment | `Object` [`environment`](continuous-deployment-pipeline-events.md/#environment) | The environment in which this testSuiteRun was running                                            | `{"id": "1234"}`, `{"id": "dev", "source": "tekton-dev-123"}` | ✅        |
+| testSuiteId | `String`                                                                        | An optional testSuite ID to enable collation of events related to a specific testSuite definition |                                                               |          |
+| status      | `String`                                                                        | The status of the testSuite execution, one of `pass`, `fail`, `cancel`, `error`                   |                                                               | ✅        |
+| severity    | `String`                                                                        | An optional severity if the test failed, one of `low`, `medium`, `high`, `critical`               | `critical`, `low`, `medium`, `high`                           |
+| reason      | `String`                                                                        | An optional reason related to the status of the execution                                         | `Cancelled by user`, `Failed testCase`                        |          |
 
 ### `testOutput published`
 
