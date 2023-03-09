@@ -186,6 +186,7 @@ The event represents an artifact that has been packaged for distribution; this a
 |-------|------|-------------|----------|----------------------------|
 | id    | `Purl` | Uniquely identifies the subject within the source. | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` | ✅ |
 
 ### `artifact published`
 
