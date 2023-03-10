@@ -47,6 +47,7 @@
         },
         "source": {
           "type": "string",
+          "minLength": 1,
           "format": "uri-reference"
         },
         "type": {
@@ -69,6 +70,7 @@
                 },
                 "source": {
                   "type": "string",
+                  "minLength": 1,
                   "format": "uri-reference"
                 }
               },
