@@ -26,8 +26,9 @@ An `incident` represents a problem in a production environment.
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
-| id    | `String` | Uniquely identifies the subject within the source. | `04896C75-F34D-40FF-A584-3F2B71CB9D47`, `issue123`, `risk-CVE123` |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `region1/production`, `monitoring-system/metricA`|
+| id    | `String` | See [id](../spec.md#id-subject)| `04896C75-F34D-40FF-A584-3F2B71CB9D47`, `issue123`, `risk-CVE123` |
+| source | `URI-Reference` | See [source](../spec.md#source-subject) | `region1/production`, `monitoring-system/metricA`|
+| type | `String` | See [type](../spec.md#type-subject) | `incident` |
 | description | `String` | Short, free style description of the incident | "Response time above 10ms", "New CVE-123 detected" |
 | environment | `Object` ([`environment`](./continuous-deployment.md#environment)) | Reference to the environment | `{"id": "production"}`, `{"id": "staging"}`, `{"id": "prod123", "source": "iaas-region-1"}` |
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` |
@@ -45,8 +46,9 @@ This event represents an incident that has been detected by a system or human.
 
 | Field | Type | Description | Examples | Mandatory ✅ |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | Uniquely identifies the subject within the source. | `04896C75-F34D-40FF-A584-3F2B71CB9D47`, `issue123`, `risk-CVE123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `region1/production`, `monitoring-system/metricA`| |
+| id    | `String` | See [id](../spec.md#id-subject)| `04896C75-F34D-40FF-A584-3F2B71CB9D47`, `issue123`, `risk-CVE123` | ✅ |
+| source | `URI-Reference` | See [source](../spec.md#source-subject) | `region1/production`, `monitoring-system/metricA`| |
+| type | `String` | See [type](../spec.md#type-subject) | `incident` | |
 | description | `String` | Short, free style description of the incident | "Response time above 10ms", "New CVE-123 detected" | |
 | environment | `Object` ([`environment`](./continuous-deployment.md#environment)) | Reference to the environment | `{"id": "production"}`, `{"id": "staging"}`, `{"id": "prod123", "source": "iaas-region-1"}` | ✅ |
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` | |
@@ -62,8 +64,9 @@ This event represents an incident that has been reported through a ticketing sys
 
 | Field | Type | Description | Examples | Mandatory ✅ |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | Uniquely identifies the subject within the source. | `04896C75-F34D-40FF-A584-3F2B71CB9D47`, `issue123`, `risk-CVE123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `region1/production`, `monitoring-system/metricA`| |
+| id    | `String` | See [id](../spec.md#id-subject)| `04896C75-F34D-40FF-A584-3F2B71CB9D47`, `issue123`, `risk-CVE123` | ✅ |
+| source | `URI-Reference` | See [source](../spec.md#source-subject) | `region1/production`, `monitoring-system/metricA`| |
+| type | `String` | See [type](../spec.md#type-subject) | `incident` | |
 | description | `String` | Short, free style description of the incident | "Response time above 10ms", "New CVE-123 detected" | |
 | environment | `Object` ([`environment`](./continuous-deployment.md#environment)) | Reference to the environment | `{"id": "production"}`, `{"id": "staging"}`, `{"id": "prod123", "source": "iaas-region-1"}` | ✅ |
 | ticketURI | `URI` | URI of the ticket |  `example.issues.com/ticket123` | ✅ |
@@ -80,8 +83,9 @@ This event represents an incident that has been resolved, meaning that the probl
 
 | Field | Type | Description | Examples | Mandatory ✅ |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | Uniquely identifies the subject within the source. | `04896C75-F34D-40FF-A584-3F2B71CB9D47`, `issue123`, `risk-CVE123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `region1/production`, `monitoring-system/metricA`| |
+| id    | `String` | See [id](../spec.md#id-subject)| `04896C75-F34D-40FF-A584-3F2B71CB9D47`, `issue123`, `risk-CVE123` | ✅ |
+| source | `URI-Reference` | See [source](../spec.md#source-subject) | `region1/production`, `monitoring-system/metricA`| |
+| type | `String` | See [type](../spec.md#type-subject) | `incident` | |
 | description | `String` | Short, free style description of the incident resolution | "Response time restored below 10ms", "CVE-123 acknowledged as non-exploitable" | |
 | environment | `Object` ([`environment`](./continuous-deployment.md#environment)) | Reference to the environment | `{"id": "production"}`, `{"id": "staging"}`, `{"id": "prod123", "source": "iaas-region-1"}` | ✅ |
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` | |
