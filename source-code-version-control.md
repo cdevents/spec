@@ -31,7 +31,7 @@ An SCM `repository` is identified by a `name`, an `owner` which can be a user or
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `an-org/a-repo`, `an-user/a-repo` |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`|
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example`|
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`|
 | url | `URI` | URL to the `repository` for API operations. This URL needs to include the protocol used to connect to the repository. | `git://my-git.example/an-org/a-repo` |
@@ -44,7 +44,7 @@ A `branch` in an SCM repository is identified by its `id`.
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`|
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example`|
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
 
 ### `change`
@@ -54,7 +54,7 @@ A `change` identifies a proposed set of changes to the content of a `repository`
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`|
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example`|
 | repository | `Object` ([`repository`](#repository)) | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
 
 ## Events
@@ -70,7 +70,7 @@ A new Source Code Repository was created to host source code for a project.
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `an-org/a-repo`, `an-user/a-repo`, `repo123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example`| |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | ✅ |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
@@ -87,7 +87,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `an-org/a-repo`, `an-user/a-repo`, `repo123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example`| |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | ✅ |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
@@ -102,7 +102,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `an-org/a-repo`, `an-user/a-repo`, `repo123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example`| |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | |
@@ -119,7 +119,7 @@ A branch inside the Repository was created.
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example/an-org/a-repo`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example/an-org/a-repo`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### `branch deleted`
@@ -133,7 +133,7 @@ A branch inside the Repository was deleted.
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `main`, `feature-a`, `fix-issue-1` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example/an-org/a-rep`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example/an-org/a-rep`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### `change created`
@@ -147,7 +147,7 @@ A source code change was created and submitted to a repository specific branch. 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example/an-org/a-repo`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example/an-org/a-repo`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### `change reviewed`
@@ -161,7 +161,7 @@ Someone (user) or an automated system submitted an review to the source code cha
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example/an-org/a-repo`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example/an-org/a-repo`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### `change merged`
@@ -175,7 +175,7 @@ A change is merged to the target branch where it was submitted.
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123`, `1a429d2f06fa49d8ece5045ac6471dc8a2276895` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example/an-org/a-repo`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example/an-org/a-repo`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### `change abandoned`
@@ -189,7 +189,7 @@ A tool or a user decides that the change has been inactive for a while and it ca
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example/an-org/a-repo`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example/an-org/a-repo`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### `change updated`
@@ -203,5 +203,5 @@ A Change has been updated, for example a new commit is added or removed from an 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `featureBranch123` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | `my-git.example/an-org/a-repo`| |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | `my-git.example/an-org/a-repo`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |

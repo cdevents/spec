@@ -33,7 +33,7 @@ track the build and release progress on a particular software artifact.
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/pipelinerun-1234` |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` |
 | outcome | `Enum` | outcome of a finished `pipelineRun` | `success`, `error` or `failure`|
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` |
@@ -51,7 +51,7 @@ associated, in which case it is acceptable to generate only taskRun events.
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/taskrun-1234` |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | |
 | taskName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`|
 | outcome | `Enum` | outcome of a finished `taskRun` | `success`, `error` or `failure`|
@@ -73,7 +73,7 @@ to ignore these events if they don't apply to their use cases.
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 
@@ -88,7 +88,7 @@ A pipelineRun has started and it is running.
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 
@@ -103,7 +103,7 @@ A pipelineRun has finished, successfully or not.
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | Uniquely identifies the subject within the source. | `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| source | `URI-Reference` | [source](/spec.md#source-context) from the context | | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 | outcome | `Enum` | outcome of a finished `pipelineRun` | `success`, `error` or `failure`| |
