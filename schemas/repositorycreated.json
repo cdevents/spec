@@ -14,14 +14,15 @@
         },
         "source": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "format": "uri-reference"
         },
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.repository.created.0.1.0"
+            "dev.cdevents.repository.created.0.1.1"
           ],
-          "default": "dev.cdevents.repository.created.0.1.0"
+          "default": "dev.cdevents.repository.created.0.1.1"
         },
         "timestamp": {
           "type": "string",
@@ -45,7 +46,9 @@
           "minLength": 1
         },
         "source": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
         },
         "type": {
           "type": "string",

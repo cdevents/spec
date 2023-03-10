@@ -14,7 +14,8 @@
         },
         "source": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "format": "uri-reference"
         },
         "type": {
           "type": "string",
@@ -45,7 +46,9 @@
           "minLength": 1
         },
         "source": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
         },
         "type": {
           "type": "string"
@@ -62,7 +65,9 @@
                   "minLength": 1
                 },
                 "source": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri-reference"
                 }
               },
               "additionalProperties": false,
@@ -78,7 +83,9 @@
                   "minLength": 1
                 },
                 "source": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri-reference"
                 }
               },
               "additionalProperties": false,
