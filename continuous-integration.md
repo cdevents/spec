@@ -31,9 +31,9 @@ __Note:__ The data model for `builds`, apart from `id` and `source`, only includ
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
-| id    | `String` | See [id](../spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](../spec.md#type-subject) | `build` |
+| id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
+| type | `String` | See [type](spec.md#type-subject) | `build` |
 | artifactId | `String` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
 
 ### `testCase`
@@ -44,9 +44,9 @@ __Note:__ The data model for `testCase` only includes `id` and `source`, inputs 
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
-| id    | `String` | See [id](../spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](../spec.md#type-subject) | `testCase` |
+| id    | `String` | See [id](spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
+| type | `String` | See [type](spec.md#type-subject) | `testCase` |
 
 ### `testSuite`
 
@@ -56,9 +56,9 @@ __Note:__ The data model for `testSuite` only includes `id` and `source`, inputs
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
-| id    | `String` | See [id](../spec.md#id-subject)| `unit`, `e2e`, `security` |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](../spec.md#type-subject) | `testSuite` |
+| id    | `String` | See [id](spec.md#id-subject)| `unit`, `e2e`, `security` |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
+| type | `String` | See [type](spec.md#type-subject) | `testSuite` |
 
 ### `artifact`
 
@@ -66,9 +66,9 @@ An `artifact` is usually produced as output of a build process. Events need to b
 
 | Field | Type | Description | Examples |
 |-------|------|-------------|----------|
-| id    | `String` | See [id](../spec.md#id-subject)| `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](../spec.md#type-subject) | `artifact` |
+| id    | `String` | See [id](spec.md#id-subject)| `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
+| type | `String` | See [type](spec.md#type-subject) | `artifact` |
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` |
 
 ## Events
@@ -83,9 +83,9 @@ This event represents a Build task that has been queued; this build process usua
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](../spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `build` | |
+| id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `build` | |
 
 ### `build started`
 
@@ -97,9 +97,9 @@ This event represents a Build task that has been started; this build process usu
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](../spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `build` | |
+| id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `build` | |
 
 ### `build finished`
 
@@ -111,9 +111,9 @@ This event represents a Build task that has finished. This event will eventually
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](../spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | |
+| id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | |
 | artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | `build` | |
 
 ### `testCase queued`
@@ -126,9 +126,9 @@ This event represents a Test task that has been queued, and it is waiting to be 
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](../spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `testCase` | |
+| id    | `String` | See [id](spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `testCase` | |
 
 ### `testCase started`
 
@@ -140,9 +140,9 @@ This event represents a Test task that has started.
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](../spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `testCase` | |
+| id    | `String` | See [id](spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `testCase` | |
 
 ### `testCase finished`
 
@@ -154,9 +154,9 @@ This event represents a Test task that has finished. This event will eventually 
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](../spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `testCase` | |
+| id    | `String` | See [id](spec.md#id-subject)| `unitest-abc`, `e2e-test1`, `scan-image1` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `testCase` | |
 
 ### `testSuite started`
 
@@ -168,9 +168,9 @@ This event represents a Test suite that has been started.
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](../spec.md#id-subject)| `unit`, `e2e`, `security` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `testSuite` | |
+| id    | `String` | See [id](spec.md#id-subject)| `unit`, `e2e`, `security` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `testSuite` | |
 
 ### `testSuite finished`
 
@@ -182,9 +182,9 @@ This event represents a Test suite that has has finished, the event will contain
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `String` | See [id](../spec.md#id-subject)| `unit`, `e2e`, `security` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `testSuite` | |
+| id    | `String` | See [id](spec.md#id-subject)| `unit`, `e2e`, `security` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `testSuite` | |
 
 ### `artifact packaged`
 
@@ -196,14 +196,10 @@ The event represents an artifact that has been packaged for distribution; this a
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `Purl` | Uniquely identifies the subject within the source. | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
-<<<<<<< HEAD
-| source | `URI-Reference` | [source](../spec.md#source) from the context | | |
+| id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` | ✅ |
-=======
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `artifact` | |
->>>>>>> c555c8e (Improve subject fields spec and schema)
 
 ### `artifact published`
 
@@ -215,6 +211,6 @@ The event represents an artifact that has been published and it can be advertise
 
 | Field | Type | Description | Examples | Required |
 |-------|------|-------------|----------|----------------------------|
-| id    | `Purl` | Uniquely identifies the subject within the source. | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
-| source | `URI-Reference` | See [source](../spec.md#source-subject) | | |
-| type | `String` | See [type](../spec.md#type-subject) | `artifact` | |
+| id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
