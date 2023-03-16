@@ -106,9 +106,10 @@ SPLIT_EVENT=(${EVENT_SUBJECT_PREDICATE//./ })
 SUBJECT=${SPLIT_EVENT[0]}
 PREDICATE=${SPLIT_EVENT[1]}
 SCHEMA_FILE="schemas/${SUBJECT}${PREDICATE}.json"
+EXAMPLE_FILE="examples/${SUBJECT}${PREDICATE}.json"
 
 # Evaluate the event version
-OLD_VERSION=$(sed -n -e '/"default": "dev.cdevents.'${SUBJECT}'.'${PREDICATE}'./s/.*\.\([0-9]\.[0-9]\.[0-9]\)"/\1/p' ${SCHEMA_FILE})
+OLD_VERSION=$(sed -n -e '/"default": "dev.cdevents.'${SUBJECT}'.'${PREDICATE}'./s/.*\.\([0-9]\.[0-9]\.[0-9]\(-draft\)\{0,1\}\)"/\1/p' ${SCHEMA_FILE})
 VERSION="${NEW_VERSION:-$OLD_VERSION}"
 SPLIT_VERSION=(${VERSION//./ })
 MAJOR_VERSION=${SPLIT_VERSION[0]}
@@ -156,6 +157,11 @@ VERSION="${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}${DRAFT_VERSION}"
 
 # Replace the version in the schema IDs
 sed -i ".backup" -e 's,"dev.cdevents.*","dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'",g' "${SCHEMA_FILE}"
+
+# Replace the version in the example file
+if [ -f "${EXAMPLE_FILE}" ]; then
+    sed -i ".backup" -e 's,"dev.cdevents.*","dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'",g' "${EXAMPLE_FILE}"
+fi
 
 # Update examples in docs
 for doc in core source-code-version-control continuous-integration continuous-deployment continuous-operations; do

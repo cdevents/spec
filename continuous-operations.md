@@ -40,7 +40,7 @@ An `incident` represents a problem in a production environment.
 
 This event represents an incident that has been detected by a system or human.
 
-- Event Type: __`dev.cdevents.incident.detected.0.1.0-draft`__
+- Event Type: __`dev.cdevents.incident.detected.0.1.0`__
 - Predicate: detected
 - Subject: [`incident`](#incident)
 
@@ -58,7 +58,7 @@ This event represents an incident that has been detected by a system or human.
 
 This event represents an incident that has been reported through a ticketing system. Compared to the `detected` predicated, it introduces a ticket URI.
 
-- Event Type: __`dev.cdevents.incident.reported.0.1.0-draft`__
+- Event Type: __`dev.cdevents.incident.reported.0.1.0`__
 - Predicate: reported
 - Subject: [`incident`](#incident)
 
@@ -77,7 +77,7 @@ This event represents an incident that has been reported through a ticketing sys
 
 This event represents an incident that has been resolved, meaning that the problem identified by the incident has been solved or recalled.
 
-- Event Type: __`dev.cdevents.incident.resolved.0.1.0-draft`__
+- Event Type: __`dev.cdevents.incident.resolved.0.1.0`__
 - Predicate: resolved
 - Subject: [`incident`](#incident)
 
