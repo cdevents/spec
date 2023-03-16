@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.2.0-draft/schema/incident-resolved-event",
+  "$id": "https://cdevents.dev/0.2.0/schema/incident-resolved-event",
   "properties": {
     "context": {
       "properties": {
@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.incident.resolved.0.1.0-draft"
+            "dev.cdevents.incident.resolved.0.1.0"
           ],
-          "default": "dev.cdevents.incident.resolved.0.1.0-draft"
+          "default": "dev.cdevents.incident.resolved.0.1.0"
         },
         "timestamp": {
           "type": "string",
