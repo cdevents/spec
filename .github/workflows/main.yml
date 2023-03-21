@@ -10,13 +10,13 @@ on:
 # Set the Job #
 ###############
 jobs:
-  build:
+  lint:
     name: Lint Code Base
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
@@ -31,3 +31,19 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_MARKDOWN: true
+
+  jsonschema:
+    name: Validate examples
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+
+      - name: Validate Examples
+        run: ./tools/verify-examples.sh
