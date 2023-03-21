@@ -1,0 +1,18 @@
+{
+  "context": {
+    "version": "0.2.0",
+    "id": "271069a8-fc18-44f1-b38f-9d70a1695819",
+    "source": "/event/source/123",
+    "type": "dev.cdevents.pipelinerun.queued.0.1.1",
+    "timestamp": "2023-03-20T14:27:05.315384Z"
+  },
+  "subject": {
+    "id": "mySubject123",
+    "source": "/event/source/123",
+    "type": "pipelineRun",
+    "content": {
+      "pipelineName": "myPipeline",
+      "url": "https://www.example.com/mySubject123"
+    }
+  }
+}

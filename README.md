@@ -86,6 +86,10 @@ Handling Events associated with the health of the services deployed and running 
 
 Defining how CDEvents are mapped to CloudEvents for transportation and delivery
 
+### [Schemas](./schemas/) and [Examples](./examples/)
+
+The [schemas](./schemas/) folder contains `jsonschemas` for all events in the spec. The [examples](./examples/) contains simple `JSON` examples for all events.
+
 ## CDEvents SDKs
 
 CDEvents is developing as set of SDKs:
@@ -93,7 +97,6 @@ CDEvents is developing as set of SDKs:
 * [Go](https://github.com/cdevents/sdk-go)
 * [Python](https://github.com/cdevents/sdk-python)
 * [Java](https://github.com/cdevents/sdk-java)
-
 
 ## Community
 
