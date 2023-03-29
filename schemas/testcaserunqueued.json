@@ -53,24 +53,6 @@
         },
         "content": {
           "properties": {
-            "type": {
-              "type": "string",
-              "enum": [
-                "performance",
-                "functional",
-                "unit",
-                "security",
-                "compliance",
-                "integration",
-                "e2e",
-                "other"
-              ]
-            },
-            "uri": {
-              "type": "string",
-              "format": "uri",
-              "description": "an optional URI to the actual testCase"
-            },
             "trigger": {
               "type": "object",
               "description": "an optional definition of what triggered this testCase queueing",
@@ -132,9 +114,37 @@
                 "id"
               ]
             },
-            "testCaseId": {
-              "type": "string",
-              "description": "an optional external identifier of the queued testCase"
+            "testCase": {
+              "description": "the testCase which this testCaseRun is executing",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "performance",
+                    "functional",
+                    "unit",
+                    "security",
+                    "compliance",
+                    "integration",
+                    "e2e",
+                    "other"
+                  ]
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
             }
           },
           "additionalProperties": false,
