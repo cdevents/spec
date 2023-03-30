@@ -84,7 +84,7 @@
             "testSuite": {
               "description": "the testSuite which this testSuiteRun is executing",
               "type": "object",
-              "additionalProperties": "false",
+              "additionalProperties": false,
               "required": [
                 "id",
                 "source"
