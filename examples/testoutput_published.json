@@ -15,7 +15,7 @@
       "format" : "video/quicktime",
       "testCaseRun": {
         "id": "myTestCaseRun123",
-        "source": "/event/source/123"
+        "source": "testkube-dev-123"
       }
     }
   }

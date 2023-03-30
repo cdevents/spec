@@ -183,7 +183,7 @@ The event represents a test execution output artifact that has been published.
 | source      | `URI-Reference`                        | [source](spec.md#source--context-) from the context                       |                                                                       | ✅        |
 | outputType  | `String`                               | The type of output, one of `report`, `video`, `image`, `log`, `other`     | `video`                                                               | ✅        |
 | format      | `String`                               | The Content-Type of the output artifact                                   | `application/pdf`, `image/png`, `application/json`                    | ✅        |
-| uri         | `URI-Reference`                        | A reference to retrieve the specified output artifact                     | `https://testkube.mycluster.internal/artifacts/23123123`              | ✅        |
+| uri         | `URI-Reference`                        | A reference to retrieve the specified output artifact                     | `https://testkube.mycluster.internal/artifacts/23123123`              |          |
 | testCaseRun | `Object` [`testCaseRun`](#testcaserun) | An optional testCaseRun to link this artifact to a specific `testCaseRun` | `{"id":"Login-Test-execution-1213423", "source": "staging/testkube"}` |          |
 
 ## Common Objects

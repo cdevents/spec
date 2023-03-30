@@ -17,6 +17,7 @@
       },
       "testSuite": {
         "id": "92834723894",
+        "source": "testkube-dev-123",
         "name": "Auth TestSuite"
       },
       "trigger": {
