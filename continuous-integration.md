@@ -33,6 +33,7 @@ __Note:__ The data model for `builds`, apart from `id` and `source`, only includ
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
+| type | `String` | See [type](spec.md#type-subject) | `build` |
 | artifactId | `String` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
 
 ### `artifact`

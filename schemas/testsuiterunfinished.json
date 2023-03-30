@@ -49,7 +49,11 @@
         },
         "type": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "enum": [
+            "testSuiteRun"
+          ],
+          "default": "testSuiteRun"
         },
         "content": {
           "properties": {
