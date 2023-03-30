@@ -53,82 +53,78 @@
         },
         "content": {
           "properties": {
-            "properties": {
-              "environment": {
-                "description": "the environment in which this testSuiteRun started",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "source": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string",
-                    "format": "uri"
-                  }
+            "environment": {
+              "description": "the environment in which this testSuiteRun started",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
                 },
-                "additionalProperties": false,
-                "type": "object",
-                "required": [
-                  "id"
-                ]
-              },
-              "testSuite": {
-                "description": "the testSuite which this testSuiteRun is executing",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "source": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string",
-                    "format": "uri"
-                  }
+                "source": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
                 }
               },
-              "status": {
-                "type": "string",
-                "enum": [
-                  "pass",
-                  "fail",
-                  "cancel",
-                  "error"
-                ]
-              },
-              "severity": {
-                "type": "string",
-                "enum": [
-                  "low",
-                  "medium",
-                  "high",
-                  "critical"
-                ]
-              },
-              "reason": {
-                "type": "string",
-                "description": "an optional reason to why the testSuite ended as it did"
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
+            },
+            "testSuite": {
+              "description": "the testSuite which this testSuiteRun is executing",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
               }
             },
-            "additionalProperties": false,
-            "type": "object",
-            "required": [
-              "status",
-              "environment"
-            ]
+            "status": {
+              "type": "string",
+              "enum": [
+                "pass",
+                "fail",
+                "cancel",
+                "error"
+              ]
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "description": "an optional reason to why the testSuite ended as it did"
+            }
           },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "status",
+            "environment"
+          ]
         }
       },
       "additionalProperties": false,
