@@ -290,12 +290,12 @@ defined in the [vocabulary](#vocabulary):
 - Type: [`String`][typesystem]
 - Description: Identifier for a subject.
   Subsequent events associated to the same subject MUST use the same subject
-  [`id`](#id--subject-).
+  [`id`](#id-subject).
 
 - Constraints:
   - REQUIRED
   - MUST be a non-empty string
-  - MUST be unique within the given [`source`](#source--subject-) (in the scope of
+  - MUST be unique within the given [`source`](#source-subject) (in the scope of
     the producer)
 - Examples:
   - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
@@ -330,12 +330,12 @@ defined in the [vocabulary](#vocabulary):
 
 - Type: [`URI-Reference`][typesystem]
 - Description: defines the context in which the subject originated. In most
-  cases the [`source`](#source--subject-) of the subject matches the
+  cases the [`source`](#source-subject) of the subject matches the
   [`source`](#source-context) of the event. This field should be used only in
-  cases where the [`source`](#source--subject-) of the *subject* is different from
+  cases where the [`source`](#source-subject) of the *subject* is different from
   the [`source`](#source-context) of the event.
 
-  The format and semantic of the *subject* [`source`](#source--subject-) are the
+  The format and semantic of the *subject* [`source`](#source-subject) are the
   same of those of the *context* [`source`](#source-context).
 
 #### type (subject)

@@ -53,8 +53,8 @@
         },
         "content": {
           "properties": {
-            "type": {
-              "outputType": "string",
+            "outputType": {
+              "type": "string",
               "enum": [
                 "report",
                 "video",
