@@ -84,36 +84,6 @@
                   "type": "string",
                   "minLength": 1
                 },
-                "version": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "uri": {
-                  "type": "string",
-                  "format": "uri"
-                }
-              },
-              "additionalProperties": false,
-              "type": "object",
-              "required": [
-                "id"
-              ]
-            },
-            "testSuite": {
-              "description": "the testSuite which this testSuiteRun is executing",
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "source"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "minLength": 1
-                },
                 "source": {
                   "type": "string"
                 },
@@ -121,6 +91,36 @@
                   "type": "string"
                 },
                 "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id",
+                "source"
+              ]
+            },
+            "testSuite": {
+              "description": "the testSuite which this testSuiteRun is executing",
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "version": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "uri": {
                   "type": "string",
                   "format": "uri"
                 }
