@@ -125,7 +125,7 @@
                   "type": "string",
                   "minLength": 1
                 },
-                "source": {
+                "version": {
                   "type": "string"
                 },
                 "name": {
@@ -144,7 +144,7 @@
                     "other"
                   ]
                 },
-                "url": {
+                "uri": {
                   "type": "string",
                   "format": "uri"
                 }
@@ -152,8 +152,7 @@
               "additionalProperties": false,
               "type": "object",
               "required": [
-                "id",
-                "source"
+                "id"
               ]
             }
           },

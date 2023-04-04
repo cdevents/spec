@@ -18,7 +18,7 @@
       },
       "testCase": {
         "id": "92834723894",
-        "source": "testkube-dev-123",
+        "version": "1.0",
         "name": "Login Test",
         "type": "integration"
       }

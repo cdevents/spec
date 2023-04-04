@@ -86,21 +86,20 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "id",
-                "source"
+                "id"
               ],
               "properties": {
                 "id": {
                   "type": "string",
                   "minLength": 1
                 },
-                "source": {
+                "version": {
                   "type": "string"
                 },
                 "name": {
                   "type": "string"
                 },
-                "url": {
+                "uri": {
                   "type": "string",
                   "format": "uri"
                 }
