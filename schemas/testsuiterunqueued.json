@@ -59,7 +59,6 @@
           "properties": {
             "trigger": {
               "type": "object",
-              "description": "an optional definition of what triggered this testCase execution",
               "properties": {
                 "type": {
                   "type": "string",
@@ -78,7 +77,6 @@
               }
             },
             "environment": {
-              "description": "the environment in which this testSuiteRun started",
               "properties": {
                 "id": {
                   "type": "string",
@@ -102,7 +100,6 @@
               ]
             },
             "testSuite": {
-              "description": "the testSuite which this testSuiteRun is executing",
               "type": "object",
               "additionalProperties": false,
               "required": [

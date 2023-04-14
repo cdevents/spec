@@ -69,17 +69,14 @@
             },
             "format": {
               "type": "string",
-              "description": "The content-type of the output artifact",
               "example": "application/pdf"
             },
             "uri": {
               "type": "string",
-              "format": "uri",
-              "description": "an optional URI reference to the actual testOutput artifact"
+              "format": "uri"
             },
             "testCaseRun": {
               "type": "object",
-              "description": "an optional reference to the testCaseRun that generated this output",
               "properties": {
                 "id": {
                   "type": "string",

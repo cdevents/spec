@@ -58,7 +58,6 @@
         "content": {
           "properties": {
             "environment": {
-              "description": "the environment in which this testSuiteRun started",
               "properties": {
                 "id": {
                   "type": "string",
@@ -82,7 +81,6 @@
               ]
             },
             "testSuite": {
-              "description": "the testSuite which this testSuiteRun is executing",
               "type": "object",
               "additionalProperties": false,
               "required": [
@@ -124,8 +122,7 @@
               ]
             },
             "reason": {
-              "type": "string",
-              "description": "an optional reason to why the testSuite ended as it did"
+              "type": "string"
             }
           },
           "additionalProperties": false,

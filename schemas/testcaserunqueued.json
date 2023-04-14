@@ -59,7 +59,6 @@
           "properties": {
             "trigger": {
               "type": "object",
-              "description": "an optional definition of what triggered this testCase queueing",
               "properties": {
                 "type": {
                   "type": "string",
@@ -78,7 +77,6 @@
               }
             },
             "environment": {
-              "description": "the environment in which this testCaseRun is being queued",
               "properties": {
                 "id": {
                   "type": "string",
@@ -102,7 +100,6 @@
               ]
             },
             "testSuiteRun": {
-              "description": "an optional reference to the containing testSuiteRun",
               "properties": {
                 "id": {
                   "type": "string",
@@ -119,7 +116,6 @@
               ]
             },
             "testCase": {
-              "description": "the testCase which this testCaseRun is executing",
               "type": "object",
               "additionalProperties": false,
               "required": [
