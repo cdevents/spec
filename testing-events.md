@@ -69,7 +69,7 @@ One or more `testOutput` artifacts are usually produced as the result of a test 
 This event represents when a testCaseRun has been queued for execution - and is waiting for applicable preconditions
 (resource availability, other tasks, etc.) to be fulfilled before actually executing.
 
-- Event Type: __`dev.cdevents.testcaserun.queued.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testcaserun.queued.0.3.0-draft`__
 - Predicate: queued
 - Subject: [`testCaseRun`](#testcaserun)
 
@@ -86,7 +86,7 @@ This event represents when a testCaseRun has been queued for execution - and is 
 
 This event represents a started testCase execution.
 
-- Event Type: __`dev.cdevents.testcaserun.started.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testcaserun.started.0.3.0-draft`__
 - Predicate: started
 - Subject: [`testCaseRun`](#testcaserun)
 
@@ -103,7 +103,7 @@ This event represents a started testCase execution.
 
 This event represents a finished testCase execution. The event will contain the finished status and additional metadata as applicable.
 
-- Event Type: __`dev.cdevents.testcaserun.finished.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testcaserun.finished.0.3.0-draft`__
 - Predicate: finished
 - Subject: [`testCaseRun`](#testcaserun)
 
@@ -123,7 +123,7 @@ This event represents a finished testCase execution. The event will contain the 
 This event represents when a testSuiteRun has been queued for execution - and is waiting for applicable preconditions
 (resource availability, other tasks, etc.) to be met before actually executing.
 
-- Event Type: __`dev.cdevents.testsuiterun.queued.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testsuiterun.queued.0.3.0-draft`__
 - Predicate: queued
 - Subject: [`testSuiteRun`](#testsuiterun)
 
@@ -139,7 +139,7 @@ This event represents when a testSuiteRun has been queued for execution - and is
 
 This event represents a started testSuite execution.
 
-- Event Type: __`dev.cdevents.testsuiterun.started.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testsuiterun.started.0.3.0-draft`__
 - Predicate: started
 - Subject: [`testSuiteRun`](#testsuiterun)
 
@@ -155,7 +155,7 @@ This event represents a started testSuite execution.
 
 This event represents a finished testSuite execution. The event will contain the execution status and additional metadata as applicable.
 
-- Event Type: __`dev.cdevents.testsuiterun.finished.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testsuiterun.finished.0.3.0-draft`__
 - Predicate: finished
 - Subject: [`testSuiteRun`](#testsuiterun)
 
@@ -173,7 +173,7 @@ This event represents a finished testSuite execution. The event will contain the
 
 The event represents a test execution output artifact that has been published.
 
-- Event Type: __`dev.cdevents.testoutput.published.0.1.0-draft`__
+- Event Type: __`dev.cdevents.testoutput.published.0.3.0-draft`__
 - Predicate: published
 - Subject: [`testOutput`](#testoutput)
 
