@@ -85,14 +85,9 @@
                   "minLength": 1
                 },
                 "source": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "url": {
                   "type": "string",
-                  "format": "uri"
+                  "minLength": 1,
+                  "format": "uri-reference"
                 }
               },
               "additionalProperties": false,
