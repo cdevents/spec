@@ -101,22 +101,22 @@ This event represents a started testCase execution.
 
 ### `testCaseRun finished`
 
-This event represents a finished testCase execution. The event will contain the finished status and additional metadata as applicable.
+This event represents a finished testCase execution. The event will contain the outcome and additional metadata as applicable.
 
 - Event Type: __`dev.cdevents.testcaserun.finished.0.3.0-draft`__
 - Predicate: finished
 - Subject: [`testCaseRun`](#testcaserun)
 
-| Field        | Type                                                            | Description                                                                     | Examples                                                                | Required |
-|--------------|-----------------------------------------------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------|----------|
-| id           | `String`                                                        | Uniquely identifies the subject within the source.                              | `unitest-abc`, `e2e-test1`, `scan-image1`                               | ✅        |
-| source       | `URI-Reference`                                                 | [source](spec.md#source--context-) from the context                             |                                                                         |          |
-| environment  | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testCaseRun was running                           | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}`         | ✅        |
-| testCase     | `Object` [`testCase`](#testcase)                                | Definition of the testCase being executed                                       | `{"id": "92834723894", "name": "Login Test", "type": "integration"}`    |          |
-| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                        | A testSuiteRun to associate this testCaseRun with a containing testSuiteRun     | `{"id":"Auth-TestSuite-execution-12334", "source": "staging/testkube"}` |          |
-| status       | `String`                                                        | The status of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `pass`                                                                  | ✅        |
-| severity     | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`         | `critical`                                                              |
-| reason       | `String`                                                        | A reason related to the `status` of the execution                               | `Cancelled by user`, `Failed assertion`, `Timed out`                    |          |
+| Field        | Type                                                            | Description                                                                      | Examples                                                                | Required |
+|--------------|-----------------------------------------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------|----------|
+| id           | `String`                                                        | Uniquely identifies the subject within the source.                               | `unitest-abc`, `e2e-test1`, `scan-image1`                               | ✅        |
+| source       | `URI-Reference`                                                 | [source](spec.md#source--context-) from the context                              |                                                                         |          |
+| environment  | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testCaseRun was running                            | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}`         | ✅        |
+| testCase     | `Object` [`testCase`](#testcase)                                | Definition of the testCase being executed                                        | `{"id": "92834723894", "name": "Login Test", "type": "integration"}`    |          |
+| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                        | A testSuiteRun to associate this testCaseRun with a containing testSuiteRun      | `{"id":"Auth-TestSuite-execution-12334", "source": "staging/testkube"}` |          |
+| outcome      | `String`                                                        | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `pass`                                                                  | ✅        |
+| severity     | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
+| reason       | `String`                                                        | A reason related to the outcome of the execution                                 | `Cancelled by user`, `Failed assertion`, `Timed out`                    |          |
 
 ### `testSuiteRun queued`
 
@@ -153,21 +153,21 @@ This event represents a started testSuite execution.
 
 ### `testSuiteRun finished`
 
-This event represents a finished testSuite execution. The event will contain the execution status and additional metadata as applicable.
+This event represents a finished testSuite execution. The event will contain the outcome and additional metadata as applicable.
 
 - Event Type: __`dev.cdevents.testsuiterun.finished.0.3.0-draft`__
 - Predicate: finished
 - Subject: [`testSuiteRun`](#testsuiterun)
 
-| Field       | Type                                                            | Description                                                                     | Examples                                                        | Required |
-|-------------|-----------------------------------------------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------|----------|
-| id          | `String`                                                        | Uniquely identifies the subject within the source.                              | `unit`, `e2e`, `security`                                       | ✅        |
-| source      | `URI-Reference`                                                 | [source](spec.md#source--context-) from the context                             |                                                                 |          |
-| environment | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testSuiteRun was running                          | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}` | ✅        |
-| status      | `String`                                                        | The status of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `fail`                                                          | ✅        |
-| severity    | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`         | `critical`, `low`, `medium`, `high`                             |
-| reason      | `String`                                                        | A reason related to the status of the execution                                 | `Cancelled by user`, `Failed testCase`                          |          |
-| testSuite   | `Object` [`testSuite`](#testsuite)                              | Definition of the testSuite being executed                                      | `{"id": "92834723894", "name": "Auth TestSuite"}`               |          |
+| Field       | Type                                                            | Description                                                                      | Examples                                                        | Required |
+|-------------|-----------------------------------------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------------------|----------|
+| id          | `String`                                                        | Uniquely identifies the subject within the source.                               | `unit`, `e2e`, `security`                                       | ✅        |
+| source      | `URI-Reference`                                                 | [source](spec.md#source--context-) from the context                              |                                                                 |          |
+| environment | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testSuiteRun was running                           | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}` | ✅        |
+| outcome     | `String`                                                        | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `fail`                                                          | ✅        |
+| severity    | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`, `low`, `medium`, `high`                             |
+| reason      | `String`                                                        | A reason related to the outcome of the execution                                  | `Cancelled by user`, `Failed testCase`                          |          |
+| testSuite   | `Object` [`testSuite`](#testsuite)                              | Definition of the testSuite being executed                                       | `{"id": "92834723894", "name": "Auth TestSuite"}`               |          |
 
 ### `testOutput published`
 

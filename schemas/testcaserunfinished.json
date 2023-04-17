@@ -57,7 +57,7 @@
         },
         "content": {
           "properties": {
-            "status": {
+            "outcome": {
               "type": "string",
               "enum": [
                 "pass",

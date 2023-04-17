@@ -98,7 +98,7 @@
                 }
               }
             },
-            "status": {
+            "outcome": {
               "type": "string",
               "enum": [
                 "pass",
