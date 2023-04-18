@@ -56,7 +56,7 @@ One or more `testOutput` artifacts are usually produced as the result of a test 
 |-------------|----------------------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------|
 | id          | `String`                               | Uniquely identifies the subject within the source.                        | `report-23123123`                                                     |
 | source      | `URI-Reference`                        | [source](spec.md#source--context-) from the context                       | `staging/testkube`, `testkube-dev-123`                                |
-| type        | `String`                               | The type of output, one of `report`, `video`, `image`, `log`, `other`     | `video`                                                               |
+| outputType  | `String`                               | The type of output, one of `report`, `video`, `image`, `log`, `other`     | `video`                                                               |
 | format      | `String`                               | The Content-Type of the output artifact                                   | `application/pdf`, `image/png`, `application/json`                    |
 | uri         | `URI-Reference`                        | A reference to retrieve the specified output artifact                     | `https://testkube.mycluster.internal/artifacts/23123123`              |
 | testCaseRun | `Object` [`testCaseRun`](#testcaserun) | An optional testCaseRun to link this artifact to a specific `testCaseRun` | `{"id":"Login-Test-execution-1213423", "source": "staging/testkube"}` |
@@ -68,7 +68,7 @@ One or more `testOutput` artifacts are usually produced as the result of a test 
 This event represents when a testCaseRun has been queued for execution - and is waiting for applicable preconditions
 (resource availability, other tasks, etc.) to be fulfilled before actually executing.
 
-- Event Type: __`dev.cdevents.testcaserun.queued.0.3.0-draft`__
+- Event Type: __`dev.cdevents.testcaserun.queued.0.1.0-draft`__
 - Predicate: queued
 - Subject: [`testCaseRun`](#testcaserun)
 
@@ -85,7 +85,7 @@ This event represents when a testCaseRun has been queued for execution - and is 
 
 This event represents a started testCase execution.
 
-- Event Type: __`dev.cdevents.testcaserun.started.0.3.0-draft`__
+- Event Type: __`dev.cdevents.testcaserun.started.0.1.0-draft`__
 - Predicate: started
 - Subject: [`testCaseRun`](#testcaserun)
 
@@ -102,7 +102,7 @@ This event represents a started testCase execution.
 
 This event represents a finished testCase execution. The event will contain the outcome and additional metadata as applicable.
 
-- Event Type: __`dev.cdevents.testcaserun.finished.0.3.0-draft`__
+- Event Type: __`dev.cdevents.testcaserun.finished.0.1.0-draft`__
 - Predicate: finished
 - Subject: [`testCaseRun`](#testcaserun)
 
@@ -122,7 +122,7 @@ This event represents a finished testCase execution. The event will contain the 
 This event represents when a testSuiteRun has been queued for execution - and is waiting for applicable preconditions
 (resource availability, other tasks, etc.) to be met before actually executing.
 
-- Event Type: __`dev.cdevents.testsuiterun.queued.0.3.0-draft`__
+- Event Type: __`dev.cdevents.testsuiterun.queued.0.1.0-draft`__
 - Predicate: queued
 - Subject: [`testSuiteRun`](#testsuiterun)
 
@@ -138,7 +138,7 @@ This event represents when a testSuiteRun has been queued for execution - and is
 
 This event represents a started testSuite execution.
 
-- Event Type: __`dev.cdevents.testsuiterun.started.0.3.0-draft`__
+- Event Type: __`dev.cdevents.testsuiterun.started.0.1.0-draft`__
 - Predicate: started
 - Subject: [`testSuiteRun`](#testsuiterun)
 
@@ -154,7 +154,7 @@ This event represents a started testSuite execution.
 
 This event represents a finished testSuite execution. The event will contain the outcome and additional metadata as applicable.
 
-- Event Type: __`dev.cdevents.testsuiterun.finished.0.3.0-draft`__
+- Event Type: __`dev.cdevents.testsuiterun.finished.0.1.0-draft`__
 - Predicate: finished
 - Subject: [`testSuiteRun`](#testsuiterun)
 
@@ -165,14 +165,14 @@ This event represents a finished testSuite execution. The event will contain the
 | environment | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testSuiteRun was running                           | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}` | ✅        |
 | outcome     | `String`                                                        | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `fail`                                                          | ✅        |
 | severity    | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`, `low`, `medium`, `high`                             |
-| reason      | `String`                                                        | A reason related to the outcome of the execution                                  | `Cancelled by user`, `Failed testCase`                          |          |
+| reason      | `String`                                                        | A reason related to the outcome of the execution                                 | `Cancelled by user`, `Failed testCase`                          |          |
 | testSuite   | `Object` [`testSuite`](#testsuite)                              | Definition of the testSuite being executed                                       | `{"id": "92834723894", "name": "Auth TestSuite"}`               |          |
 
 ### `testOutput published`
 
 The event represents a test execution output artifact that has been published.
 
-- Event Type: __`dev.cdevents.testoutput.published.0.3.0-draft`__
+- Event Type: __`dev.cdevents.testoutput.published.0.1.0-draft`__
 - Predicate: published
 - Subject: [`testOutput`](#testoutput)
 
