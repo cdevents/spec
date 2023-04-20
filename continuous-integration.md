@@ -19,7 +19,7 @@ This specification defines three subjects in this stage: `builds`, `artifacts` a
 | Subject | Description | Predicates |
 |---------|-------------|------------|
 | [`build`](#build) | A software build | [`queued`](#build-queued), [`started`](#build-started), [`finished`](#build-finished)|
-| [`artifact`](#artifact) | An artifact produced by a build | [`packaged`](#artifact-packaged), [`published`](#artifact-published)|
+| [`artifact`](#artifact) | An artifact produced by a build | [`packaged`](#artifact-packaged), [`published`](#artifact-published), [`signed`](#artifact-signed)|
 
 > `testCase`/`testSuite` events have moved to their own top-level bucket [Testing Events](testing-events.md)
 
@@ -46,6 +46,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
 | type | `String` | See [type](spec.md#type-subject) | `artifact` |
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` |
+| signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` |
 
 ## Events
 
@@ -120,3 +121,19 @@ The event represents an artifact that has been published and it can be advertise
 | id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
+
+### `artifact signed`
+
+The event represents an artifact that has been signed. The signature is included in the events itself.
+An artifact may be signed after it has been packaged or sometimes after it has published, depending on the tooling being used and the type of artifact.
+
+- Event Type: __`dev.cdevents.artifact.signed.0.1.0-draft`__
+- Predicate: signed
+- Subject: [`artifact`](#artifact)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
+| signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` | ✅ |
