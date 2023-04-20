@@ -170,7 +170,7 @@ This event represents a finished testSuite execution. The event will contain the
 
 ### `testOutput published`
 
-The event represents a test execution output artifact that has been published.
+The event represents a test execution output that has been published.
 
 - Event Type: __`dev.cdevents.testoutput.published.0.1.0-draft`__
 - Predicate: published
