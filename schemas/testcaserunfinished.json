@@ -152,7 +152,7 @@
           "additionalProperties": false,
           "type": "object",
           "required": [
-            "status",
+            "outcome",
             "environment"
           ]
         }
