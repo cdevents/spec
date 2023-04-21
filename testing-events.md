@@ -203,7 +203,7 @@ A `testCase` is the actual test that is being run by a `testCaseRun`.
 | Field   | Type            | Description                                                                                                           | Examples                   | Required |
 |---------|-----------------|-----------------------------------------------------------------------------------------------------------------------|----------------------------|----------|
 | id      | `String`        | Uniquely identifies the testCase within a test management system.                                                     | `12312334`                 | ✅        |
-| type    | `String enum`   | The type of test, one of `performance`, `functional`, `unit`, `security`, `compliance`, `integration`, `e2e`, `other` | `functional`,`performance` |          |
+| type    | `String enum`   | The type of test, one of `performance`, `functional`, `unit`, `security`, `compliance`, `integration`, `e2e`, `other` | `functional` |          |
 | name    | `String`        | A user-friendly name for this testCase                                                                                | `Login Test`               |          |
 | version | `String`        | The version of the testCase                                                                                           | `1.0`                      |          |
 | uri     | `URI-Reference` | A uri reference to this testCase                                                                                      |                            |          |
