@@ -82,6 +82,10 @@ Handling Events associated with Continuous Deployment activities
 
 Handling Events associated with the health of the services deployed and running in a specific environment
 
+### [Testing Events](./testing-events.md)
+
+Handling Events associated with Test execution performed independently or as part of CI/CD pipelines.
+
 ### [CloudEvents Binding and Transport](./cloudevents-binding.md)
 
 Defining how CDEvents are mapped to CloudEvents for transportation and delivery
