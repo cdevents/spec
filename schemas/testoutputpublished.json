@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.3.0-draft/schema/test-case-queued-event",
+  "$id": "https://cdevents.dev/0.3.0-draft/schema/test-output-published-event",
   "properties": {
     "context": {
       "properties": {
@@ -14,15 +14,14 @@
         },
         "source": {
           "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
+          "minLength": 1
         },
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcase.queued.0.1.1"
+            "dev.cdevents.testoutput.published.0.1.0-draft"
           ],
-          "default": "dev.cdevents.testcase.queued.0.1.1"
+          "default": "dev.cdevents.testoutput.published.0.1.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -46,22 +45,59 @@
           "minLength": 1
         },
         "source": {
-          "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
+          "type": "string"
         },
         "type": {
           "type": "string",
           "minLength": 1,
           "enum": [
-            "testCase"
+            "testOutput"
           ],
-          "default": "testCase"
+          "default": "testOutput"
         },
         "content": {
-          "properties": {},
+          "properties": {
+            "outputType": {
+              "type": "string",
+              "enum": [
+                "report",
+                "video",
+                "image",
+                "log",
+                "other"
+              ]
+            },
+            "format": {
+              "type": "string",
+              "example": "application/pdf"
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri"
+            },
+            "testCaseRun": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ]
+            }
+          },
           "additionalProperties": false,
-          "type": "object"
+          "type": "object",
+          "required": [
+            "outputType",
+            "format"
+          ]
         }
       },
       "additionalProperties": false,
