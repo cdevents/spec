@@ -10,7 +10,7 @@ description: >
 -->
 # Continuous Deployment Events
 
-Continuous Deployment (CD) events are related to continuos deployment pipelines and their target environments. These events can be emitted by environments to report where software artifacts such as services, binaries, daemons, jobs or embedded software are running.
+Continuous Deployment (CD) events are related to continuous deployment pipelines and their target environments. These events can be emitted by environments to report where software artifacts such as services, binaries, daemons, jobs or embedded software are running.
 
 ## Subjects
 
