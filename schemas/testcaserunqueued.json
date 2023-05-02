@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.3.0-draft/schema/test-case-run-queued-event",
+  "$id": "https://cdevents.dev/0.3.0/schema/test-case-run-queued-event",
   "properties": {
     "context": {
       "properties": {
@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcaserun.queued.0.1.0-draft"
+            "dev.cdevents.testcaserun.queued.0.1.0"
           ],
-          "default": "dev.cdevents.testcaserun.queued.0.1.0-draft"
+          "default": "dev.cdevents.testcaserun.queued.0.1.0"
         },
         "timestamp": {
           "type": "string",

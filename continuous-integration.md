@@ -127,7 +127,7 @@ The event represents an artifact that has been published and it can be advertise
 The event represents an artifact that has been signed. The signature is included in the events itself.
 An artifact may be signed after it has been packaged or sometimes after it has published, depending on the tooling being used and the type of artifact.
 
-- Event Type: __`dev.cdevents.artifact.signed.0.1.0-draft`__
+- Event Type: __`dev.cdevents.artifact.signed.0.1.0`__
 - Predicate: signed
 - Subject: [`artifact`](#artifact)
 
