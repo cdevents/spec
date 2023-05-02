@@ -164,7 +164,7 @@ if [ -f "${EXAMPLE_FILE}" ]; then
 fi
 
 # Update examples in docs
-for doc in core source-code-version-control continuous-integration continuous-deployment continuous-operations; do
+for doc in core source-code-version-control continuous-integration continuous-deployment continuous-operations testing-events; do
     sed -i ".backup" -e 's,__`dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.*`__,__`dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'`__,g' "${doc}.md"
 done
 
