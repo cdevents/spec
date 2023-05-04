@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.3.0/schema/service-deployed-event",
+  "$id": "https://cdevents.dev/0.4.0-draft/schema/service-deployed-event",
   "properties": {
     "context": {
       "properties": {
