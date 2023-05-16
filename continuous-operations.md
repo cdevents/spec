@@ -36,7 +36,7 @@ An `incident` represents a problem in a production environment.
 
 ## Events
 
-### `incident detected`
+### [`incident detected`](examples/incident_detected.json)
 
 This event represents an incident that has been detected by a system or human.
 
@@ -54,7 +54,7 @@ This event represents an incident that has been detected by a system or human.
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` | |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl` | |
 
-### `incident reported`
+### [`incident reported`](examples/incident_reported.json)
 
 This event represents an incident that has been reported through a ticketing system. Compared to the `detected` predicated, it introduces a ticket URI.
 
@@ -73,7 +73,7 @@ This event represents an incident that has been reported through a ticketing sys
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` | |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl` | |
 
-### `incident resolved`
+### [`incident resolved`](examples/incident_resolved.json)
 
 This event represents an incident that has been resolved, meaning that the problem identified by the incident has been solved or recalled.
 

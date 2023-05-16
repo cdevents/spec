@@ -50,7 +50,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 
 ## Events
 
-### `build queued`
+### [`build queued`](examples/build_queued.json)
 
 This event represents a Build task that has been queued; this build process usually is in charge of producing a binary from source code.
 
@@ -64,7 +64,7 @@ This event represents a Build task that has been queued; this build process usua
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `build` | |
 
-### `build started`
+### [`build started`](examples/build_started.json)
 
 This event represents a Build task that has been started; this build process usually is in charge of producing a binary from source code.
 
@@ -78,7 +78,7 @@ This event represents a Build task that has been started; this build process usu
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `build` | |
 
-### `build finished`
+### [`build finished`](examples/build_finished.json)
 
 This event represents a Build task that has finished. This event will eventually contain the finished status, success, error or failure
 
@@ -93,7 +93,7 @@ This event represents a Build task that has finished. This event will eventually
 | type | `String` | See [type](spec.md#type-subject) | |
 | artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | `build` | |
 
-### `artifact packaged`
+### [`artifact packaged`](examples/artifact_packaged.json)
 
 The event represents an artifact that has been packaged for distribution; this artifact is now versioned with a fixed version.
 
@@ -108,7 +108,7 @@ The event represents an artifact that has been packaged for distribution; this a
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` | ✅ |
 
-### `artifact published`
+### [`artifact published`](examples/artifact_published.json)
 
 The event represents an artifact that has been published and it can be advertised for others to use.
 
@@ -122,7 +122,7 @@ The event represents an artifact that has been published and it can be advertise
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 
-### `artifact signed`
+### [`artifact signed`](examples/artifact_signed.json)
 
 The event represents an artifact that has been signed. The signature is included in the events itself.
 An artifact may be signed after it has been packaged or sometimes after it has published, depending on the tooling being used and the type of artifact.
