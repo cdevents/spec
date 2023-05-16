@@ -62,7 +62,7 @@ A `change` identifies a proposed set of changes to the content of a `repository`
 
 ## Events
 
-### `repository created`
+### [`repository created`](examples/repository_created.json)
 
 A new Source Code Repository was created to host source code for a project.
 
@@ -80,7 +80,7 @@ A new Source Code Repository was created to host source code for a project.
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`| |
 
-### `repository modified`
+### [`repository modified`](examples/repository_modified.json)
 
 A Source Code Repository modified some of its attributes, like location, or owner.
 
@@ -98,7 +98,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`| |
 
-### `repository deleted`
+### [`repository deleted`](examples/repository_deleted.json)
 
 - Event Type: __`dev.cdevents.repository.deleted.0.1.1`__
 - Predicate: modified
@@ -114,7 +114,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`| |
 
-### `branch created`
+### [`branch created`](examples/branch_created.json)
 
 A branch inside the Repository was created.
 
@@ -129,7 +129,7 @@ A branch inside the Repository was created.
 | type | `String` | See [type](spec.md#type-subject) | `branch` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
-### `branch deleted`
+### [`branch deleted`](examples/branch_deleted.json)
 
 A branch inside the Repository was deleted.
 
@@ -144,7 +144,7 @@ A branch inside the Repository was deleted.
 | type | `String` | See [type](spec.md#type-subject) | `branch` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
-### `change created`
+### [`change created`](examples/change_created.json)
 
 A source code change was created and submitted to a repository specific branch. Examples: PullRequest sent to Github, MergeRequest sent to Gitlab, Change created in Gerrit.
 
@@ -159,7 +159,7 @@ A source code change was created and submitted to a repository specific branch. 
 | type | `String` | See [type](spec.md#type-subject) | `change` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
-### `change reviewed`
+### [`change reviewed`](examples/change_reviewed.json)
 
 Someone (user) or an automated system submitted an review to the source code change. A user or an automated system needs to be in charge of understanding how many approvals/rejections are needed for this change to be merged or rejected. The review event needs to include if the change is approved by the reviewer, more changes are needed or if the change is rejected.
 
@@ -174,7 +174,7 @@ Someone (user) or an automated system submitted an review to the source code cha
 | type | `String` | See [type](spec.md#type-subject) | `change` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
-### `change merged`
+### [`change merged`](examples/change_merged.json)
 
 A change is merged to the target branch where it was submitted.
 
@@ -189,7 +189,7 @@ A change is merged to the target branch where it was submitted.
 | type | `String` | See [type](spec.md#type-subject) | `change` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
-### `change abandoned`
+### [`change abandoned`](examples/change_abandoned.json)
 
 A tool or a user decides that the change has been inactive for a while and it can be considered abandoned.
 
@@ -204,7 +204,7 @@ A tool or a user decides that the change has been inactive for a while and it ca
 | type | `String` | See [type](spec.md#type-subject) | `change` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
-### `change updated`
+### [`change updated`](examples/change_updated.json)
 
 A Change has been updated, for example a new commit is added or removed from an existing Change.
 

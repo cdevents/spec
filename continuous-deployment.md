@@ -47,7 +47,7 @@ A `service` can represent for example a binary that is running, a daemon, an app
 
 ## Events
 
-### `environment created`
+### [`environment created`](examples/environment_created.json)
 
 This event represents an environment that has been created. Such an environment can be used to deploy services in.
 
@@ -63,7 +63,7 @@ This event represents an environment that has been created. Such an environment 
 | name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| |
 | url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| |
 
-### `environment modified`
+### [`environment modified`](examples/environment_modified.json)
 
 This event represents an environment that has been modified.
 
@@ -79,7 +79,7 @@ This event represents an environment that has been modified.
 | name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| |
 | url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| |
 
-### `environment deleted`
+### [`environment deleted`](examples/environment_deleted.json)
 
 This event represents an environment that has been deleted.```
 
@@ -94,7 +94,7 @@ This event represents an environment that has been deleted.```
 | type | `String` | See [type](spec.md#type-subject) | `environment` | |
 | name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| |
 
-### `service deployed`
+### [`service deployed`](examples/service_deployed.json)
 
 This event represents a new instance of a service that has been deployed
 
@@ -110,7 +110,7 @@ This event represents a new instance of a service that has been deployed
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl` | ✅ |
 
-### `service upgraded`
+### [`service upgraded`](examples/service_upgraded.json)
 
 This event represents an existing instance of a service that has been upgraded to a new version
 
@@ -126,7 +126,7 @@ This event represents an existing instance of a service that has been upgraded t
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |`pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 
-### `service rolledback`
+### [`service rolledback`](examples/service_rolledback.json)
 
 This event represents an existing instance of a service that has been rolled back to a previous version
 
@@ -142,7 +142,7 @@ This event represents an existing instance of a service that has been rolled bac
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 
-### `service removed`
+### [`service removed`](examples/service_removed.json)
 
 This event represents the removal of a previously deployed service instance and is thus not longer present in the specified environment
 
@@ -157,7 +157,7 @@ This event represents the removal of a previously deployed service instance and 
 | type | `String` | See [type](spec.md#type-subject) | `service` | |
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
 
-### `service published`
+### [`service published`](examples/service_published.json)
 
 This event represents an existing instance of a service that has an accessible URL for users to interact with it. This event can be used to let other tools know that the service is ready and also available for consumption.
 
