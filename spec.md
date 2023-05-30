@@ -32,6 +32,9 @@ CDEvents is a common specification for Continuous Delivery events.
     - [source (context)](#source-context)
     - [timestamp](#timestamp)
     - [version](#version)
+  - [OPTIONAL Context  Attributes](#optional-context-attributes)
+    - [chain_id](#chain_id)
+    - [links](#links)
   - [Context example](#context-example)
 - [CDEvent subject](#cdevent-subject)
   - [REQUIRED Subject Attributes](#required-subject-attributes)
@@ -296,6 +299,59 @@ defined in the [vocabulary](#vocabulary):
 
   - If there is a single "context" (cloud, cluster or platform of some kind)
     - `https://myorg.com/cdevents/schema/artifact-published-0-1-0`
+
+#### chain_id
+
+- Type: [`String`][typesystem]
+- Description: Identifier for a chain as defined in the [links spec](links.md).
+
+- Constraints:
+  - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
+
+#### links
+
+- Type: [`List`][typesystem]
+- Description: A list of link objects as defined in the [links spec](links.md).
+
+- Examples:
+  - A path link which is used to indicate a direct connection between two
+    events
+
+    ```json
+    [
+      {
+        "link_type": "PATH",
+        "from": {
+          "context_id": "271069a8-fc18-44f1-b38f-9d70a1695819"
+        }
+      }
+    ]
+    ```
+  - A relation link where the `context_id` is was some trigger for this event
+
+    ```json
+    [
+      {
+        "link_type": "RELATION",
+        "link_kind": "TRIGGER",
+        "target": {
+          "context_id": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        }
+      }
+    ]
+    ```
+  - An end link signaling the end of a chain
+
+    ```json
+    [
+      {
+        "link_type": "END",
+        "from": {
+          "context_id": "fb455028-a876-430e-a5ff-4b2ece77e827"
+        }
+      }
+    ]
+    ```
 
 ### Context example
 

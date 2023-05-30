@@ -1,15 +1,4 @@
 matrix:
-- name: json
-  aspell:
-    lang: en
-    d: en_US
-    camel-case: true
-    mode: url
-  sources:
-  - "**/*.json|!.github"
-  dictionary:
-    wordlists:
-    - .spellcheck-en-custom.txt
 - name: markdown
   aspell:
     lang: en
@@ -30,7 +19,7 @@ matrix:
       # ```
       # content
       # ```
-      - open: '(?s)^(?P<open> *`{3,})$'
+      - open: '(?s)^(?P<open> *`{3,}.+)$'
         close: '^(?P=open)$'
       # Ignore text between inline back ticks
       - open: '(?P<open>`+)'

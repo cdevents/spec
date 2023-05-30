@@ -1,0 +1,34 @@
+{
+  "link_type": {
+    "type": "string",
+    "enum": [
+      "RELATION"
+    ]
+  },
+  "link_kind": {
+    "type": "string",
+    "minLength": 1
+  },
+  "target": {
+    "description": "",
+    "type": "object",
+    "properties": {
+      "context_id": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "tags": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "link_type",
+    "link_kind",
+    "target"
+  ]
+}
+

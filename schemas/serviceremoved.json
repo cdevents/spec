@@ -32,6 +32,13 @@
           "type": "string",
           "minLength": 1,
           "format": "uri"
+        },
+        "chain_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "links": {
+          "$ref": "/schema/links/embeddedlinksarray.json"
         }
       },
       "additionalProperties": false,

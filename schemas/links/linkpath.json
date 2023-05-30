@@ -1,0 +1,53 @@
+{
+  "chain_id": {
+    "type": "string",
+    "minLength": 1
+  },
+  "timestamp": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "link_type": {
+    "type": "string",
+    "enum": [
+      "PATH"
+    ]
+  },
+  "from": {
+    "type": "object",
+    "properties": {
+      "context_id": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "context_id"
+    ]
+  },
+  "to": {
+    "type": "object",
+    "properties": {
+      "context_id": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "context_id"
+    ]
+  },
+  "tags": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "chain_id",
+    "link_type",
+    "timestamp",
+    "from",
+    "to"
+  ]
+}
