@@ -37,8 +37,16 @@ EXAMPLES_FOLDER="${ROOT}/examples"
 SCHEMAS_FOLDER="${ROOT}/schemas"
 
 # Install the tool
-cd ${ROOT}/tools
+cd "${ROOT}/tools"
 go install github.com/neilpa/yajsv@v1.4.1
+
+function local_schema() {
+  local SCHEMA=$1
+
+  # Draft version schemas may have not been published yet
+  # Rewrite referenced IDs to the corresponding local files
+  sed 's,"$ref": "/schema,"$ref": "file://'${ROOT}'/schemas,g' "${SCHEMA}" > "${SCHEMA}.local"
+}
 
 # Loop over all example files
 # - examples are subject_predicate.json
@@ -52,11 +60,15 @@ for example in $(find "${EXAMPLES_FOLDER}" -type f -name '*json'); do
     SUBJECT=${splitArray[0]}
     PREDICATE=${splitArray[1]}
     SCHEMA_FILE=${SCHEMAS_FOLDER}/${SUBJECT}${PREDICATE}.json
+    local_schema "${SCHEMA_FILE}"
     echo "==> $SUBJECT $PREDICATE"
     echo yajsv -s "$SCHEMA_FILE" "$example"
-    yajsv -s "$SCHEMA_FILE" "$example" || num_failed=$(( num_failed + 1 ))
+    yajsv -s "${SCHEMA_FILE}.local" "$example" || num_failed=$(( num_failed + 1 ))
     echo
 done
+
+# Cleanup local schemas
+find "${ROOT}/schemas" -name '*.local' -exec rm {} +
 
 if [ $num_failed -gt 0 ]; then
     echo "${num_failed} out of ${num_examples} examples failed validation"
