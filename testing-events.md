@@ -18,9 +18,16 @@ Testing events covers the subjects and predicates related to test-execution perf
 
 This specification defines three subjects in this stage: `testCaseRun`, `testSuiteRun` and `testOutput`.
 
+The predicates for `testCaseRun` must follow the following expectations:
+
+- The following events are valid initial events: `queued`, `started`, or `skipped`.
+- The following events are valid terminal events that will *not* be followed by other events: `finished` and `skipped`.
+- A `queued` event must be followed by one of the following: `started` or `finished`.
+- A `started` event must be followed by a `finished` event.
+
 | Subject                         | Description                                  | Predicates                                                                                                 |
 |---------------------------------|----------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| [`testCaseRun`](#testcaserun)   | The execution of a software testCase         | [`queued`](#testcaserun-queued), [`started`](#testcaserun-started), [`finished`](#testcaserun-finished)    |
+| [`testCaseRun`](#testcaserun)   | The execution of a software testCase         | [`queued`](#testcaserun-queued), [`started`](#testcaserun-started), [`finished`](#testcaserun-finished), [`skipped`](#testcaserun-skipped)   |
 | [`testSuiteRun`](#testsuiterun) | The execution of a software testSuite        | [`queued`](#testsuiterun-queued), [`started`](#testsuiterun-started), [`finished`](#testsuiterun-finished) |
 | [`testOutput`](#testoutput)     | An output artifact produced by a testCaseRun | [`published`](#testoutput-published)                                                                       |
 
@@ -116,6 +123,24 @@ This event represents a finished testCase execution. The event will contain the 
 | outcome      | `String (enum)`                                                 | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `pass`                                                                  | ✅        |
 | severity     | `String (enum)`                                                 | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
 | reason       | `String`                                                        | A reason related to the outcome of the execution                                 | `Canceled by user`, `Failed assertion`, `Timed out`                    |          |
+
+### [`testCaseRun skipped`](examples/testcaserun_skipped.json)
+
+This event represents a skipped testCaseRun execution. The event should only be emitted if there has been no prior "queued" or "started" event.
+
+- Event Type: __`dev.cdevents.testcaserun.skipped.0.1.0-draft`__
+- Predicate: skipped
+- Subject: [`testCaseRun`](#testcaserun)
+
+| Field        | Type                                                            | Description                                                                      | Examples                                                                | Required |
+|--------------|-----------------------------------------------------------------|----------------------------------------------------------------------------------|-------------------------------------------------------------------------|----------|
+| id           | `String`                                                        | Uniquely identifies the subject within the source.                               | `unitest-abc`, `e2e-test1`, `scan-image1`                               | ✅        |
+| source       | `URI-Reference`                                                 | [source](spec.md#source--context-) from the context                              |                                                                         |          |
+| environment  | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testCaseRun would have run, but was skipped.       | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}`         | ✅        |
+| testCase     | `Object` [`testCase`](#testcase)                                | Definition of the testCase being executed                                        | `{"id": "92834723894", "name": "Login Test", "type": "integration"}`    |          |
+| testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                        | A testSuiteRun to associate this testCaseRun with a containing testSuiteRun      | `{"id":"Auth-TestSuite-execution-12334", "source": "staging/testkube"}` |          |
+| severity     | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
+| reason       | `String`                                                        | A reason for skipping the test case run.                                         | `Not running in given environment`, `Skipping slow tests` |          |
 
 ### [`testSuiteRun queued`](examples/testsuiterun_queued.json)
 
