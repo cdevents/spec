@@ -16,7 +16,11 @@ Testing events covers the subjects and predicates related to test-execution perf
 
 ## Subjects
 
-This specification defines three subjects in this stage: `testCaseRun`, `testSuiteRun` and `testOutput`.
+This specification defines three subjects in this stage: `testCaseRun`, `testSuiteRun` and `testOutput`. When a producer sends `testCaseRun` or `testSuiteRun` messages, they should meet the following expecations:
+- a `queued` event may optionally be followed by a `started` event
+- a `queued` event must be followed by a `finished` event
+- a `started` event must be followed by a `finished` event
+- a `finished` event may be sent independent of a `queued` or `started` event
 
 | Subject                         | Description                                  | Predicates                                                                                                 |
 |---------------------------------|----------------------------------------------|------------------------------------------------------------------------------------------------------------|
