@@ -18,9 +18,10 @@ Testing events covers the subjects and predicates related to test-execution perf
 
 This specification defines three subjects in this stage: `testCaseRun`, `testSuiteRun` and `testOutput`. When a producer sends `testCaseRun` or `testSuiteRun` messages, they should meet the following expecations:
 - a `queued` event may optionally be followed by a `started` event
-- a `queued` event must be followed by a `finished` event
+- a `queued` event must be followed by either a `started` or a `finished` event
+- a `finished` event following after a `queued` event without a `started` event in between, can only have its outcome set to `cancel` (or `skip` if that is available in the protocol)
 - a `started` event must be followed by a `finished` event
-- a `finished` event may be sent independent of a `queued` or `started` event
+- a `finished` event may not be sent if no `queued` or `started` events are sent for the same subject
 
 | Subject                         | Description                                  | Predicates                                                                                                 |
 |---------------------------------|----------------------------------------------|------------------------------------------------------------------------------------------------------------|
