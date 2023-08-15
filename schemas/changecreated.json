@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.change.created.0.1.2"
+            "dev.cdevents.change.created.0.2.0"
           ],
-          "default": "dev.cdevents.change.created.0.1.2"
+          "default": "dev.cdevents.change.created.0.2.0"
         },
         "timestamp": {
           "type": "string",
@@ -60,6 +60,10 @@
         },
         "content": {
           "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
             "repository": {
               "properties": {
                 "id": {

@@ -58,6 +58,7 @@ A `change` identifies a proposed set of changes to the content of a `repository`
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `featureBranch123` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`|
 | type | `String` | See [type](spec.md#type-subject) | `change` |
+| description | `String` | Description associated with the change, e.g. A pull request's description | `This PR addresses a fix for some feature`|
 | repository | `Object` ([`repository`](#repository)) | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
 
 ## Events
@@ -148,7 +149,7 @@ A branch inside the Repository was deleted.
 
 A source code change was created and submitted to a repository specific branch. Examples: PullRequest sent to Github, MergeRequest sent to Gitlab, Change created in Gerrit.
 
-- Event Type: __`dev.cdevents.change.created.0.1.2`__
+- Event Type: __`dev.cdevents.change.created.0.2.0`__
 - Predicate: created
 - Subject: [`change`](#change)
 
@@ -157,6 +158,7 @@ A source code change was created and submitted to a repository specific branch. 
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example/an-org/a-repo`| |
 | type | `String` | See [type](spec.md#type-subject) | `change` | |
+| description | `String` | Description associated with the change, e.g. A pull request's description | `This PR addresses a fix for some feature`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### [`change reviewed`](examples/change_reviewed.json)
