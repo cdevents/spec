@@ -56,7 +56,7 @@ One or more `testOutput` artifacts are usually produced as the result of a test 
 |-------------|----------------------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------|
 | id          | `String`                               | Uniquely identifies the subject within the source.                        | `report-23123123`                                                     |
 | source      | `URI-Reference`                        | [source](spec.md#source--context-) from the context                       | `staging/testkube`, `testkube-dev-123`                                |
-| outputType  | `String`                               | The type of output, one of `report`, `video`, `image`, `log`, `other`     | `video`                                                               |
+| outputType  | `String (enum)`                        | The type of output, one of `report`, `video`, `image`, `log`, `other`     | `video`                                                               |
 | format      | `String`                               | The Content-Type of the output artifact                                   | `application/pdf`, `image/png`, `application/json`                    |
 | uri         | `URI-Reference`                        | A reference to retrieve the specified output artifact                     | `https://testkube.mycluster.internal/artifacts/23123123`              |
 | testCaseRun | `Object` [`testCaseRun`](#testcaserun) | An optional testCaseRun to link this artifact to a specific `testCaseRun` | `{"id":"Login-Test-execution-1213423", "source": "staging/testkube"}` |
@@ -113,8 +113,8 @@ This event represents a finished testCase execution. The event will contain the 
 | environment  | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testCaseRun was running                            | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}`         | ✅        |
 | testCase     | `Object` [`testCase`](#testcase)                                | Definition of the testCase being executed                                        | `{"id": "92834723894", "name": "Login Test", "type": "integration"}`    |          |
 | testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                        | A testSuiteRun to associate this testCaseRun with a containing testSuiteRun      | `{"id":"Auth-TestSuite-execution-12334", "source": "staging/testkube"}` |          |
-| outcome      | `String`                                                        | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `pass`                                                                  | ✅        |
-| severity     | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
+| outcome      | `String (enum)`                                                 | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `pass`                                                                  | ✅        |
+| severity     | `String (enum)`                                                 | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
 | reason       | `String`                                                        | A reason related to the outcome of the execution                                 | `Cancelled by user`, `Failed assertion`, `Timed out`                    |          |
 
 ### [`testSuiteRun queued`](examples/testsuiterun_queued.json)
@@ -163,8 +163,8 @@ This event represents a finished testSuite execution. The event will contain the
 | id          | `String`                                                        | Uniquely identifies the subject within the source.                               | `unit`, `e2e`, `security`                                       | ✅        |
 | source      | `URI-Reference`                                                 | [source](spec.md#source--context-) from the context                              |                                                                 |          |
 | environment | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testSuiteRun was running                           | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}` | ✅        |
-| outcome     | `String`                                                        | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `fail`                                                          | ✅        |
-| severity    | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`, `low`, `medium`, `high`                             |
+| outcome     | `String (enum)`                                                 | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `fail`                                                          | ✅        |
+| severity    | `String (enum)`                                                 | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`, `low`, `medium`, `high`                             |
 | reason      | `String`                                                        | A reason related to the outcome of the execution                                 | `Cancelled by user`, `Failed testCase`                          |          |
 | testSuite   | `Object` [`testSuite`](#testsuite)                              | Definition of the testSuite being executed                                       | `{"id": "92834723894", "name": "Auth TestSuite"}`               |          |
 
@@ -180,7 +180,7 @@ The event represents a test execution output that has been published.
 |-------------|----------------------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------|----------|
 | id          | `String`                               | Uniquely identifies the subject within the source.                        | `12312334`                                                            | ✅        |
 | source      | `URI-Reference`                        | [source](spec.md#source--context-) from the context                       |                                                                       | ✅        |
-| outputType  | `String`                               | The type of output, one of `report`, `video`, `image`, `log`, `other`     | `video`                                                               | ✅        |
+| outputType  | `String (enum)`                        | The type of output, one of `report`, `video`, `image`, `log`, `other`     | `video`                                                               | ✅        |
 | format      | `String`                               | The Content-Type of the output artifact                                   | `application/pdf`, `image/png`, `application/json`                    | ✅        |
 | uri         | `URI-Reference`                        | A reference to retrieve the specified output artifact                     | `https://testkube.mycluster.internal/artifacts/23123123`              |          |
 | testCaseRun | `Object` [`testCaseRun`](#testcaserun) | An optional testCaseRun to link this artifact to a specific `testCaseRun` | `{"id":"Login-Test-execution-1213423", "source": "staging/testkube"}` |          |
@@ -193,7 +193,7 @@ A `trigger` in this context is what started a corresponding testCaseRun/testSuit
 
 | Field | Type            | Description                                                                    | Examples | Required |
 |-------|-----------------|--------------------------------------------------------------------------------|----------|----------|
-| type  | `String`        | The type of trigger, one of `manual`, `pipeline`, `event`, `schedule`, `other` |          | ✅        |
+| type  | `String (enum)` | The type of trigger, one of `manual`, `pipeline`, `event`, `schedule`, `other` |          | ✅        |
 | uri   | `URI-Reference` | A uri reference to this trigger                                                |          |          |
 
 ### `testCase`
@@ -203,7 +203,7 @@ A `testCase` is the actual test that is being run by a `testCaseRun`.
 | Field   | Type            | Description                                                                                                           | Examples                   | Required |
 |---------|-----------------|-----------------------------------------------------------------------------------------------------------------------|----------------------------|----------|
 | id      | `String`        | Uniquely identifies the testCase within a test management system.                                                     | `12312334`                 | ✅        |
-| type    | `String enum`   | The type of test, one of `performance`, `functional`, `unit`, `security`, `compliance`, `integration`, `e2e`, `other` | `functional` |          |
+| type    | `String (enum)` | The type of test, one of `performance`, `functional`, `unit`, `security`, `compliance`, `integration`, `e2e`, `other` | `functional` |          |
 | name    | `String`        | A user-friendly name for this testCase                                                                                | `Login Test`               |          |
 | version | `String`        | The version of the testCase                                                                                           | `1.0`                      |          |
 | uri     | `URI-Reference` | A uri reference to this testCase                                                                                      |                            |          |
