@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testsuiterun.queued.0.1.0"
+            "dev.cdevents.testsuiterun.queued.0.4.0-draft"
           ],
-          "default": "dev.cdevents.testsuiterun.queued.0.1.0"
+          "default": "dev.cdevents.testsuiterun.queued.0.4.0-draft"
         },
         "timestamp": {
           "type": "string",
