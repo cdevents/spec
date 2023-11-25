@@ -44,16 +44,17 @@ go install github.com/neilpa/yajsv@v1.4.1
 # - examples are subject_predicate.json
 # - schemas are subjectpredicate.json
 num_failed=0
-num_examples=$(ls "$EXAMPLES_FOLDER" | wc -l | awk '{ print $1 }')
-for example in $(ls "$EXAMPLES_FOLDER"); do
-    SUBJECT_PREDICATE=$(basename $example .json)
+num_examples=$(find "${EXAMPLES_FOLDER}" -type f -name '*json' | wc -l | awk '{ print $1 }')
+for example in $(find "${EXAMPLES_FOLDER}" -type f -name '*json'); do
+    EXAMPLE_FILE=$(basename ${example})
+    SUBJECT_PREDICATE=$(basename $EXAMPLE_FILE .json)
     splitArray=(${SUBJECT_PREDICATE//_/ })
     SUBJECT=${splitArray[0]}
     PREDICATE=${splitArray[1]}
-    EXAMPLE_FILE=${EXAMPLES_FOLDER}/${example}
     SCHEMA_FILE=${SCHEMAS_FOLDER}/${SUBJECT}${PREDICATE}.json
     echo "==> $SUBJECT $PREDICATE"
-    yajsv -s "$SCHEMA_FILE" "$EXAMPLE_FILE" || num_failed=$(( num_failed + 1 ))
+    echo yajsv -s "$SCHEMA_FILE" "$example"
+    yajsv -s "$SCHEMA_FILE" "$example" || num_failed=$(( num_failed + 1 ))
     echo
 done
 
