@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.4.0-draft/schema/artifact-published-event",
+  "$id": "https://cdevents.dev/0.4.0-draft/schema/artifact-downloaded-event",
   "properties": {
     "context": {
       "properties": {
@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.artifact.published.0.2.0-draft"
+            "dev.cdevents.artifact.downloaded.0.1.0-draft"
           ],
-          "default": "dev.cdevents.artifact.published.0.2.0-draft"
+          "default": "dev.cdevents.artifact.downloaded.0.1.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -60,20 +60,6 @@
         },
         "content": {
           "properties": {
-            "sbom": {
-              "properties": {
-                "uri": {
-                  "type": "string",
-                  "minLength": 1,
-                  "format": "uri-reference"
-                }
-              },
-              "additionalProperties": false,
-              "type": "object",
-              "required": [
-                "uri"
-              ]
-            },
             "user": {
               "type": "string",
               "minLength": 1
