@@ -82,6 +82,11 @@ The specification is structured in two main parts:
 For an introduction see the [CDEvents README](README.md) and for more background
 information please see our [CDEvents primer](https://cdevents.dev/docs/primer/).
 
+## Spelling
+
+CDEvents adopt american english ("en_US") as dictionary for spelling both in the
+specification as well as in the documentation.
+
 ## Notations and Terminology
 
 ### Notational Conventions

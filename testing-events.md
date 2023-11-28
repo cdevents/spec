@@ -115,7 +115,7 @@ This event represents a finished testCase execution. The event will contain the 
 | testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                        | A testSuiteRun to associate this testCaseRun with a containing testSuiteRun      | `{"id":"Auth-TestSuite-execution-12334", "source": "staging/testkube"}` |          |
 | outcome      | `String (enum)`                                                 | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `pass`                                                                  | ✅        |
 | severity     | `String (enum)`                                                 | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
-| reason       | `String`                                                        | A reason related to the outcome of the execution                                 | `Cancelled by user`, `Failed assertion`, `Timed out`                    |          |
+| reason       | `String`                                                        | A reason related to the outcome of the execution                                 | `Canceled by user`, `Failed assertion`, `Timed out`                    |          |
 
 ### [`testSuiteRun queued`](examples/testsuiterun_queued.json)
 
@@ -165,7 +165,7 @@ This event represents a finished testSuite execution. The event will contain the
 | environment | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testSuiteRun was running                           | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}` | ✅        |
 | outcome     | `String (enum)`                                                 | The outcome of the testSuite execution, one of `pass`, `fail`, `cancel`, `error` | `fail`                                                          | ✅        |
 | severity    | `String (enum)`                                                 | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`, `low`, `medium`, `high`                             |
-| reason      | `String`                                                        | A reason related to the outcome of the execution                                 | `Cancelled by user`, `Failed testCase`                          |          |
+| reason      | `String`                                                        | A reason related to the outcome of the execution                                 | `Canceled by user`, `Failed testCase`                          |          |
 | testSuite   | `Object` [`testSuite`](#testsuite)                              | Definition of the testSuite being executed                                       | `{"id": "92834723894", "name": "Auth TestSuite"}`               |          |
 
 ### [`testOutput published`](examples/testoutput_published.json)

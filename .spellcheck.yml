@@ -1,0 +1,11 @@
+matrix:
+- name: all
+  aspell:
+    lang: en
+    d: en_US
+  sources:
+  - "**/*.md"
+  - "**/*.json|!.github"
+  dictionary:
+    wordlists:
+    - .spellcheck-en-custom.txt
