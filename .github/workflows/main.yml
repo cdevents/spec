@@ -33,7 +33,7 @@ jobs:
           VALIDATE_MARKDOWN: true
 
   jsonschema:
-    name: Validate examples
+    name: Validate Examples
     runs-on: ubuntu-latest
 
     steps:
@@ -47,3 +47,11 @@ jobs:
 
       - name: Validate Examples
         run: ./tools/verify-examples.sh
+
+  spellcheck:
+    name: Spellcheck (en_US)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: igsekor/pyspelling-any@v0.0.2
+        name: Spellcheck
