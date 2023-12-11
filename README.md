@@ -120,6 +120,5 @@ guidelines.
 
 ### Governance
 
-The project has been started by the CDF
-[SIG Events](https://github.com/cdfoundation/sig-events) and is currently
-[governed](https://github.com/cdevents/community/blob/main/governance.md) by a few members of the SIG.
+The project has been started by the CDF [SIG Events](https://github.com/cdfoundation/sig-events).
+Its governance is [documented in the community repository](https://github.com/cdevents/community/blob/main/governance.md).
