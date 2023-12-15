@@ -15,7 +15,9 @@
         "id": "myChange123",
         "source": "my-git.example/an-org/a-repo"
       },
-      "sbom-uri": "https://sbom.repo/myorg/234fd47e07d1004f0aed9c.sbom"
+      "sbom": {
+        "uri": "https://sbom.repo/myorg/234fd47e07d1004f0aed9c.sbom"
+      }
     }
   }
 }

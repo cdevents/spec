@@ -78,10 +78,19 @@
                 "id"
               ]
             },
-            "sbom-uri": {
-              "type": "string",
-              "minLength": 1,
-              "format": "uri-reference"
+            "sbom": {
+              "properties": {
+                "uri": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri-reference"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "uri"
+              ]
             }
           },
           "additionalProperties": false,

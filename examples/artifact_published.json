@@ -11,7 +11,9 @@
     "source": "/event/source/123",
     "type": "artifact",
     "content": {
-      "sbom-uri": "https://sbom.repo/myorg/234fd47e07d1004f0aed9c.sbom"
+      "sbom": {
+        "uri": "https://sbom.repo/myorg/234fd47e07d1004f0aed9c.sbom"
+      }
     }
   }
 }
