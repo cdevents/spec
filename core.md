@@ -16,7 +16,7 @@ Core events are at the lower level of abstraction in the dictionary: they descri
 ## Subjects
 
 In the context of Continuous Delivery, a *pipeline* is the definition of a set of *tasks* that needs to be performed to build, test, package, release and deploy software artifacts.
-The definition of *pipelines* and *tasks* is an authoring process, and has no event associated to it. CDEvents identifies two [*subjects*](./spec/README.md), [`pipelineRun`](#pipelinerun) and [`taskRun`](#taskrun), which are the runtime counterparts of *pipelines* and *tasks*.
+The definition of *pipelines* and *tasks* is an authoring process, and has no event associated to it. CDEvents identifies two [*subjects*](spec.md#subject), [`pipelineRun`](#pipelinerun) and [`taskRun`](#taskrun), which are the runtime counterparts of *pipelines* and *tasks*.
 
 | Subject | Description | Predicates |
 |---------|-------------|------------|
