@@ -14,7 +14,7 @@ Source Code Control events includes the subjects and predicates related to chang
 
 ## Subjects
 
-This specification defines two subjects in this stage: `repository` and `change`. Events associated with these subjects are triggered by actions performed by software developers or bots that provide useful automation for software developers.
+This specification defines three subjects in this stage: `repository`, `branch`, and `change`. Events associated with these subjects are triggered by actions performed by software developers or bots that provide useful automation for software developers.
 
 | Subject | Description | Predicates |
 |---------|-------------|------------|
