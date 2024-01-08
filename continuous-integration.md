@@ -80,7 +80,7 @@ This event represents a Build task that has been started; this build process usu
 
 ### [`build finished`](examples/build_finished.json)
 
-This event represents a Build task that has finished. This event will eventually contain the finished status, success, error or failure
+This event represents a Build task that has finished and will contain the outcome of the given build.
 
 - Event Type: __`dev.cdevents.build.finished.0.1.1`__
 - Predicate: finished
@@ -92,6 +92,7 @@ This event represents a Build task that has finished. This event will eventually
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | |
 | artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | `build` | |
+| outcome | `String` | Represents the finished state of a build. | `succeeded`, `failed`, `cancelled` | |
 
 ### [`artifact packaged`](examples/artifact_packaged.json)
 
