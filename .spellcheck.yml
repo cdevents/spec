@@ -1,11 +1,37 @@
 matrix:
-- name: all
+- name: json
   aspell:
     lang: en
     d: en_US
+    camel-case: true
+    mode: url
   sources:
-  - "**/*.md"
   - "**/*.json|!.github"
   dictionary:
     wordlists:
     - .spellcheck-en-custom.txt
+- name: markdown
+  aspell:
+    lang: en
+    d: en_US
+    camel-case: true
+    mode: url
+  sources:
+  - "**/*.md"
+  dictionary:
+    wordlists:
+    - .spellcheck-en-custom.txt
+  pipeline:
+  - pyspelling.filters.context:
+      context_visible_first: true
+      escapes: '\\[\\`~]'
+      delimiters:
+      # Ignore multiline content between fences (fences can have 3 or more back ticks)
+      # ```
+      # content
+      # ```
+      - open: '(?s)^(?P<open> *`{3,})$'
+        close: '^(?P=open)$'
+      # Ignore text between inline back ticks
+      - open: '(?P<open>`+)'
+        close: '(?P=open)'
