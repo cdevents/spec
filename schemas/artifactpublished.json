@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.artifact.published.0.1.1"
+            "dev.cdevents.artifact.published.0.2.0-draft"
           ],
-          "default": "dev.cdevents.artifact.published.0.1.1"
+          "default": "dev.cdevents.artifact.published.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -59,7 +59,22 @@
           "default": "artifact"
         },
         "content": {
-          "properties": {},
+          "properties": {
+            "sbom": {
+              "properties": {
+                "uri": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri-reference"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "uri"
+              ]
+            }
+          },
           "additionalProperties": false,
           "type": "object"
         }

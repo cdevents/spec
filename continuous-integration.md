@@ -47,6 +47,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 | type | `String` | See [type](spec.md#type-subject) | `artifact` |
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` |
 | signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` |
+| sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` |
 
 ## Events
 
@@ -96,8 +97,9 @@ This event represents a Build task that has finished. This event will eventually
 ### [`artifact packaged`](examples/artifact_packaged.json)
 
 The event represents an artifact that has been packaged for distribution; this artifact is now versioned with a fixed version.
+This event is usually produced by the build system. If an SBOM URI is available at this stage, it should be included.
 
-- Event Type: __`dev.cdevents.artifact.packaged.0.1.1`__
+- Event Type: __`dev.cdevents.artifact.packaged.0.2.0-draft`__
 - Predicate: packaged
 - Subject: [`artifact`](#artifact)
 
@@ -107,12 +109,15 @@ The event represents an artifact that has been packaged for distribution; this a
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` | ✅ |
+| sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` | |
 
 ### [`artifact published`](examples/artifact_published.json)
 
 The event represents an artifact that has been published and it can be advertised for others to use.
+This event may be produced both by the build system and by the artifact registry that received the artifact.
+If an SBOM was published and the SBOM URI is available at this stage, it should be included.
 
-- Event Type: __`dev.cdevents.artifact.published.0.1.1`__
+- Event Type: __`dev.cdevents.artifact.published.0.2.0-draft`__
 - Predicate: published
 - Subject: [`artifact`](#artifact)
 
@@ -121,6 +126,7 @@ The event represents an artifact that has been published and it can be advertise
 | id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
+| sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` | |
 
 ### [`artifact signed`](examples/artifact_signed.json)
 
@@ -137,3 +143,13 @@ An artifact may be signed after it has been packaged or sometimes after it has p
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` | ✅ |
+
+## Objects
+
+### `sbom`
+
+Several events reference a Software Bill of Materials (SBOM). In CDEvents SBOMs are represented via the `sbom` object, which is a reference to an externally hosted SBOM. The `sbom` object includes a single `uri` field, and is defined as an object to allow for more fields to be added in a backwards compatible manner in future.
+
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| `uri` | `URI-Reference` | Link to an externally hosted SBOM. | `https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom` |
