@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.4.0-draft/schema/ticket-updated-event",
+  "properties": {
+    "context": {
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "dev.cdevents.ticket.updated.0.1.0-draft"
+          ],
+          "default": "dev.cdevents.ticket.updated.0.1.0-draft"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "version",
+        "id",
+        "source",
+        "type",
+        "timestamp"
+      ]
+    },
+    "subject": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1,
+          "enum": [
+            "ticket"
+          ],
+          "default": "ticket"
+        },
+        "content": {
+          "properties": {
+            "summary": {
+              "type": "string"
+            },
+            "ticketType": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "bug",
+                    "enhancement",
+                    "incident",
+                    "task",
+                    "question"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "group": {
+              "type": "string"
+            },
+            "creator": {
+              "type": "string",
+              "minLength": 1
+            },
+            "assignees": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "priority": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "low",
+                    "medium",
+                    "high"
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "labels": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "milestone": {
+              "type": "string"
+            },
+            "updatedBy": {
+              "type": "string"
+            },
+            "uri": {
+              "type": "string",
+              "minLength": 1,
+              "format": "uri-reference"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "uri"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "content"
+      ]
+    },
+    "customData": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string",
+          "contentEncoding": "base64"
+        }
+      ]
+    },
+    "customDataContentType": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "context",
+    "subject"
+  ]
+}

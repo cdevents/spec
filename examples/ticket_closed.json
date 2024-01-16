@@ -1,0 +1,27 @@
+{
+  "context": {
+    "version": "0.4.0-draft",
+    "id": "F4BD2B55-B6F6-4F44-AF72-BD2D0E7A8708",
+    "source": "/ticketing/system",
+    "type": "dev.cdevents.ticket.closed.0.1.0-draft",
+    "timestamp": "2022-11-11T13:52:20.079Z"
+  },
+  "subject": {
+    "id": "ticket-123",
+    "source": "/ticketing/system",
+    "type": "ticket",
+    "content": {
+      "summary": "New CVE-123 detected",
+      "ticketType": "task",
+      "group": "security",
+      "creator": "Alice",
+      "assignees": ["Bob"],
+      "priority": "high",
+      "labels": ["bug"],
+      "milestone": "123",
+      "uri": "https://example.issues.com/ticket123",
+      "resolution": "completed",
+      "updatedBy": "Bob"
+    }
+  }
+}

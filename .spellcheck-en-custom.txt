@@ -18,6 +18,7 @@ Tekton
 URI
 UUID
 american
+assignees
 br
 cardpane
 cdevent
