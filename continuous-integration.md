@@ -10,7 +10,7 @@ description: >
 -->
 # Continuous Integration Events
 
-Continuous Integration (CI) events include the subject and predicates related to CI activities such as building software, producing artifacts and running tests.
+Continuous Integration (CI) events include the subject and predicates related to CI activities such as [building software](#build), producing [artifacts](#artifact) and [running tests](./testing-events.md).
 
 ## Subjects
 
@@ -19,7 +19,7 @@ This specification defines two subjects in this stage: `build` and `artifact`. E
 | Subject | Description | Predicates |
 |---------|-------------|------------|
 | [`build`](#build) | A software build | [`queued`](#build-queued), [`started`](#build-started), [`finished`](#build-finished)|
-| [`artifact`](#artifact) | An artifact produced by a build | [`packaged`](#artifact-packaged), [`published`](#artifact-published), [`signed`](#artifact-signed)|
+| [`artifact`](#artifact) | An artifact produced by a build | [`packaged`](#artifact-packaged), [`signed`](#artifact-signed), [`published`](#artifact-published), [`downloaded`](#artifact-downloaded)|
 
 > `testCase`/`testSuite` events have moved to their own top-level bucket [Testing Events](testing-events.md)
 
@@ -48,6 +48,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` |
 | signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` |
 | sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` |
+| user      | `string`     | The user who performed the predicate on the artifact registry. [^user] | `mybot-myapp` |
 
 ## Events
 
@@ -111,27 +112,10 @@ This event is usually produced by the build system. If an SBOM URI is available 
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` | ✅ |
 | sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` | |
 
-### [`artifact published`](examples/artifact_published.json)
-
-The event represents an artifact that has been published and it can be advertised for others to use.
-This event may be produced both by the build system and by the artifact registry that received the artifact.
-If an SBOM was published and the SBOM URI is available at this stage, it should be included.
-
-- Event Type: __`dev.cdevents.artifact.published.0.2.0-draft`__
-- Predicate: published
-- Subject: [`artifact`](#artifact)
-
-| Field | Type | Description | Examples | Required |
-|-------|------|-------------|----------|----------------------------|
-| id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
-| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
-| sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` | |
-
 ### [`artifact signed`](examples/artifact_signed.json)
 
 The event represents an artifact that has been signed. The signature is included in the events itself.
-An artifact may be signed after it has been packaged or sometimes after it has published, depending on the tooling being used and the type of artifact.
+An artifact may be signed after it has been packaged or sometimes after it has published, depending on the tooling being used and the type of artifact. The `artifact signed` event is typically produced by the CI or build system.
 
 - Event Type: __`dev.cdevents.artifact.signed.0.1.0`__
 - Predicate: signed
@@ -143,6 +127,56 @@ An artifact may be signed after it has been packaged or sometimes after it has p
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` | ✅ |
+
+### [`artifact published`](examples/artifact_published.json)
+
+The event represents an artifact that has been published and it can be advertised for others to use.
+The `artifact published` event is typically produced by the artifact registry, but it may also be produced by the build system.
+
+- Event Type: __`dev.cdevents.artifact.published.0.2.0-draft`__
+- Predicate: published
+- Subject: [`artifact`](#artifact)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
+| user | `String` | The user who published to the artifact registry. [^user] | `mybot-myapp` | |
+
+### [`artifact downloaded`](examples/artifact_downloaded.json)
+
+The event represents an artifact that has been downloaded from the registry.
+The `artifact downloaded` event is preferably produced by the artifact registry.
+
+- Event Type: __`dev.cdevents.artifact.downloaded.0.1.0-draft`__
+- Predicate: downloaded
+- Subject: [`artifact`](#artifact)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
+| user | `String` | The user who downloaded from the artifact registry. [^user] | `mybot-myapp` | |
+
+### [`artifact deleted`](examples/artifact_deleted.json)
+
+The event represents an artifact that has been deleted from an artifact registry.
+The `artifact deleted` event is preferably produced by the artifact registry.
+
+- Event Type: __`dev.cdevents.artifact.deleted.0.1.0-draft`__
+- Predicate: deleted
+- Subject: [`artifact`](#artifact)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | | |
+| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
+| user | `String` | The user who deleted from the artifact registry. [^user] | `mybot-myapp` | |
+
+[^user]: The actual format of `user` depends on the specific registry and authentication method used. If access to the artifact registry is obtained through a long lived token, this could be the name or description associated with the token at provisioning time. In case of an anonymous read operations, the user depends on the protocol used, a typically useful value would be the IP address of the client performing the read.
 
 ## Objects
 

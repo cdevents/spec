@@ -497,8 +497,11 @@ dedicated document in the spec:
   emitted by changes in source code or by the creation, modification or
   deletion of new repositories that hold source code.
 - __[Continuous Integration](continuous-integration.md)__:
-  includes events related to building, testings, packaging and releasing
-  software artifacts, usually binaries.
+  includes events related to building software artifacts and packaging, releasing
+  and managing software artifacts.
+- __[Testing](testing.md)__:
+  includes events related to testing. Sometimes part of continuous
+  integration, testing may take place in different stages of the workflow.
 - __[Continuous Deployment](continuous-deployment.md)__:
   include events related with environments where the artifacts produced by the
   integration pipelines actually run. These are usually services running in a
