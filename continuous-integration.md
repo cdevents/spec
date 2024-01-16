@@ -131,7 +131,7 @@ An artifact may be signed after it has been packaged or sometimes after it has p
 ### [`artifact published`](examples/artifact_published.json)
 
 The event represents an artifact that has been published and it can be advertised for others to use.
-The `artifact signed` event is typically produced by the artifact registry, but it may also be produced by the build system.
+The `artifact published` event is typically produced by the artifact registry, but it may also be produced by the build system.
 
 - Event Type: __`dev.cdevents.artifact.published.0.2.0-draft`__
 - Predicate: published
@@ -147,7 +147,7 @@ The `artifact signed` event is typically produced by the artifact registry, but 
 ### [`artifact downloaded`](examples/artifact_downloaded.json)
 
 The event represents an artifact that has been downloaded from the registry.
-The `artifact downloaded` event is typically produced by the artifact registry, but it may also be produced by the build system.
+The `artifact downloaded` event is preferably produced by the artifact registry.
 
 - Event Type: __`dev.cdevents.artifact.downloaded.0.1.0-draft`__
 - Predicate: downloaded
@@ -163,7 +163,7 @@ The `artifact downloaded` event is typically produced by the artifact registry, 
 ### [`artifact deleted`](examples/artifact_deleted.json)
 
 The event represents an artifact that has been deleted from an artifact registry.
-The `artifact deleted` event is typically produced by the artifact registry, but it may also be produced by the build system.
+The `artifact deleted` event is preferably produced by the artifact registry.
 
 - Event Type: __`dev.cdevents.artifact.deleted.0.1.0-draft`__
 - Predicate: deleted
