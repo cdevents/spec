@@ -100,11 +100,11 @@
             },
             "outcome": {
               "type": "string",
+              "minLength": 1,
               "enum": [
-                "pass",
-                "fail",
-                "cancel",
-                "error"
+                "passed",
+                "failed",
+                "cancelled"
               ]
             },
             "severity": {
