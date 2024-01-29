@@ -67,7 +67,13 @@
               "type": "string"
             },
             "outcome": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "enum": [
+                "passed",
+                "failed",
+                "cancelled"
+              ]
             },
             "errors": {
               "type": "string"

@@ -60,10 +60,9 @@
             "outcome": {
               "type": "string",
               "enum": [
-                "pass",
-                "fail",
-                "cancel",
-                "error"
+                "passed",
+                "failed",
+                "cancelled"
               ]
             },
             "severity": {

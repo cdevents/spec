@@ -85,7 +85,12 @@
               ]
             },
             "outcome": {
-              "type": "string"
+              "type": "string",
+              "enum": [
+                "succeeded",
+                "failed",
+                "cancelled"
+              ]
             },
             "errors": {
               "type": "string"

@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.build.finished.0.1.2"
+            "dev.cdevents.build.finished.0.1.2-draft"
           ],
-          "default": "dev.cdevents.build.finished.0.1.2"
+          "default": "dev.cdevents.build.finished.0.1.2-draft"
         },
         "timestamp": {
           "type": "string",
