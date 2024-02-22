@@ -20,13 +20,18 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.change.updated.0.1.2"
+            "dev.cdevents.change.updated.0.2.0-draft"
           ],
-          "default": "dev.cdevents.change.updated.0.1.2"
+          "default": "dev.cdevents.change.updated.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "schemaURI": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
         }
       },
       "additionalProperties": false,

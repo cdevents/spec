@@ -20,13 +20,18 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.build.finished.0.1.1"
+            "dev.cdevents.build.finished.0.2.0-draft"
           ],
-          "default": "dev.cdevents.build.finished.0.1.1"
+          "default": "dev.cdevents.build.finished.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "schemaURI": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
         }
       },
       "additionalProperties": false,

@@ -27,6 +27,11 @@
         "timestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "schemaURI": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
         }
       },
       "additionalProperties": false,
