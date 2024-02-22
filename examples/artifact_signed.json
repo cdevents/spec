@@ -6,7 +6,11 @@
     "source": "/event/source/123",
     "type": "dev.cdevents.artifact.signed.0.2.0-draft",
     "timestamp": "2023-03-20T14:27:05.315384Z",
+<<<<<<< HEAD
     "schemaUri": "https://myorg.com/schema/custom"
+=======
+    "schemaURI": "https://myorg.com/schema/custom"
+>>>>>>> ab73ef7 (Add an optional schemaURI to the context)
   },
   "subject": {
     "id": "pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c",

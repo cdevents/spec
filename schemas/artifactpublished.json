@@ -28,7 +28,11 @@
           "type": "string",
           "format": "date-time"
         },
+<<<<<<< HEAD
         "schemaUri": {
+=======
+        "schemaURI": {
+>>>>>>> ab73ef7 (Add an optional schemaURI to the context)
           "type": "string",
           "minLength": 1,
           "format": "uri"
