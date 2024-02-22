@@ -195,18 +195,29 @@ defined in the [vocabulary](#vocabulary):
 - Type: [`String`][typesystem]
 - Description: defines the type of event, as combination of a *subject*,
   *predicate* and *version*. Valid event types are defined in the [vocabulary](#vocabulary).
+
   All event types should be prefixed with `dev.cdevents.`. One occurrence may
   have multiple events associated, as long as they have different event types.
   *Versions* are semantic in the *major.minor.patch* format.  For more details about versions
   see the the see [versioning](https://cdevents.dev/docs/primer/#versioning) documentation.
 
+  In addition to `dev.cdevents.`, event types prefixed with `dev.cdeventsx.` can be defined in
+  specifications outside of CDEvents. Events that use these event types can be partly produced
+  and validated by CDEvents SDKs and are known a ["custom events"](custom/README.md).
+  External specifications can be registered in this repository in the
+  [custom events registry](custom/registry.md).
+
 - Constraints:
   - REQUIRED
-  - MUST be defined in the [vocabulary](#vocabulary)
+  - `dev.cdevents.` types MUST be defined in the [vocabulary](#vocabulary)
+  - `dev.cdeventsx.` types SHOULD be defined in a third party specification
+
 - Examples:
   - `dev.cdevents.taskrun.started`
   - `dev.cdevents.environment.created`
   - `dev.cdevents.<subject>.<predicate>`
+  - `dev.cdevents.mytool-process.finished`
+  - `dev.cdeventsx.<tool>-<subject>.<predicate>`
 
 #### source (context)
 

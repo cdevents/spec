@@ -10,6 +10,8 @@ README
 SBOM
 SBOMs
 SCM
+SDLC
+SDK
 SIG
 SRE
 Tekton
@@ -37,6 +39,7 @@ http
 img
 interoperable
 json
+jsonschema
 lifecycle
 markdownlint
 md
@@ -50,6 +53,7 @@ rolledback
 runtime
 sbom
 schemaUri
+schemauri
 specversion
 src
 subjectid
@@ -62,6 +66,7 @@ testsuiterun
 ticketURI
 toc
 typesystem
+unparsed
 uri
 url
 viewUrl
