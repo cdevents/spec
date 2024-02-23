@@ -5,7 +5,7 @@
     "source": "/event/source/123",
     "type": "dev.cdevents.artifact.deleted.0.1.0-draft",
     "timestamp": "2023-03-20T14:27:05.315384Z",
-    "schemaURI": "https://myorg.com/schema/custom"
+    "schemaUri": "https://myorg.com/schema/custom"
   },
   "subject": {
     "id": "pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c",

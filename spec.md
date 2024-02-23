@@ -269,21 +269,21 @@ defined in the [vocabulary](#vocabulary):
 
 ### OPTIONAL Context Attributes
 
-#### schemaURI
+#### schemaUri
 
 - Type: [`URI`][typesystem]
 - Description: link to a `jsonschema` schema that further refines the event schema
   as defined by CDEvents.
 
-  The schema provided by the `schemaURI` must can be stricter than the CDEvents one,
-  but MUST NOT allow elements that would not be allowed by the CDEvents schema.
-  For example the `schemaURI` go define the content of `customData` or restrict a
-  `string` field to a specific `Enum`.
+  The schema provided by the `schemaUri` MUST be stricter than the CDEvents one,
+  and thus MUST NOT allow elements that would not be allowed by the CDEvents schema.
+  For example, the schema at `schemaUri` could define the content of `customData`
+  or restrict a `string` field to a specific `Enum`.
 
-  Versioning of the schema provided in `schemaURI` is up to the maintainer, there
+  Versioning of the schema provided in `schemaUri` is up to the maintainer, there
   is no specific requirement from CDEvents side.
 
-  Consumers of events that specify a `schemaURI` SHOULD validate the event against
+  Consumers of events that specify a `schemaUri` SHOULD validate the event against
   the CDEvents schema as well as the additional schema provided. If the consumer
   does not have access to the URI specified, it SHOULD fail to validate the event.
 
@@ -309,7 +309,7 @@ This is an example of a full CDEvent context, rendered in JSON format:
     "source" : "/staging/tekton/",
     "type" : "dev.cdevents.taskrun.started",
     "timestamp" : "2018-04-05T17:31:00Z",
-    "schemaURI":  "https://myorg.com/cdevents/schema/taskrun-started-1-1-0"
+    "schemaUri":  "https://myorg.com/cdevents/schema/taskrun-started-1-1-0"
   }
 }
 ```
