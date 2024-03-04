@@ -19,13 +19,18 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcaserun.queued.0.1.0"
+            "dev.cdevents.testcaserun.queued.0.2.0-draft"
           ],
-          "default": "dev.cdevents.testcaserun.queued.0.1.0"
+          "default": "dev.cdevents.testcaserun.queued.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "schemaUri": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
         }
       },
       "additionalProperties": false,

@@ -19,13 +19,18 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testsuiterun.started.0.1.0"
+            "dev.cdevents.testsuiterun.started.0.2.0-draft"
           ],
-          "default": "dev.cdevents.testsuiterun.started.0.1.0"
+          "default": "dev.cdevents.testsuiterun.started.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "schemaUri": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
         }
       },
       "additionalProperties": false,

@@ -267,6 +267,36 @@ defined in the [vocabulary](#vocabulary):
   - REQUIRED
   - MUST be a non-empty string
 
+### OPTIONAL Context Attributes
+
+#### schemaUri
+
+- Type: [`URI`][typesystem]
+- Description: link to a `jsonschema` schema that further refines the event schema
+  as defined by CDEvents.
+
+  The schema provided by the `schemaUri` MUST be stricter than the CDEvents one,
+  and thus MUST NOT allow elements that would not be allowed by the CDEvents schema.
+  For example, the schema at `schemaUri` could define the content of `customData`
+  or restrict a `string` field to a specific `Enum`.
+
+  Versioning of the schema provided in `schemaUri` is up to the maintainer, there
+  is no specific requirement from CDEvents side.
+
+  Consumers of events that specify a `schemaUri` SHOULD validate the event against
+  the CDEvents schema as well as the additional schema provided. If the consumer
+  does not have access to the URI specified, it SHOULD fail to validate the event.
+
+- Constraints:
+  - OPTIONAL
+  - When specified, it MUST be a non-empty URI
+  - An absolute URI is REQUIRED
+
+- Examples:
+
+  - If there is a single "context" (cloud, cluster or platform of some kind)
+    - `https://myorg.com/cdevents/schema/artifact-published-0-1-0`
+
 ### Context example
 
 This is an example of a full CDEvent context, rendered in JSON format:
@@ -278,7 +308,8 @@ This is an example of a full CDEvent context, rendered in JSON format:
     "id" : "A234-1234-1234",
     "source" : "/staging/tekton/",
     "type" : "dev.cdevents.taskrun.started",
-    "timestamp" : "2018-04-05T17:31:00Z"
+    "timestamp" : "2018-04-05T17:31:00Z",
+    "schemaUri":  "https://myorg.com/cdevents/schema/taskrun-started-1-1-0"
   }
 }
 ```

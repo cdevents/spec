@@ -47,6 +47,18 @@ Examples:
 EOF
 }
 
+function replace_example() {
+    # Replace the version in the example file
+    if [ -f "${EXAMPLE_FILE}" ]; then
+        sed -i ".backup" -e 's,"dev.cdevents.*","dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'",g' "${EXAMPLE_FILE}"
+    fi
+}
+
+function replace_schema() {
+    # Replace the version in the schema IDs
+    sed -i ".backup" -e 's,"dev.cdevents.*","dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'",g' "${SCHEMA_FILE}"
+}
+
 set -o errexit
 set -o nounset
 set -o pipefail
@@ -106,7 +118,7 @@ SPLIT_EVENT=(${EVENT_SUBJECT_PREDICATE//./ })
 SUBJECT=${SPLIT_EVENT[0]}
 PREDICATE=${SPLIT_EVENT[1]}
 SCHEMA_FILE="schemas/${SUBJECT}${PREDICATE}.json"
-EXAMPLE_FILE="examples/${SUBJECT}${PREDICATE}.json"
+EXAMPLE_FILE="examples/${SUBJECT}_${PREDICATE}.json"
 
 # Evaluate the event version
 OLD_VERSION=$(sed -n -e '/"default": "dev.cdevents.'${SUBJECT}'.'${PREDICATE}'./s/.*\.\([0-9]\.[0-9]\.[0-9]\(-draft\)\{0,1\}\)"/\1/p' ${SCHEMA_FILE})
@@ -133,6 +145,11 @@ fi
 if [[ "${COMMAND}" == "${START_COMMAND}" ]]; then
     if [[ -n ${DRAFT_VERSION} ]]; then
         echo "Cannot start release ${VERSION}, already in ${DRAFT_VERSION}"
+        # Still ensure examples are up to date with OLD_VERSION
+        VERSION=${OLD_VERSION}
+        replace_example
+        # Cleanup backup files
+        find . -name '*.backup' | xargs rm
         exit 1
     fi
     PATCH_VERSION=0
@@ -148,6 +165,10 @@ fi
 if [[ "${COMMAND}" == "${PATCH_COMMAND}" ]]; then
     if [[ -n ${DRAFT_VERSION} ]]; then
         echo "Cannot start release ${VERSION}, already in ${DRAFT_VERSION}"
+        VERSION=${OLD_VERSION}
+        replace_example
+        # Cleanup backup files
+        find . -name '*.backup' | xargs rm
         exit 1
     fi
     PATCH_VERSION=$(( PATCH_VERSION + 1 ))
@@ -155,13 +176,11 @@ fi
 
 VERSION="${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}${DRAFT_VERSION}"
 
-# Replace the version in the schema IDs
-sed -i ".backup" -e 's,"dev.cdevents.*","dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'",g' "${SCHEMA_FILE}"
+# Replace the version in the schema file
+replace_schema
 
 # Replace the version in the example file
-if [ -f "${EXAMPLE_FILE}" ]; then
-    sed -i ".backup" -e 's,"dev.cdevents.*","dev.cdevents.'${SUBJECT}'.'${PREDICATE}'.'${VERSION}'",g' "${EXAMPLE_FILE}"
-fi
+replace_example
 
 # Update examples in docs
 for doc in core source-code-version-control continuous-integration continuous-deployment continuous-operations testing-events; do
