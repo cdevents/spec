@@ -43,6 +43,7 @@ jsonschema
 lifecycle
 markdownlint
 md
+namespace
 notational
 observability
 param

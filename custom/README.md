@@ -8,7 +8,7 @@ Some of these events exist or can be mapped to events available in the CDEvents 
 Some events might be added to CDEvents, if they're considered for interoperability by the CDEvents community.
 Some events however, are very specific to a tool or are not relevant from an interoperability point of view.
 
-Custom event types exist as a mean to make it easier for tools to adopt CDEvents and provide event producers and consumer with a consistent way to produce and consume events aligned to the CDEvents specification.
+Custom event types exist as a mean to make it easier for tools to adopt CDEvents and provide event producers and consumers with a consistent way to produce and consume events aligned to the CDEvents specification.
 
 To ensure interoperability, tools should use events available in the CDEvents specification as much as possible. Missing events can be proposed to the CDEvents community and included in future releases. Custom events are meant for events that are strictly tool specific and thus not good candidates for CDEvents.
 
@@ -19,8 +19,8 @@ Custom events can be used as an interim solution until new events are included i
 The following features of the specification are related to custom events:
 
 - **The `dev.cdeventsx` event-type namespace**: This namespace is reserved for events that are compliant with the CDEvents specification, whose subject structure and semantics are defined outside of CDEvents.
-- **The [`schemaURI`](/spec.md#schemauri) property in the `context`**: events may supply their schema URI via this new `context` property. Events must **always** validate against the CDEvents official schema too.
-- **The [`dev.cdeventsx` jsonschema](schema.json)**: any event of type `dev.cdeventsx.*` must respect this schema as well as any additional schema supplied via `schemaURI`
+- **The [`schemaUri`](/spec.md#schemauri) property in the `context`**: events may supply their schema URI via this new `context` property. Events must **always** validate against the CDEvents official schema too.
+- **The [`dev.cdeventsx` jsonschema](schema.json)**: any event of type `dev.cdeventsx.*` must respect this schema as well as any additional schema supplied via `schemaUri`
 - **The `subject` format for `dev.cdeventsx` events**: subjects must be in the format `<tool-name>-<subject-name>` to avoid event-type conflicts across tools
 - **The [registry](registry.md)**: maintainers of the specifications of CDEvents custom events are encouraged to add their specification to the shared [registry](registry.md)
 
@@ -33,7 +33,7 @@ Similar to regular CDEvents, custom CDEvents include two versions:
 
 ### SDKs
 
-When consuming (parsing) an event with `context.schemaURI`, SDKs MUST fetch the schema defined in `context.schemaURI` and **additionally** validate the event against the supplied schema.
+When consuming (parsing) an event with `context.schemaUri`, SDKs SHOULD fetch the schema defined in `context.schemaUri` and **additionally** validate the event against that schema, unless security concerns dictate otherwise.
 
 When consuming (parsing) an event with `dev.cdeventsx` type, the SDKs will return a object that is identical in structure for all events, and which include an unparsed blob for the `subject.content` part. SDKs MAY provide a way for users to register a function to be used to parse the `subject.content` of these messages.
 
@@ -45,7 +45,7 @@ In certain cases, custom events may be implemented as a stopgap solution to allo
 
 This situation is not dissimilar from the process of adopting a new, backwards incompatible version of an existing event. Once the new CDEvent is introduced in the spec, newer versions of the SDKs will be able to produce it and consume it.
 
-### Promoting a Custom CDEvent to Core CDEvent
+### Promoting a Custom CDEvent to Standard CDEvent
 
 To create a new CDEvent, start with the [guide](https://cdevents.dev/docs/primer/#adding-new-event-types) available in the CDEvents primer. Use cases and experiences from using the custom event would be a great addition to the proposal:
 
@@ -61,15 +61,15 @@ It is safe to assume that several producers and consumers of the event exist. At
 Consumers with the latest SDK will be able to parse the old custom event as well as the new CDEvent. This means that there is no pressure for producers to adopt the new version, even after all consumers have been updated.
 
 Consumers with the old SDK however, won't be able to parse the new CDEvents.
-This means that producers that adopt the new SDK may have to consider producing both the old and the new events, until all consumers have update to the latest SDK.
+This means that producers that adopt the new SDK may have to consider producing both the old and the new events, until all consumers have updated to the latest SDK.
 In this case, it is responsibility of the system architect to ensure that old events are only sent to legacy consumers, to avoid the case of consumers receiving duplicate events.
-
 
 ## CDEvents and Links
 
 The CDEvents community is working on the introduction of [links](https://github.com/cdevents/spec/pull/139) to the specification. Links will let CDEvents producer connect one event to others with specific semantics, and will help consumers trace through events to understand complete workflows.
 
 Custom CDEvents can be linked like any other CDEvent, so links may exist between custom CDEvents as well as between a custom CDEvent and a normal CDEvent.
+> Note: some custom events may be intended for a limited audience; when linking a standard CDEvent to a custom CDEvent, it should be considered that that consumers of the standard CDEvent may not have access to the linked custom event.
 
 ## Example of Custom Event
 
@@ -117,7 +117,7 @@ Corresponding CDEvent using a `dev.cdeventsx.*` type:
     "source": "/harbor/alpine",
     "type": "dev.cdeventsx.harbor-quota.exceeded.0.1.0",
     "timestamp": "2023-03-20T14:27:05.315384Z",
-    "schemaURI": "https://goharbor.io/cdeventsx/schema/harbor-quota/exceeded/0_1_0"
+    "schemaUri": "https://goharbor.io/cdeventsx/schema/harbor-quota/exceeded/0_1_0"
   },
   "subject": {
     "id": "/projects/2/webhook/policies/15",
@@ -144,6 +144,8 @@ Corresponding CDEvent using a `dev.cdeventsx.*` type:
   }
 }
 ```
+
+To help with the transition from a custom event to a standard one, the original custom event, or sections of it can be included in the `customData`, as shown in the example above.
 
 [harbor-docs]: https://goharbor.io/docs/2.10.0/working-with-projects/project-configuration/configure-webhooks/
 [cdevents-versions]: https://cdevents.dev/docs/primer/#versioning-of-cdevents

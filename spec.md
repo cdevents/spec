@@ -216,7 +216,7 @@ defined in the [vocabulary](#vocabulary):
   - `dev.cdevents.taskrun.started`
   - `dev.cdevents.environment.created`
   - `dev.cdevents.<subject>.<predicate>`
-  - `dev.cdevents.mytool-process.finished`
+  - `dev.cdeventsx.mytool-process.finished`
   - `dev.cdeventsx.<tool>-<subject>.<predicate>`
 
 #### source (context)
