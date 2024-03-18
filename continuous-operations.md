@@ -138,7 +138,7 @@ This event represents a ticket that has been created within some ticketing syste
 
 ### [`ticket updated`](examples/ticket_updated.json)
 
-This event represents a ticket that has been created within some ticketing system.
+This event indicates that a ticket has been updated within some ticketing system.
 
 - Event Type: __`dev.cdevents.ticket.updated.0.1.0-draft`__
 - Predicate: updated
@@ -162,7 +162,7 @@ This event represents a ticket that has been created within some ticketing syste
 
 ### [`ticket closed`](examples/ticket_closed.json)
 
-This event represents a ticket that has been created within some ticketing system.
+This event indicates that a ticket has been closed or resolved within some ticketing system.
 
 - Event Type: __`dev.cdevents.ticket.closed.0.1.0-draft`__
 - Predicate: closed
