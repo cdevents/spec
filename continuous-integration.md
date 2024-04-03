@@ -19,7 +19,7 @@ This specification defines two subjects in this stage: `build` and `artifact`. E
 | Subject | Description | Predicates |
 |---------|-------------|------------|
 | [`build`](#build) | A software build | [`queued`](#build-queued), [`started`](#build-started), [`finished`](#build-finished)|
-| [`artifact`](#artifact) | An artifact produced by a build | [`packaged`](#artifact-packaged), [`signed`](#artifact-signed), [`published`](#artifact-published), [`downloaded`](#artifact-downloaded)|
+| [`artifact`](#artifact) | An artifact produced by a build | [`packaged`](#artifact-packaged), [`signed`](#artifact-signed), [`published`](#artifact-published), [`downloaded`](#artifact-downloaded), [`deleted`](#artifact-deleted)|
 
 > `testCase`/`testSuite` events have moved to their own top-level bucket [Testing Events](testing-events.md)
 
