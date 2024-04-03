@@ -198,7 +198,7 @@ defined in the [vocabulary](#vocabulary):
 
   All event types should be prefixed with `dev.cdevents.`. One occurrence may
   have multiple events associated, as long as they have different event types.
-  *Versions* are semantic in the *major.minor.patch* format.  For more details about versions
+  *Versions* are semantic in the *major.minor.patch* format (`M.m.p`). For more details about versions
   see the the see [versioning](https://cdevents.dev/docs/primer/#versioning) documentation.
 
   In addition to `dev.cdevents.`, event types prefixed with `dev.cdeventsx.` can be defined in
@@ -213,11 +213,11 @@ defined in the [vocabulary](#vocabulary):
   - `dev.cdeventsx.` types SHOULD be defined in a third party specification
 
 - Examples:
-  - `dev.cdevents.taskrun.started`
-  - `dev.cdevents.environment.created`
-  - `dev.cdevents.<subject>.<predicate>`
-  - `dev.cdeventsx.mytool-process.finished`
-  - `dev.cdeventsx.<tool>-<subject>.<predicate>`
+  - `dev.cdevents.taskrun.started.0.2.0`
+  - `dev.cdevents.environment.created.0.2.0`
+  - `dev.cdevents.<subject>.<predicate>.M.m.p`
+  - `dev.cdeventsx.mytool-process.finished.0.1.0`
+  - `dev.cdeventsx.<tool>-<subject>.<predicate>.M.m.p`
 
 #### source (context)
 
@@ -374,7 +374,7 @@ This is an example of a full CDEvent context, rendered in JSON format:
     "version": "0.4.0-draft",
     "id" : "A234-1234-1234",
     "source" : "/staging/tekton/",
-    "type" : "dev.cdevents.taskrun.started",
+    "type" : "dev.cdevents.taskrun.started.0.2.0",
     "timestamp" : "2018-04-05T17:31:00Z",
     "schemaUri":  "https://myorg.com/cdevents/schema/taskrun-started-1-1-0"
   }
@@ -417,7 +417,7 @@ defined in the [vocabulary](#vocabulary):
   - REQUIRED
 
 - Example:
-  - Considering the event type `dev.cdevents.taskrun.started`, an example of
+  - Considering the event type `dev.cdevents.taskrun.started.0.2.0`, an example of
     subject, serialized as JSON, is:
 
     ```json
@@ -460,7 +460,7 @@ The following example shows `context` and `subject` together, rendered as JSON.
       "version": "0.4.0-draft",
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
-      "type" : "dev.cdevents.taskrun.started",
+      "type" : "dev.cdevents.taskrun.started.0.2.0",
       "timestamp" : "2018-04-05T17:31:00Z"
    },
    "subject" : {
