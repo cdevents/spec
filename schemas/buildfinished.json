@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.4.0-draft/schema/build-finished-event",
+  "$id": "https://cdevents.dev/0.4.0/schema/build-finished-event",
   "properties": {
     "context": {
       "properties": {
@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.build.finished.0.2.0-draft"
+            "dev.cdevents.build.finished.0.2.0"
           ],
-          "default": "dev.cdevents.build.finished.0.2.0-draft"
+          "default": "dev.cdevents.build.finished.0.2.0"
         },
         "timestamp": {
           "type": "string",

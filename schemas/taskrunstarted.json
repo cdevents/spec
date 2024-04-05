@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.4.0-draft/schema/task-run-started-event",
+  "$id": "https://cdevents.dev/0.4.0/schema/task-run-started-event",
   "properties": {
     "context": {
       "properties": {
@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.taskrun.started.0.2.0-draft"
+            "dev.cdevents.taskrun.started.0.2.0"
           ],
-          "default": "dev.cdevents.taskrun.started.0.2.0-draft"
+          "default": "dev.cdevents.taskrun.started.0.2.0"
         },
         "timestamp": {
           "type": "string",

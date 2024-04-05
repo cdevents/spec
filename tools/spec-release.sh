@@ -151,6 +151,11 @@ find schemas -name '*json' | \
 find examples -name '*json' | \
     xargs sed -i ".backup" -e 's,"version": "'${OLD_VERSION}'","version": "'${VERSION}'",g'
 
+# Replace the version in the custom events schema ID
+find custom -name '*json' | \
+    xargs sed -i ".backup" -e 's,https://cdevents.dev/'${OLD_VERSION}'/schema/,https://cdevents.dev/'${VERSION}'/schema/,g'
+
+
 # Update examples in docs
 for doc in cloudevents-binding spec; do
     sed -i ".backup" -e 's;"version": "'${OLD_VERSION}'",;"version": "'${VERSION}'",;g' "${doc}.md"

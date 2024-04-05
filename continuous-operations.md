@@ -62,7 +62,7 @@ A ticket can request a change, report a problem, or document an [`incident`](#in
 
 This event represents an incident that has been detected by a system or human.
 
-- Event Type: __`dev.cdevents.incident.detected.0.2.0-draft`__
+- Event Type: __`dev.cdevents.incident.detected.0.2.0`__
 - Predicate: detected
 - Subject: [`incident`](#incident)
 
@@ -80,7 +80,7 @@ This event represents an incident that has been detected by a system or human.
 
 This event represents an incident that has been reported through a ticketing system. Compared to the `detected` predicated, it introduces a ticket URI.
 
-- Event Type: __`dev.cdevents.incident.reported.0.2.0-draft`__
+- Event Type: __`dev.cdevents.incident.reported.0.2.0`__
 - Predicate: reported
 - Subject: [`incident`](#incident)
 
@@ -99,7 +99,7 @@ This event represents an incident that has been reported through a ticketing sys
 
 This event represents an incident that has been resolved, meaning that the problem identified by the incident has been solved or recalled.
 
-- Event Type: __`dev.cdevents.incident.resolved.0.2.0-draft`__
+- Event Type: __`dev.cdevents.incident.resolved.0.2.0`__
 - Predicate: resolved
 - Subject: [`incident`](#incident)
 
@@ -117,7 +117,7 @@ This event represents an incident that has been resolved, meaning that the probl
 
 This event represents a ticket that has been created within some ticketing system.
 
-- Event Type: __`dev.cdevents.ticket.created.0.1.0-draft`__
+- Event Type: __`dev.cdevents.ticket.created.0.1.0`__
 - Predicate: created
 - Subject: [`ticket`](#ticket)
 
@@ -140,7 +140,7 @@ This event represents a ticket that has been created within some ticketing syste
 
 This event indicates that a ticket has been updated within some ticketing system.
 
-- Event Type: __`dev.cdevents.ticket.updated.0.1.0-draft`__
+- Event Type: __`dev.cdevents.ticket.updated.0.1.0`__
 - Predicate: updated
 - Subject: [`ticket`](#ticket)
 
@@ -164,7 +164,7 @@ This event indicates that a ticket has been updated within some ticketing system
 
 This event indicates that a ticket has been closed or resolved within some ticketing system.
 
-- Event Type: __`dev.cdevents.ticket.closed.0.1.0-draft`__
+- Event Type: __`dev.cdevents.ticket.closed.0.1.0`__
 - Predicate: closed
 - Subject: [`ticket`](#ticket)
 
