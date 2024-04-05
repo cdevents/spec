@@ -56,7 +56,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 
 This event represents a Build task that has been queued; this build process usually is in charge of producing a binary from source code.
 
-- Event Type: __`dev.cdevents.build.queued.0.2.0-draft`__
+- Event Type: __`dev.cdevents.build.queued.0.2.0`__
 - Predicate: queued
 - Subject: [`build`](#build)
 
@@ -70,7 +70,7 @@ This event represents a Build task that has been queued; this build process usua
 
 This event represents a Build task that has been started; this build process usually is in charge of producing a binary from source code.
 
-- Event Type: __`dev.cdevents.build.started.0.2.0-draft`__
+- Event Type: __`dev.cdevents.build.started.0.2.0`__
 - Predicate: started
 - Subject: [`build`](#build)
 
@@ -84,7 +84,7 @@ This event represents a Build task that has been started; this build process usu
 
 This event represents a Build task that has finished. This event will eventually contain the finished status, success, error or failure
 
-- Event Type: __`dev.cdevents.build.finished.0.2.0-draft`__
+- Event Type: __`dev.cdevents.build.finished.0.2.0`__
 - Predicate: finished
 - Subject: [`build`](#build)
 
@@ -100,7 +100,7 @@ This event represents a Build task that has finished. This event will eventually
 The event represents an artifact that has been packaged for distribution; this artifact is now versioned with a fixed version.
 This event is usually produced by the build system. If an SBOM URI is available at this stage, it should be included.
 
-- Event Type: __`dev.cdevents.artifact.packaged.0.2.0-draft`__
+- Event Type: __`dev.cdevents.artifact.packaged.0.2.0`__
 - Predicate: packaged
 - Subject: [`artifact`](#artifact)
 
@@ -117,7 +117,7 @@ This event is usually produced by the build system. If an SBOM URI is available 
 The event represents an artifact that has been signed. The signature is included in the events itself.
 An artifact may be signed after it has been packaged or sometimes after it has published, depending on the tooling being used and the type of artifact. The `artifact signed` event is typically produced by the CI or build system.
 
-- Event Type: __`dev.cdevents.artifact.signed.0.2.0-draft`__
+- Event Type: __`dev.cdevents.artifact.signed.0.2.0`__
 - Predicate: signed
 - Subject: [`artifact`](#artifact)
 
@@ -133,7 +133,7 @@ An artifact may be signed after it has been packaged or sometimes after it has p
 The event represents an artifact that has been published and it can be advertised for others to use.
 The `artifact published` event is typically produced by the artifact registry, but it may also be produced by the build system.
 
-- Event Type: __`dev.cdevents.artifact.published.0.2.0-draft`__
+- Event Type: __`dev.cdevents.artifact.published.0.2.0`__
 - Predicate: published
 - Subject: [`artifact`](#artifact)
 
@@ -149,7 +149,7 @@ The `artifact published` event is typically produced by the artifact registry, b
 The event represents an artifact that has been downloaded from the registry.
 The `artifact downloaded` event is preferably produced by the artifact registry.
 
-- Event Type: __`dev.cdevents.artifact.downloaded.0.1.0-draft`__
+- Event Type: __`dev.cdevents.artifact.downloaded.0.1.0`__
 - Predicate: downloaded
 - Subject: [`artifact`](#artifact)
 
@@ -165,7 +165,7 @@ The `artifact downloaded` event is preferably produced by the artifact registry.
 The event represents an artifact that has been deleted from an artifact registry.
 The `artifact deleted` event is preferably produced by the artifact registry.
 
-- Event Type: __`dev.cdevents.artifact.deleted.0.1.0-draft`__
+- Event Type: __`dev.cdevents.artifact.deleted.0.1.0`__
 - Predicate: deleted
 - Subject: [`artifact`](#artifact)
 
