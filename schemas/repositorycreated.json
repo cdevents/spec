@@ -81,10 +81,11 @@
             },
             "url": {
               "type": "string",
-              "minLength": 1
+              "format": "uri"
             },
             "viewUrl": {
-              "type": "string"
+              "type": "string",
+              "format": "uri"
             }
           },
           "additionalProperties": false,
