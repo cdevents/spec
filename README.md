@@ -39,7 +39,7 @@ points for metrics.
 ## CDEvents Specification
 
 The latest release of the specification on is
-[v0.3.0](https://github.com/cdevents/spec/blob/v0.3.0/spec.md), and you can
+[v0.4.0](https://github.com/cdevents/spec/blob/v0.4.0/spec.md), and you can
 continuously follow the latest updates of the specification on [the `main`
 branch](./spec.md).
 
@@ -96,11 +96,12 @@ The [schemas](./schemas/) folder contains `jsonschemas` for all events in the sp
 
 ## CDEvents SDKs
 
-CDEvents is developing as set of SDKs:
+CDEvents includes SDKs for several languages:
 
 * [Go](https://github.com/cdevents/sdk-go)
-* [Python](https://github.com/cdevents/sdk-python)
 * [Java](https://github.com/cdevents/sdk-java)
+* [Python](https://github.com/cdevents/sdk-python)
+* [Rust](https://github.com/cdevents/sdk-rust)
 
 ## Community
 
