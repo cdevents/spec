@@ -1,0 +1,10 @@
+plugins:
+  - jsonc
+overrides:
+  - files: "*.json"
+    parser: "jsonc-eslint-parser"
+    rules:
+      jsonc/key-name-casing:
+      - error
+      - camelCase: true
+        snake_case: false
