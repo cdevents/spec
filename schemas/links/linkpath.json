@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.4.0/schema/links/linkpath",
   "properties": {
-    "chain_id": {
+    "chainId": {
       "type": "string",
       "minLength": 1
     },
@@ -10,7 +10,7 @@
       "type": "string",
       "format": "date-time"
     },
-    "link_type": {
+    "linkType": {
       "type": "string",
       "enum": [
         "PATH"
@@ -19,25 +19,25 @@
     "from": {
       "type": "object",
       "properties": {
-        "context_id": {
+        "contextId": {
           "type": "string",
           "minLength": 1
         }
       },
       "required": [
-        "context_id"
+        "contextId"
       ]
     },
     "to": {
       "type": "object",
       "properties": {
-        "context_id": {
+        "contextId": {
           "type": "string",
           "minLength": 1
         }
       },
       "required": [
-        "context_id"
+        "contextId"
       ]
     },
     "tags": {
@@ -48,8 +48,8 @@
   "additionalProperties": false,
   "type": "object",
   "required": [
-    "chain_id",
-    "link_type",
+    "chainId",
+    "linkType",
     "timestamp",
     "from",
     "to"

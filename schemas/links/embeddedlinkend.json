@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.4.0/schema/links/embeddedlinkend",
   "properties": {
-    "link_type": {
+    "linkType": {
       "type": "string",
       "enum": [
         "END"
@@ -12,13 +12,13 @@
       "description": "When consuming a CDEvent, you are consuming a parent event. So, when looking at the 'from' key, this is the parent's parent.",
       "type": "object",
       "properties": {
-        "context_id": {
+        "contextId": {
           "type": "string",
           "minLength": 1
         }
       },
       "required": [
-        "context_id"
+        "contextId"
       ]
     },
     "tags": {
@@ -29,7 +29,7 @@
   "additionalProperties": false,
   "type": "object",
   "required": [
-    "link_type"
+    "linkType"
   ]
 }
 
