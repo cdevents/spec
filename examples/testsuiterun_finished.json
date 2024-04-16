@@ -13,9 +13,9 @@
     "source": "/event/source/123",
     "type": "testSuiteRun",
     "content": {
-      "outcome" : "fail",
-      "severity" : "critical",
-      "reason" : "Host 123.34.23.32 not found",
+      "outcome": "fail",
+      "severity": "critical",
+      "reason": "Host 123.34.23.32 not found",
       "environment": {
         "id": "dev",
         "source": "testkube-dev-123"

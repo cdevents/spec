@@ -8,22 +8,22 @@
       "timestamp": "2022-11-11T13:52:20.079Z"
   },
   "subject": {
-      "id": "incident-123",
-      "source": "/monitoring/prod1",
-      "type": "incident",
-      "content": {
-          "description": "Response time above threshold of 100ms",
-          "environment": {
-              "id": "prod1",
-              "source": "/iaas/geo1"
-          },
-          "service": {
-              "id": "myApp",
-              "source": "/clusterA/namespaceB"
-          },
-          "artifactId": "pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427",
-          "ticketURI": "https://my-issues.example/incidents/ticket-345"
-      }
+    "id": "incident-123",
+    "source": "/monitoring/prod1",
+    "type": "incident",
+    "content": {
+      "description": "Response time above threshold of 100ms",
+      "environment": {
+        "id": "prod1",
+        "source": "/iaas/geo1"
+      },
+      "service": {
+        "id": "myApp",
+        "source": "/clusterA/namespaceB"
+      },
+      "artifactId": "pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427",
+      "ticketURI": "https://my-issues.example/incidents/ticket-345"
+    }
   },
   "customData": {
     "severity": "medium",

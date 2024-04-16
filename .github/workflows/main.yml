@@ -31,6 +31,7 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_MARKDOWN: true
+          VALIDATE_JSON: true
 
   jsonschema:
     name: Validate Schemas and Examples
