@@ -1,93 +1,93 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://cdevents.dev/0.4.0/schema/custom",
-    "properties": {
-      "context": {
-        "properties": {
-          "version": {
-            "type": "string",
-            "minLength": 1
-          },
-          "id": {
-            "type": "string",
-            "minLength": 1
-          },
-          "source": {
-            "type": "string",
-            "minLength": 1,
-            "format": "uri-reference"
-          },
-          "type": {
-            "type": "string",
-            "pattern": "^dev.cdeventsx.[a-zA-Z0-9]+-[a-zA-Z]+.[a-zA-Z]+$"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "schemaUri": {
-            "type": "string",
-            "minLength": 1,
-            "format": "uri"
-          }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.4.0/schema/custom",
+  "properties": {
+    "context": {
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
         },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "version",
-          "id",
-          "source",
-          "type",
-          "timestamp"
-        ]
-      },
-      "subject": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "minLength": 1
-          },
-          "source": {
-            "type": "string",
-            "minLength": 1,
-            "format": "uri-reference"
-          },
-          "type": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9]+-[a-zA-Z]+$"
-          },
-          "content": {
-            "type": "object",
-            "additionalProperties": true
-          }
+        "id": {
+          "type": "string",
+          "minLength": 1
         },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "id",
-          "type",
-          "content"
-        ]
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "^dev.cdeventsx.[a-zA-Z0-9]+-[a-zA-Z]+.[a-zA-Z]+$"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "schemaUri": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        }
       },
-      "customData": {
-        "oneOf": [
-          {
-            "type": "object"
-          },
-          {
-            "type": "string",
-            "contentEncoding": "base64"
-          }
-        ]
-      },
-      "customDataContentType": {
-        "type": "string"
-      }
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "version",
+        "id",
+        "source",
+        "type",
+        "timestamp"
+      ]
     },
-    "additionalProperties": false,
-    "type": "object",
-    "required": [
-      "context",
-      "subject"
-    ]
-  }
+    "subject": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9]+-[a-zA-Z]+$"
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "content"
+      ]
+    },
+    "customData": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string",
+          "contentEncoding": "base64"
+        }
+      ]
+    },
+    "customDataContentType": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "context",
+    "subject"
+  ]
+}

@@ -1,0 +1,21 @@
+plugins:
+  - jsonc
+overrides:
+  - files: "*.json"
+    parser: "jsonc-eslint-parser"
+    rules:
+      # These are the set of rules that belong to jsonc. For more information,
+      # https://ota-meshi.github.io/eslint-plugin-jsonc/rules
+      jsonc/comma-dangle:
+        - error
+      jsonc/indent:
+        - error
+        - 2
+      jsonc/key-name-casing:
+        - error
+        - camelCase: true
+          snake_case: false
+      jsonc/key-spacing:
+        - error
+      jsonc/no-dupe-keys:
+        - error

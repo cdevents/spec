@@ -13,8 +13,8 @@
     "source": "/event/source/testrunreport-12123",
     "type": "testOutput",
     "content": {
-      "outputType" : "video",
-      "format" : "video/quicktime",
+      "outputType": "video",
+      "format": "video/quicktime",
       "testCaseRun": {
         "id": "myTestCaseRun123",
         "source": "testkube-dev-123"

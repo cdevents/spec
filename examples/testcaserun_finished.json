@@ -13,7 +13,7 @@
     "source": "/event/source/123",
     "type": "testCaseRun",
     "content": {
-      "outcome" : "pass",
+      "outcome": "pass",
       "environment": {
         "id": "dev",
         "source": "testkube-dev-123"
