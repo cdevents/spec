@@ -1,49 +1,53 @@
 {
-  "chain_id": {
-    "description": "This represents the full lifecycles of a series of events in CDEvents",
-    "type": "string",
-    "minLength": 1
-  },
-  "link_type": {
-    "description": "The type associated with the link. In this case, 'END', suggesting the end of some CI/CD lifecycle",
-    "type": "string",
-    "enum": [
-      "END"
-    ]
-  },
-  "timestamp": {
-    "type": "string",
-    "format": "date-time"
-  },
-  "from": {
-    "description": "This is the context ID of the producing CDEvent.",
-    "type": "object",
-    "properties": {
-      "context_id": {
-        "type": "string",
-        "minLength": 1
-      }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.4.0/schema/links/linkend",
+  "properties": {
+    "chain_id": {
+      "description": "This represents the full lifecycles of a series of events in CDEvents",
+      "type": "string",
+      "minLength": 1
     },
-    "required": [
-      "context_id"
-    ]
-  },
-  "end": {
-    "description": "This is the context ID of the final CDEvent in the chain",
-    "type": "object",
-    "properties": {
-      "context_id": {
-        "type": "string",
-        "minLength": 1
-      }
+    "link_type": {
+      "description": "The type associated with the link. In this case, 'END', suggesting the end of some CI/CD lifecycle",
+      "type": "string",
+      "enum": [
+        "END"
+      ]
     },
-    "required": [
-      "context_id"
-    ]
-  },
-  "tags": {
-    "type": "object",
-    "additionalProperties": true
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "from": {
+      "description": "This is the context ID of the producing CDEvent.",
+      "type": "object",
+      "properties": {
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "context_id"
+      ]
+    },
+    "end": {
+      "description": "This is the context ID of the final CDEvent in the chain",
+      "type": "object",
+      "properties": {
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "context_id"
+      ]
+    },
+    "tags": {
+      "type": "object",
+      "additionalProperties": true
+    }
   },
   "additionalProperties": false,
   "type": "object",

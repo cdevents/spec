@@ -1,36 +1,40 @@
 {
-  "chain_id": {
-    "description": "This represents the full lifecycles of a series of events in CDEvents",
-    "type": "string",
-    "minLength": 1
-  },
-  "link_type": {
-    "description": "The type associated with the link. In this case, 'START', suggesting the start of some CI/CD lifecycle",
-    "type": "string",
-    "enum": [
-      "START"
-    ]
-  },
-  "timestamp": {
-    "type": "string",
-    "format": "date-time"
-  },
-  "start": {
-    "description": "This is the context ID of the starting CDEvent in the chain.",
-    "type": "object",
-    "properties": {
-      "context_id": {
-        "type": "string",
-        "minLength": 1
-      }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.4.0/schema/links/linkstart",
+  "properties": {
+    "chain_id": {
+      "description": "This represents the full lifecycles of a series of events in CDEvents",
+      "type": "string",
+      "minLength": 1
     },
-    "required": [
-      "context_id"
-    ]
-  },
-  "tags": {
-    "type": "object",
-    "additionalProperties": true
+    "link_type": {
+      "description": "The type associated with the link. In this case, 'START', suggesting the start of some CI/CD lifecycle",
+      "type": "string",
+      "enum": [
+        "START"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "start": {
+      "description": "This is the context ID of the starting CDEvent in the chain.",
+      "type": "object",
+      "properties": {
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "context_id"
+      ]
+    },
+    "tags": {
+      "type": "object",
+      "additionalProperties": true
+    }
   },
   "additionalProperties": false,
   "type": "object",
