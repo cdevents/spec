@@ -1,18 +1,20 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.5.0-draft/schema/links/embeddedlinksarray",
   "type": "array",
   "items": {
     "anyOf": [
       {
         "type": "object",
-        "$ref": "embeddedlinkend.json"
+        "$ref": "embeddedlinkend"
       },
       {
         "type": "object",
-        "$ref": "embeddedlinkpath.json"
+        "$ref": "embeddedlinkpath"
       },
       {
         "type": "object",
-        "$ref": "embeddedlinkrelation.json"
+        "$ref": "embeddedlinkrelation"
       }
     ]
   }

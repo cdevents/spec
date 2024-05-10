@@ -1,45 +1,49 @@
 {
-  "chain_id": {
-    "type": "string",
-    "minLength": 1
-  },
-  "timestamp": {
-    "type": "string",
-    "format": "date-time"
-  },
-  "link_type": {
-    "type": "string",
-    "enum": [
-      "PATH"
-    ]
-  },
-  "from": {
-    "type": "object",
-    "properties": {
-      "context_id": {
-        "type": "string",
-        "minLength": 1
-      }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.5.0-draft/schema/links/linkpath",
+  "properties": {
+    "chain_id": {
+      "type": "string",
+      "minLength": 1
     },
-    "required": [
-      "context_id"
-    ]
-  },
-  "to": {
-    "type": "object",
-    "properties": {
-      "context_id": {
-        "type": "string",
-        "minLength": 1
-      }
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
     },
-    "required": [
-      "context_id"
-    ]
-  },
-  "tags": {
-    "type": "object",
-    "additionalProperties": true
+    "link_type": {
+      "type": "string",
+      "enum": [
+        "PATH"
+      ]
+    },
+    "from": {
+      "type": "object",
+      "properties": {
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "context_id"
+      ]
+    },
+    "to": {
+      "type": "object",
+      "properties": {
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "context_id"
+      ]
+    },
+    "tags": {
+      "type": "object",
+      "additionalProperties": true
+    }
   },
   "additionalProperties": false,
   "type": "object",
