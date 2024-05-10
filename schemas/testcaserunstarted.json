@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcaserun.started.0.2.0"
+            "dev.cdevents.testcaserun.started.0.3.0-draft"
           ],
-          "default": "dev.cdevents.testcaserun.started.0.2.0"
+          "default": "dev.cdevents.testcaserun.started.0.3.0-draft"
         },
         "timestamp": {
           "type": "string",
