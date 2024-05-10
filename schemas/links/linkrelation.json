@@ -1,52 +1,56 @@
 {
-  "chain_id": {
-    "description": "This represents the full lifecycles of a series of events in CDEvents",
-    "type": "string",
-    "minLength": 1
-  },
-  "link_type": {
-    "type": "string",
-    "enum": [
-      "RELATION"
-    ]
-  },
-  "link_kind": {
-    "type": "string",
-    "minLength": 1
-  },
-  "timestamp": {
-    "type": "string",
-    "format": "date-time"
-  },
-  "source": {
-    "description": "",
-    "type": "object",
-    "properties": {
-      "context_id": {
-        "type": "string",
-        "minLength": 1
-      }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.4.0/schema/links/linkrelation",
+  "properties": {
+    "chain_id": {
+      "description": "This represents the full lifecycles of a series of events in CDEvents",
+      "type": "string",
+      "minLength": 1
     },
-    "required": [
-      "context_id"
-    ]
-  },
-  "target": {
-    "description": "",
-    "type": "object",
-    "properties": {
-      "context_id": {
-        "type": "string",
-        "minLength": 1
-      }
+    "link_type": {
+      "type": "string",
+      "enum": [
+        "RELATION"
+      ]
     },
-    "required": [
-      "context_id"
-    ]
-  },
-  "tags": {
-    "type": "object",
-    "additionalProperties": true
+    "link_kind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "context_id"
+      ]
+    },
+    "target": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "context_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "context_id"
+      ]
+    },
+    "tags": {
+      "type": "object",
+      "additionalProperties": true
+    }
   },
   "additionalProperties": false,
   "type": "object",
@@ -58,4 +62,3 @@
     "target"
   ]
 }
-

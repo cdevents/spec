@@ -38,7 +38,7 @@
           "minLength": 1
         },
         "links": {
-          "$ref": "/schema/links/embeddedlinksarray.json"
+          "$ref": "links/embeddedlinksarray"
         }
       },
       "additionalProperties": false,
