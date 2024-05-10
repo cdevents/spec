@@ -2,12 +2,12 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.5.0-draft/schema/links/linkstart",
   "properties": {
-    "chain_id": {
+    "chainId": {
       "description": "This represents the full lifecycles of a series of events in CDEvents",
       "type": "string",
       "minLength": 1
     },
-    "link_type": {
+    "linkType": {
       "description": "The type associated with the link. In this case, 'START', suggesting the start of some CI/CD lifecycle",
       "type": "string",
       "enum": [
@@ -22,13 +22,13 @@
       "description": "This is the context ID of the starting CDEvent in the chain.",
       "type": "object",
       "properties": {
-        "context_id": {
+        "contextId": {
           "type": "string",
           "minLength": 1
         }
       },
       "required": [
-        "context_id"
+        "contextId"
       ]
     },
     "tags": {
@@ -39,8 +39,8 @@
   "additionalProperties": false,
   "type": "object",
   "required": [
-    "chain_id",
-    "link_type",
+    "chainId",
+    "linkType",
     "timestamp",
     "start"
   ]

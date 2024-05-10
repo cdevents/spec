@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testcaserun.skipped.0.1.0"
+            "dev.cdevents.testcaserun.skipped.0.2.0-draft"
           ],
-          "default": "dev.cdevents.testcaserun.skipped.0.1.0"
+          "default": "dev.cdevents.testcaserun.skipped.0.2.0-draft"
         },
         "timestamp": {
           "type": "string",

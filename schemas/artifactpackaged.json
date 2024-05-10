@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.artifact.packaged.0.2.0"
+            "dev.cdevents.artifact.packaged.0.3.0-draft"
           ],
-          "default": "dev.cdevents.artifact.packaged.0.2.0"
+          "default": "dev.cdevents.artifact.packaged.0.3.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -33,7 +33,7 @@
           "minLength": 1,
           "format": "uri"
         },
-        "chain_id": {
+        "chainId": {
           "type": "string",
           "minLength": 1
         },

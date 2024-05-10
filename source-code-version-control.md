@@ -67,7 +67,7 @@ A `change` identifies a proposed set of changes to the content of a `repository`
 
 A new Source Code Repository was created to host source code for a project.
 
-- Event Type: __`dev.cdevents.repository.created.0.2.0`__
+- Event Type: __`dev.cdevents.repository.created.0.3.0-draft`__
 - Predicate: created
 - Subject: [`repository`](#repository)
 
@@ -85,7 +85,7 @@ A new Source Code Repository was created to host source code for a project.
 
 A Source Code Repository modified some of its attributes, like location, or owner.
 
-- Event Type: __`dev.cdevents.repository.modified.0.2.0`__
+- Event Type: __`dev.cdevents.repository.modified.0.3.0-draft`__
 - Predicate: modified
 - Subject: [`repository`](#repository)
 
@@ -101,7 +101,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 
 ### [`repository deleted`](examples/repository_deleted.json)
 
-- Event Type: __`dev.cdevents.repository.deleted.0.2.0`__
+- Event Type: __`dev.cdevents.repository.deleted.0.3.0-draft`__
 - Predicate: modified
 - Subject: [`repository`](#repository)
 
@@ -119,7 +119,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 
 A branch inside the Repository was created.
 
-- Event Type: __`dev.cdevents.branch.created.0.2.0`__
+- Event Type: __`dev.cdevents.branch.created.0.3.0-draft`__
 - Predicate: created
 - Subject: [`branch`](#branch)
 
@@ -134,7 +134,7 @@ A branch inside the Repository was created.
 
 A branch inside the Repository was deleted.
 
-- Event Type: __`dev.cdevents.branch.deleted.0.2.0`__
+- Event Type: __`dev.cdevents.branch.deleted.0.3.0-draft`__
 - Predicate: deleted
 - Subject: [`branch`](#branch)
 
@@ -149,7 +149,7 @@ A branch inside the Repository was deleted.
 
 A source code change was created and submitted to a repository specific branch. Examples: PullRequest sent to Github, MergeRequest sent to Gitlab, Change created in Gerrit.
 
-- Event Type: __`dev.cdevents.change.created.0.3.0`__
+- Event Type: __`dev.cdevents.change.created.0.4.0-draft`__
 - Predicate: created
 - Subject: [`change`](#change)
 
@@ -165,7 +165,7 @@ A source code change was created and submitted to a repository specific branch. 
 
 Someone (user) or an automated system submitted an review to the source code change. A user or an automated system needs to be in charge of understanding how many approvals/rejections are needed for this change to be merged or rejected. The review event needs to include if the change is approved by the reviewer, more changes are needed or if the change is rejected.
 
-- Event Type: __`dev.cdevents.change.reviewed.0.2.0`__
+- Event Type: __`dev.cdevents.change.reviewed.0.3.0-draft`__
 - Predicate: reviewed
 - Subject: [`change`](#change)
 
@@ -180,7 +180,7 @@ Someone (user) or an automated system submitted an review to the source code cha
 
 A change is merged to the target branch where it was submitted.
 
-- Event Type: __`dev.cdevents.change.merged.0.2.0`__
+- Event Type: __`dev.cdevents.change.merged.0.3.0-draft`__
 - Predicate: merged
 - Subject: [`change`](#change)
 
@@ -195,7 +195,7 @@ A change is merged to the target branch where it was submitted.
 
 A tool or a user decides that the change has been inactive for a while and it can be considered abandoned.
 
-- Event Type: __`dev.cdevents.change.abandoned.0.2.0`__
+- Event Type: __`dev.cdevents.change.abandoned.0.3.0-draft`__
 - Predicate: abandoned
 - Subject: [`change`](#change)
 
@@ -210,7 +210,7 @@ A tool or a user decides that the change has been inactive for a while and it ca
 
 A Change has been updated, for example a new commit is added or removed from an existing Change.
 
-- Event Type: __`dev.cdevents.change.updated.0.2.0`__
+- Event Type: __`dev.cdevents.change.updated.0.3.0-draft`__
 - Predicate: updated
 - Subject: [`change`](#change)
 
