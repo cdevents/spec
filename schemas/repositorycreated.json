@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.repository.created.0.2.0"
+            "dev.cdevents.repository.created.0.3.0-draft"
           ],
-          "default": "dev.cdevents.repository.created.0.2.0"
+          "default": "dev.cdevents.repository.created.0.3.0-draft"
         },
         "timestamp": {
           "type": "string",
