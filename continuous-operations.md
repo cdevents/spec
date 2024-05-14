@@ -58,7 +58,7 @@ A ticket can request a change, report a problem, or document an [`incident`](#in
 
 ## Events
 
-### [`incident detected`](examples/incident_detected.json)
+### [`incident detected`](conformance/incident_detected.json)
 
 This event represents an incident that has been detected by a system or human.
 
@@ -76,7 +76,7 @@ This event represents an incident that has been detected by a system or human.
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` | |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl` | |
 
-### [`incident reported`](examples/incident_reported.json)
+### [`incident reported`](conformance/incident_reported.json)
 
 This event represents an incident that has been reported through a ticketing system. Compared to the `detected` predicated, it introduces a ticket URI.
 
@@ -95,7 +95,7 @@ This event represents an incident that has been reported through a ticketing sys
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` | |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl` | |
 
-### [`incident resolved`](examples/incident_resolved.json)
+### [`incident resolved`](conformance/incident_resolved.json)
 
 This event represents an incident that has been resolved, meaning that the problem identified by the incident has been solved or recalled.
 
@@ -113,7 +113,7 @@ This event represents an incident that has been resolved, meaning that the probl
 | service | `Object` ([`service`](./continuous-deployment.md#service)) | Reference to the service | `{"id": "service123"}`, `{"id": "service123", "source": "region1/k8s/namespace"}` | |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `927aa808433d17e315a258b98e2f1a55f8258e0cb782ccb76280646d0dbe17b5`, `six-1.14.0-py2.py3-none-any.whl` | |
 
-### [`ticket created`](examples/ticket_created.json)
+### [`ticket created`](conformance/ticket_created.json)
 
 This event represents a ticket that has been created within some ticketing system.
 
@@ -136,7 +136,7 @@ This event represents a ticket that has been created within some ticketing syste
 | milestone | `String` | An ID that represents a goal for when this ticket is to be completed | `123`, `sprint-123`, `Q1` | |
 | uri | `URI-Reference` | A link to the ticket itself | `https://example.issues.com/ticket123` | ✅ |
 
-### [`ticket updated`](examples/ticket_updated.json)
+### [`ticket updated`](conformance/ticket_updated.json)
 
 This event indicates that a ticket has been updated within some ticketing system.
 
@@ -160,7 +160,7 @@ This event indicates that a ticket has been updated within some ticketing system
 | uri | `URI-Reference` | A link to the ticket itself | `https://example.issues.com/ticket123` | ✅ |
 | updatedBy | `String` | The person who authored the updates | `Bob` | |
 
-### [`ticket closed`](examples/ticket_closed.json)
+### [`ticket closed`](conformance/ticket_closed.json)
 
 This event indicates that a ticket has been closed or resolved within some ticketing system.
 

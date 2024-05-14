@@ -70,7 +70,7 @@ One or more `testOutput` artifacts are usually produced as the result of a test 
 
 ## Events
 
-### [`testCaseRun queued`](examples/testcaserun_queued.json)
+### [`testCaseRun queued`](conformance/testcaserun_queued.json)
 
 This event represents when a testCaseRun has been queued for execution - and is waiting for applicable preconditions
 (resource availability, other tasks, etc.) to be fulfilled before actually executing.
@@ -88,7 +88,7 @@ This event represents when a testCaseRun has been queued for execution - and is 
 | testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                        | A testSuiteRun to associate this testCaseRun with a containing testSuiteRun | `{"id":"Auth-TestSuite-execution-12334", "source": "staging/testkube"}` |          |
 | trigger      | `Object` [trigger](#trigger)                                    | What triggered this testSuiteRun                                            | `{"type": "schedule"}`                                                  |
 
-### [`testCaseRun started`](examples/testcaserun_started.json)
+### [`testCaseRun started`](conformance/testcaserun_started.json)
 
 This event represents a started testCase execution.
 
@@ -105,7 +105,7 @@ This event represents a started testCase execution.
 | testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                        | A testSuiteRun to associate this testCaseRun with a containing testSuiteRun | `{"id":"Auth-TestSuite-execution-12334", "source": "staging/testkube"}` |          |
 | trigger      | `Object` [trigger](#trigger)                                    | What triggered this testSuiteRun                                            | `{"type": "event"}`                                                     |
 
-### [`testCaseRun finished`](examples/testcaserun_finished.json)
+### [`testCaseRun finished`](conformance/testcaserun_finished.json)
 
 This event represents a finished testCase execution. The event will contain the outcome and additional metadata as applicable.
 
@@ -124,7 +124,7 @@ This event represents a finished testCase execution. The event will contain the 
 | severity     | `String (enum)`                                                 | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
 | reason       | `String`                                                        | A reason related to the outcome of the execution                                 | `Canceled by user`, `Failed assertion`, `Timed out`                    |          |
 
-### [`testCaseRun skipped`](examples/testcaserun_skipped.json)
+### [`testCaseRun skipped`](conformance/testcaserun_skipped.json)
 
 This event represents a skipped testCaseRun execution. The event should only be emitted if there has been no prior "queued" or "started" event.
 
@@ -142,7 +142,7 @@ This event represents a skipped testCaseRun execution. The event should only be 
 | severity     | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
 | reason       | `String`                                                        | A reason for skipping the test case run.                                         | `Not running in given environment`, `Skipping slow tests` |          |
 
-### [`testSuiteRun queued`](examples/testsuiterun_queued.json)
+### [`testSuiteRun queued`](conformance/testsuiterun_queued.json)
 
 This event represents when a testSuiteRun has been queued for execution - and is waiting for applicable preconditions
 (resource availability, other tasks, etc.) to be met before actually executing.
@@ -159,7 +159,7 @@ This event represents when a testSuiteRun has been queued for execution - and is
 | testSuite   | `Object` [`testSuite`](#testsuite)                              | Definition of the testSuite being executed           | `{"id": "92834723894", "name": "Auth TestSuite"}`               |          |
 | trigger     | `Object` [trigger](#trigger)                                    | What triggered this testSuiteRun                     | `{"type": "manual"}`                                            |
 
-### [`testSuiteRun started`](examples/testsuiterun_started.json)
+### [`testSuiteRun started`](conformance/testsuiterun_started.json)
 
 This event represents a started testSuite execution.
 
@@ -175,7 +175,7 @@ This event represents a started testSuite execution.
 | testSuite   | `Object` [`testSuite`](#testsuite)                              | Definition of the testSuite being executed            | `{"id": "92834723894", "name": "Auth TestSuite"}`               |          |
 | trigger     | `Object` [trigger](#trigger)                                    | What triggered this testSuiteRun                      | `{"type": "pipeline"}`                                          |
 
-### [`testSuiteRun finished`](examples/testsuiterun_finished.json)
+### [`testSuiteRun finished`](conformance/testsuiterun_finished.json)
 
 This event represents a finished testSuite execution. The event will contain the outcome and additional metadata as applicable.
 
@@ -193,7 +193,7 @@ This event represents a finished testSuite execution. The event will contain the
 | reason      | `String`                                                        | A reason related to the outcome of the execution                                 | `Canceled by user`, `Failed testCase`                          |          |
 | testSuite   | `Object` [`testSuite`](#testsuite)                              | Definition of the testSuite being executed                                       | `{"id": "92834723894", "name": "Auth TestSuite"}`               |          |
 
-### [`testOutput published`](examples/testoutput_published.json)
+### [`testOutput published`](conformance/testoutput_published.json)
 
 The event represents a test execution output that has been published.
 

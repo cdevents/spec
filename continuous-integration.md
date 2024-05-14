@@ -52,7 +52,7 @@ An `artifact` is usually produced as output of a build process. Events need to b
 
 ## Events
 
-### [`build queued`](examples/build_queued.json)
+### [`build queued`](conformance/build_queued.json)
 
 This event represents a Build task that has been queued; this build process usually is in charge of producing a binary from source code.
 
@@ -66,7 +66,7 @@ This event represents a Build task that has been queued; this build process usua
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `build` | |
 
-### [`build started`](examples/build_started.json)
+### [`build started`](conformance/build_started.json)
 
 This event represents a Build task that has been started; this build process usually is in charge of producing a binary from source code.
 
@@ -80,7 +80,7 @@ This event represents a Build task that has been started; this build process usu
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | type | `String` | See [type](spec.md#type-subject) | `build` | |
 
-### [`build finished`](examples/build_finished.json)
+### [`build finished`](conformance/build_finished.json)
 
 This event represents a Build task that has finished. This event will eventually contain the finished status, success, error or failure
 
@@ -95,7 +95,7 @@ This event represents a Build task that has finished. This event will eventually
 | type | `String` | See [type](spec.md#type-subject) | |
 | artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | `build` | |
 
-### [`artifact packaged`](examples/artifact_packaged.json)
+### [`artifact packaged`](conformance/artifact_packaged.json)
 
 The event represents an artifact that has been packaged for distribution; this artifact is now versioned with a fixed version.
 This event is usually produced by the build system. If an SBOM URI is available at this stage, it should be included.
@@ -112,7 +112,7 @@ This event is usually produced by the build system. If an SBOM URI is available 
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` | ✅ |
 | sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` | |
 
-### [`artifact signed`](examples/artifact_signed.json)
+### [`artifact signed`](conformance/artifact_signed.json)
 
 The event represents an artifact that has been signed. The signature is included in the events itself.
 An artifact may be signed after it has been packaged or sometimes after it has published, depending on the tooling being used and the type of artifact. The `artifact signed` event is typically produced by the CI or build system.
@@ -128,7 +128,7 @@ An artifact may be signed after it has been packaged or sometimes after it has p
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` | ✅ |
 
-### [`artifact published`](examples/artifact_published.json)
+### [`artifact published`](conformance/artifact_published.json)
 
 The event represents an artifact that has been published and it can be advertised for others to use.
 The `artifact published` event is typically produced by the artifact registry, but it may also be produced by the build system.
@@ -144,7 +144,7 @@ The `artifact published` event is typically produced by the artifact registry, b
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | user | `String` | The user who published to the artifact registry. [^user] | `mybot-myapp` | |
 
-### [`artifact downloaded`](examples/artifact_downloaded.json)
+### [`artifact downloaded`](conformance/artifact_downloaded.json)
 
 The event represents an artifact that has been downloaded from the registry.
 The `artifact downloaded` event is preferably produced by the artifact registry.
@@ -160,7 +160,7 @@ The `artifact downloaded` event is preferably produced by the artifact registry.
 | type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | user | `String` | The user who downloaded from the artifact registry. [^user] | `mybot-myapp` | |
 
-### [`artifact deleted`](examples/artifact_deleted.json)
+### [`artifact deleted`](conformance/artifact_deleted.json)
 
 The event represents an artifact that has been deleted from an artifact registry.
 The `artifact deleted` event is preferably produced by the artifact registry.
