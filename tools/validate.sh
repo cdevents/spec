@@ -36,7 +36,7 @@ set -o noglob
 
 # Folders
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
-EXAMPLES_FOLDER="${ROOT}/examples"
+EXAMPLES_FOLDER="${ROOT}/conformance"
 SCHEMAS_FOLDER="${ROOT}/schemas"
 EMBEDDED_LINKS_SCHEMAS="${ROOT}/schemas/links/embedded*.json"
 JSON_VALIDATOR_OPTIONS="--strict=false --spec=draft2020 -c ajv-formats"
@@ -61,10 +61,10 @@ ajv compile ${JSON_VALIDATOR_OPTIONS} -r "${EMBEDDED_LINKS_SCHEMAS}" -s custom/s
 
 echo "$(( num_schemas - schema_failed )) out of ${num_schemas} schemas are valid"
 
-# Loop over all example files
-# - examples are subject_predicate.json
+# Loop over all conformance files
+# - conformance are subject_predicate.json
 # - schemas are subjectpredicate.json
-echo -e "\n==> Testing Example Files"
+echo -e "\n==> Testing Conformance Files"
 example_failed=0
 num_examples=$(find "${EXAMPLES_FOLDER}" -type f -name '*json' | wc -l | awk '{ print $1 }')
 find "${EXAMPLES_FOLDER}" -type f -name '*.json' | while read -r example; do
