@@ -62,7 +62,7 @@ associated, in which case it is acceptable to generate only taskRun events.
 
 ## Events
 
-### [`pipelineRun queued`](examples/pipelinerun_queued.json)
+### [`pipelineRun queued`](conformance/pipelinerun_queued.json)
 
 Due the dynamic nature of Pipelines, most of actual work needs to be queued to
 happen in a distributed way, hence queued events are added. Adopters can choose
@@ -80,7 +80,7 @@ to ignore these events if they don't apply to their use cases.
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 
-### [`pipelineRun Started`](examples/pipelinerun_started.json)
+### [`pipelineRun Started`](conformance/pipelinerun_started.json)
 
 A pipelineRun has started and it is running.
 
@@ -96,7 +96,7 @@ A pipelineRun has started and it is running.
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 
-### [`pipelineRun Finished`](examples/pipelinerun_finished.json)
+### [`pipelineRun Finished`](conformance/pipelinerun_finished.json)
 
 A pipelineRun has finished, successfully or not.
 
@@ -114,7 +114,7 @@ A pipelineRun has finished, successfully or not.
 | outcome | `String (enum)` | outcome of a finished `pipelineRun` | `success`, `error` or `failure`| |
 | errors | `String` | In case of error or failed pipeline, provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun canceled by user`, `Unit tests failed`| |
 
-### [`taskRun Started`](examples/taskrun_started.json)
+### [`taskRun Started`](conformance/taskrun_started.json)
 
 A taskRun has started and it is running.
 
@@ -131,7 +131,7 @@ A taskRun has started and it is running.
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`| |
 | url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
 
-### [`taskRun Finished`](examples/taskrun_finished.json)
+### [`taskRun Finished`](conformance/taskrun_finished.json)
 
 A taskRun has finished, successfully or not.
 
