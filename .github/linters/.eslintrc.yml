@@ -2,9 +2,9 @@ plugins:
   - jsonc
 overrides:
   - files:
-    - "schema/*.json"
-    - "examples/*.json"
-    parser: "jsonc-eslint-parser"
+    - schemas/*.json
+    - examples/*.json
+    parser: jsonc-eslint-parser
     rules:
       # These are the set of rules that belong to jsonc. For more information,
       # https://ota-meshi.github.io/eslint-plugin-jsonc/rules
