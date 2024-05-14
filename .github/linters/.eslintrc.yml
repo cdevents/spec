@@ -1,7 +1,9 @@
 plugins:
   - jsonc
 overrides:
-  - files: "*.json"
+  - files:
+    - "schema/*.json"
+    - "examples/*.json"
     parser: "jsonc-eslint-parser"
     rules:
       # These are the set of rules that belong to jsonc. For more information,
