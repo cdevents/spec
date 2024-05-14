@@ -90,9 +90,9 @@ Handling Events associated with Test execution performed independently or as par
 
 Defining how CDEvents are mapped to CloudEvents for transportation and delivery
 
-### [Schemas](./schemas/) and [Examples](./examples/)
+### [Schemas](./schemas/) and [Conformance](./conformance/)
 
-The [schemas](./schemas/) folder contains `jsonschemas` for all events in the spec. The [examples](./examples/) contains simple `JSON` examples for all events.
+The [schemas](./schemas/) folder contains `jsonschemas` for all events in the spec. The [conformance](./conformance/) folder contains simple `JSON` examples for all events. The content of the conformance folder is used for testing purposes: the structure of the files in there is sound, the values have correct types but are not particularly meaningful.
 
 ## CDEvents SDKs
 
