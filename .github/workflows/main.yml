@@ -28,10 +28,20 @@ jobs:
         uses: github/super-linter/slim@v4
         env:
           VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_MARKDOWN: true
           VALIDATE_JSON: true
+          # superlinter runs each linter on a per file bases and does not look
+          # at tool specific configuration to determine whether or not to the
+          # lint the given file.
+          #
+          # Due to that we need to globally include or exclude files. This also
+          # makes tools less flexible with one another in that if a tool
+          # requires a specific folder to be included and excluded, but other
+          # tools require must lint the excluded folder, then this pattern does
+          # not work. Instead superlinter cannot be used in that case, and the
+          # linter itself needs to be ran outside of superlinter.
+          FILTER_REGEX_INCLUDE: .*\/(custom|examples|schemas)\/.*
 
   jsonschema:
     name: Validate Schemas and Examples
