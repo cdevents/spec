@@ -57,7 +57,7 @@ while read -r schema; do
 done <<<$(find "${SCHEMAS_FOLDER}/links" -type f -name 'link*json' -maxdepth 1)
 # Test custom schema
 num_schemas=$(( num_schemas + 1 ))
-ajv compile ${JSON_VALIDATOR_OPTIONS} -r "${EMBEDDED_LINKS_SCHEMAS}" -s custom/schema.json || schema_failed=$(( schema_failed + 1 ))
+ajv compile ${JSON_VALIDATOR_OPTIONS} -r "${EMBEDDED_LINKS_SCHEMAS}" -s "${ROOT}/custom/schema.json" || schema_failed=$(( schema_failed + 1 ))
 
 echo "$(( num_schemas - schema_failed )) out of ${num_schemas} schemas are valid"
 
@@ -77,6 +77,9 @@ find "${EXAMPLES_FOLDER}" -type f -name '*.json' | while read -r example; do
     printf "%s %s: " "${SUBJECT}" "${PREDICATE}"
     ajv validate ${JSON_VALIDATOR_OPTIONS} -r "${EMBEDDED_LINKS_SCHEMAS}" -s "${SCHEMA_FILE}" -d "${example}" || example_failed=$(( example_failed + 1 ))
 done
+# Test custom example
+num_examples=$(( num_examples + 1 ))
+ajv validate ${JSON_VALIDATOR_OPTIONS} -r "${EMBEDDED_LINKS_SCHEMAS}" -s "${ROOT}/custom/schema.json" -d "${ROOT}/custom/conformance.json" || example_failed=$(( example_failed + 1 ))
 
 # Cleanup local schemas
 find "${ROOT}/schemas" -name '*.local' -exec rm {} +
