@@ -5,7 +5,39 @@
     "chainId": "4c8cb7dd-3448-41de-8768-eec704e2829b",
     "source": "/monitoring/prod1",
     "type": "dev.cdevents.incident.resolved.0.3.0-draft",
-    "timestamp": "2022-11-11T13:52:20.079Z"
+    "timestamp": "2022-11-11T13:52:20.079Z",
+    "schemaUri": "https://myorg.com/schema/custom",
+    "links": [
+      {
+        "linkType": "RELATION",
+        "linkKind": "TRIGGER",
+        "target": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      }, {
+        "linkType": "PATH",
+        "from": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      }, {
+        "linkType": "END",
+        "from": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      }
+    ]
   },
   "subject": {
     "id": "incident-123",
