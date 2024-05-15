@@ -6,7 +6,38 @@
     "source": "/event/source/123",
     "type": "dev.cdevents.change.updated.0.2.0",
     "timestamp": "2023-03-20T14:27:05.315384Z",
-    "schemaUri": "https://myorg.com/schema/custom"
+    "schemaUri": "https://myorg.com/schema/custom",
+    "links": [
+      {
+        "linkType": "RELATION",
+        "linkKind": "TRIGGER",
+        "target": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      }, {
+        "linkType": "PATH",
+        "from": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      }, {
+        "linkType": "END",
+        "from": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      }
+    ]
   },
   "subject": {
     "id": "mySubject123",
