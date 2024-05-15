@@ -26,6 +26,18 @@
         "timestamp": {
           "type": "string",
           "format": "date-time"
+        },
+        "schemaUri": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        },
+        "chainId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "links": {
+          "$ref": "links/embeddedlinksarray"
         }
       },
       "additionalProperties": false,
