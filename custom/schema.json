@@ -19,7 +19,7 @@
         },
         "type": {
           "type": "string",
-          "pattern": "^dev.cdeventsx.[a-zA-Z0-9]+-[a-zA-Z]+.[a-zA-Z]+$"
+          "pattern": "^dev\\.cdeventsx\\.[a-zA-Z0-9]+-[a-zA-Z]+\\.[a-zA-Z]+\\.[0-9]\\.[0-9]\\.[0-9]$"
         },
         "timestamp": {
           "type": "string",
@@ -29,6 +29,13 @@
           "type": "string",
           "minLength": 1,
           "format": "uri"
+        },
+        "chainId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "links": {
+          "$ref": "links/embeddedlinksarray"
         }
       },
       "additionalProperties": false,
