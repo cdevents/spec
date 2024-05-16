@@ -147,17 +147,20 @@ VERSION="${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}${DRAFT_VERSION}"
 find schemas -name '*json' | \
     xargs sed -i ".backup" -e 's,https://cdevents.dev/'${OLD_VERSION}'/schema/,https://cdevents.dev/'${VERSION}'/schema/,g'
 
-# Replace the version in the examples
-find examples -name '*json' | \
+# Replace the version in the conformance files
+find conformance -name '*json' | \
     xargs sed -i ".backup" -e 's,"version": "'${OLD_VERSION}'","version": "'${VERSION}'",g'
 
 # Replace the version in the custom events schema ID
 find custom -name '*json' | \
     xargs sed -i ".backup" -e 's,https://cdevents.dev/'${OLD_VERSION}'/schema/,https://cdevents.dev/'${VERSION}'/schema/,g'
 
+# Replace the version in the custom events conformance file
+find custom -name '*json' | \
+    xargs sed -i ".backup" -e 's,"version": "'${OLD_VERSION}'","version": "'${VERSION}'",g'
 
 # Update examples in docs
-for doc in cloudevents-binding spec; do
+for doc in cloudevents-binding spec links; do
     sed -i ".backup" -e 's;"version": "'${OLD_VERSION}'",;"version": "'${VERSION}'",;g' "${doc}.md"
 done
 

@@ -118,7 +118,7 @@ SPLIT_EVENT=(${EVENT_SUBJECT_PREDICATE//./ })
 SUBJECT=${SPLIT_EVENT[0]}
 PREDICATE=${SPLIT_EVENT[1]}
 SCHEMA_FILE="schemas/${SUBJECT}${PREDICATE}.json"
-EXAMPLE_FILE="examples/${SUBJECT}_${PREDICATE}.json"
+EXAMPLE_FILE="conformance/${SUBJECT}_${PREDICATE}.json"
 
 # Evaluate the event version
 OLD_VERSION=$(sed -n -e '/"default": "dev.cdevents.'${SUBJECT}'.'${PREDICATE}'./s/.*\.\([0-9]\.[0-9]\.[0-9]\(-draft\)\{0,1\}\)"/\1/p' ${SCHEMA_FILE})
@@ -145,7 +145,7 @@ fi
 if [[ "${COMMAND}" == "${START_COMMAND}" ]]; then
     if [[ -n ${DRAFT_VERSION} ]]; then
         echo "Cannot start release ${VERSION}, already in ${DRAFT_VERSION}"
-        # Still ensure examples are up to date with OLD_VERSION
+        # Still ensure conformance files are up to date with OLD_VERSION
         VERSION=${OLD_VERSION}
         replace_example
         # Cleanup backup files
