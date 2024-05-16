@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.4.0/schema/incident-detected-event",
+  "$id": "https://cdevents.dev/0.4.1/schema/incident-detected-event",
   "properties": {
     "context": {
       "properties": {

@@ -129,7 +129,7 @@ between CDEvents.
 ```json
 {
   "context": {
-    "version": "0.4.0",
+    "version": "0.4.1",
     "id": "505b31c2-8bc8-47b3-a1a0-269d7a8530ac",
     "source": "dev/jenkins",
     "type": "dev.cdevents.testsuite.finished.0.1.1",
@@ -370,7 +370,7 @@ help explain the overall flow using payloads from CDEvents.
 ```json
 {
   "context": {
-    "version": "0.4.0",
+    "version": "0.4.1",
     "chain_id": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
     "id": "38a09112-a1ab-4c26-94c4-edfc234ef631",
     "source": "/event/source/123",
@@ -420,7 +420,7 @@ sender generates this id.
 ```json
 {
   "context": {
-    "version": "0.4.0",
+    "version": "0.4.1",
     "chain_id": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
     "id": "AA6945F8-B0F1-48DD-B658-25ACF95BD2F5",
     "source": "/event/source/123",
