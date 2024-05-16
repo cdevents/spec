@@ -6,4 +6,7 @@
 .DS_Store
 
 # JS
-tools/node_modules
+**/node_modules
+
+# Python
+**/venv
