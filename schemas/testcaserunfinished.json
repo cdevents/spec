@@ -72,9 +72,8 @@
             "outcome": {
               "type": "string",
               "enum": [
-                "pass",
-                "fail",
-                "cancel",
+                "success",
+                "failure",
                 "error"
               ]
             },
