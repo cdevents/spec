@@ -33,7 +33,7 @@ CDEvents is a common specification for Continuous Delivery events.
     - [timestamp](#timestamp)
     - [version](#version)
   - [OPTIONAL Context  Attributes](#optional-context-attributes)
-    - [chain_id](#chain_id)
+    - [chainId](#chainId)
     - [links](#links)
   - [Context example](#context-example)
 - [CDEvent subject](#cdevent-subject)
@@ -311,7 +311,7 @@ defined in the [vocabulary](#vocabulary):
   - If there is a single "context" (cloud, cluster or platform of some kind)
     - `https://myorg.com/cdevents/schema/artifact-published-0-1-0`
 
-#### chain_id
+#### chainId
 
 - Type: [`String`][typesystem]
 - Description: Identifier for a chain as defined in the [links spec](links.md).
@@ -331,7 +331,7 @@ defined in the [vocabulary](#vocabulary):
     ```json
     [
       {
-        "link_type": "PATH",
+        "linkType": "PATH",
         "from": {
           "context_id": "271069a8-fc18-44f1-b38f-9d70a1695819"
         }
@@ -343,8 +343,8 @@ defined in the [vocabulary](#vocabulary):
     ```json
     [
       {
-        "link_type": "RELATION",
-        "link_kind": "TRIGGER",
+        "linkType": "RELATION",
+        "linkKind": "TRIGGER",
         "target": {
           "context_id": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
         }
@@ -356,7 +356,7 @@ defined in the [vocabulary](#vocabulary):
     ```json
     [
       {
-        "link_type": "END",
+        "linkType": "END",
         "from": {
           "context_id": "fb455028-a876-430e-a5ff-4b2ece77e827"
         }
