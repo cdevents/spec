@@ -122,7 +122,7 @@ An individual event usually has some connection to some trigger. This can be a
 new commit added to a pull request, a test suite being called in the CI
 process, or publishing a new artifact for some system to consume. While these
 events mean something themselves, they do not give the proper context of what
-caused what. This section will introduce two new fields, `chain_id` and
+caused what. This section will introduce two new fields, `chainId` and
 `links`, within the CDEvents context that will allow for giving some path
 between CDEvents.
 
@@ -133,7 +133,7 @@ between CDEvents.
     "id": "505b31c2-8bc8-47b3-a1a0-269d7a8530ac",
     "source": "dev/jenkins",
     "type": "dev.cdevents.testsuite.finished.0.1.1",
-    "chain_id": "00000000-0000-0000-0000-000000000001", # new chain id field
+    "chainId": "00000000-0000-0000-0000-000000000001", # new chain id field
     "timestamp": "2023-03-20T14:27:05.315384Z"
   },
   "subject": {
@@ -145,7 +145,7 @@ between CDEvents.
 }
 ```
 
-The `chain_id` is an ID that will be generated when a new CDEvent chain is
+The `chainId` is an ID that will be generated when a new CDEvent chain is
 wanted or if no CDEvent chain is present. This ID will follow the
 [UUID](https://datatracker.ietf.org/doc/html/rfc4122) format. Chain IDs will
 serve as a bucket for all CDEvents with some sort of path to each other.
@@ -166,16 +166,16 @@ systems to act accordingly based off the ending notation.
   "context": {
     "version": "0.3.0",
     "id": "271069a8-fc18-44f1-b38f-9d70a1695819",
-    "chain_id": "7ff3f526-1a0e-4d35-8a4c-7d6295e97359",
+    "chainId": "7ff3f526-1a0e-4d35-8a4c-7d6295e97359",
     "source": "/event/source/123",
     "type": "dev.cdevents.pipelinerun.queued.0.1.1",
     "timestamp": "2023-03-20T14:27:05.315384Z",
     "links": [
       {
-        "link_type": "RELATION",
-        "link_kind": "TRIGGER",
+        "linkType": "RELATION",
+        "linkKind": "TRIGGER",
         "target": {
-          "context_id": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"  # context id of a change.merged CDEvent
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"  # context id of a change.merged CDEvent
         }
       }
     ]
@@ -202,15 +202,15 @@ further, we can allow for a path link between `pipelinerun.queued` to the
   "context": {
     "version": "0.3.0",
     "id": "271069a8-fc18-44f1-b38f-9d70a1695819",
-    "chain_id": "7ff3f526-1a0e-4d35-8a4c-7d6295e97359",
+    "chainId": "7ff3f526-1a0e-4d35-8a4c-7d6295e97359",
     "source": "/event/source/123",
     "type": "dev.cdevents.pipelinerun.started.0.1.1",
     "timestamp": "2023-03-20T14:27:05.315384Z",
     "links": [
       {
-        "link_type": "PATH",
+        "linkType": "PATH",
         "from": {
-          "context_id": "271069a8-fc18-44f1-b38f-9d70a1695819" # context id of the pipelinerun.queued event
+          "contextId": "271069a8-fc18-44f1-b38f-9d70a1695819" # context id of the pipelinerun.queued event
         }
       }
     ]
@@ -371,7 +371,7 @@ help explain the overall flow using payloads from CDEvents.
 {
   "context": {
     "version": "0.4.0",
-    "chain_id": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
+    "chainId": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
     "id": "38a09112-a1ab-4c26-94c4-edfc234ef631",
     "source": "/event/source/123",
     "type": "dev.cdevents.change.merged.0.1.2",
@@ -391,9 +391,9 @@ help explain the overall flow using payloads from CDEvents.
 }
 ```
 
-Something to call out here is that the `chain_id` may have been `null`, for
+Something to call out here is that the `chainId` may have been `null`, for
 whatever reason, prior to this event. This means any parents to this event did
-not generate a `chain_id`. When an event is sent, it is important that the
+not generate a `chainId`. When an event is sent, it is important that the
 sender generates this id.
 
 2. We send the start link to let the links service know that we are creating a
@@ -401,11 +401,11 @@ sender generates this id.
 
 ```json
 {
-  "chain_id": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
-  "link_type": "START",
+  "chainId": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
+  "linkType": "START",
   "timestamp": "2023-03-20T14:27:05.315384Z",
   "start": {
-    "context_id": "38a09112-a1ab-4c26-94c4-edfc234ef631" # context.id of #1
+    "contextId": "38a09112-a1ab-4c26-94c4-edfc234ef631" # context.id of #1
   }
 }
 ```
@@ -421,7 +421,7 @@ sender generates this id.
 {
   "context": {
     "version": "0.4.0",
-    "chain_id": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
+    "chainId": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
     "id": "AA6945F8-B0F1-48DD-B658-25ACF95BD2F5",
     "source": "/event/source/123",
     "type": "dev.cdevents.pipelinerun.queued.0.1.1",
@@ -444,14 +444,14 @@ sending a link associated with the prior event which connects `#1` to `#5`
 
 ```json
 {
-  "chain_id": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
-  "link_type": "PATH",
+  "chainId": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
+  "linkType": "PATH",
   "timestamp": "2023-03-20T14:27:05.315384Z",
   "from": {
-      "context_id": "38a09112-a1ab-4c26-94c4-edfc234ef631" # context.id of #1
+      "contextId": "38a09112-a1ab-4c26-94c4-edfc234ef631" # context.id of #1
   },
   "to": {
-      "context_id": "aa6945f8-b0f1-48dd-b658-25acf95bd2f5" # context.id of #5
+      "contextId": "aa6945f8-b0f1-48dd-b658-25acf95bd2f5" # context.id of #5
   },
   "tags": {
     "ci.environment": "prod"
@@ -466,11 +466,11 @@ sending a link associated with the prior event which connects `#1` to `#5`
 
 ```json
 {
-  "chain_id": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
-  "link_type": "END",
+  "chainId": "d0be0005-cca7-4175-8fe3-f64d2f27bc01",
+  "linkType": "END",
   "timestamp": "2023-03-20T14:27:05.315384Z",
   "end": {
-    "context_id": "7d5e011f-5073-44a7-b4f0-86dd7d4c2c7f" # context.id of #31
+    "contextId": "7d5e011f-5073-44a7-b4f0-86dd7d4c2c7f" # context.id of #31
   }
 }
 ```
@@ -478,15 +478,15 @@ sending a link associated with the prior event which connects `#1` to `#5`
 
 ### Link Types
 
-This section will describe the four different `link_type`s: `START`, `END`, `PATH`, and
+This section will describe the four different `linkType`s: `START`, `END`, `PATH`, and
 `RELATION`.
 
 First is the common link fields shared between all links
 
 | Name            | Description                                                                                              |
 |-----------------|----------------------------------------------------------------------------------------------------------|
-| chain_id   | This represents the full life cycles of a series of events in CDEvents                                        |
-| link_type  | An enum that represents the type of link, e.g. 'START', 'END', 'PATH', 'RELATION'                             |
+| chainId   | This represents the full life cycles of a series of events in CDEvents                                        |
+| linkType  | An enum that represents the type of link, e.g. 'START', 'END', 'PATH', 'RELATION'                             |
 | timestamp  | The timestamp of when the link was created. This field is omitted when embedding links in the CDEvent context |
 | tags       | Custom metadata that an individual link can have. It is important to note values and keys can only be strings |
 
@@ -505,11 +505,11 @@ states.  This makes it very clear and easy for consuming systems.
 
 ```json
 {
-  "chain_id": "97ef590e-0285-45ad-98bb-9660ffaa567e",
-  "link_type": "START",
+  "chainId": "97ef590e-0285-45ad-98bb-9660ffaa567e",
+  "linkType": "START",
   "timestamp": "2023-03-20T14:27:05.315384Z",
   "start": {
-    "context_id": "a721d6ba-bbd6-4737-9274-5ddd2526b92f"
+    "contextId": "a721d6ba-bbd6-4737-9274-5ddd2526b92f"
   },
   "tags": {
     "ci.environment": "prod"
@@ -529,14 +529,14 @@ special type of `PATH` link.
 
 ```json
 {
-  "chain_id": "97ef590e-0285-45ad-98bb-9660ffaa567e",
-  "link_type": "END",
+  "chainId": "97ef590e-0285-45ad-98bb-9660ffaa567e",
+  "linkType": "END",
   "timestamp": "2023-03-20T14:27:05.315384Z",
   "from": {
-    "context_id": "bf9d3c52-1c12-4029-a8d6-e4aca6c69127"
+    "contextId": "bf9d3c52-1c12-4029-a8d6-e4aca6c69127"
   },
   "end": {
-    "context_id": "bf9d3c52-1c12-4029-a8d6-e4aca6c69127"
+    "contextId": "bf9d3c52-1c12-4029-a8d6-e4aca6c69127"
   },
   "tags": {
     "ci.environment": "prod"
@@ -556,14 +556,14 @@ from system to system or could describe a path within a system like tests.
 
 ```json
 {
-  "chain_id": "97ef590e-0285-45ad-98bb-9660ffaa567e",
-  "link_type": "PATH",
+  "chainId": "97ef590e-0285-45ad-98bb-9660ffaa567e",
+  "linkType": "PATH",
   "timestamp": "2023-03-20T14:27:05.315384Z",
   "from": {
-    "context_id": "f27e36a4-5c78-43c0-840a-52524dfeed03"
+    "contextId": "f27e36a4-5c78-43c0-840a-52524dfeed03"
   },
   "to": {
-    "context_id": "f004290e-5e45-45f4-b97a-fa82499f534c"
+    "contextId": "f004290e-5e45-45f4-b97a-fa82499f534c"
   },
   "tags": {
     "ci.environment": "prod"
@@ -577,21 +577,21 @@ Relation links are used to add some context to certain events
 
 | Name            | Description                                                                 |
 |-----------------|-----------------------------------------------------------------------------|
-| link_kind  | A stringed value representing any sort of relationship the link has to the event |
-| source     | The entity from which the `link_kind` is applied to. This field is omitted when embedding this link type. |
+| linkKind  | A stringed value representing any sort of relationship the link has to the event |
+| source     | The entity from which the `linkKind` is applied to. This field is omitted when embedding this link type. |
 | target     | An event that will be associated with the `source` |
 
 ```json
 {
-  "chain_id": "97ef590e-0285-45ad-98bb-9660ffaa567e",
-  "link_type": "RELATION",
-  "link_kind": "ARTIFACT",
+  "chainId": "97ef590e-0285-45ad-98bb-9660ffaa567e",
+  "linkType": "RELATION",
+  "linkKind": "ARTIFACT",
   "timestamp": "2023-03-20T14:27:05.315384Z",
   "source": {
-    "context_id": "5668c352-dd9d-4dee-b334-384e4661d21b"
+    "contextId": "5668c352-dd9d-4dee-b334-384e4661d21b"
   },
   "target": {
-    "context_id": "3579a5aa-ef46-4ee8-95db-0540298835de"
+    "contextId": "3579a5aa-ef46-4ee8-95db-0540298835de"
   },
   "tags": {
     "ci.environment": "prod"
