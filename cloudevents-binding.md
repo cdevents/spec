@@ -8,13 +8,13 @@ description: >
    CloudEvents Binding for CDEvents
 ---
 -->
-# CloudEvents Binding for CDEvents
+# CloudEvents Binding for CDEvents  <!-- omit in toc -->
 
-## Abstract
+## Abstract <!-- omit in toc -->
 
 The CloudEvents Binding for CDEvents defines how CDEvents are mapped to CloudEvents headers and body.
 
-## Table Of Contents
+## Table Of Contents <!-- omit in toc -->
 
 <!-- toc -->
 - [CloudEvents Context](#cloudevents-context)
@@ -113,7 +113,7 @@ Content-Length: nnnn
       "type": "taskRun",
       "content": {
          "task": "my-task",
-         "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+         "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
          "pipelineRun": {
             "id": "/somewherelse/pipelinerun-123",
             "source": "/staging/jenkins/"

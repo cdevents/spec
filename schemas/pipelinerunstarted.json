@@ -75,7 +75,7 @@
             "pipelineName": {
               "type": "string"
             },
-            "url": {
+            "uri": {
               "type": "string",
               "format": "uri"
             }

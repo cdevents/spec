@@ -423,7 +423,7 @@ defined in the [vocabulary](#vocabulary):
     ```json
         "content" : {
           "task": "my-task",
-          "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+          "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
         }
     ```
 
@@ -468,7 +468,7 @@ The following example shows `context` and `subject` together, rendered as JSON.
       "type": "taskRun",
       "content": {
          "task": "my-task",
-         "url": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
+         "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
          "pipelineRun": {
             "id": "my-distributed-pipelinerun",
             "source": "/tenant1/tekton/"

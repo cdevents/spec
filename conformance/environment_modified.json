@@ -45,7 +45,7 @@
     "type": "environment",
     "content": {
       "name": "testEnv",
-      "url": "https://example.org/testEnv"
+      "uri": "https://example.org/testEnv"
     }
   }
 }

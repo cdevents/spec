@@ -45,7 +45,7 @@
     "type": "taskRun",
     "content": {
       "taskName": "myTask",
-      "url": "https://www.example.com/mySubject123",
+      "uri": "https://www.example.com/mySubject123",
       "pipelineRun": {
         "id": "mySubject123"
       }
