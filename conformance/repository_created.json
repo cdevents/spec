@@ -46,7 +46,7 @@
     "content": {
       "name": "TestRepo",
       "owner": "TestOrg",
-      "url": "https://example.org/TestOrg/TestRepo",
+      "uri": "https://example.org/TestOrg/TestRepo",
       "viewUrl": "https://example.org/view/TestOrg/TestRepo"
     }
   }

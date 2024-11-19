@@ -186,7 +186,7 @@ systems to act accordingly based off the ending notation.
     "type": "pipelineRun",
     "content": {
       "pipelineName": "myPipeline",
-      "url": "https://www.example.com/mySubject123"
+      "uri": "https://www.example.com/mySubject123"
     }
   }
 }
@@ -221,7 +221,7 @@ further, we can allow for a path link between `pipelinerun.queued` to the
     "type": "pipelineRun",
     "content": {
       "pipelineName": "myPipeline",
-      "url": "https://www.example.com/mySubject123"
+      "uri": "https://www.example.com/mySubject123"
     }
   }
 }
@@ -433,7 +433,7 @@ sender generates this id.
     "type": "pipelineRun",
     "content": {
       "pipelineName": "myPipeline",
-      "url": "https://www.example.com/mySubject123"
+      "uri": "https://www.example.com/mySubject123"
     }
   }
 }
