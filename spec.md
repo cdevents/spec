@@ -333,12 +333,12 @@ defined in the [vocabulary](#vocabulary):
       {
         "linkType": "PATH",
         "from": {
-          "context_id": "271069a8-fc18-44f1-b38f-9d70a1695819"
+          "contextId": "271069a8-fc18-44f1-b38f-9d70a1695819"
         }
       }
     ]
     ```
-  - A relation link where the `context_id` is was some trigger for this event
+  - A relation link where the `contextId` is was some trigger for this event
 
     ```json
     [
@@ -346,7 +346,7 @@ defined in the [vocabulary](#vocabulary):
         "linkType": "RELATION",
         "linkKind": "TRIGGER",
         "target": {
-          "context_id": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
         }
       }
     ]
@@ -358,7 +358,7 @@ defined in the [vocabulary](#vocabulary):
       {
         "linkType": "END",
         "from": {
-          "context_id": "fb455028-a876-430e-a5ff-4b2ece77e827"
+          "contextId": "fb455028-a876-430e-a5ff-4b2ece77e827"
         }
       }
     ]
