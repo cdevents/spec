@@ -36,9 +36,9 @@ track the build and release progress on a particular software artifact.
 | source | `URI-Reference` | See [source](spec.md#source-subject) | |
 | type | `String` | See [type](spec.md#type-subject) | `pipelineRun` |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` |
-| outcome | `String` | outcome of a finished `pipelineRun` | `success`, `error` or `failure`|
+| outcome | `String` | outcome of a finished `pipelineRun` | `success`, `failure`, `cancel`, or `error` |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` |
-| errors | `String` | In case of error or failed pipeline, provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun canceled by user`, `Unit tests failed`|
+| errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun canceled by user`, `Unit tests failed`|
 
 ### `taskRun`
 
@@ -56,9 +56,9 @@ associated, in which case it is acceptable to generate only taskRun events.
 | type | `String` | See [type](spec.md#type-subject) | `taskRun` |
 | taskName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`|
-| outcome | `String` | outcome of a finished `taskRun` | `success`, `error` or `failure`|
+| outcome | `String` | outcome of a finished `taskRun` | `success`, `failure`, `cancel`, or `error` |
 | url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` |
-| errors | `String` | In case of error or failed pipeline, provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `taskRun canceled by user`, `Unit tests failed`|
+| errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `taskRun canceled by user`, `Unit tests failed`|
 
 ## Events
 
@@ -111,8 +111,8 @@ A pipelineRun has finished, successfully or not.
 | type | `String` | See [type](spec.md#type-subject) | `pipelineRun` | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
-| outcome | `String (enum)` | outcome of a finished `pipelineRun` | `success`, `error` or `failure`| |
-| errors | `String` | In case of error or failed pipeline, provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun canceled by user`, `Unit tests failed`| |
+| outcome | `String (enum)` | outcome of a finished `pipelineRun` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
+| errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun canceled by user`, `Unit tests failed`| |
 
 ### [`taskRun Started`](conformance/taskrun_started.json)
 
@@ -147,5 +147,5 @@ A taskRun has finished, successfully or not.
 | taskName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`| |
 | url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
-| outcome | `String (enum)` | outcome of a finished `taskRun` | `success`, `error` or `failure`| |
-| errors | `String` | In case of error or failed pipeline, provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `taskRun canceled by user`, `Unit tests failed`| |
+| outcome | `String (enum)` | outcome of a finished `taskRun` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
+| errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `taskRun canceled by user`, `Unit tests failed`| |
