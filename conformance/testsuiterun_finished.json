@@ -44,7 +44,7 @@
     "source": "/event/source/123",
     "type": "testSuiteRun",
     "content": {
-      "outcome": "fail",
+      "outcome": "failure",
       "severity": "critical",
       "reason": "Host 123.34.23.32 not found",
       "environment": {
