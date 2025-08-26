@@ -139,7 +139,6 @@ between CDEvents.
   "subject": {
     "id": "MyTestSuite",
     "source": "/tests/com/org/package",
-    "type": "testSuite",
     "content": {}
   }
 }
@@ -183,7 +182,6 @@ systems to act accordingly based off the ending notation.
   "subject": {
     "id": "mySubject123",
     "source": "/event/source/123",
-    "type": "pipelineRun",
     "content": {
       "pipelineName": "myPipeline",
       "uri": "https://www.example.com/mySubject123"
@@ -218,7 +216,6 @@ further, we can allow for a path link between `pipelinerun.queued` to the
   "subject": {
     "id": "mySubject123",
     "source": "/event/source/123",
-    "type": "pipelineRun",
     "content": {
       "pipelineName": "myPipeline",
       "uri": "https://www.example.com/mySubject123"
@@ -293,7 +290,7 @@ be able to construct the links between those events by itself.
    |            |            |                                                                           |<-----------------------|
    |            |            |           #4 (receive change merged event)                                |                        |
    |            |<----------------------------------------------------------------------------------------------------------------+
-   |            |            |           #5 (send pipeline queued event)                                 |                        | 
+   |            |            |           #5 (send pipeline queued event)                                 |                        |
    |            +---------------------------------------------------------------------------------------------------------------->|
    |            |            |           #6 (source change links connecting #1 -> #5)                    |                        |
    |            +---------------------------------------------------------------------------------------------------------------->|
@@ -330,7 +327,7 @@ be able to construct the links between those events by itself.
    |            |            |                                                                           |  #23 (proxy link #22)  |
    |            |            |                                                                           |<-----------------------|
    |            |            |           #24 (receive pipeline finished event)                           |                        |
-   |            |            |<---------------------------------------------------------------------------------------------------+ 
+   |            |            |<---------------------------------------------------------------------------------------------------+
    |            |            |           #25 (send pipeline queued event)                                |                        |
    |            |            +--------------------------------------------------------------------------------------------------->|
    |            |            |           #26 (pipeline finished event links connecting #21 -> #25)       |                        |
@@ -430,7 +427,6 @@ sender generates this id.
   "subject": {
     "id": "mySubject123",
     "source": "/event/source/123",
-    "type": "pipelineRun",
     "content": {
       "pipelineName": "myPipeline",
       "uri": "https://www.example.com/mySubject123"
