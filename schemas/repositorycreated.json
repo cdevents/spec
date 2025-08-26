@@ -92,7 +92,7 @@
           "type": "object",
           "required": [
             "name",
-            "url"
+            "uri"
           ]
         }
       },

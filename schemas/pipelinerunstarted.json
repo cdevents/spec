@@ -84,7 +84,7 @@
           "type": "object",
           "required": [
             "pipelineName",
-            "url"
+            "uri"
           ]
         }
       },
