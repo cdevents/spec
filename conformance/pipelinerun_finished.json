@@ -42,7 +42,6 @@
   "subject": {
     "id": "mySubject123",
     "source": "/event/source/123",
-    "type": "pipelineRun",
     "content": {
       "pipelineName": "myPipeline",
       "uri": "https://www.example.com/mySubject123",

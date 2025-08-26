@@ -42,7 +42,6 @@
   "subject": {
     "id": "myTestCaseRun123",
     "source": "/event/source/123",
-    "type": "testCaseRun",
     "content": {
       "environment": {
         "id": "dev",

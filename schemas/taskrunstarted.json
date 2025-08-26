@@ -62,14 +62,6 @@
           "minLength": 1,
           "format": "uri-reference"
         },
-        "type": {
-          "type": "string",
-          "minLength": 1,
-          "enum": [
-            "taskRun"
-          ],
-          "default": "taskRun"
-        },
         "content": {
           "properties": {
             "taskName": {
@@ -106,7 +98,6 @@
       "type": "object",
       "required": [
         "id",
-        "type",
         "content"
       ]
     },

@@ -42,7 +42,6 @@
   "subject": {
     "id": "mySubject123",
     "source": "/event/source/123",
-    "type": "change",
     "content": {
       "description": "This PR address a bug from a recent PR",
       "repository": {

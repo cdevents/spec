@@ -42,7 +42,6 @@
   "subject": {
     "id": "incident-123",
     "source": "/monitoring/prod1",
-    "type": "incident",
     "content": {
       "description": "Response time restored below 100ms",
       "environment": {

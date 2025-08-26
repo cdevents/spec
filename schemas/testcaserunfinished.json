@@ -51,12 +51,6 @@
         "source": {
           "type": "string"
         },
-        "type": {
-          "type": "string",
-          "minLength": 1,
-          "enum": ["testCaseRun"],
-          "default": "testCaseRun"
-        },
         "content": {
           "properties": {
             "outcome": {
@@ -142,7 +136,7 @@
       },
       "additionalProperties": false,
       "type": "object",
-      "required": ["id", "type", "content"]
+      "required": ["id", "content"]
     },
     "customData": {
       "oneOf": [

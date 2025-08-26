@@ -42,7 +42,6 @@
   "subject": {
     "id": "myTestSuiteRun123",
     "source": "/event/source/123",
-    "type": "testSuiteRun",
     "content": {
       "environment": {
         "id": "dev",
