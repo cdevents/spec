@@ -41,7 +41,6 @@
   "subject": {
     "id": "ticket-123",
     "source": "/ticketing/system",
-    "type": "ticket",
     "content": {
       "summary": "New CVE-123 detected",
       "ticketType": "task",

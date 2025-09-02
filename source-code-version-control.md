@@ -32,7 +32,6 @@ An SCM `repository` is identified by a `name`, an `owner` which can be a user or
 |-------|------|-------------|----------|
 | id    | `String` | See [id](spec.md#id-subject)| `an-org/a-repo`, `an-user/a-repo` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`|
-| type | `String` | See [type](spec.md#type-subject) | `repository` |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`|
 | url | `URI` | URL to the `repository` for API operations. This URL needs to include the protocol used to connect to the repository. | `git://my-git.example/an-org/a-repo` |
@@ -46,7 +45,6 @@ A `branch` in an SCM repository is identified by its `id`.
 |-------|------|-------------|----------|
 | id    | `String` | See [id](spec.md#id-subject)| `main`, `feature-a`, `fix-issue-1` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`|
-| type | `String` | See [type](spec.md#type-subject) | `branch` |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
 
 ### `change`
@@ -57,7 +55,6 @@ A `change` identifies a proposed set of changes to the content of a `repository`
 |-------|------|-------------|----------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `featureBranch123` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`|
-| type | `String` | See [type](spec.md#type-subject) | `change` |
 | description | `String` | Description associated with the change, e.g. A pull request's description | `This PR addresses a fix for some feature`|
 | repository | `Object` ([`repository`](#repository)) | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` |
 
@@ -75,7 +72,6 @@ A new Source Code Repository was created to host source code for a project.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `an-org/a-repo`, `an-user/a-repo`, `repo123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`| |
-| type | `String` | See [type](spec.md#type-subject) | `repository` | |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | ✅ |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
@@ -93,7 +89,6 @@ A Source Code Repository modified some of its attributes, like location, or owne
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `an-org/a-repo`, `an-user/a-repo`, `repo123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`| |
-| type | `String` | See [type](spec.md#type-subject) | `repository` | |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | ✅ |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
@@ -109,7 +104,6 @@ A Source Code Repository modified some of its attributes, like location, or owne
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `an-org/a-repo`, `an-user/a-repo`, `repo123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`| |
-| type | `String` | See [type](spec.md#type-subject) | `repository` | |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
 | url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | |
@@ -127,7 +121,6 @@ A branch inside the Repository was created.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `main`, `feature-a`, `fix-issue-1` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example/an-org/a-repo`| |
-| type | `String` | See [type](spec.md#type-subject) | `branch` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### [`branch deleted`](conformance/branch_deleted.json)
@@ -142,7 +135,6 @@ A branch inside the Repository was deleted.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `main`, `feature-a`, `fix-issue-1` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example/an-org/a-rep`| |
-| type | `String` | See [type](spec.md#type-subject) | `branch` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### [`change created`](conformance/change_created.json)
@@ -157,7 +149,6 @@ A source code change was created and submitted to a repository specific branch. 
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example/an-org/a-repo`| |
-| type | `String` | See [type](spec.md#type-subject) | `change` | |
 | description | `String` | Description associated with the change, e.g. A pull request's description | `This PR addresses a fix for some feature`| |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
@@ -173,7 +164,6 @@ Someone (user) or an automated system submitted an review to the source code cha
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example/an-org/a-repo`| |
-| type | `String` | See [type](spec.md#type-subject) | `change` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### [`change merged`](conformance/change_merged.json)
@@ -188,7 +178,6 @@ A change is merged to the target branch where it was submitted.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `featureBranch123`, `1a429d2f06fa49d8ece5045ac6471dc8a2276895` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example/an-org/a-repo`| |
-| type | `String` | See [type](spec.md#type-subject) | `change` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### [`change abandoned`](conformance/change_abandoned.json)
@@ -203,7 +192,6 @@ A tool or a user decides that the change has been inactive for a while and it ca
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example/an-org/a-repo`| |
-| type | `String` | See [type](spec.md#type-subject) | `change` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |
 
 ### [`change updated`](conformance/change_updated.json)
@@ -218,5 +206,4 @@ A Change has been updated, for example a new commit is added or removed from an 
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `featureBranch123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example/an-org/a-repo`| |
-| type | `String` | See [type](spec.md#type-subject) | `change` | |
 | repository | `Object` | A reference to the repository where the change event happened | `{"id": "an-org/a-repo"}` | |

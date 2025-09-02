@@ -110,7 +110,6 @@ Content-Length: nnnn
    }
    "subject" : {
       "id": "/namespace/taskrun-123",
-      "type": "taskRun",
       "content": {
          "task": "my-task",
          "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"

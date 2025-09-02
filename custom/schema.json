@@ -59,10 +59,6 @@
           "minLength": 1,
           "format": "uri-reference"
         },
-        "type": {
-          "type": "string",
-          "pattern": "^[a-zA-Z0-9]+-[a-zA-Z]+$"
-        },
         "content": {
           "type": "object",
           "additionalProperties": true
@@ -72,7 +68,6 @@
       "type": "object",
       "required": [
         "id",
-        "type",
         "content"
       ]
     },

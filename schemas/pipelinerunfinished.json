@@ -54,12 +54,6 @@
           "minLength": 1,
           "format": "uri-reference"
         },
-        "type": {
-          "type": "string",
-          "minLength": 1,
-          "enum": ["pipelineRun"],
-          "default": "pipelineRun"
-        },
         "content": {
           "properties": {
             "pipelineName": {
@@ -83,7 +77,7 @@
       },
       "additionalProperties": false,
       "type": "object",
-      "required": ["id", "type", "content"]
+      "required": ["id", "content"]
     },
     "customData": {
       "oneOf": [

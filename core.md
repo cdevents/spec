@@ -34,7 +34,6 @@ track the build and release progress on a particular software artifact.
 |-------|------|-------------|----------|
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | |
-| type | `String` | See [type](spec.md#type-subject) | `pipelineRun` |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` |
 | outcome | `String` | outcome of a finished `pipelineRun` | `success`, `failure`, `cancel`, or `error` |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` |
@@ -53,7 +52,6 @@ associated, in which case it is acceptable to generate only taskRun events.
 |-------|------|-------------|----------|
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/taskrun-1234` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | |
-| type | `String` | See [type](spec.md#type-subject) | `taskRun` |
 | taskName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`|
 | outcome | `String` | outcome of a finished `taskRun` | `success`, `failure`, `cancel`, or `error` |
@@ -76,7 +74,6 @@ to ignore these events if they don't apply to their use cases.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `pipelineRun` | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 
@@ -92,7 +89,6 @@ A pipelineRun has started and it is running.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `pipelineRun` | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 
@@ -108,7 +104,6 @@ A pipelineRun has finished, successfully or not.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `pipelineRun` | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 | outcome | `String (enum)` | outcome of a finished `pipelineRun` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
@@ -126,7 +121,6 @@ A taskRun has started and it is running.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/taskrun-1234` | ✅ |
 | source | `URI-Reference` | [source](spec.md#source) from the context | | |
-| type | `String` | See [type](spec.md#type-subject) | `taskRun` | |
 | taskName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`| |
 | url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
@@ -143,7 +137,6 @@ A taskRun has finished, successfully or not.
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/taskrun-1234` | ✅ |
 | source | `URI-Reference` | [source](spec.md#source) from the context | | |
-| type | `String` | See [type](spec.md#type-subject) | `taskRun` | |
 | taskName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`| |
 | url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |

@@ -42,7 +42,6 @@ CDEvents is a common specification for Continuous Delivery events.
     - [content](#content)
   - [OPTIONAL Subject Attributes](#optional-subject-attributes)
     - [source (subject)](#source-subject)
-    - [type (subject)](#type-subject)
   - [Subject example](#subject-example)
 - [CDEvents custom data](#cdevents-custom-data)
   - [OPTIONAL Custom Data attributes](#optional-custom-data-attributes)
@@ -441,15 +440,6 @@ defined in the [vocabulary](#vocabulary):
   The format and semantic of the *subject* [`source`](#source-subject) are the
   same of those of the *context* [`source`](#source-context).
 
-#### type (subject)
-
-- Type: `Enum`
-- Description: A string defined in the [vocabulary](#vocabulary) that
-  identifies the type of [`subject`](#cdevent-subject).
-
-- Constraints:
-  - REQUIRED when [`content`](#content) is not empty
-
 ### Subject example
 
 The following example shows `context` and `subject` together, rendered as JSON.
@@ -465,7 +455,6 @@ The following example shows `context` and `subject` together, rendered as JSON.
    },
    "subject" : {
       "id": "my-taskrun-123",
-      "type": "taskRun",
       "content": {
          "task": "my-task",
          "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",

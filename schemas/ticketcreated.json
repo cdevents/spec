@@ -62,14 +62,6 @@
           "minLength": 1,
           "format": "uri-reference"
         },
-        "type": {
-          "type": "string",
-          "minLength": 1,
-          "enum": [
-            "ticket"
-          ],
-          "default": "ticket"
-        },
         "content": {
           "properties": {
             "summary": {
@@ -148,7 +140,6 @@
       "type": "object",
       "required": [
         "id",
-        "type",
         "content"
       ]
     },

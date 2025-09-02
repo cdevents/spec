@@ -42,7 +42,6 @@
   "subject": {
     "id": "mySubject123",
     "source": "/event/source/123",
-    "type": "taskRun",
     "content": {
       "taskName": "myTask",
       "uri": "https://www.example.com/mySubject123",

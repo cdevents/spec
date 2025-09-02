@@ -51,12 +51,6 @@
         "source": {
           "type": "string"
         },
-        "type": {
-          "type": "string",
-          "minLength": 1,
-          "enum": ["testSuiteRun"],
-          "default": "testSuiteRun"
-        },
         "content": {
           "properties": {
             "environment": {
@@ -115,7 +109,7 @@
       },
       "additionalProperties": false,
       "type": "object",
-      "required": ["id", "type", "content"]
+      "required": ["id", "content"]
     },
     "customData": {
       "oneOf": [

@@ -42,7 +42,6 @@
   "subject": {
     "id": "pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c",
     "source": "/event/source/123",
-    "type": "artifact",
     "content": {
       "signature": "MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp"
     }

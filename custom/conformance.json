@@ -42,7 +42,6 @@
   "subject": {
     "id": "pkg:resource/name@234fd47e07d1004f0aed9c",
     "source": "/event/source/123",
-    "type": "mytool-resource",
     "content": {
       "user": "mybot-myapp",
       "description": "a useful resource",
@@ -53,4 +52,3 @@
     }
   }
 }
-  

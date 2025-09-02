@@ -33,7 +33,6 @@ __Note:__ The data model for `build`, apart from `id` and `source`, only include
 |-------|------|-------------|----------|
 | id    | `String` | Uniquely identifies the subject within the source. | `1234`, `maven123`, `builds/taskrun123` |
 | source | `URI-Reference` | [source](../spec.md#source) from the context | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](spec.md#type-subject) | `build` |
 | artifactId | `String` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
 
 ### `artifact`
@@ -44,7 +43,6 @@ An `artifact` is usually produced as output of a build process. Events need to b
 |-------|------|-------------|----------|
 | id    | `String` | See [id](spec.md#id-subject)| `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
-| type | `String` | See [type](spec.md#type-subject) | `artifact` |
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` |
 | signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` |
 | sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` |
@@ -64,7 +62,6 @@ This event represents a Build task that has been queued; this build process usua
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `build` | |
 
 ### [`build started`](conformance/build_started.json)
 
@@ -78,7 +75,6 @@ This event represents a Build task that has been started; this build process usu
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `build` | |
 
 ### [`build finished`](conformance/build_finished.json)
 
@@ -92,7 +88,6 @@ This event represents a Build task that has finished. This event will eventually
 |-------|------|-------------|----------|----------------------------|
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | |
 | artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | `build` | |
 
 ### [`artifact packaged`](conformance/artifact_packaged.json)
@@ -108,7 +103,6 @@ This event is usually produced by the build system. If an SBOM URI is available 
 |-------|------|-------------|----------|----------------------------|
 | id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | change | `object`        | The change (tag, commit, revision) of the repository which was used to build the artifact" | `{"id": "527d4a1aca5e8d0df24813df5ad65d049fc8d312", "source": "my-git.example/an-org/a-repo"}`, `{"id": "feature1234", "source": "my-git.example/an-org/a-repo"}` | ✅ |
 | sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` | |
 
@@ -125,7 +119,6 @@ An artifact may be signed after it has been packaged or sometimes after it has p
 |-------|------|-------------|----------|----------------------------|
 | id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | signature | `string`     | The signature of the artifact | `MEYCIQCBT8U5ypDXWCjlNKfzTV4KH516/SK13NZSh8znnSMNkQIhAJ3XiQlc9PM1KyjITcZXHotdMB+J3NGua5T/yshmiPmp` | ✅ |
 
 ### [`artifact published`](conformance/artifact_published.json)
@@ -141,7 +134,6 @@ The `artifact published` event is typically produced by the artifact registry, b
 |-------|------|-------------|----------|----------------------------|
 | id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | user | `String` | The user who published to the artifact registry. [^user] | `mybot-myapp` | |
 
 ### [`artifact downloaded`](conformance/artifact_downloaded.json)
@@ -157,7 +149,6 @@ The `artifact downloaded` event is preferably produced by the artifact registry.
 |-------|------|-------------|----------|----------------------------|
 | id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | user | `String` | The user who downloaded from the artifact registry. [^user] | `mybot-myapp` | |
 
 ### [`artifact deleted`](conformance/artifact_deleted.json)
@@ -173,7 +164,6 @@ The `artifact deleted` event is preferably produced by the artifact registry.
 |-------|------|-------------|----------|----------------------------|
 | id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
-| type | `String` | See [type](spec.md#type-subject) | `artifact` | |
 | user | `String` | The user who deleted from the artifact registry. [^user] | `mybot-myapp` | |
 
 [^user]: The actual format of `user` depends on the specific registry and authentication method used. If access to the artifact registry is obtained through a long lived token, this could be the name or description associated with the token at provisioning time. In case of an anonymous read operations, the user depends on the protocol used, a typically useful value would be the IP address of the client performing the read.

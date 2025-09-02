@@ -62,14 +62,6 @@
           "minLength": 1,
           "format": "uri-reference"
         },
-        "type": {
-          "type": "string",
-          "minLength": 1,
-          "enum": [
-            "incident"
-          ],
-          "default": "incident"
-        },
         "content": {
           "properties": {
             "description": {
@@ -127,7 +119,6 @@
       "type": "object",
       "required": [
         "id",
-        "type",
         "content"
       ]
     },

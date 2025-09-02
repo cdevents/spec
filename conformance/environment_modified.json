@@ -42,7 +42,6 @@
   "subject": {
     "id": "mySubject123",
     "source": "/event/source/123",
-    "type": "environment",
     "content": {
       "name": "testEnv",
       "uri": "https://example.org/testEnv"

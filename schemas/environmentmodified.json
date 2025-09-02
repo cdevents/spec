@@ -62,14 +62,6 @@
           "minLength": 1,
           "format": "uri-reference"
         },
-        "type": {
-          "type": "string",
-          "minLength": 1,
-          "enum": [
-            "environment"
-          ],
-          "default": "environment"
-        },
         "content": {
           "properties": {
             "name": {
@@ -88,7 +80,6 @@
       "type": "object",
       "required": [
         "id",
-        "type",
         "content"
       ]
     },

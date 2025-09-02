@@ -122,7 +122,6 @@ Corresponding CDEvent using a `dev.cdeventsx.*` type:
   "subject": {
     "id": "/projects/2/webhook/policies/15",
     "source": "/harbor/alpine",
-    "type": "quota",
     "content": {
       "operator": "",
       "resources": [
