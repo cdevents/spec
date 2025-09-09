@@ -112,7 +112,8 @@ via:
 
 * [slack](https://cdeliveryfdn.slack.com/archives/C030SKZ0F4K)
 * [our mailing list](https://groups.google.com/g/cdevents-dev)
-* [our working group meetings](https://calendar.google.com/event?action=TEMPLATE&tmeid=aWhyZjVwb3F2MnY2bml0anUyNDRvazdkdWpfMjAyMjAyMjJUMTYwMDAwWiBhbmRyZWEuZnJpdHRvbGlAbQ&tmsrc=andrea.frittoli%40gmail.com&scp=ALL)
+* [working group meetings (Europe/Asia)](https://calendar.google.com/calendar/u/0/event?eid=YjI4aDcybzA5bTlkdW9hOTBlMmFtcWE4ZDdfMjAyNTA5MDlUMTQwMDAwWiBsaW51eGZvdW5kYXRpb24ub3JnX21oZjBrbWdlZG42N2lobmk4cjEyOWF2cDI0QGc)
+* [working group meetings (Americas)](https://calendar.google.com/calendar/u/0/event?eid=MWsxaG9vdGtxcWxuYjJvdHIyN3A0Y3R1ZXFfMjAyNTA5MjNUMTcwMDAwWiBsaW51eGZvdW5kYXRpb24ub3JnX21oZjBrbWdlZG42N2lobmk4cjEyOWF2cDI0QGc)
 
 ### Contributing
 
