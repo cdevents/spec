@@ -1,6 +1,6 @@
 import sys
 
-# The GitHub label passed as an argument: patch, minor, major, release
+# The GitHub label passed as an argument: patch, minor, major
 LABEL = sys.argv[1]  
 
 # The file that stores the current version
@@ -21,20 +21,16 @@ def parse_version(v):
     Parse a version string like "0.5.0-draft" into parts:
     major, minor, patch, and optional suffix (e.g., "-draft").
     """
-    parts = v.split(".")  # Split into ['0', '5', '0-draft']
+    # Remove suffix if present
+    v = v.split("-", 1)[0]
+
+    parts = v.split(".")  # Split into ['0', '5', '0']
+
     major = int(parts[0])
     minor = int(parts[1])
+    patch = int(parts[2])
 
-    # Handle patch number and suffix(if exist)
-    if "-" in parts[2]:
-        patch_str, suffix = parts[2].split("-", 1)  
-        patch = int(patch_str)
-        suffix = "-" + suffix  # Keep the dash in the suffix
-    else:
-        patch = int(parts[2])
-        suffix = ""
-
-    return major, minor, patch, suffix
+    return major, minor, patch
 
 
 def bump_version(major, minor, patch):
@@ -44,31 +40,32 @@ def bump_version(major, minor, patch):
     - minor: increment minor, reset patch
     - major: increment major, reset minor and patch
     """
+    new_major = major
+    new_minor = minor
+    new_patch = patch
+
     if LABEL == "patch":
-        patch = patch + 1
+        new_patch = patch + 1
     elif LABEL == "minor":
-        minor = minor + 1
-        patch = 0
+        new_minor = minor + 1
+        new_patch = 0
     elif LABEL == "major":
-        major = major + 1
-        minor = 0
-        patch = 0
-    return major, minor, patch
+        new_major = major + 1
+        new_minor = 0
+        new_patch = 0
+    else:
+        raise ValueError(f"Invalid Label: {LABEL}")
+    return new_major, new_minor, new_patch
 
 def main():
     # Read current version
     old_version = read_version()
     
     # Parse current version
-    major, minor, patch, suffix = parse_version(old_version)
+    major, minor, patch = parse_version(old_version)
 
-    # If label is release, remove the "-draft" suffix
-    if LABEL == "release":
-        new_version = f"{major}.{minor}.{patch}" 
-    else:
-        # Otherwise, bump version according to label
-        new_major, new_minor, new_patch = bump_version(major, minor, patch)
-        new_version = f"{new_major}.{new_minor}.{new_patch}-draft"
+    new_major, new_minor, new_patch = bump_version(major, minor, patch)
+    new_version = f"{new_major}.{new_minor}.{new_patch}"
 
     # Prevent race conditions by only writing if version changed
     if new_version != old_version:
