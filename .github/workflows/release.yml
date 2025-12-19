@@ -41,9 +41,9 @@ jobs:
               echo "Version is required for set-version"
               exit 1
             fi
-            python tools/release.py set=${{ inputs.version }}
+            python tools/spec_release.py set=${{ inputs.version }}
           else
-            python tools/release.py ${{ inputs.action }}
+            python tools/spec_release.py ${{ inputs.action }}
           fi
 
       - name: Commit version updates
