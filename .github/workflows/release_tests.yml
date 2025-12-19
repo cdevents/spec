@@ -1,4 +1,4 @@
-name: Python Tests
+name: Test Python Release 
 
 on:
   workflow_dispatch:       
