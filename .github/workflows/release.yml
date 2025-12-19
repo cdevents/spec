@@ -44,6 +44,7 @@ jobs:
             python tools/release.py set=${{ inputs.version }}
           else
             python tools/release.py ${{ inputs.action }}
+          fi
 
       - name: Commit version updates
         run: |
