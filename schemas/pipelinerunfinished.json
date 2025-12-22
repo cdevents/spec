@@ -19,8 +19,8 @@
         },
         "type": {
           "type": "string",
-          "enum": ["dev.cdevents.pipelinerun.finished.0.3.0-draft"],
-          "default": "dev.cdevents.pipelinerun.finished.0.3.0-draft"
+          "enum": ["dev.cdevents.pipelinerun.finished.0.3.0"],
+          "default": "dev.cdevents.pipelinerun.finished.0.3.0"
         },
         "timestamp": {
           "type": "string",

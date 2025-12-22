@@ -19,9 +19,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.testoutput.published.0.3.0-draft"
+            "dev.cdevents.testoutput.published.0.3.0"
           ],
-          "default": "dev.cdevents.testoutput.published.0.3.0-draft"
+          "default": "dev.cdevents.testoutput.published.0.3.0"
         },
         "timestamp": {
           "type": "string",
