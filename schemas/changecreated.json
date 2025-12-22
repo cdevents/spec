@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.change.created.0.4.0-draft"
+            "dev.cdevents.change.created.0.4.0"
           ],
-          "default": "dev.cdevents.change.created.0.4.0-draft"
+          "default": "dev.cdevents.change.created.0.4.0"
         },
         "timestamp": {
           "type": "string",

@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.artifact.deleted.0.2.0-draft"
+            "dev.cdevents.artifact.deleted.0.2.0"
           ],
-          "default": "dev.cdevents.artifact.deleted.0.2.0-draft"
+          "default": "dev.cdevents.artifact.deleted.0.2.0"
         },
         "timestamp": {
           "type": "string",

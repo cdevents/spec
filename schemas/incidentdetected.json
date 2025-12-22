@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.incident.detected.0.3.0-draft"
+            "dev.cdevents.incident.detected.0.3.0"
           ],
-          "default": "dev.cdevents.incident.detected.0.3.0-draft"
+          "default": "dev.cdevents.incident.detected.0.3.0"
         },
         "timestamp": {
           "type": "string",

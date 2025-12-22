@@ -18,8 +18,8 @@
         },
         "type": {
           "type": "string",
-          "enum": ["dev.cdevents.testcaserun.finished.0.3.0-draft"],
-          "default": "dev.cdevents.testcaserun.finished.0.3.0-draft"
+          "enum": ["dev.cdevents.testcaserun.finished.0.3.0"],
+          "default": "dev.cdevents.testcaserun.finished.0.3.0"
         },
         "timestamp": {
           "type": "string",

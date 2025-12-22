@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.ticket.updated.0.2.0-draft"
+            "dev.cdevents.ticket.updated.0.2.0"
           ],
-          "default": "dev.cdevents.ticket.updated.0.2.0-draft"
+          "default": "dev.cdevents.ticket.updated.0.2.0"
         },
         "timestamp": {
           "type": "string",
