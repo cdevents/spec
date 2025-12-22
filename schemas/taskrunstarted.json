@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cdevents.dev/0.5.0-draft/schema/taskrun-started-event",
+  "$id": "https://cdevents.dev/0.5.0/schema/taskrun-started-event",
   "properties": {
     "context": {
       "properties": {
