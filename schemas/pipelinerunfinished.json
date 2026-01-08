@@ -41,7 +41,7 @@
       },
       "additionalProperties": false,
       "type": "object",
-      "required": ["version", "id", "source", "type", "timestamp"]
+      "required": ["specversion", "id", "source", "type", "timestamp"]
     },
     "subject": {
       "properties": {
