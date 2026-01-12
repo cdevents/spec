@@ -59,11 +59,11 @@ jobs:
           cache: npm
           cache-dependency-path: tools/package-lock.json
       - name: Install dependencies
-        run: |
-          cd tools
-          npm install -g --no-fund ajv-cli ajv-formats
+        run: npm ci --no-fund
+        working-directory: tools
       - name: Run Validate
-        run: ./tools/validate.sh
+        run: npm run validate
+        working-directory: tools
 
   spellcheck:
     name: Spellcheck (en_US)
