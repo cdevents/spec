@@ -72,4 +72,4 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v6
       - name: Spellcheck
-        uses: rojopolis/spellcheck-github-actions@0.55.0
+        uses: rojopolis/spellcheck-github-actions@0.57.0
