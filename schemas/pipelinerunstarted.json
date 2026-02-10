@@ -1,6 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.6.0-draft/schema/pipelinerun-started-event",
+  "x-cdevents-semantics": {
+    "subject": "cdevents/_defs/pipelinerun",
+    "predicate": "cdevents/_defs/started"
+  },
   "properties": {
     "context": {
       "properties": {
