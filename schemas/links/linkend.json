@@ -1,47 +1,59 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.6.0-draft/schema/links/linkend",
+  "type": "object",
+  "additionalProperties": false,
   "properties": {
     "chainId": {
-      "description": "This represents the full lifecycles of a series of events in CDEvents",
+      "description": "Represents the lifecycle grouping of a series of related events.",
       "type": "string",
       "minLength": 1
     },
     "linkType": {
-      "description": "The type associated with the link. In this case, 'END', suggesting the end of some CI/CD lifecycle",
+      "description": "The type associated with the link. In this case, 'END', suggesting the end of some CI/CD lifecycle.",
       "type": "string",
-      "enum": [
-        "END"
-      ]
+      "enum": ["END"]
     },
     "timestamp": {
       "type": "string",
       "format": "date-time"
     },
     "from": {
-      "description": "This is the context ID of the producing CDEvent.",
+      "description": "Identifies the producing entity of the END link. May reference a CDEvent context ID, a domain execution ID, or both.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "contextId": {
           "type": "string",
           "minLength": 1
+        },
+        "domainId": {
+          "type": "string",
+          "minLength": 1
         }
       },
-      "required": [
-        "contextId"
+      "anyOf": [
+        { "required": ["contextId"] },
+        { "required": ["domainId"] }
       ]
     },
     "end": {
-      "description": "This is the context ID of the final CDEvent in the chain",
+      "description": "Identifies the final entity in the lifecycle. May reference a CDEvent context ID, a domain execution ID, or both.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "contextId": {
           "type": "string",
           "minLength": 1
+        },
+        "domainId": {
+          "type": "string",
+          "minLength": 1
         }
       },
-      "required": [
-        "contextId"
+      "anyOf": [
+        { "required": ["contextId"] },
+        { "required": ["domainId"] }
       ]
     },
     "tags": {
@@ -49,10 +61,7 @@
       "additionalProperties": true
     }
   },
-  "additionalProperties": false,
-  "type": "object",
   "required": [
-    "chainId",
     "linkType",
     "timestamp",
     "from",
