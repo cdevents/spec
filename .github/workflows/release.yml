@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Release action to perform"
+        required: true
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+          - set-version
+      version:
+        description: "Version to set (required only for set-version)"
+        required: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install semver
+
+      - name: Run release script
+        run: |
+          if [ "${{ inputs.action }}" = "set-version" ]; then
+            if [ -z "${{ inputs.version }}" ]; then
+              echo "Version is required for set-version"
+              exit 1
+            fi
+            python tools/spec_release.py set=${{ inputs.version }}
+          else
+            python tools/spec_release.py ${{ inputs.action }}
+          fi
+
+      - name: Commit version updates
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "chore(release): bump version (${{ inputs.action }})" || echo "No changes to commit"
+
+      - name: Push changes
+        run: git push
