@@ -1,24 +1,30 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.6.0-draft/schema/links/embeddedlinkpath",
+  "type": "object",
+  "additionalProperties": false,
   "properties": {
     "linkType": {
       "type": "string",
-      "enum": [
-        "PATH"
-      ]
+      "enum": ["PATH"]
     },
     "from": {
-      "description": "When consuming a CDEvent, you are consuming a parent event. So, when looking at the 'from' key, this is the parent's parent.",
+      "description": "Identifies the upstream parent in the path. May reference a CDEvent context ID, a domain execution ID, or both.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "contextId": {
           "type": "string",
           "minLength": 1
+        },
+        "domainId": {
+          "type": "string",
+          "minLength": 1
         }
       },
-      "required": [
-        "contextId"
+      "anyOf": [
+        { "required": ["contextId"] },
+        { "required": ["domainId"] }
       ]
     },
     "tags": {
@@ -26,10 +32,9 @@
       "additionalProperties": true
     }
   },
-  "additionalProperties": false,
-  "type": "object",
   "required": [
     "linkType",
     "from"
   ]
 }
+
