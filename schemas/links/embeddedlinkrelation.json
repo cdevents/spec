@@ -1,34 +1,41 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.6.0-draft/schema/links/embeddedlinkrelation",
+  "type": "object",
+  "additionalProperties": false,
   "properties": {
     "linkType": {
       "type": "string",
-      "enum": [
-        "RELATION"
-      ]
+      "enum": ["RELATION"]
     },
     "linkKind": {
       "type": "string",
       "minLength": 1
     },
     "target": {
-      "description": "",
+      "description": "Identifies the target of the relation. May reference a CDEvent context ID, a domain execution ID, or both.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "contextId": {
           "type": "string",
           "minLength": 1
+        },
+        "domainId": {
+          "type": "string",
+          "minLength": 1
         }
-      }
+      },
+      "anyOf": [
+        { "required": ["contextId"] },
+        { "required": ["domainId"] }
+      ]
     },
     "tags": {
       "type": "object",
       "additionalProperties": true
     }
   },
-  "additionalProperties": false,
-  "type": "object",
   "required": [
     "linkType",
     "linkKind",
