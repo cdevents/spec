@@ -60,36 +60,41 @@
           "type": "string",
           "minLength": 1
         },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
+        },
         "content": {
           "properties": {
             "approvalDetailsUrl": {
               "type": "string",
               "minLength": 1,
-              "$comment": "Reference URL to the approval request in the originating system. Consumers with appropriate access can retrieve the full approval context, history, and decisions from this URL. This provides the canonical location of the approval record."
+              "description": "Reference URL to the approval request in the originating system. Consumers with appropriate access can retrieve the full approval context, history, and decisions from this URL. This provides the canonical location of the approval record."
             },
             "resourceTargetUrl": {
               "type": "string",
               "minLength": 1,
-              "$comment": "Reference URL to the resource whose progression is gated by this approval. The approval does not describe the resource, but the URL allows consumers to retrieve resource information directly from the system that owns it."
+              "description": "Reference URL to the resource whose progression is gated by this approval. The approval does not describe the resource, but the URL allows consumers to retrieve resource information directly from the system that owns it."
             },
             "responder": {
               "type": "string",
-              "format": "urn",
-              "$comment": "URN identifying the entity that recorded this decision. May be a human identity, a service account, or an automated system."
+              "format": "uri",
+              "description": "URN identifying the entity that recorded this decision. May be a human identity, a service account, or an automated system."
             },
             "decision": {
               "type": "string",
-              "$comment": "The final decision recorded by the responder that resolved this approval."
+              "description": "The final decision recorded by the responder that resolved this approval."
             },
             "status": {
               "type": "string",
               "enum": [
-                "Approved",
-                "Rejected",
-                "Cancelled",
-                "Expired"
+                "approved",
+                "rejected",
+                "cancelled",
+                "expired"
               ],
-              "$comment": "The terminal state of the approval. Approved is an authorized to proceed. Rejected is explicitly denied. Cancelled is withdrawn before resolution. Expired is no decision was reached within the allowed time."
+              "description": "The terminal state of the approval. Approved is an authorized to proceed. Rejected is explicitly denied. Cancelled is withdrawn before resolution. Expired is no decision was reached within the allowed time."
             }
           },
           "additionalProperties": false,

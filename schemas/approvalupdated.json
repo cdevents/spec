@@ -70,21 +70,21 @@
             "approvalDetailsUrl": {
               "type": "string",
               "minLength": 1,
-              "$comment": "Reference URL to the approval request in the originating system. Consumers with appropriate access can retrieve the full approval context, history, and decisions from this URL. This provides the canonical location of the approval record."
+              "description": "Reference URL to the approval request in the originating system. Consumers with appropriate access can retrieve the full approval context, history, and decisions from this URL. This provides the canonical location of the approval record."
             },
             "resourceTargetUrl": {
               "type": "string",
               "minLength": 1,
-              "$comment": "Reference URL to the resource whose progression is gated by this approval. The approval does not describe the resource, but the URL allows consumers to retrieve resource information directly from the system that owns it."
+              "description": "Reference URL to the resource whose progression is gated by this approval. The approval does not describe the resource, but the URL allows consumers to retrieve resource information directly from the system that owns it."
             },
             "responder": {
               "type": "string",
-              "format": "urn",
-              "$comment": "URN identifying the entity that recorded this decision. May be a human identity, a service account, or an automated system."
+              "format": "uri",
+              "description": "URN identifying the entity that recorded this decision. May be a human identity, a service account, or an automated system."
             },
             "decision": {
               "type": "string",
-              "$comment": "The decision recorded by the responder. Non-terminal status, and does not resolve the approval. The terminal decision and final status are captured in approval.closed."
+              "description": "The decision recorded by the responder. Non-terminal status, and does not resolve the approval. The terminal decision and final status are captured in approval.closed."
             }
           },
           "additionalProperties": false,
