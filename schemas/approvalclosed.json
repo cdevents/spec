@@ -23,7 +23,7 @@
         "type": {
           "type": "string",
           "enum": [
-          "dev.cdevents.approval.closed.0.1.0"
+            "dev.cdevents.approval.closed.0.1.0"
           ],
           "default": "dev.cdevents.approval.closed.0.1.0"
         },
@@ -84,7 +84,15 @@
             },
             "decision": {
               "type": "string",
-              "description": "The final decision recorded by the responder that resolved this approval."
+              "enum": [
+                "escalated",
+                "delegate",
+                "deferred",
+                "requestChanges",
+                "approved",
+                "rejected"
+              ],
+              "description": "The decision made by the responder. This field represents the action taken on the approval request and does not indicate the final approval state. The terminal state is captured by the status field in approval.closed."
             },
             "status": {
               "type": "string",
