@@ -23,7 +23,7 @@
         "type": {
           "type": "string",
           "enum": [
-          "dev.cdevents.approval.created.0.1.0"
+            "dev.cdevents.approval.created.0.1.0"
           ],
           "default": "dev.cdevents.approval.created.0.1.0"
         },
