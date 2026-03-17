@@ -22,30 +22,31 @@
       "format": "date-time"
     },
     "source": {
-      "description": "Identifies the source of the relation. May reference a CDEvent context ID, a domain execution ID, or both.",
+      "description": "Identifies the source of the relation.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "contextId": {
           "type": "string",
           "minLength": 1
-        },
-        "domainId": {
-          "type": "string",
-          "minLength": 1
         }
       },
-      "anyOf": [
-        { "required": ["contextId"] },
-        { "required": ["domainId"] }
-      ]
+      "required": ["contextId"]
     },
     "target": {
-      "description": "Identifies the target of the relation. May reference a CDEvent context ID, a domain execution ID, or both.",
+      "description": "Identifies the target of the relation. May reference a CDEvent context ID, a subject within a CDEvent context type, a domain execution ID, or combinations of these.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "contextType": {
+          "type": "string",
+          "minLength": 1
+        },
         "contextId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subjectId": {
           "type": "string",
           "minLength": 1
         },
@@ -56,6 +57,7 @@
       },
       "anyOf": [
         { "required": ["contextId"] },
+        { "required": ["contextType", "subjectId"] },
         { "required": ["domainId"] }
       ]
     },
@@ -66,6 +68,7 @@
   },
   "required": [
     "linkType",
+    "linkKind",
     "timestamp",
     "source",
     "target"

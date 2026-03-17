@@ -13,11 +13,19 @@
       "minLength": 1
     },
     "target": {
-      "description": "Identifies the target of the relation. May reference a CDEvent context ID, a domain execution ID, or both.",
+      "description": "Identifies the target of the relation. May reference a CDEvent context ID, a subject within a CDEvent context type, a domain execution ID, or combinations of these.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "contextType": {
+          "type": "string",
+          "minLength": 1
+        },
         "contextId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subjectId": {
           "type": "string",
           "minLength": 1
         },
@@ -28,6 +36,7 @@
       },
       "anyOf": [
         { "required": ["contextId"] },
+        { "required": ["contextType", "subjectId"] },
         { "required": ["domainId"] }
       ]
     },
