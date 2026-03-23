@@ -41,13 +41,11 @@
   },
   "subject": {
     "id": "testrunreport-12123",
-    "source": "/event/source/testrunreport-12123",
     "content": {
       "outputType": "video",
       "format": "video/quicktime",
       "testCaseRun": {
-        "id": "myTestCaseRun123",
-        "source": "testkube-dev-123"
+        "id": "/testkube-dev-123/myTestCaseRun123"
       }
     }
   }

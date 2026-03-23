@@ -40,8 +40,6 @@ CDEvents is a common specification for Continuous Delivery events.
   - [REQUIRED Subject Attributes](#required-subject-attributes)
     - [id (subject)](#id-subject)
     - [content](#content)
-  - [OPTIONAL Subject Attributes](#optional-subject-attributes)
-    - [source (subject)](#source-subject)
   - [Subject example](#subject-example)
 - [CDEvents custom data](#cdevents-custom-data)
   - [OPTIONAL Custom Data attributes](#optional-custom-data-attributes)
@@ -389,18 +387,31 @@ defined in the [vocabulary](#vocabulary):
 
 #### id (subject)
 
-- Type: [`String`][typesystem]
+- Type: [`URI-Reference`][typesystem]
 - Description: Identifier for a subject.
   Subsequent events associated to the same subject MUST use the same subject
   [`id`](#id-subject).
 
 - Constraints:
   - REQUIRED
-  - MUST be a non-empty string
-  - MUST be unique within the given [`source`](#source-subject) (in the scope of
-    the producer)
+  - MUST be a non-empty URI-reference
+  - MUST be unique
+  - An absolute URI is RECOMMENDED
+  - A URI to access the subject via API is RECOMMENDED over a human-facing frontend URL
 - Examples:
-  - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random))
+  - An absolute URI
+    - `https://api.github.com/repos/my-org/my-repo/actions/runs/11111111111`
+  - An organization scoped PATH
+    - `/my-cluster/my-region/dev`
+    - `/my-namespace/my-deployment/my-container`
+    - `/teamX/knative-1`
+  - A [Uniform Resource Name (URN)](https://en.wikipedia.org/wiki/Uniform_Resource_Name)
+    - `urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66`
+  - A [UUID version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)) or version 7
+  - A [Content Identifiers (CIDs) | IPFS Docs](https://docs.ipfs.tech/concepts/content-addressing/#what-is-a-cid)
+
+> [!NOTE]
+> Migration from spec 0.5 and below by merging the previous `subject.source` into `subject.id`: `subject.id = "${subject.source}/${subject.id}"`
 
 #### content
 
@@ -426,20 +437,6 @@ defined in the [vocabulary](#vocabulary):
         }
     ```
 
-### OPTIONAL Subject Attributes
-
-#### source (subject)
-
-- Type: [`URI-Reference`][typesystem]
-- Description: defines the context in which the subject originated. In most
-  cases the [`source`](#source-subject) of the subject matches the
-  [`source`](#source-context) of the event. This field should be used only in
-  cases where the [`source`](#source-subject) of the *subject* is different from
-  the [`source`](#source-context) of the event.
-
-  The format and semantic of the *subject* [`source`](#source-subject) are the
-  same of those of the *context* [`source`](#source-context).
-
 ### Subject example
 
 The following example shows `context` and `subject` together, rendered as JSON.
@@ -454,13 +451,12 @@ The following example shows `context` and `subject` together, rendered as JSON.
       "timestamp" : "2018-04-05T17:31:00Z"
    },
    "subject" : {
-      "id": "my-taskrun-123",
+      "id": "https://my-server/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
       "content": {
          "task": "my-task",
-         "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
+         "uri": "https://my-server/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
          "pipelineRun": {
-            "id": "my-distributed-pipelinerun",
-            "source": "/tenant1/tekton/"
+            "id": "https://my-server/tenant1/tekton/my-distributed-pipelinerun",
          }
       }
    }

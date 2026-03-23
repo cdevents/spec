@@ -41,12 +41,10 @@
   },
   "subject": {
     "id": "mySubject123",
-    "source": "/event/source/123",
     "content": {
       "description": "This PR address a bug from a recent PR",
       "repository": {
-        "id": "TestRepo/TestOrg",
-        "source": "https://example.org"
+        "id": "https://example.org/TestRepo/TestOrg"
       }
     }
   }

@@ -55,12 +55,8 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uri-reference",
           "minLength": 1
-        },
-        "source": {
-          "type": "string",
-          "minLength": 1,
-          "format": "uri-reference"
         },
         "content": {
           "properties": {
@@ -76,11 +72,6 @@
                 "id": {
                   "type": "string",
                   "minLength": 1
-                },
-                "source": {
-                  "type": "string",
-                  "minLength": 1,
-                  "format": "uri-reference"
                 }
               },
               "additionalProperties": false,

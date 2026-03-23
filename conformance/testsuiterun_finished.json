@@ -41,14 +41,12 @@
   },
   "subject": {
     "id": "myTestSuiteRun123",
-    "source": "/event/source/123",
     "content": {
       "outcome": "failure",
       "severity": "critical",
       "reason": "Host 123.34.23.32 not found",
       "environment": {
-        "id": "dev",
-        "source": "testkube-dev-123"
+        "id": "/testkube-dev-123/dev"
       },
       "testSuite": {
         "id": "92834723894",
