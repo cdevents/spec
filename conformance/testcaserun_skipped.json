@@ -40,16 +40,13 @@
   },
   "subject": {
     "id": "myTestCaseRun123",
-    "source": "/event/source/123",
     "content": {
       "reason": "Not running in this environment",
       "environment": {
-        "id": "dev",
-        "source": "testkube-dev-123"
+        "id": "/testkube-dev-123/dev"
       },
       "testSuiteRun": {
-        "id": "test-suite-111",
-        "source": "testkube-dev-123"
+        "id": "/testkube-dev-123/test-suite-111"
       },
       "testCase": {
         "id": "92834723894",

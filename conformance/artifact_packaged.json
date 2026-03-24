@@ -41,11 +41,9 @@
   },
   "subject": {
     "id": "pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c",
-    "source": "/event/source/123",
     "content": {
       "change": {
-        "id": "myChange123",
-        "source": "my-git.example/an-org/a-repo"
+        "id": "my-git.example/an-org/a-repo/myChange123"
       },
       "sbom": {
         "uri": "https://sbom.repo/myorg/234fd47e07d1004f0aed9c.sbom"

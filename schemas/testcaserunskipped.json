@@ -69,11 +69,6 @@
                 "id": {
                   "type": "string",
                   "minLength": 1
-                },
-                "source": {
-                  "type": "string",
-                  "minLength": 1,
-                  "format": "uri-reference"
                 }
               },
               "additionalProperties": false,

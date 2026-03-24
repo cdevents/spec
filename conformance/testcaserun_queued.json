@@ -41,11 +41,9 @@
   },
   "subject": {
     "id": "myTestCaseRun123",
-    "source": "/event/source/123",
     "content": {
       "environment": {
-        "id": "dev",
-        "source": "testkube-dev-123"
+        "id": "/testkube-dev-123/dev"
       },
       "testCase": {
         "id": "92834723894",

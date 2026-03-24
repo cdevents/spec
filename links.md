@@ -181,7 +181,6 @@ systems to act accordingly based off the ending notation.
   },
   "subject": {
     "id": "mySubject123",
-    "source": "/event/source/123",
     "content": {
       "pipelineName": "myPipeline",
       "uri": "https://www.example.com/mySubject123"
@@ -215,7 +214,6 @@ further, we can allow for a path link between `pipelinerun.queued` to the
   },
   "subject": {
     "id": "mySubject123",
-    "source": "/event/source/123",
     "content": {
       "pipelineName": "myPipeline",
       "uri": "https://www.example.com/mySubject123"
@@ -380,8 +378,7 @@ help explain the overall flow using payloads from CDEvents.
     "type": "change",
     "content": {
       "repository": {
-        "id": "cdevents/service",
-        "source": "https://github.com/cdevents/service/pull/1234"
+        "id": "https://github.com/cdevents/service"
       }
     }
   }
@@ -426,7 +423,6 @@ sender generates this id.
   },
   "subject": {
     "id": "mySubject123",
-    "source": "/event/source/123",
     "content": {
       "pipelineName": "myPipeline",
       "uri": "https://www.example.com/mySubject123"

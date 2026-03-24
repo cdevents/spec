@@ -114,8 +114,7 @@ Content-Length: nnnn
          "task": "my-task",
          "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
          "pipelineRun": {
-            "id": "/somewherelse/pipelinerun-123",
-            "source": "/staging/jenkins/"
+            "id": "/staging/jenkins/somewherelse/pipelinerun-123"
          }
       }
    }
