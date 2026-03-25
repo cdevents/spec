@@ -90,7 +90,8 @@
               ]
             },
             "outcome": {
-              "type": "string"
+              "type": "string",
+              "enum": ["success", "failure", "cancel", "error"]
             },
             "errors": {
               "type": "string"
