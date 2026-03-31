@@ -1,17 +1,17 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdevents.dev/0.6.0-draft/schema/links/linkrelation",
+  "type": "object",
+  "additionalProperties": false,
   "properties": {
     "chainId": {
-      "description": "This represents the full lifecycles of a series of events in CDEvents",
+      "description": "Represents the lifecycle grouping of a series of related events.",
       "type": "string",
       "minLength": 1
     },
     "linkType": {
       "type": "string",
-      "enum": [
-        "RELATION"
-      ]
+      "enum": ["RELATION"]
     },
     "linkKind": {
       "type": "string",
@@ -22,29 +22,34 @@
       "format": "date-time"
     },
     "source": {
-      "description": "",
+      "description": "Identifies the source of the relation.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "contextId": {
           "type": "string",
           "minLength": 1
         }
       },
-      "required": [
-        "contextId"
-      ]
+      "required": ["contextId"]
     },
     "target": {
-      "description": "",
+      "description": "Identifies the target of the relation. May reference a CDEvent context ID or a domain execution ID.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "contextId": {
           "type": "string",
           "minLength": 1
+        },
+        "domainId": {
+          "type": "string",
+          "minLength": 1
         }
       },
-      "required": [
-        "contextId"
+      "anyOf": [
+        { "required": ["contextId"] },
+        { "required": ["domainId"] }
       ]
     },
     "tags": {
@@ -52,13 +57,12 @@
       "additionalProperties": true
     }
   },
-  "additionalProperties": false,
-  "type": "object",
   "required": [
-    "chainId",
     "linkType",
+    "linkKind",
     "timestamp",
     "source",
     "target"
   ]
 }
+
