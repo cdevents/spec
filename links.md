@@ -594,6 +594,228 @@ Relation links are used to add some context to certain events
   }
 }
 ```
+## Cross-Domain Linking with `domainId`
+
+### The Problem
+
+`contextId` requires the publisher to know the parent event's context ID.
+If the parent is not a CDEvent, there is no context ID to reference.
+
+For example, GitHub does not emit CDEvents today. A build event triggered by a
+GitHub PR cannot use `contextId` to link back to that PR — there is no CDEvent
+context ID to know. Without `domainId`, the only option is to bury that
+causality in `customData`, where it is unstructured and non-queryable.
+
+`domainId` provides a first-class way to express causality and relationships
+across system boundaries, regardless of whether the referenced system emits
+CDEvents.
+
+This is a transitional mechanism: as more systems adopt CDEvents, `domainId`
+links naturally migrate to `contextId` links. It is a bridge, not a
+permanent replacement.
+
+### Event-to-Event vs Event-to-Resource Linking
+
+`contextId` and `domainId` represent two fundamentally different linking models.
+
+`contextId` is **event-to-event**: it points to a single, specific CDEvent by
+its unique context ID. One event references exactly one other event.
+
+`domainId` is **many-to-many**: a `domainId` URN acts as a container. Many
+CDEvents can reference the same external resource, and a single CDEvent can
+reference many external resources. There is no requirement that any CDEvent
+know about the others referencing the same `domainId`.
+
+```plaintext
+contextId — event-to-event (1:1)
+
+  +--------------------+       contextId       +--------------------+
+  | CDEvent            |<----- "abc-123" ------| CDEvent            |
+  | id: "abc-123"      |                       | build.started      |
+  | change.merged      |                       | links: [{          |
+  +--------------------+                       |   target: {        |
+                                               |     contextId:     |
+                                               |     "abc-123"      |
+                                               |   }                |
+                                               | }]                 |
+                                               +--------------------+
+
+
+domainId — many-to-many (N events, M resources)
+
+  Many events referencing one resource (domainId as container/grouping key):
+
+                         cdevents:github:xibz:repo:pr:42
+                         (external resource — container)
+                                   ^
+                                   |
+              +--------------------+--------------------+
+              |                    |                    |
+   +----------+-------+  +---------+---------+  +------+-----------+
+   | CDEvent          |  | CDEvent           |  | CDEvent          |
+   | build.started    |  | testrun.started   |  | service.deployed |
+   | domainId:        |  | domainId:         |  | domainId:        |
+   | cdevents:github: |  | cdevents:github:  |  | cdevents:github: |
+   | :repo:pr:42      |  | :repo:pr:42       |  | :repo:pr:42      |
+   +------------------+  +-------------------+  +------------------+
+
+
+  One event referencing many resources (fan-out):
+
+   +----------------------------------+
+   | CDEvent                          |
+   | service.deployed                 |
+   | links: [                         +-----> cdevents:github:xibz:repo:pr:42
+   |   { domainId:                    |
+   |     cdevents:github:...:pr:42 }, +-----> cdevents:jira:xibz:project:issue:12
+   |   { domainId:                    |
+   |     cdevents:jira:...:issue:12 },+-----> cdevents:circleci:xibz:pipeline:execution:789
+   |   { domainId:                    |
+   |     cdevents:circleci:...:789 }  |
+   | ]                                |
+   +----------------------------------+
+```
+
+A consumer querying by `cdevents:github:xibz:repo:pr:42` gets back every CDEvent
+that referenced that resource — build, test, deploy — without any single event
+needing to know about the others. A single event can simultaneously express
+causality across multiple external systems by listing multiple `domainId` links,
+covering fan-out scenarios where one action triggers work across several systems.
+
+### CDEvents Domain IDs
+
+`domainId` values are URNs following this format:
+
+```
+cdevents:<service>:<namespace>:<instance>:<type>:<resource id>
+```
+
+| Segment       | Description                                                                                                    |
+|---------------|----------------------------------------------------------------------------------------------------------------|
+| `service`     | A governed identifier for the system or tool. Must match a known entry in the CDEvents service registry or a shared identifier agreed upon by producers and consumers (e.g. `github`, `jira`, `datadog`). Free-form values are not permitted. |
+| `namespace`   | The org, account, or tenant within the service                                                                 |
+| `instance`    | The specific instance or environment within the namespace                                                      |
+| `type`        | A governed resource type. Must be one of the values defined in [Common Resource Types](#common-resource-types) |
+| `resource id` | The publicly exposed identifier that end users see for this resource (e.g. a PR number, commit SHA, or ticket number). Must not be an internal or opaque system-generated ID. |
+
+Examples:
+
+- GitHub PR: `cdevents:github:xibz:repo:pr:42`
+- Jira ticket: `cdevents:jira:xibz:project:issue:12345`
+- Datadog alert: `cdevents:datadog:prod:monitor:alert:98765`
+
+### Common Resource Types
+
+The `type` segment is a governed field. Producers MUST use one of the following
+values. This ensures interoperability — consumers can match and query by `type`
+without handling variations like `pull_request`, `PR`, or `pullrequest`.
+
+| Type          | Description                                                                        | `resource id` example         |
+|---------------|------------------------------------------------------------------------------------|-------------------------------|
+| `pr`          | A pull or merge request                                                            | `42` (PR number)              |
+| `commit`      | A source code commit                                                               | `abc123def456` (commit SHA)   |
+| `issue`       | An issue or ticket in a tracking system                                            | `1234` (issue number)         |
+| `branch`      | A source code branch                                                               | `main`, `feature/my-branch`   |
+| `tag`         | A source code tag or release                                                       | `v1.2.3`                      |
+| `definition`  | A named, reusable pipeline or workflow template                                    | `my-pipeline`                 |
+| `execution`   | A single run of a build, pipeline, workflow, or deployment                         | `789` (run number)            |
+| `artifact`    | A build artifact (binary, container image, package, etc.)                          | `myapp:1.0.0`                 |
+| `environment` | A target deployment environment                                                    | `production`, `staging`       |
+| `alert`       | A monitoring or observability alert                                                | `98765` (alert ID)            |
+
+If a resource does not fit any of the above types, it SHOULD be proposed for
+addition to this list before using a custom value.
+
+### Usage in Relation Links
+
+`domainId` can be used in place of `contextId` in the `source` and `target`
+fields of a `RELATION` link. Both embedded and standalone relation links support
+this.
+
+**Example: Build triggered by a GitHub PR**
+
+```json
+{
+  "context": {
+    "id": "build-event-789",
+    "chainId": "d0be0005-cca7-4175-8fe3-f64d2f27bc01"
+  },
+  "links": [
+    {
+      "linkType": "RELATION",
+      "linkKind": "triggeredBy",
+      "target": {
+        "domainId": "cdevents:github:xibz:repo:pr:42"
+      }
+    }
+  ]
+}
+```
+
+**Example: Rollback pipeline triggered by a Datadog alert**
+
+```json
+{
+  "links": [
+    {
+      "linkType": "RELATION",
+      "linkKind": "triggeredBy",
+      "target": {
+        "domainId": "cdevents:datadog:prod:monitor:alert:98765"
+      }
+    }
+  ]
+}
+```
+
+**Example: Deployment failure with full cross-domain causality**
+
+A deployment failure can link back to its causes across multiple systems,
+without requiring any system to know another system's internal context IDs:
+
+```json
+{
+  "context": { "id": "deploy-event-999" },
+  "links": [
+    {
+      "linkType": "RELATION",
+      "linkKind": "causedBy",
+      "target": {
+        "domainId": "cdevents:circleci:xibz:pipeline:execution:789"
+      }
+    },
+    {
+      "linkType": "RELATION",
+      "linkKind": "causedBy",
+      "target": {
+        "domainId": "cdevents:github:xibz:repo:commit:abc123def456"
+      }
+    },
+    {
+      "linkType": "RELATION",
+      "linkKind": "causedBy",
+      "target": {
+        "domainId": "cdevents:github:xibz:repo:pr:42"
+      }
+    }
+  ]
+}
+```
+
+Consumers can query directly by `domainId` URN without parsing `customData` or
+needing to know the context IDs of external systems.
+
+### When to Use `contextId` vs `domainId`
+
+| Scenario | Use |
+|----------|-----|
+| Linking to another CDEvent whose context ID is known | `contextId` |
+| Linking to a system that does not emit CDEvents | `domainId` |
+| Linking to a CDEvent but context ID is not available | `domainId` as a fallback |
+
+Each system uses what it knows: `contextId` for events within the CDEvents
+ecosystem, and `domainId` URNs for anything outside it.
+
 ### Scalability
 
 Scalability is one of the bigger goals in this proposal and we wanted to ensure
