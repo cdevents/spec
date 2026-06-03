@@ -645,7 +645,7 @@ domainId — many-to-many (N events, M resources)
 
   Many events referencing one resource (domainId as container/grouping key):
 
-                         cdevents:github:xibz:repo:pr:42
+                         cdevents:v0:github:xibz:repo:pr:42
                          (external resource — container)
                                    ^
                                    |
@@ -655,7 +655,7 @@ domainId — many-to-many (N events, M resources)
    | CDEvent          |  | CDEvent           |  | CDEvent          |
    | build.started    |  | testrun.started   |  | service.deployed |
    | domainId:        |  | domainId:         |  | domainId:        |
-   | cdevents:github: |  | cdevents:github:  |  | cdevents:github: |
+   | cdevents:v0:github: |  | cdevents:v0:github:  |  | cdevents:v0:github: |
    | :repo:pr:42      |  | :repo:pr:42       |  | :repo:pr:42      |
    +------------------+  +-------------------+  +------------------+
 
@@ -665,18 +665,18 @@ domainId — many-to-many (N events, M resources)
    +----------------------------------+
    | CDEvent                          |
    | service.deployed                 |
-   | links: [                         +-----> cdevents:github:xibz:repo:pr:42
+   | links: [                         +-----> cdevents:v0:github:xibz:repo:pr:42
    |   { domainId:                    |
-   |     cdevents:github:...:pr:42 }, +-----> cdevents:jira:xibz:project:issue:12
+   |     cdevents:v0:github:...:pr:42 }, +-----> cdevents:v0:jira:xibz:project:issue:12
    |   { domainId:                    |
-   |     cdevents:jira:...:issue:12 },+-----> cdevents:circleci:xibz:pipeline:execution:789
+   |     cdevents:v0:jira:...:issue:12 },+-----> cdevents:v0:circleci:xibz:pipeline:execution:789
    |   { domainId:                    |
-   |     cdevents:circleci:...:789 }  |
+   |     cdevents:v0:circleci:...:789 }  |
    | ]                                |
    +----------------------------------+
 ```
 
-A consumer querying by `cdevents:github:xibz:repo:pr:42` gets back every CDEvent
+A consumer querying by `cdevents:v0:github:xibz:repo:pr:42` gets back every CDEvent
 that referenced that resource — build, test, deploy — without any single event
 needing to know about the others. A single event can simultaneously express
 causality across multiple external systems by listing multiple `domainId` links,
@@ -687,11 +687,12 @@ covering fan-out scenarios where one action triggers work across several systems
 `domainId` values are URNs following this format:
 
 ```
-cdevents:<service>:<namespace>:<instance>:<type>:<resource id>
+cdevents:v0:<service>:<namespace>:<instance>:<type>:<resource id>
 ```
 
 | Segment       | Description                                                                                                    |
 |---------------|----------------------------------------------------------------------------------------------------------------|
+| `version`     | The version of the `domainId` URN format (currently `v0`). This allows the format to evolve without breaking existing consumers. |
 | `service`     | A governed identifier for the system or tool. Must match a known entry in the CDEvents service registry or a shared identifier agreed upon by producers and consumers (e.g. `github`, `jira`, `datadog`). Free-form values are not permitted. |
 | `namespace`   | The org, account, or tenant within the service                                                                 |
 | `instance`    | The specific instance or environment within the namespace                                                      |
@@ -700,9 +701,9 @@ cdevents:<service>:<namespace>:<instance>:<type>:<resource id>
 
 Examples:
 
-- GitHub PR: `cdevents:github:xibz:repo:pr:42`
-- Jira ticket: `cdevents:jira:xibz:project:issue:12345`
-- Datadog alert: `cdevents:datadog:prod:monitor:alert:98765`
+- GitHub PR: `cdevents:v0:github:xibz:repo:pr:42`
+- Jira ticket: `cdevents:v0:jira:xibz:project:issue:12345`
+- Datadog alert: `cdevents:v0:datadog:prod:monitor:alert:98765`
 
 ### Common Resource Types
 
@@ -745,7 +746,7 @@ this.
       "linkType": "RELATION",
       "linkKind": "triggeredBy",
       "target": {
-        "domainId": "cdevents:github:xibz:repo:pr:42"
+        "domainId": "cdevents:v0:github:xibz:repo:pr:42"
       }
     }
   ]
@@ -761,7 +762,7 @@ this.
       "linkType": "RELATION",
       "linkKind": "triggeredBy",
       "target": {
-        "domainId": "cdevents:datadog:prod:monitor:alert:98765"
+        "domainId": "cdevents:v0:datadog:prod:monitor:alert:98765"
       }
     }
   ]
@@ -781,21 +782,21 @@ without requiring any system to know another system's internal context IDs:
       "linkType": "RELATION",
       "linkKind": "causedBy",
       "target": {
-        "domainId": "cdevents:circleci:xibz:pipeline:execution:789"
+        "domainId": "cdevents:v0:circleci:xibz:pipeline:execution:789"
       }
     },
     {
       "linkType": "RELATION",
       "linkKind": "causedBy",
       "target": {
-        "domainId": "cdevents:github:xibz:repo:commit:abc123def456"
+        "domainId": "cdevents:v0:github:xibz:repo:commit:abc123def456"
       }
     },
     {
       "linkType": "RELATION",
       "linkKind": "causedBy",
       "target": {
-        "domainId": "cdevents:github:xibz:repo:pr:42"
+        "domainId": "cdevents:v0:github:xibz:repo:pr:42"
       }
     }
   ]
