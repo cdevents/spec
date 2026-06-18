@@ -30,7 +30,7 @@ const EXAMPLES_FOLDER = join(ROOT, "conformance");
 const SCHEMAS_FOLDER = join(ROOT, "schemas");
 const EMBEDDED_LINKS_SCHEMAS_PATTERN = join(
   ROOT,
-  "schemas/links/embedded*.json",
+  "schemas/links/*.json",
 );
 
 // Helper function to load JSON file
@@ -54,7 +54,7 @@ function createAjv() {
   return ajv;
 }
 
-// Load embedded links schemas
+// Load links schemas for use as references
 function loadEmbeddedLinksSchemas() {
   const schemas = [];
   const files = globSync(EMBEDDED_LINKS_SCHEMAS_PATTERN);
@@ -78,9 +78,8 @@ function testSchemas() {
   for (const schemaFile of eventSchemaFiles) {
     try {
       const ajv = createAjv();
-      // Add embedded links schemas as references
-      for (const embeddedSchema of embeddedLinksSchemas) {
-        ajv.addSchema(embeddedSchema);
+      for (const schema of embeddedLinksSchemas) {
+        ajv.addSchema(schema);
       }
       const schema = loadJSON(schemaFile);
       ajv.compile(schema);
@@ -97,6 +96,11 @@ function testSchemas() {
   for (const schemaFile of linkSchemaFiles) {
     try {
       const ajv = createAjv();
+      for (const refSchema of embeddedLinksSchemas) {
+        if (!refSchema.$id?.includes("/links/link")) {
+          ajv.addSchema(refSchema);
+        }
+      }
       const schema = loadJSON(schemaFile);
       ajv.compile(schema);
     } catch (error) {
@@ -109,8 +113,8 @@ function testSchemas() {
   numSchemas += 1;
   try {
     const ajv = createAjv();
-    for (const embeddedSchema of embeddedLinksSchemas) {
-      ajv.addSchema(embeddedSchema);
+    for (const schema of embeddedLinksSchemas) {
+      ajv.addSchema(schema);
     }
     const customSchema = loadJSON(join(ROOT, "custom/schema.json"));
     ajv.compile(customSchema);

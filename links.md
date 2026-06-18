@@ -680,7 +680,9 @@ covering fan-out scenarios where one action triggers work across several systems
 
 ### CDEvents Domain IDs
 
-`domainId` values are URNs following this format:
+`domainId` values are URIs following this format:
+
+The `cdevents:` scheme prefix was chosen deliberately. The original design used a URN (`urn:`), but URN namespaces require formal registration — for example, `urn:github:...` would need to be registered by GitHub, and `urn:jira:...` by Atlassian. Using `urn:cdevents:...` for everything would raise the question of why a URN is needed at all if CDEvents is acting as the sole authority. A URI with a `cdevents:` scheme avoids these registry obligations while remaining a valid, parseable identifier under RFC 3986.
 
 ```
 cdevents:v0:<provider>:<provider-id>:<namespace>:<groups>:<type>:<resource id>
@@ -694,7 +696,7 @@ Segment values MUST reflect the exact canonical form as the value appears in the
 
 | Segment       | Required | Description                                                                                                    |
 |---------------|----------|----------------------------------------------------------------------------------------------------------------|
-| `version`     | yes      | The version of the `domainId` URN format (currently `v0`). This allows the format to evolve without breaking existing consumers. |
+| `version`     | yes      | The version of the `domainId` URI format (currently `v0`). This allows the format to evolve without breaking existing consumers. |
 | `provider`    | no       | A governed identifier for the tool or system type that owns the resource. When present, MUST match a known provider defined in [PROVIDERS.md](PROVIDERS.md). Free-form values are not permitted — without a governed list, the same tool would be referenced as `gh`, `github`, `GitHub`, etc., making cross-system queries unreliable. |
 | `provider-id` | no       | Identifies who owns and where a specific instance of the provider is running. This is entirely company or org-defined — CDEvents does not govern, assign, or interpret this value. It exists solely to distinguish between two instances of the same tool owned or operated by different teams or organizations (e.g. org A's internal GitHub Enterprise vs org B's). Producers and consumers within an organization MUST agree on the value out of band. MUST be URL-encoded when present. |
 | `namespace`   | no       | The top-level organizational unit within the provider's data model (e.g., a GitHub org, a Jira workspace). Producer-defined; not governed by CDEvents. MUST be URL-encoded when present. |
@@ -725,18 +727,39 @@ The `type` segment is a governed field. Producers MUST use one of the following
 values. This ensures interoperability — consumers can match and query by `type`
 without handling variations like `pull_request`, `PR`, or `pullrequest`.
 
-| Type          | Description                                                                        | `resource id` example         |
-|---------------|------------------------------------------------------------------------------------|-------------------------------|
-| `pr`          | A pull or merge request                                                            | `42` (PR number)              |
-| `commit`      | A source code commit                                                               | `abc123def456` (commit SHA)   |
-| `issue`       | An issue or ticket in a tracking system                                            | `1234` (issue number)         |
-| `branch`      | A source code branch                                                               | `main`, `feature/my-branch`   |
-| `tag`         | A source code tag or release                                                       | `v1.2.3`                      |
-| `definition`  | A named, reusable pipeline or workflow template                                    | `my-pipeline`                 |
-| `execution`   | A single run of a build, pipeline, workflow, or deployment                         | `789` (run number)            |
-| `artifact`    | A build artifact (binary, container image, package, etc.). The resource id SHOULD be a [PURL](https://github.com/package-url/purl-spec), URL-encoded. | `pkg%3Adocker%2Fmyapp%401.0.0` |
-| `environment` | A target deployment environment                                                    | `production`, `staging`       |
-| `alert`       | A monitoring or observability alert                                                | `98765` (alert ID)            |
+Most types are concrete and singular — `pr`, `commit`, `issue`, `branch`, `tag`,
+`artifact`, `environment`, `alert`, and `execution` each represent a single,
+unambiguous concept. If subtypes are added to these in the future (e.g.
+`execution.stage`), the bare type retains its original meaning and existing URNs
+remain valid — there is no migration cost.
+
+`definition` is treated differently. A bare `definition` could mean "a workflow
+definition" today, but if `definition.policy` or `definition.infrastructure` were
+added later, bare `definition` would become underspecified — consumers could no
+longer tell which kind of definition was intended without provider knowledge. To
+avoid this migration problem, `definition` is an abstract parent type that MUST
+NOT be used directly. Producers MUST always use a concrete subtype such as
+`definition.workflow`. New subtypes SHOULD follow the `definition.<kind>` naming
+convention and be proposed for addition to this list.
+
+`execution` specifically refers to a top-level run — a pipeline execution, workflow
+run, or build. Sub-level concepts such as stages, jobs, and steps are either
+covered by CDEvents events via `contextId` (if the system emits CDEvents) or are
+out of scope for `domainId`.
+
+| Type                   | Description                                                                                                    | `resource id` example          |
+|------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------|
+| `pr`                   | A pull or merge request                                                                                        | `42` (PR number)              |
+| `commit`               | A source code commit                                                                                           | `abc123def456` (commit SHA)   |
+| `issue`                | An issue or ticket in a tracking system                                                                        | `1234` (issue number)         |
+| `branch`               | A source code branch                                                                                           | `main`, `feature/my-branch`   |
+| `tag`                  | A source code tag or release                                                                                   | `v1.2.3`                      |
+| `definition`           | Abstract parent. MUST NOT be used directly — use a concrete subtype.                                          | —                             |
+| `definition.workflow`  | An automation or pipeline definition — any template that describes a sequence of steps to be executed (e.g. a GitHub Actions workflow file, a CircleCI pipeline config, a Jenkinsfile). | `.github%2Fworkflows%2Fci.yml` |
+| `execution`            | A top-level run of a pipeline, workflow, or build. Always refers to the top-level execution — stages, jobs, and steps are out of scope. | `789` (run number)            |
+| `artifact`             | A build artifact (binary, container image, package, etc.). The resource id SHOULD be a [PURL](https://github.com/package-url/purl-spec), URL-encoded. | `pkg%3Adocker%2Fmyapp%401.0.0` |
+| `environment`          | A target deployment environment                                                                                | `production`, `staging`       |
+| `alert`                | A monitoring or observability alert                                                                            | `98765` (alert ID)            |
 
 If a resource does not fit any of the above types, it SHOULD be proposed for
 addition to this list before using a custom value.

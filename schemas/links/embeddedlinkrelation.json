@@ -21,7 +21,7 @@
           "minLength": 1
         },
         "domainId": {
-          "$ref": "domainid.json"
+          "$ref": "https://cdevents.dev/0.6.0-draft/schema/links/domainid"
         }
       },
       "anyOf": [

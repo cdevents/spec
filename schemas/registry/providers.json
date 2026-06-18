@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.6.0-draft/schema/links/providers",
+  "description": "Registry of known CDEvents domainId provider identifiers. Known providers are listed below. To register a new provider, submit a pull request adding an entry to the enum and the PROVIDERS.md table.",
+  "type": "string",
+  "pattern": "^[a-z][a-z0-9-]*$",
+  "enum": [
+    "artifactory",
+    "argo",
+    "bitbucket",
+    "circleci",
+    "datadog",
+    "docker",
+    "gitea",
+    "github",
+    "gitlab",
+    "grafana",
+    "jenkins",
+    "jira",
+    "linear",
+    "nexus",
+    "pagerduty",
+    "tekton"
+  ]
+}
