@@ -610,10 +610,6 @@ causality in `customData`, where it is unstructured and non-queryable.
 across system boundaries, regardless of whether the referenced system emits
 CDEvents.
 
-This is a transitional mechanism: as more systems adopt CDEvents, `domainId`
-links naturally migrate to `contextId` links. It is a bridge, not a
-permanent replacement.
-
 ### Event-to-Event vs Event-to-Resource Linking
 
 `contextId` and `domainId` represent two fundamentally different linking models.
@@ -657,7 +653,6 @@ domainId — many-to-many (N events, M resources)
    | domainId:        |  | domainId:         |  | domainId:        |
    | cdevents:v0:     |  | cdevents:v0:      |  | cdevents:v0:     |
    | github::xibz:... |  | github::xibz:...  |  | github::xibz:... |
-   | :pr:42           |  | :pr:42            |  | :pr:42           |
    +------------------+  +-------------------+  +------------------+
 
 
@@ -693,15 +688,19 @@ cdevents:v0:<provider>:<provider-id>:<namespace>:<groups>:<type>:<resource id>
 
 All segments MUST be present. If a segment has no value, it MUST be left empty rather than omitted (e.g. `cdevents:v0:github::xibz:...`). Omitting a segment shifts all following segments and introduces ambiguity.
 
-| Segment       | Description                                                                                                    |
-|---------------|----------------------------------------------------------------------------------------------------------------|
-| `version`     | The version of the `domainId` URN format (currently `v0`). This allows the format to evolve without breaking existing consumers. |
-| `provider`    | A governed identifier for the tool. Must match a known provider defined in the CDEvents provider list within this spec (e.g. `github`, `jira`, `datadog`). Free-form values are not permitted. |
-| `provider-id` | A company or org-defined identifier for the specific deployment of the provider (e.g. distinguishing one internal GitHub Enterprise from another). CDEvents does not govern this value — producers and consumers within an organization must agree on it. |
-| `namespace`   | The top-level organizational unit within the provider's data model (e.g., a GitHub org, a Jira workspace). Producer-defined; not governed by CDEvents. |
-| `groups`      | One or more organizational subdivisions within the namespace, separated by `/` to express nesting as defined by the provider's data model. For example, a GitHub repository is a single group (`my-repo`); a GitLab project nested under subgroups would be `group/subgroup/project`. Leading and trailing `/` are invalid. Producer-defined; not governed by CDEvents. |
-| `type`        | A governed resource type. Must be one of the values defined in [Common Resource Types](#common-resource-types) |
-| `resource id` | The publicly exposed identifier that end users see for this resource (e.g. a PR number, commit SHA, or ticket number). Must not be an internal or opaque system-generated ID. |
+Only `type` and `resource id` are required to be non-empty. All other segments are contextual — they narrow the identity of the resource but MAY be left empty when the information is not known or not applicable (e.g. an artifact whose provider registry is unknown).
+
+Segment values MUST reflect the exact canonical form as the value appears in the provider's system, before encoding is applied. When URL-encoding is required, percent-encoded hex digits MUST be uppercase (e.g. `%2F` not `%2f`).
+
+| Segment       | Required | Description                                                                                                    |
+|---------------|----------|----------------------------------------------------------------------------------------------------------------|
+| `version`     | yes      | The version of the `domainId` URN format (currently `v0`). This allows the format to evolve without breaking existing consumers. |
+| `provider`    | no       | A governed identifier for the tool or system type that owns the resource. When present, MUST match a known provider defined in [PROVIDERS.md](PROVIDERS.md). Free-form values are not permitted — without a governed list, the same tool would be referenced as `gh`, `github`, `GitHub`, etc., making cross-system queries unreliable. |
+| `provider-id` | no       | Identifies who owns and where a specific instance of the provider is running. This is entirely company or org-defined — CDEvents does not govern, assign, or interpret this value. It exists solely to distinguish between two instances of the same tool owned or operated by different teams or organizations (e.g. org A's internal GitHub Enterprise vs org B's). Producers and consumers within an organization MUST agree on the value out of band. MUST be URL-encoded when present. |
+| `namespace`   | no       | The top-level organizational unit within the provider's data model (e.g., a GitHub org, a Jira workspace). Producer-defined; not governed by CDEvents. MUST be URL-encoded when present. |
+| `groups`      | no       | One or more organizational subdivisions within the namespace, separated by `/` to express nesting as defined by the provider's data model. For example, a GitHub repository is a single group (`my-repo`); a GitLab project nested under subgroups would be `group/subgroup/project`. The `/` separator is structural and MUST NOT be encoded. Individual group segment values MUST be URL-encoded. Leading and trailing `/` are invalid. Producer-defined; not governed by CDEvents. |
+| `type`        | yes      | A governed resource type. MUST be one of the values defined in [Common Resource Types](#common-resource-types) |
+| `resource id` | yes      | The publicly exposed identifier that end users see for this resource (e.g. a PR number, commit SHA, ticket number, or PURL). MUST be URL-encoded. MUST NOT be an internal or opaque system-generated ID. |
 
 Examples:
 
@@ -711,6 +710,14 @@ Examples:
 - Jira ticket: `cdevents:v0:jira::xibz:cdevents-project:issue:12345`
 - Datadog alert: `cdevents:v0:datadog::prod:api-monitors:alert:98765`
 - GitLab MR (nested groups): `cdevents:v0:gitlab::my-company:platform/backend:mr:99`
+
+### Provider Validation
+
+The `provider` segment MUST match a known provider. CDEvents ships a default governed list of commonly used providers in [PROVIDERS.md](PROVIDERS.md), which serves as the baseline for validation.
+
+SDKs MUST support extending the provider list at initialization time, allowing organizations to register additional providers beyond the CDEvents default. Validation MUST check against the union of the CDEvents default list and any organization-supplied providers.
+
+When a `provider` value is not found in either list, the SDK SHOULD emit a warning. Whether to reject or allow the value SHOULD be configurable by the caller.
 
 ### Common Resource Types
 
@@ -727,7 +734,7 @@ without handling variations like `pull_request`, `PR`, or `pullrequest`.
 | `tag`         | A source code tag or release                                                       | `v1.2.3`                      |
 | `definition`  | A named, reusable pipeline or workflow template                                    | `my-pipeline`                 |
 | `execution`   | A single run of a build, pipeline, workflow, or deployment                         | `789` (run number)            |
-| `artifact`    | A build artifact (binary, container image, package, etc.)                          | `myapp:1.0.0`                 |
+| `artifact`    | A build artifact (binary, container image, package, etc.). The resource id SHOULD be a [PURL](https://github.com/package-url/purl-spec), URL-encoded. | `pkg%3Adocker%2Fmyapp%401.0.0` |
 | `environment` | A target deployment environment                                                    | `production`, `staging`       |
 | `alert`       | A monitoring or observability alert                                                | `98765` (alert ID)            |
 

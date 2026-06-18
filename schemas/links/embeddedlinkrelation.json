@@ -21,8 +21,7 @@
           "minLength": 1
         },
         "domainId": {
-          "type": "string",
-          "format": "uri-reference"
+          "$ref": "domainid.json"
         }
       },
       "anyOf": [
