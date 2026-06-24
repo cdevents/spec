@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.6.0-draft/schema/links/domainid",
+  "description": "A canonical CDEvents domain ID URN that identifies a resource in an external system that does not emit CDEvents. The provider-id, namespace, individual group segment values within groups, and resource id MUST be URL-encoded. The '/' separator between group segments is structural and MUST NOT be encoded. The provider segment MUST be validated separately against ../registry/providers.json.",
+  "type": "string",
+  "format": "uri-reference",
+  "pattern": "^cdevents:v0:[^:]*:[^:]*:[^:]*:([^:/]([^:]*[^:/])?)?:[^:]+:.+$",
+  "examples": [
+    "cdevents:v0:github::xibz:cdevents-spec:pr:42",
+    "cdevents:v0:github:org-a-github:xibz:cdevents-spec:pr:42",
+    "cdevents:v0:jira::xibz:cdevents-project:issue:PROJ-123",
+    "cdevents:v0:datadog::prod:api-monitors:alert:98765",
+    "cdevents:v0:gitlab::my-company:platform/backend:mr:99"
+  ]
+}

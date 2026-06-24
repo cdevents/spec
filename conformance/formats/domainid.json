@@ -1,0 +1,126 @@
+{
+  "description": "Test vectors for domainId URN serialization. Each valid case specifies the logical segments and the expected serialized string. SDKs MUST produce the expected string from the given segments and MUST parse the expected string back to the same segments (round-trip).",
+  "valid": [
+    {
+      "description": "GitHub PR, no provider-id",
+      "segments": {
+        "provider": "github",
+        "providerId": "",
+        "namespace": "xibz",
+        "groups": "cdevents-spec",
+        "type": "pr",
+        "resourceId": "42"
+      },
+      "expected": "cdevents:v0:github::xibz:cdevents-spec:pr:42"
+    },
+    {
+      "description": "GitHub PR with provider-id distinguishing two internal GitHub Enterprise deployments",
+      "segments": {
+        "provider": "github",
+        "providerId": "org-a-github",
+        "namespace": "xibz",
+        "groups": "cdevents-spec",
+        "type": "pr",
+        "resourceId": "42"
+      },
+      "expected": "cdevents:v0:github:org-a-github:xibz:cdevents-spec:pr:42"
+    },
+    {
+      "description": "Jira ticket, no provider-id",
+      "segments": {
+        "provider": "jira",
+        "providerId": "",
+        "namespace": "xibz",
+        "groups": "cdevents-project",
+        "type": "issue",
+        "resourceId": "PROJ-123"
+      },
+      "expected": "cdevents:v0:jira::xibz:cdevents-project:issue:PROJ-123"
+    },
+    {
+      "description": "GitLab MR with nested groups",
+      "segments": {
+        "provider": "gitlab",
+        "providerId": "",
+        "namespace": "my-company",
+        "groups": "platform/backend",
+        "type": "mr",
+        "resourceId": "99"
+      },
+      "expected": "cdevents:v0:gitlab::my-company:platform/backend:mr:99"
+    },
+    {
+      "description": "Datadog alert, no provider-id",
+      "segments": {
+        "provider": "datadog",
+        "providerId": "",
+        "namespace": "prod",
+        "groups": "api-monitors",
+        "type": "alert",
+        "resourceId": "98765"
+      },
+      "expected": "cdevents:v0:datadog::prod:api-monitors:alert:98765"
+    },
+    {
+      "description": "Docker artifact using PURL as resource id — provider, provider-id, namespace and groups all empty because registry is unknown",
+      "segments": {
+        "provider": "",
+        "providerId": "",
+        "namespace": "",
+        "groups": "",
+        "type": "artifact",
+        "resourceId": "pkg%3Adocker%2Fmyapp%401.0.0"
+      },
+      "expected": "cdevents:v0:::::artifact:pkg%3Adocker%2Fmyapp%401.0.0"
+    },
+    {
+      "description": "All optional segments empty — only type and resource id present; structurally valid",
+      "segments": {
+        "provider": "",
+        "providerId": "",
+        "namespace": "",
+        "groups": "",
+        "type": "pr",
+        "resourceId": "42"
+      },
+      "expected": "cdevents:v0:::::pr:42"
+    }
+  ],
+  "invalid": [
+    {
+      "description": "Missing provider-id segment (only 6 colons)",
+      "input": "cdevents:v0:github:xibz:cdevents-spec:pr:42",
+      "reason": "Segment count mismatch — provider-id segment omitted rather than left empty"
+    },
+    {
+      "description": "Empty type",
+      "input": "cdevents:v0:github::xibz:cdevents-spec::42",
+      "reason": "type is required and must not be empty"
+    },
+    {
+      "description": "Empty resource id",
+      "input": "cdevents:v0:github::xibz:cdevents-spec:pr:",
+      "reason": "resource id is required and must not be empty"
+    },
+    {
+      "description": "Leading slash in groups",
+      "input": "cdevents:v0:github::xibz:/cdevents-spec:pr:42",
+      "reason": "Leading '/' in groups is invalid"
+    },
+    {
+      "description": "Trailing slash in groups",
+      "input": "cdevents:v0:github::xibz:cdevents-spec/:pr:42",
+      "reason": "Trailing '/' in groups is invalid"
+    },
+    {
+      "description": "Wrong version",
+      "input": "cdevents:v1:github::xibz:cdevents-spec:pr:42",
+      "reason": "Only v0 is currently defined"
+    },
+    {
+      "description": "Wrong scheme prefix",
+      "input": "CDEvents:v0:github::xibz:cdevents-spec:pr:42",
+      "reason": "Scheme must be lowercase 'cdevents'"
+    }
+  ]
+}
