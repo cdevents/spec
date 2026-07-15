@@ -111,7 +111,7 @@ A pipelineRun has finished, successfully or not.
 
 ### [`taskRun Queued`](conformance/taskrun_queued.json)
 
-TODO: add more docs. 
+This event represents when a taskRun has been queued for execution - and is waiting for applicable preconditions (resource availability, other tasks, etc.) to be fulfilled before actually executing.
 
 Adopters can choose to ignore these events if they don't apply to their use cases.
 
