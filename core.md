@@ -21,7 +21,7 @@ The definition of *pipelines* and *tasks* is an authoring process, and has no ev
 | Subject | Description | Predicates |
 |---------|-------------|------------|
 | [`pipelineRun`](#pipelinerun) | An instance of a *pipeline* | [`queued`](#pipelinerun-queued), [`started`](#pipelinerun-started), [`finished`](#pipelinerun-finished)|
-| [`taskRun`](#taskrun) | An instance of a *task* | [`started`](#taskrun-started), [`finished`](#taskrun-finished)|
+| [`taskRun`](#taskrun) | An instance of a *task* | [`queued`](#taskrun-queued), [`started`](#taskrun-started), [`finished`](#taskrun-finished)|
 
 ### `pipelineRun`
 
@@ -108,6 +108,24 @@ A pipelineRun has finished, successfully or not.
 | url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 | outcome | `String (enum)` | outcome of a finished `pipelineRun` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
 | errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun canceled by user`, `Unit tests failed`| |
+
+### [`taskRun Queued`](conformance/taskrun_queued.json)
+
+TODO: add more docs. 
+
+Adopters can choose to ignore these events if they don't apply to their use cases.
+
+- Event Type: __`dev.cdevents.taskrun.queued.0.1.0-draft`__
+- Predicate: queued
+- Subject: [`taskRun`](#taskrun)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/taskrun-1234` | ✅ |
+| source | `URI-Reference` | [source](spec.md#source) from the context | | |
+| taskName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
+| pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`| |
+| url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
 
 ### [`taskRun Started`](conformance/taskrun_started.json)
 
