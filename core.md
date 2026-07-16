@@ -52,7 +52,7 @@ associated, in which case it is acceptable to generate only taskRun events.
 |-------|------|-------------|----------|
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/taskrun-1234` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | |
-| taskName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` |
+| taskName  | `String` | The name of the task | `MyTask`, `Deploy to DEV stage` |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`|
 | outcome | `String` | outcome of a finished `taskRun` | `success`, `failure`, `cancel`, or `error` |
 | url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` |
