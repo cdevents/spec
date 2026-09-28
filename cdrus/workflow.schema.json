@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdrus.dev/schemas/0.1.0/workflow.schema.json",
+  "title": "CDrus Workflow",
+  "description": "Defines a workflow in the CDrus language. A workflow orchestrates CDEvents and references CDrus Expressions by identity. Expressions are addressed via the (group, author, expression) identity tuple defined in the Expression schema.",
+  "type": "object",
+  "required": [
+    "workflow"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "workflow": {
+      "type": "object",
+      "required": [
+        "id",
+        "group",
+        "author",
+        "name",
+        "cdrus",
+        "produces"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Unique identifier for this workflow definition. Lowercase alphanumeric with hyphens as the only separator; must start with a letter. Used directly as a storage-path segment, so it must be path-safe."
+        },
+        "group": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Group component of the workflow's identity. Provides the default resolution context for abbreviated expression references in this workflow's produces list. An expression reference of the form 'build' resolves against this group and author before any fully qualified lookup is attempted."
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Author component of the workflow's identity. Provides the default resolution context for abbreviated expression references in this workflow's produces list. An expression reference of the form 'build' resolves against this group and author before any fully qualified lookup is attempted."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable pipeline name."
+        },
+        "cdrus": {
+          "type": "object",
+          "required": [
+            "version"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Schema version this workflow YAML targets."
+            },
+            "metadata": {
+              "type": "object",
+              "additionalProperties": true,
+              "description": "Free-form metadata."
+            }
+          }
+        },
+        "defaults": {
+          "type": "object",
+          "description": "Default values applied to every event node in this workflow.",
+          "additionalProperties": false,
+          "properties": {
+            "tool": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source": {
+              "type": "string",
+              "format": "uri"
+            },
+            "pipeline": {
+              "type": "string",
+              "minLength": 1
+            },
+            "timeout_ms": {
+              "type": "number",
+              "minimum": 0
+            },
+            "min_wait_ms": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "produces": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Ordered list of CDEvents and/or CDrus Expression references forming the workflow's root chain. A spawned chain (a nested list) is not permitted at this level because spawning requires a triggering event (RFC \u00a73, \u00a74.7); spawned chains are attached to an event through its `spawn` (Blocking) or `detach` (Detached) list.",
+          "items": {
+            "$ref": "#/$defs/chain_item"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "chain_item": {
+      "description": "A single step on one chain: a CDEvent or a reference to a CDrus Expression by identity. This is the item form everywhere a position is itself one chain \u2014 the workflow's top-level produces list (the root chain), an event's nested produces list (same-chain children), and the body of a spawned chain (a `spawn` or `detach` entry). A spawned chain (a nested list) is not permitted at these positions because spawning requires a triggering event (RFC \u00a73, \u00a74.7); to spawn a chain, attach it to an event item's `spawn` (Blocking) or `detach` (Detached) list.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/event_item"
+        },
+        {
+          "$ref": "#/$defs/expression_item"
+        }
+      ]
+    },
+    "spawned_chain": {
+      "type": "array",
+      "minItems": 1,
+      "description": "One spawned chain in the nested form of a `spawn` or `detach` array: an ordered sub-sequence of chain items (events and/or Expression references) running in declared order on its own chain, with its own chainId and a RELATION link of kind TRIGGER from the spawning event to the chain's first event (RFC \u00a73, \u00a74.7). A spawned chain is Blocking or Detached \u2014 the single bit that distinguishes them: under `spawn` the spawning chain WAITS for it to complete before the spawning chain can itself reach COMPLETE (a spawned chain that never completes leaves the spawning chain incomplete); under `detach` the spawning chain does NOT wait and the spawning event's next sibling fires immediately. The two are otherwise structurally identical, and their events are the output \u2014 there is no join, merge, or synthetic join event. Sibling spawned chains whose event sequences are identical are legal and expected (e.g. parallel test-case runs under one suite) and are disambiguated by their distinct chainIds, not by content. Two or more spawned chains live at once is what 'concurrent' names at run time \u2014 an emergent property, not a declared kind. The body is a single chain, so a further nested list may not appear directly inside it; an event within a spawned chain may spawn chains of its own through its own `spawn` or `detach` list.",
+      "items": {
+        "$ref": "#/$defs/chain_item"
+      }
+    },
+    "event_item": {
+      "type": "object",
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "description": "An inline event in a workflow's produces list. It may carry: a nested `produces` list (same-chain children, fired depth-first before the next sibling, sharing the parent's chainId \u2014 `produces` never branches); a `spawn` list (Blocking spawned chains the spawning chain WAITS on); and/or a `detach` list (Detached spawned chains the spawning chain does NOT wait on). `spawn` and `detach` are symmetric: each takes a flat form (one spawned chain) or a nested form (one spawned chain per nested list), never mixed (RFC \u00a74.7, \u00a74.8).",
+      "properties": {
+        "event": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^dev\\.cdevents(\\.[a-z]+\\.[a-z]+|x\\.[a-z][a-z0-9-]*\\.[a-z]+)(\\.\\d+\\.\\d+\\.\\d+(-[A-Za-z0-9.-]+)?|:[^\\s]+)?$"
+        },
+        "event_schema_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI to the event's JSON Schema. Optional; consumers may fall back to local schema lookup when not provided."
+        },
+        "as": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Optional author-given anchor labeling this event (\u00a74.9). The name matches the identity token charset ^[a-z][a-z0-9-]*$, so it cannot collide with the \u00a76.3 selector operators; a reference to it is written @name. When the Workflow is the resolution root it is the authoritative point at which an anchor is declared. Pure intent metadata \u2014 no effect on production, ordering, versioning, or chain assignment. Anchors need NOT be unique: a reference resolves to the LIST of every event carrying it (an empty list when none), in one flat namespace over the resolved tree. A subscription REFERENCES anchors; it never declares them."
+        },
+        "timeout_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "min_wait_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "pipeline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "produces": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Same-chain children triggered by this event, fired depth-first in the order specified. All produced events share the parent's chainId \u2014 `produces` never branches. To spawn a new chain, use `spawn` (Blocking) or `detach` (Detached) instead.",
+          "items": {
+            "$ref": "#/$defs/chain_item"
+          }
+        },
+        "spawn": {
+          "description": "Blocking spawned chains triggered by this event. Each spawned chain gets its own chainId at run time, with a RELATION link of kind TRIGGER from this event to the first event of the chain. The spawning chain WAITS: it cannot reach COMPLETE until every chain spawned here has completed. The array takes one of two forms, which MUST NOT be mixed (RFC \u00a74.7): the flat form \u2014 an array of chain items \u2014 declares ONE spawned chain whose items run in declared order on one chain; the nested form \u2014 an array of nested lists \u2014 declares one spawned chain PER nested list. `spawn` is the awaited counterpart of `detach`; declaring two or more spawned chains is how concurrency arises at run time.",
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "description": "Flat form: one Blocking spawned chain; the items form a single ordered sub-sequence on one chain.",
+              "items": {
+                "$ref": "#/$defs/chain_item"
+              }
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "description": "Nested form: one Blocking spawned chain per nested list.",
+              "items": {
+                "$ref": "#/$defs/spawned_chain"
+              }
+            }
+          ]
+        },
+        "detach": {
+          "description": "Detached spawned chains triggered by this event. The array takes one of two forms, which MUST NOT be mixed (RFC \u00a74.8): the flat form \u2014 an array of chain items \u2014 declares ONE detached chain whose items run in declared order on one chain; the nested form \u2014 an array of nested lists \u2014 declares one detached chain PER nested list. The spawning chain does NOT wait for a detached chain to complete; its next sibling fires immediately. `detach` is the non-awaited counterpart of `spawn`; the two are structurally symmetric and differ only in whether the spawning chain waits.",
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "description": "Flat form: one Detached spawned chain; the items form a single ordered sub-sequence on one chain.",
+              "items": {
+                "$ref": "#/$defs/chain_item"
+              }
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "description": "Nested form: one Detached spawned chain per nested list.",
+              "items": {
+                "$ref": "#/$defs/spawned_chain"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expression_item": {
+      "type": "object",
+      "required": [
+        "expression"
+      ],
+      "additionalProperties": false,
+      "description": "A reference to a CDrus Expression by identity. Expressions are identified by the (group, author, expression) tuple defined in the Expression schema. Path-style references resolve abbreviated forms against the workflow's current processing context.",
+      "properties": {
+        "expression": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^([a-z][a-z0-9-]*/){0,2}[a-z][a-z0-9-]*$",
+          "description": "Reference to a CDrus Expression by identity, in path form. Three reference forms are supported: 'build' (resolved against the workflow's own group and author); 'mchen/build' (explicit author within the workflow's group); 'payment-engineering/mchen/build' (fully qualified identity)."
+        },
+        "timeout_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "min_wait_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "pipeline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "overrides": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/event_override"
+          }
+        }
+      }
+    },
+    "event_override": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Per-event override. Any binding settable at the coarser levels (defaults, inline event items, expression references) is settable per event here: tool, source, pipeline, content, and timing.",
+      "properties": {
+        "timeout_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "min_wait_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "pipeline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdrus.dev/schemas/0.1.0/expression.schema.json",
+  "title": "CDrus Expression",
+  "description": "Defines an Expression in the CDrus language. An Expression specifies an intent \u2014 build, deploy, verify, and so on \u2014 by declaring the CDEvents that together fulfill that intent. Every Expression is bound to an identity tuple: (group, author, expression). The identity is the commitment; Expressions do not carry versions. CDEvent subjects appearing as complete tokens in the expression name \u2014 delimited by a hyphen or by the name's start or end, including as the whole name \u2014 are NAME HINTS (RFC \u00a74.1.1): each hint constrains what `produces` MUST contain \u2014 both the beginning and ending event for a subject with a clear begin/end predicate pair (e.g. build: started\u2026finished), or at least one event of the subject otherwise. Hints are a floor, not a ceiling, and the identity-change rules are asymmetric (RFC \u00a74.4): ADDING events to `produces` never changes identity; REMOVING events changes identity only if the removal leaves a name hint unsatisfied \u2014 such a removal REQUIRES a new expression name whose hints the remaining events satisfy. Identity change driven by ownership (author departure, group restructure) changes the author or group component and is governed separately; it is not a content concern. The hint check is static, against `produces`, at publication or load; it is a cross-field constraint between the `expression` token and `produces` that JSON Schema cannot express, so it is enforced outside this schema. Expressions compose: a composite Expression references other CDrus Expressions as constituents by identity. Per-event field requirements live in the CDEvent schemas themselves (using one-way inheritance for vendor-specific extensions), not in the Expression.",
+  "type": "object",
+  "required": [
+    "group",
+    "author",
+    "expression",
+    "produces"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "group": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Group component of the Expression's identity tuple. MUST be a registered group name in the processing service's group index (e.g., 'payment-engineering', 'prod-sres', 'data-platform', 'identity-services', 'risk-analytics'). Lowercase, hyphen-separated. The group is the organizational unit within the enterprise; it is what scopes authorship and authorization for the Expression."
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Author component of the Expression's identity tuple. MUST be a registered user name in the processing service's user index. The author is the engineer whose intent this Expression encodes; ownership of the Expression \u2014 including responsibility for what should happen, what failure looks like, and how to respond when expectations diverge \u2014 is bound to this identity. Lowercase, hyphen-separated."
+    },
+    "expression": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Expression component of the identity tuple (e.g., 'build', 'deploy', 'verify', 'build-deploy', 'integration-test'). The full identity is the tuple (group, author, expression). CDEvent subjects are RESERVED KEYWORDS in this token: a subject appearing as a complete token \u2014 the whole name, or delimited by hyphens or the name's start/end ('build', 'build-\u2026', '\u2026-build', '\u2026-build-\u2026') \u2014 is a NAME HINT that constrains what `produces` MUST contain (RFC \u00a74.1.1). Substring occurrences that are not delimited tokens ('rebuild', 'buildpack') are not hints; a name may carry multiple hints, each enforced independently; a name with no subject keyword constrains nothing. The hint check is static, against `produces`, at publication or load; it is not part of this schema's validation. The canonical file naming pattern is <group>.<author>.<expression>.expression.yaml. Lowercase, hyphen-separated."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the intent this CDrus Expression captures."
+    },
+    "produces": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered list of CDEvents and/or sub-Expressions that together fulfill this CDrus Expression. Order is significant: events fire depth-first in the order specified \u2014 a parent event with nested produces fires, all its descendants fire (recursively), then the parent's next sibling fires. Sub-Expressions are expanded recursively at the position they appear, resolved by identity. The top-level list is the Expression's root chain: each item is an event item or an Expression reference. A spawned chain (a nested list) is not permitted at this level because spawning requires a triggering event (RFC \u00a73, \u00a74.7); spawned chains are attached to an event through its `spawn` (Blocking) or `detach` (Detached) list.",
+      "items": {
+        "$ref": "#/$defs/chain_item"
+      }
+    }
+  },
+  "$defs": {
+    "chain_item": {
+      "description": "A single step on one chain: a CDEvent or a reference to another CDrus Expression by identity. This is the item form everywhere a position is itself one chain \u2014 the top-level produces list (the root chain), an event's nested produces list (same-chain children), and the body of a spawned chain (a `spawn` or `detach` entry). A spawned chain (a nested list) is not permitted at these positions because spawning requires a triggering event (RFC \u00a73, \u00a74.7); to spawn a chain, attach it to an event item's `spawn` (Blocking) or `detach` (Detached) list.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/event_item"
+        },
+        {
+          "$ref": "#/$defs/expression_item"
+        }
+      ]
+    },
+    "spawned_chain": {
+      "type": "array",
+      "minItems": 1,
+      "description": "One spawned chain in the nested form of a `spawn` or `detach` array: an ordered sub-sequence of chain items (events and/or sub-Expressions) running in declared order on its own chain, with its own chainId and a RELATION link of kind TRIGGER from the spawning event to the chain's first event (RFC \u00a73, \u00a74.7). A spawned chain is Blocking or Detached \u2014 the single bit that distinguishes them: under `spawn` the spawning chain WAITS for it to complete before the spawning chain can itself reach COMPLETE (a spawned chain that never completes leaves the spawning chain incomplete); under `detach` the spawning chain does NOT wait and the spawning event's next sibling fires immediately. The two are otherwise structurally identical, and their events are the output \u2014 there is no join, merge, or synthetic join event. Sibling spawned chains whose event sequences are identical are legal and expected (e.g. parallel test-case runs under one suite) and are disambiguated by their distinct chainIds, not by content. Two or more spawned chains live at once is what 'concurrent' names at run time \u2014 an emergent property, not a declared kind. The body is a single chain, so a further nested list may not appear directly inside it; an event within a spawned chain may spawn chains of its own through its own `spawn` or `detach` list.",
+      "items": {
+        "$ref": "#/$defs/chain_item"
+      }
+    },
+    "event_item": {
+      "type": "object",
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "description": "An event item references a CDEvent type to emit. It may carry: a nested `produces` list (same-chain children triggered by this event, fired depth-first before the next sibling, sharing the parent's chainId \u2014 `produces` never branches); a `spawn` list (Blocking spawned chains \u2014 each its own chain with its own chainId and a RELATION link of kind TRIGGER back, which the spawning chain WAITS on); and/or a `detach` list (Detached spawned chains \u2014 structurally identical, but the spawning chain does NOT wait). `spawn` and `detach` are symmetric: each takes a flat form (one spawned chain) or a nested form (one spawned chain per nested list), never mixed (RFC \u00a74.7, \u00a74.8).",
+      "properties": {
+        "event": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^dev\\.cdevents(\\.[a-z]+\\.[a-z]+|x\\.[a-z][a-z0-9-]*\\.[a-z]+)(\\.\\d+\\.\\d+\\.\\d+(-[A-Za-z0-9.-]+)?|:[^\\s]+)?$",
+          "description": "CDEvent type to emit. CDEvents themselves are versioned by the CDEvents specification \u2014 distinct from CDrus Expression identity, which is unversioned. Multiple forms are accepted and resolve identically: (1) canonical embedded-version form 'dev.cdevents.build.started.0.3.0' (exact match); (2) colon form 'dev.cdevents.build.started:0.1.1' (exact match, equivalent); (3) no version 'dev.cdevents.build.started' (resolves to latest available); (4) colon-separated semver range 'dev.cdevents.build.started:^0.1.0' (resolves to highest matching). Standard semver range syntax applies \u2014 caret, tilde, x-ranges, and explicit ranges (the last must be quoted in YAML). Extended (vendor-specific) event types are referenced by their full extended type string in the 'dev.cdeventsx.<tool>-<subject>.<predicate>' form (e.g. 'dev.cdeventsx.mytool-build.started.0.2.0'), with the same version forms as core types; how extended types are created is out of scope for CDrus. Detailed semver-range validation occurs at resolution time. Linters may normalize between the canonical and colon forms."
+        },
+        "event_schema_uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "URI to the event's JSON Schema. Optional; consumers may fall back to local schema lookup when not provided."
+        },
+        "as": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Optional author-given anchor labeling THIS event (\u00a74.9). The name matches the identity token charset ^[a-z][a-z0-9-]*$, so it cannot collide with the \u00a76.3 selector operators; a reference to it is written @name. Pure intent metadata \u2014 does not affect production, ordering, versioning, or chain assignment. Anchors need NOT be unique: a reference resolves to the LIST of every event carrying it (an empty list when none), in one flat namespace over the resolved tree. Within an Expression this is carried metadata; it becomes an authoritative declaration at the resolution root \u2014 a Workflow (\u00a75), or a top-level Expression resolved on its own (\u00a76.2). A subscription REFERENCES anchors; it never declares them."
+        },
+        "produces": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Same-chain children triggered by this event, fired depth-first in the order specified. All produced events share the parent's chainId \u2014 `produces` never branches. The parent's next sibling does not fire until every descendant has fired. To spawn a new chain, use `spawn` (Blocking) or `detach` (Detached) instead.",
+          "items": {
+            "$ref": "#/$defs/chain_item"
+          }
+        },
+        "spawn": {
+          "description": "Blocking spawned chains triggered by this event. Each spawned chain gets its own chainId at run time, with a RELATION link of kind TRIGGER from this event to the first event of the chain. The spawning chain WAITS: it cannot reach COMPLETE until every chain spawned here has completed (a spawned chain that never completes leaves the spawning chain incomplete). The array takes one of two forms, which MUST NOT be mixed (RFC \u00a74.7): the flat form \u2014 an array of chain items \u2014 declares ONE spawned chain whose items run in declared order on one chain; the nested form \u2014 an array of nested lists \u2014 declares one spawned chain PER nested list. `spawn` is the awaited counterpart of `detach`; the two are structurally symmetric and differ only in whether the spawning chain waits. Declaring two or more spawned chains here (or across `spawn` and `detach`) is how concurrency arises \u2014 'concurrent' is the run-time property of several spawned chains being live at once, not a separate keyword.",
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "description": "Flat form: one Blocking spawned chain; the items form a single ordered sub-sequence on one chain.",
+              "items": {
+                "$ref": "#/$defs/chain_item"
+              }
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "description": "Nested form: one Blocking spawned chain per nested list.",
+              "items": {
+                "$ref": "#/$defs/spawned_chain"
+              }
+            }
+          ]
+        },
+        "detach": {
+          "description": "Detached spawned chains triggered by this event. Each spawned chain gets its own chainId at run time, with a RELATION link of kind TRIGGER from this event to the first event of the chain. The spawning chain does NOT wait for a detached chain to complete; its next sibling fires immediately. Detached chains are declared (not implicit) so consumers can act as a babysitter \u2014 tracking expected chains, raising alerts if they fail to start or hang. Without an explicit detach declaration, an unrelated chain spawned in the runtime is unobservable to the system. The array takes one of two forms, which MUST NOT be mixed (RFC \u00a74.8): the flat form \u2014 an array of chain items \u2014 declares ONE detached chain whose items run in declared order on one chain; the nested form \u2014 an array of nested lists \u2014 declares one detached chain PER nested list. `detach` is the non-awaited counterpart of `spawn`; the two are structurally symmetric and differ only in whether the spawning chain waits.",
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "description": "Flat form: one Detached spawned chain; the items form a single ordered sub-sequence on one chain.",
+              "items": {
+                "$ref": "#/$defs/chain_item"
+              }
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "description": "Nested form: one Detached spawned chain per nested list.",
+              "items": {
+                "$ref": "#/$defs/spawned_chain"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "expression_item": {
+      "type": "object",
+      "required": [
+        "expression"
+      ],
+      "additionalProperties": false,
+      "description": "An expression item references another CDrus Expression by identity. Expressions are identified by the (group, author, expression) tuple. References use path-style notation and may be fully qualified or abbreviated when the processing service can resolve the missing components from the current processing context. The referenced Expression is resolved and expanded recursively at run time. Expression items cannot carry produces or detach lists \u2014 those properties belong on the events the referenced Expression itself produces, in the referenced Expression's own definition.",
+      "properties": {
+        "expression": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^([a-z][a-z0-9-]*/){0,2}[a-z][a-z0-9-]*$",
+          "description": "Reference to a sub-Expression by identity, in path form. Three reference forms are supported, from least to most qualified: 'build' (resolved within the current group and author context, e.g., when both referrer and referent share the same group and author); 'mchen/build' (explicit author within the current group context); 'payment-engineering/mchen/build' (fully qualified identity). The processing service resolves abbreviated references against the current processing context. All path components follow the same lowercase-hyphen pattern."
+        }
+      }
+    }
+  }
+}
