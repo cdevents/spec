@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.6.0-draft/schema/links/resource-types",
+  "description": "Registry of known CDEvents domainId resource type identifiers. Known resource types are listed below. To register a new resource type, submit a pull request adding an entry below and to the Common Resource Types table in links.md.",
+  "type": "string",
+  "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*)*$",
+  "enum": [
+    "pr",
+    "commit",
+    "issue",
+    "branch",
+    "tag",
+    "definition.workflow",
+    "execution",
+    "artifact",
+    "environment",
+    "alert"
+  ],
+  "x-descriptions": [
+    "A pull or merge request",
+    "A source code commit",
+    "An issue or ticket in a tracking system",
+    "A source code branch",
+    "A source code tag or release",
+    "An automation or pipeline definition — any template that describes a sequence of steps to be executed (e.g. a GitHub Actions workflow file, a CircleCI pipeline config, a Jenkinsfile).",
+    "A top-level run of a pipeline, workflow, or build. Always refers to the top-level execution — stages, jobs, and steps are out of scope.",
+    "A build artifact (binary, container image, package, etc.). The resource id SHOULD be a PURL (https://github.com/package-url/purl-spec), URL-encoded.",
+    "A target deployment environment",
+    "A monitoring or observability alert"
+  ]
+}
