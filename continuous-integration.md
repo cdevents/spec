@@ -78,9 +78,9 @@ This event represents a Build task that has been started; this build process usu
 
 ### [`build finished`](conformance/build_finished.json)
 
-This event represents a Build task that has finished. This event will eventually contain the finished status, success, error or failure
+A Build task has finished, successfully or not.
 
-- Event Type: __`dev.cdevents.build.finished.0.3.0`__
+- Event Type: __`dev.cdevents.build.finished.0.4.0-draft`__
 - Predicate: finished
 - Subject: [`build`](#build)
 
@@ -89,6 +89,8 @@ This event represents a Build task that has finished. This event will eventually
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | artifactId | `Purl` | Identifier of the artifact produced by the build | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | `build` | |
+| outcome | `String (enum)` | outcome of a finished `build` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
+| errors | `String` | In case of error, canceled, or failed build, provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `build canceled by user`, `Compilation failed`| |
 
 ### [`artifact packaged`](conformance/artifact_packaged.json)
 

@@ -20,9 +20,9 @@
         "type": {
           "type": "string",
           "enum": [
-            "dev.cdevents.build.finished.0.3.0"
+            "dev.cdevents.build.finished.0.4.0-draft"
           ],
-          "default": "dev.cdevents.build.finished.0.3.0"
+          "default": "dev.cdevents.build.finished.0.4.0-draft"
         },
         "timestamp": {
           "type": "string",
@@ -65,6 +65,18 @@
         "content": {
           "properties": {
             "artifactId": {
+              "type": "string"
+            },
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "success",
+                "failure",
+                "cancel",
+                "error"
+              ]
+            },
+            "errors": {
               "type": "string"
             }
           },
