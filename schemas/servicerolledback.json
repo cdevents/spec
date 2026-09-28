@@ -70,7 +70,16 @@
                   "type": "string",
                   "minLength": 1
                 },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
                 "source": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri-reference"
+                },
+                "url": {
                   "type": "string",
                   "minLength": 1,
                   "format": "uri-reference"
@@ -78,8 +87,9 @@
               },
               "additionalProperties": false,
               "type": "object",
-              "required": [
-                "id"
+              "anyOf": [
+                {"required": ["id"]},
+                {"required": ["name"]}
               ]
             },
             "artifactId": {
