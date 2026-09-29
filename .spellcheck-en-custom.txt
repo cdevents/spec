@@ -60,6 +60,7 @@ schemas
 schemauri
 specversion
 src
+stateful
 subjectid
 taskrun
 testcase
