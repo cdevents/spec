@@ -1,0 +1,62 @@
+{
+  "context": {
+    "specversion": "0.6.0-draft",
+    "id": "271069a8-fc18-44f1-b38f-9d70a1695819",
+    "chainId": "4c8cb7dd-3448-41de-8768-eec704e2829b",
+    "source": "/gitops/argocd",
+    "type": "dev.cdevents.reconciliation.finished.0.1.0-draft",
+    "timestamp": "2026-07-27T17:32:10Z",
+    "schemaUri": "https://myorg.com/schema/custom",
+    "links": [
+      {
+        "linkType": "RELATION",
+        "linkKind": "TRIGGER",
+        "target": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      },
+      {
+        "linkType": "PATH",
+        "from": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      },
+      {
+        "linkType": "END",
+        "from": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      }
+    ]
+  },
+  "subject": {
+    "id": "argocd-sync-00481",
+    "source": "/gitops/argocd",
+    "content": {
+      "desiredState": {
+        "id": "a8f3c21",
+        "source": "/scm/github/orders-svc"
+      },
+      "target": {
+        "id": "prod",
+        "source": "/clusters/prod",
+        "type": "cluster"
+      },
+      "driftDetected": true,
+      "changed": true,
+      "outcome": "success"
+    }
+  }
+}

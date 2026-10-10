@@ -16,10 +16,13 @@ Continuous Deployment (CD) events are related to continuous deployment pipelines
 
 This specification defines two subjects in this stage: `environment` and `service`. The term `service` is used to represent a running Artifact. A `service` can represent a binary that is running, a daemon, an application, a docker container. The term `environment` represent any platform which has all the means to run a `service`.
 
+Some systems reach a target state by converging toward it rather than by applying a discrete deployment. A [`reconciliation`](#reconciliation) is one such convergence between a declared desired state and the observed state of a target.
+
 | Subject | Description | Predicates |
 |---------|-------------|------------|
 | [`environment`](#environment) | An environment where to run services | [`created`](#environment-created), [`modified`](#environment-modified), [`deleted`](#environment-deleted)|
 | [`service`](#service) | A service | [`deployed`](#service-deployed), [`upgraded`](#service-upgraded), [`rolledback`](#service-rolledback), [`removed`](#service-removed), [`published`](#service-published)|
+| [`reconciliation`](#reconciliation) | A convergence between a declared desired state and the observed state of a target | [`started`](#reconciliation-started), [`finished`](#reconciliation-finished)|
 
 ### `environment`
 
@@ -42,6 +45,27 @@ A `service` can represent for example a binary that is running, a daemon, an app
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` |
 | artifactId | `Purl` | Identifier of the artifact deployed with this service |  `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` |
+
+### `reconciliation`
+
+A [`reconciliation`](#reconciliation) is a convergence between a declared desired state and the observed state of a target. It is what a controller performs when it brings a target into line with a revision it has been told to converge on.
+
+The relation is what defines it: which desired state was being converged to, whether the target had drifted from it, and whether the convergence closed the gap. `environment.modified` reports that a mutation occurred but carries none of that, so a consumer cannot distinguish a target that converged cleanly from one that was changed by hand, nor tell which revision the running state corresponds to.
+
+The subject is defined over the declared-versus-observed relation generally, not over cluster convergence specifically. A controller reconciling a cluster to a commit and a process reconciling a data store to a declared contract are the same relation, and both are in scope.
+
+A `reconciliation` is emitted when a convergence occurs — when observed state differs from desired and the controller acts. A cycle that finds nothing to do emits nothing. This keeps the subject an occurrence model, and means a large estate does not produce continuous events reporting that nothing happened. A convergence that was expected and did not occur is found by querying for the event that is missing.
+
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| id    | `String` | See [id](spec.md#id-subject)| `argocd-sync-00481` |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | `/gitops/argocd` |
+| desiredState | `Object` | The declared desired state being converged to, typically a commit or revision | `{"id": "a8f3c21", "source": "/scm/github/orders-svc"}` |
+| target | `Object` | The target being converged. `type` names its kind. | `{"id": "prod", "source": "/clusters/prod", "type": "cluster"}` |
+| driftDetected | `Boolean` | Whether observed state differed from desired at the start of the convergence | `true` |
+| changed | `Boolean` | Whether the convergence applied any change | `true` |
+| outcome | `String (enum)` | outcome of a finished `reconciliation` | `success`, `failure`, `cancel`, or `error` |
+| reason | `String` | Detail related to the outcome | `Target rejected the applied revision` |
 
 ## Events
 
@@ -161,3 +185,38 @@ This event represents an existing instance of a service that has an accessible U
 | id    | `String` | See [id](spec.md#id-subject)| `service/myapp`, `daemonset/myapp` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | environment | `Object` ([`environment`](#environment)) | Reference for the environment where the service runs | `{"id": "1234"}`, `{"id": "maven123, "source": "tekton-dev-123"}` | ✅ |
+
+### [`reconciliation started`](conformance/reconciliation_started.json)
+
+A controller has begun converging a target toward a declared desired state.
+
+- Event Type: __`dev.cdevents.reconciliation.started.0.1.0-draft`__
+- Predicate: started
+- Subject: [`reconciliation`](#reconciliation)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | See [id](spec.md#id-subject)| `argocd-sync-00481` | ✅ |
+| source | `URI-Reference` | [source](spec.md#source) from the context | | |
+| desiredState | `Object` | The declared desired state being converged to | `{"id": "a8f3c21", "source": "/scm/github/orders-svc"}` | ✅ |
+| target | `Object` | The target being converged | `{"id": "prod", "source": "/clusters/prod", "type": "cluster"}` | ✅ |
+| driftDetected | `Boolean` | Whether observed state differed from desired at the start of the convergence | `true` | |
+
+### [`reconciliation finished`](conformance/reconciliation_finished.json)
+
+A convergence has terminated, successfully or not.
+
+- Event Type: __`dev.cdevents.reconciliation.finished.0.1.0-draft`__
+- Predicate: finished
+- Subject: [`reconciliation`](#reconciliation)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | See [id](spec.md#id-subject)| `argocd-sync-00481` | ✅ |
+| source | `URI-Reference` | [source](spec.md#source) from the context | | |
+| desiredState | `Object` | The declared desired state converged to | `{"id": "a8f3c21", "source": "/scm/github/orders-svc"}` | ✅ |
+| target | `Object` | The target that was converged | `{"id": "prod", "source": "/clusters/prod", "type": "cluster"}` | ✅ |
+| driftDetected | `Boolean` | Whether observed state differed from desired at the start of the convergence | `true` | |
+| changed | `Boolean` | Whether the convergence applied any change | `true` | |
+| outcome | `String (enum)` | outcome of a finished `reconciliation` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
+| reason | `String` | Detail related to the outcome | `Target rejected the applied revision` | |

@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cdevents.dev/0.6.0-draft/schema/reconciliation-started-event",
+  "properties": {
+    "context": {
+      "properties": {
+        "specversion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "dev.cdevents.reconciliation.started.0.1.0-draft"
+          ],
+          "default": "dev.cdevents.reconciliation.started.0.1.0-draft"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "schemaUri": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        },
+        "chainId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "links": {
+          "$ref": "links/embeddedlinksarray"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "specversion",
+        "id",
+        "source",
+        "type",
+        "timestamp"
+      ]
+    },
+    "subject": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri-reference"
+        },
+        "content": {
+          "properties": {
+            "desiredState": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri-reference"
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id"
+              ]
+            },
+            "target": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri-reference"
+                },
+                "type": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "id",
+                "type"
+              ]
+            },
+            "driftDetected": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "desiredState",
+            "target"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "id",
+        "content"
+      ]
+    },
+    "customData": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "string",
+          "contentEncoding": "base64"
+        }
+      ]
+    },
+    "customDataContentType": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "context",
+    "subject"
+  ]
+}
