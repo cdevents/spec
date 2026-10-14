@@ -1,0 +1,21 @@
+{
+  "$id": "cdevents/_defs/tier",
+  "term": "Tier",
+  "definition": "A Tier is the logical environment a deployment targets, such as production or staging, independent of the physical infrastructure it runs on. Tier is the value consumers compare across producers to compute delivery metrics such as lead time to deploy: a change is considered delivered when it is deployed to the production tier.",
+  "notes": [
+    "Tier is what is commonly meant by \"environment\" (production, staging). It has its own name because the `environment` subject is defined as a platform, and is commonly used to mean a specific cluster",
+    "A Tier names a stage in the delivery path, not a place: a single tier is typically backed by many clusters, regions or slots",
+    "Tier is distinct from the `environment` subject, which producers commonly use to describe a specific platform or cluster",
+    "Producers should use the same tier values for the same stage across all of their deployments, so that consumers can compare them"
+  ],
+  "examples": [
+    "production",
+    "staging",
+    "development"
+  ],
+  "counterExamples": [
+    "A Kubernetes cluster such as prod-us-east-1",
+    "A cloud region such as us-east-1",
+    "A namespace or blue/green slot"
+  ]
+}
