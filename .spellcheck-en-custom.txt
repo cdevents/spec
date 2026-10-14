@@ -61,6 +61,7 @@ schemauri
 specversion
 src
 subjectid
+targetrollout
 taskrun
 testcase
 testcaserun

@@ -1,0 +1,21 @@
+{
+  "$id": "cdevents/_defs/targetrollout",
+  "term": "TargetRollout",
+  "definition": "A TargetRollout is the act of deploying an artifact against a destination in a tier, as one part of a Deployment. The destination itself is identified by the TargetRollout's target, and the logical environment it belongs to by its tier.",
+  "notes": [
+    "A TargetRollout carries a deploymentId reference back to its parent Deployment",
+    "A TargetRollout represents the rollout to a single destination, not the destination itself",
+    "failureType is available on targetRollout.finished to express per-destination failure reasons",
+    "TargetRollout makes \"what was rolled out to a tier, and where\" a direct query, rather than an inference over Service's backwards-pointing environment reference"
+  ],
+  "examples": [
+    "Rolling myapp@sha256:0b31b1c0 out to the us-east-1 cluster within the production tier",
+    "Shifting a canary slot to a new version as part of a blue/green deployment",
+    "Deploying a release to a named deployment slot in a cloud provider region"
+  ],
+  "counterExamples": [
+    "A tier itself",
+    "A destination such as a cluster, region or canary slot (that is the target)",
+    "The aggregate deployment across all targets (that is a Deployment)"
+  ]
+}
