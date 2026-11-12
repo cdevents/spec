@@ -48,11 +48,13 @@ md
 namespace
 notational
 observability
+orchestrator
 param
 pipelinerun
 png
 pre
 rolledback
+rollout
 runtime
 sbom
 schemaUri
