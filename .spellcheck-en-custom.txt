@@ -25,6 +25,7 @@ cardpane
 cdevent
 cdevents
 ce
+changewindow
 cloudevents
 contenttype
 customdata
