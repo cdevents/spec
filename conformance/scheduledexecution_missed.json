@@ -1,0 +1,61 @@
+{
+  "context": {
+    "specversion": "0.6.0-draft",
+    "id": "271069a8-fc18-44f1-b38f-9d70a1695819",
+    "chainId": "4c8cb7dd-3448-41de-8768-eec704e2829b",
+    "source": "/scheduler/prod",
+    "type": "dev.cdevents.scheduledexecution.missed.0.1.0-draft",
+    "timestamp": "2026-08-12T02:00:03Z",
+    "schemaUri": "https://myorg.com/schema/custom",
+    "links": [
+      {
+        "linkType": "RELATION",
+        "linkKind": "TRIGGER",
+        "target": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      },
+      {
+        "linkType": "PATH",
+        "from": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      },
+      {
+        "linkType": "END",
+        "from": {
+          "contextId": "5328c37f-bb7e-4bb7-84ea-9f5f85e4a7ce"
+        },
+        "tags": {
+          "foo1": "bar",
+          "foo2": "bar"
+        }
+      }
+    ]
+  },
+  "subject": {
+    "id": "sched-deploy-orders-9281",
+    "source": "/scheduler/prod",
+    "content": {
+      "target": {
+        "id": "orders-svc",
+        "source": "/prod/deploys",
+        "type": "deployment"
+      },
+      "scheduledTime": "2026-08-12T02:00:00Z",
+      "changeWindow": {
+        "id": "win-maint-0812",
+        "source": "/scheduler/prod"
+      },
+      "reason": "Scheduler backlog exceeded the firing window"
+    }
+  }
+}

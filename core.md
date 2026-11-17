@@ -18,10 +18,13 @@ Core events are at the lower level of abstraction in the dictionary: they descri
 In the context of Continuous Delivery, a *pipeline* is the definition of a set of *tasks* that needs to be performed to build, test, package, release and deploy software artifacts.
 The definition of *pipelines* and *tasks* is an authoring process, and has no event associated to it. CDEvents identifies two [*subjects*](spec.md#subject), [`pipelineRun`](#pipelinerun) and [`taskRun`](#taskrun), which are the runtime counterparts of *pipelines* and *tasks*.
 
+Executions are not always enqueued as soon as they are requested. A [`scheduledExecution`](#scheduledexecution) is the registered intent to enqueue an execution at a future time, and covers the lifecycle before enqueueing.
+
 | Subject | Description | Predicates |
 |---------|-------------|------------|
 | [`pipelineRun`](#pipelinerun) | An instance of a *pipeline* | [`queued`](#pipelinerun-queued), [`started`](#pipelinerun-started), [`finished`](#pipelinerun-finished)|
 | [`taskRun`](#taskrun) | An instance of a *task* | [`queued`](#taskrun-queued), [`started`](#taskrun-started), [`finished`](#taskrun-finished)|
+| [`scheduledExecution`](#scheduledexecution) | A registered intent to enqueue an execution at a future time | [`created`](#scheduledexecution-created), [`modified`](#scheduledexecution-modified), [`canceled`](#scheduledexecution-canceled), [`triggered`](#scheduledexecution-triggered), [`missed`](#scheduledexecution-missed)|
 
 ### `pipelineRun`
 
@@ -57,6 +60,30 @@ associated, in which case it is acceptable to generate only taskRun events.
 | outcome | `String` | outcome of a finished `taskRun` | `success`, `failure`, `cancel`, or `error` |
 | url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` |
 | errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `taskRun canceled by user`, `Unit tests failed`|
+
+### `scheduledExecution`
+
+A [`scheduledExecution`](#scheduledexecution) is a registered intent to enqueue a target execution at a future time. It is the registration, not the execution: it covers the lifecycle *before* enqueueing, during which the schedule may be amended, and then either fires, is canceled, or does not fire at all.
+
+The existing `queued` predicates represent work already accepted into an execution queue. A schedule registered today to fire next week is not visible in the event stream until it materializes as a queued execution, by which point the registration, any amendment to it, and any cancellation have left no trace. Making the schedule a subject records that history as it happens.
+
+When a `scheduledExecution` fires, it produces the target's own `queued` event. Whether the resulting execution succeeds is reported by the target's events, not by this subject.
+
+Two times are relevant and both are carried: `scheduledTime` is the time the execution was registered to fire, while [`timestamp`](spec.md#timestamp) in the context is the time the occurrence happened. On [`triggered`](#scheduledexecution-triggered), the difference between them records whether the firing was on time.
+
+The producing scheduler or controller is identified by [`source`](spec.md#source-context) in the context. `author` records the actor that the producing system attributes the action to; CDEvents records attributed identity, and proving it is the producer's responsibility.
+
+| Field | Type | Description | Examples |
+|-------|------|-------------|----------|
+| id    | `String` | See [id](spec.md#id-subject)| `sched-deploy-orders-9281` |
+| source | `URI-Reference` | See [source](spec.md#source-subject) | |
+| target | `Object` | The execution to be enqueued. `type` names what is scheduled. | `{"id": "orders-svc", "source": "/prod/deploys", "type": "deployment"}` |
+| scheduledTime | `Timestamp` | The time the execution is registered to fire | `2026-08-12T02:00:00Z` |
+| author | `Object` | The actor the producer attributes the action to | `{"id": "alice", "source": "/scheduler/prod"}` |
+| trigger | `Object` ([`trigger`](testing-events.md#trigger)) | What caused the firing | `{"type": "schedule"}`, `{"type": "manual"}` |
+| changeWindow | `Object` | A change window this execution is bound to, if any | `{"id": "win-maint-0812", "source": "/scheduler/prod"}` |
+| triggeredExecution | `Object` | The execution that was enqueued | `{"id": "deploy-44119", "source": "/prod/deploys"}` |
+| reason | `String` | Detail for a cancellation or a missed firing | `Superseded by an out-of-band release` |
 
 ## Events
 
@@ -162,3 +189,95 @@ A taskRun has finished, successfully or not.
 | url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
 | outcome | `String (enum)` | outcome of a finished `taskRun` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
 | errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `taskRun canceled by user`, `Unit tests failed`| |
+
+### [`scheduledExecution Created`](conformance/scheduledexecution_created.json)
+
+A scheduled execution has been registered to fire at a future time.
+
+- Event Type: __`dev.cdevents.scheduledexecution.created.0.1.0-draft`__
+- Predicate: created
+- Subject: [`scheduledExecution`](#scheduledexecution)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | See [id](spec.md#id-subject)| `sched-deploy-orders-9281` | ✅ |
+| source | `URI-Reference` | [source](spec.md#source) from the context | | |
+| target | `Object` | The execution to be enqueued | `{"id": "orders-svc", "source": "/prod/deploys", "type": "deployment"}` | ✅ |
+| scheduledTime | `Timestamp` | The time the execution is registered to fire | `2026-08-12T02:00:00Z` | ✅ |
+| author | `Object` | The actor the producer attributes the registration to | `{"id": "alice", "source": "/scheduler/prod"}` | ✅ |
+| changeWindow | `Object` | A change window this execution is bound to, if any | `{"id": "win-maint-0812", "source": "/scheduler/prod"}` | |
+
+### [`scheduledExecution Modified`](conformance/scheduledexecution_modified.json)
+
+A registered scheduled execution has been changed. The subject retains its identity across the change.
+
+- Event Type: __`dev.cdevents.scheduledexecution.modified.0.1.0-draft`__
+- Predicate: modified
+- Subject: [`scheduledExecution`](#scheduledexecution)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | See [id](spec.md#id-subject)| `sched-deploy-orders-9281` | ✅ |
+| source | `URI-Reference` | [source](spec.md#source) from the context | | |
+| target | `Object` | The execution to be enqueued, as it stands after the change | `{"id": "orders-svc", "source": "/prod/deploys", "type": "deployment"}` | ✅ |
+| scheduledTime | `Timestamp` | The firing time as it stands after the change | `2026-08-12T02:00:00Z` | ✅ |
+| author | `Object` | The actor the producer attributes the change to | `{"id": "alice", "source": "/scheduler/prod"}` | ✅ |
+| changeWindow | `Object` | A change window this execution is bound to, if any | `{"id": "win-maint-0812", "source": "/scheduler/prod"}` | |
+
+### [`scheduledExecution Canceled`](conformance/scheduledexecution_canceled.json)
+
+A registered scheduled execution has been withdrawn before firing. Nothing was enqueued.
+
+- Event Type: __`dev.cdevents.scheduledexecution.canceled.0.1.0-draft`__
+- Predicate: canceled
+- Subject: [`scheduledExecution`](#scheduledexecution)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | See [id](spec.md#id-subject)| `sched-deploy-orders-9281` | ✅ |
+| source | `URI-Reference` | [source](spec.md#source) from the context | | |
+| target | `Object` | The execution that will now not be enqueued | `{"id": "orders-svc", "source": "/prod/deploys", "type": "deployment"}` | ✅ |
+| scheduledTime | `Timestamp` | The time the execution had been registered to fire | `2026-08-12T02:00:00Z` | ✅ |
+| author | `Object` | The actor the producer attributes the cancellation to | `{"id": "alice", "source": "/scheduler/prod"}` | ✅ |
+| changeWindow | `Object` | A change window this execution was bound to, if any | `{"id": "win-maint-0812", "source": "/scheduler/prod"}` | |
+| reason | `String` | Detail for the cancellation | `Superseded by an out-of-band release` | |
+
+### [`scheduledExecution Triggered`](conformance/scheduledexecution_triggered.json)
+
+A scheduled execution has fired and handed off to the execution it describes. This is the point at which the target's own `queued` event is produced.
+
+Firing is caused either by elapsed time or by an actor, and `trigger.type` records which. `author` is required when `trigger.type` is `manual`, and MUST NOT be present for any other value: the absence of `author` is what tells a consumer that no actor fired the execution.
+
+- Event Type: __`dev.cdevents.scheduledexecution.triggered.0.1.0-draft`__
+- Predicate: triggered
+- Subject: [`scheduledExecution`](#scheduledexecution)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | See [id](spec.md#id-subject)| `sched-deploy-orders-9281` | ✅ |
+| source | `URI-Reference` | [source](spec.md#source) from the context | | |
+| target | `Object` | The execution that was enqueued | `{"id": "orders-svc", "source": "/prod/deploys", "type": "deployment"}` | ✅ |
+| scheduledTime | `Timestamp` | The time the execution had been registered to fire | `2026-08-12T02:00:00Z` | ✅ |
+| trigger | `Object` ([`trigger`](testing-events.md#trigger)) | What caused the firing | `{"type": "schedule"}`, `{"type": "manual"}` | ✅ |
+| author | `Object` | The actor that fired the execution. MUST NOT be present unless `trigger.type` is `manual`. | `{"id": "alice", "source": "/scheduler/prod"}` | when `trigger.type` is `manual` |
+| changeWindow | `Object` | A change window this execution is bound to, if any | `{"id": "win-maint-0812", "source": "/scheduler/prod"}` | |
+| triggeredExecution | `Object` | The execution that was enqueued | `{"id": "deploy-44119", "source": "/prod/deploys"}` | |
+
+### [`scheduledExecution Missed`](conformance/scheduledexecution_missed.json)
+
+A scheduled execution did not fire. `scheduledTime` passed without the execution being enqueued.
+
+This event is emitted at the producer's discretion by a producer that was available to observe the absence; the specification defines no tolerance window. A producer that was itself unavailable at `scheduledTime` emits nothing, including no `missed` event. A schedule that never fired is distinct from an execution that fired and then failed, which is reported by the target's own events.
+
+- Event Type: __`dev.cdevents.scheduledexecution.missed.0.1.0-draft`__
+- Predicate: missed
+- Subject: [`scheduledExecution`](#scheduledexecution)
+
+| Field | Type | Description | Examples | Required |
+|-------|------|-------------|----------|----------------------------|
+| id    | `String` | See [id](spec.md#id-subject)| `sched-deploy-orders-9281` | ✅ |
+| source | `URI-Reference` | [source](spec.md#source) from the context | | |
+| target | `Object` | The execution that was not enqueued | `{"id": "orders-svc", "source": "/prod/deploys", "type": "deployment"}` | ✅ |
+| scheduledTime | `Timestamp` | The time the execution had been registered to fire | `2026-08-12T02:00:00Z` | ✅ |
+| changeWindow | `Object` | A change window this execution was bound to, if any | `{"id": "win-maint-0812", "source": "/scheduler/prod"}` | |
+| reason | `String` | Detail for the missed firing | `Scheduler backlog exceeded the firing window` | |

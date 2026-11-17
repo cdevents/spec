@@ -34,6 +34,9 @@ dataschema
 deterministically
 emmitted
 english
+enqueue
+enqueued
+enqueueing
 eventdata
 fas
 href
@@ -55,6 +58,7 @@ pre
 rolledback
 runtime
 sbom
+scheduledexecution
 schemaUri
 schemas
 schemauri
