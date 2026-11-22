@@ -135,6 +135,7 @@ The `artifact published` event is typically produced by the artifact registry, b
 | id    | `Purl` | See [id](spec.md#id-subject) | `pkg:oci/myapp@sha256%3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427?repository_url=mycr.io/myapp`, `pkg:golang/mygit.com/myorg/myapp@234fd47e07d1004f0aed9c` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | user | `String` | The user who published to the artifact registry. [^user] | `mybot-myapp` | |
+| sbom | [`sbom`](#sbom) | The Software Bill of Material (SBOM) associated with the artifact | `{"uri": "https://sbom.storage.service/my-projects/3A0b31b1c02ff458ad9b7b81cbdf8f028bd54699fa151f221d1e8de6817db93427.sbom"}` | |
 
 ### [`artifact downloaded`](conformance/artifact_downloaded.json)
 

@@ -36,7 +36,7 @@ track the build and release progress on a particular software artifact.
 | source | `URI-Reference` | See [source](spec.md#source-subject) | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` |
 | outcome | `String` | outcome of a finished `pipelineRun` | `success`, `failure`, `cancel`, or `error` |
-| url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` |
+| uri | `URI` | URI of the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` |
 | errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun canceled by user`, `Unit tests failed`|
 
 ### `taskRun`
@@ -55,7 +55,7 @@ associated, in which case it is acceptable to generate only taskRun events.
 | taskName  | `String` | The name of the task | `MyTask`, `Deploy to DEV stage` |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`|
 | outcome | `String` | outcome of a finished `taskRun` | `success`, `failure`, `cancel`, or `error` |
-| url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` |
+| uri | `URI` | URI of the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` |
 | errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `taskRun canceled by user`, `Unit tests failed`|
 
 ## Events
@@ -75,7 +75,7 @@ to ignore these events if they don't apply to their use cases.
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
-| url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
+| uri | `URI` | URI of the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 
 ### [`pipelineRun Started`](conformance/pipelinerun_started.json)
 
@@ -90,7 +90,7 @@ A pipelineRun has started and it is running.
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
-| url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
+| uri | `URI` | URI of the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 
 ### [`pipelineRun Finished`](conformance/pipelinerun_finished.json)
 
@@ -105,7 +105,7 @@ A pipelineRun has finished, successfully or not.
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | pipelineName  | `String` | The name of the pipeline | `MyPipeline`, `Unit tests for my repo` | |
-| url | `URI` | url to the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
+| uri | `URI` | URI of the `pipelineRun` | `https://dashboard.org/namespace/pipelinerun-1234`, `https://api.cdsystem.com/namespace/pipelinerun-1234` | |
 | outcome | `String (enum)` | outcome of a finished `pipelineRun` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
 | errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `pipelineRun canceled by user`, `Unit tests failed`| |
 
@@ -127,7 +127,7 @@ A `taskRun.queued` event may be followed by `taskRun.started` or `taskRun.finish
 | source | `URI-Reference` | [source](spec.md#source) from the context | | |
 | taskName  | `String` | The name of the task | `MyTask`, `Deploy to DEV stage` | |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`| |
-| url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
+| uri | `URI` | URI of the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
 
 ### [`taskRun Started`](conformance/taskrun_started.json)
 
@@ -143,7 +143,7 @@ A taskRun has started and it is running.
 | source | `URI-Reference` | [source](spec.md#source) from the context | | |
 | taskName  | `String` | The name of the task | `MyTask`, `Deploy to DEV stage` | |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`| |
-| url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
+| uri | `URI` | URI of the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
 
 ### [`taskRun Finished`](conformance/taskrun_finished.json)
 
@@ -159,6 +159,6 @@ A taskRun has finished, successfully or not.
 | source | `URI-Reference` | [source](spec.md#source) from the context | | |
 | taskName  | `String` | The name of the task | `MyTask`, `Deploy to DEV stage` | |
 | pipelineRun | `Object` ([`pipelineRun`](#pipelinerun)) | The `pipelineRun` that this `taskRun` belongs to. | `{"id": "namespace/pipelinerun-1234"}`| |
-| url | `URI` | url to the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
+| uri | `URI` | URI of the `taskRun` | `https://dashboard.org/namespace/taskrun-1234`, `https://api.cdsystem.com/namespace/taskrun-1234` | |
 | outcome | `String (enum)` | outcome of a finished `taskRun` | `success`, `failure`, `cancel`, or `error` | `success`, `failure`, `cancel`, `error` |
 | errors | `String` | In case of error, canceled, or failed pipeline , provides details about the failure | `Invalid input param 123`, `Timeout during execution`, `taskRun canceled by user`, `Unit tests failed`| |

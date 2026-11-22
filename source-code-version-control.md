@@ -34,7 +34,7 @@ An SCM `repository` is identified by a `name`, an `owner` which can be a user or
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`|
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`|
-| url | `URI` | URL to the `repository` for API operations. This URL needs to include the protocol used to connect to the repository. | `git://my-git.example/an-org/a-repo` |
+| uri | `URI` | URL to the `repository` for API operations. This URL needs to include the protocol used to connect to the repository. | `git://my-git.example/an-org/a-repo` |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`|
 
 ### `branch`
@@ -74,7 +74,7 @@ A new Source Code Repository was created to host source code for a project.
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`| |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | ✅ |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
-| url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
+| uri | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`| |
 
 ### [`repository modified`](conformance/repository_modified.json)
@@ -91,7 +91,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`| |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | ✅ |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
-| url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
+| uri | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | ✅ |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`| |
 
 ### [`repository deleted`](conformance/repository_deleted.json)
@@ -106,7 +106,7 @@ A Source Code Repository modified some of its attributes, like location, or owne
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `my-git.example`| |
 | name  | `String` | The name of the `repository` | `spec`, `community`, `a-repo` | |
 | owner | `String` | The owner of the `repository` | `cdevents`, `an-org`, `an-user`| |
-| url | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | |
+| uri | `URI` | URL to the `repository` | `git://my-git.example/an-org/a-repo` | |
 | viewUrl | `URI` | URL for humans to view the content of the `repository`  | `https://my-git.example/an-org/a-repo/view`| |
 
 ### [`branch created`](conformance/branch_created.json)
