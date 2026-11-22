@@ -139,7 +139,6 @@ This event represents a skipped testCaseRun execution. The event should only be 
 | environment  | `Object` [`environment`](continuous-deployment.md/#environment) | The environment in which this testCaseRun would have run, but was skipped.       | `{"id": "1234"}`, `{"id": "dev", "source": "testkube-dev-123"}`         | ✅        |
 | testCase     | `Object` [`testCase`](#testcase)                                | Definition of the testCase being executed                                        | `{"id": "92834723894", "name": "Login Test", "type": "integration"}`    |          |
 | testSuiteRun | `Object` [`testSuiteRun`](#testsuiterun)                        | A testSuiteRun to associate this testCaseRun with a containing testSuiteRun      | `{"id":"Auth-TestSuite-execution-12334", "source": "staging/testkube"}` |          |
-| severity     | `String`                                                        | Severity if the test failed, one of `low`, `medium`, `high`, `critical`          | `critical`                                                              |
 | reason       | `String`                                                        | A reason for skipping the test case run.                                         | `Not running in given environment`, `Skipping slow tests` |          |
 
 ### [`testSuiteRun queued`](conformance/testsuiterun_queued.json)

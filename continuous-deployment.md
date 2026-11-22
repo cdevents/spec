@@ -30,7 +30,7 @@ An `environment` is a platform which may run a `service`.
 | id    | `String` | See [id](spec.md#id-subject)| `1234`, `maven123`, `builds/taskrun123` |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | `staging/tekton`, `tekton-dev-123`|
 | name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`|
-| url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`|
+| uri | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`|
 
 ### `service`
 
@@ -58,7 +58,7 @@ This event represents an environment that has been created. Such an environment 
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| |
-| url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| |
+| uri | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| |
 
 ### [`environment modified`](conformance/environment_modified.json)
 
@@ -73,7 +73,7 @@ This event represents an environment that has been modified.
 | id    | `String` | See [id](spec.md#id-subject)| `tenant1/12345-abcde`, `namespace/pipelinerun-1234` | ✅ |
 | source | `URI-Reference` | See [source](spec.md#source-subject) | | |
 | name | `String` | Name of the environment | `dev`, `staging`, `production`, `ci-123`| |
-| url | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| |
+| uri | `String` | URL to reference where the environment is located | `https://my-cluster.zone.my-cloud-provider`| |
 
 ### [`environment deleted`](conformance/environment_deleted.json)
 
