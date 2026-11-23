@@ -43,6 +43,11 @@ function loadJSON(filepath) {
   }
 }
 
+// Spec version, as found in version.txt
+const SPEC_VERSION = readFileSync(join(ROOT, "version.txt"), "utf8").trim();
+const EVENT_TYPE_REGEX =
+  /^dev\.cdevents\.([a-z]+)\.([a-z]+)\.[0-9]+\.[0-9]+\.[0-9]+(-draft)?$/;
+
 // Helper function to create ajv instance with options
 function createAjv() {
   const ajv = new Ajv2020({
@@ -130,6 +135,63 @@ function testSchemas() {
   return schemaFailed;
 }
 
+// Check that schema IDs follow the format SDKs rely on to build the
+// schema URL from the event type:
+// https://cdevents.dev/<spec version>/schema/<subject>-<predicate>-event
+function testSchemaIds() {
+  console.log("\n==> Testing Schema IDs");
+
+  let idFailed = 0;
+  const idPrefix = `https://cdevents.dev/${SPEC_VERSION}/schema/`;
+
+  const eventSchemaFiles = globSync(join(SCHEMAS_FOLDER, "*.json"));
+  for (const schemaFile of eventSchemaFiles) {
+    const schema = loadJSON(schemaFile);
+    const eventType = schema.properties?.context?.properties?.type?.default;
+    const match = EVENT_TYPE_REGEX.exec(eventType ?? "");
+    if (!match) {
+      console.error(`${schemaFile}: unexpected event type "${eventType}"`);
+      idFailed++;
+      continue;
+    }
+    const [, subject, predicate] = match;
+    const expectedId = `${idPrefix}${subject}-${predicate}-event`;
+    if (schema.$id !== expectedId) {
+      console.error(
+        `${schemaFile}: $id is "${schema.$id}", expected "${expectedId}"`,
+      );
+      idFailed++;
+    }
+    if (basename(schemaFile) !== `${subject}${predicate}.json`) {
+      console.error(
+        `${schemaFile}: file name does not match event type "${eventType}"`,
+      );
+      idFailed++;
+    }
+  }
+
+  // Links, registry and custom schemas only need the right spec version
+  const otherSchemaFiles = [
+    ...globSync(join(SCHEMAS_FOLDER, "links/*.json")),
+    ...globSync(join(SCHEMAS_FOLDER, "registry/*.json")),
+    join(ROOT, "custom/schema.json"),
+  ];
+  for (const schemaFile of otherSchemaFiles) {
+    const schema = loadJSON(schemaFile);
+    if (!schema.$id?.startsWith(idPrefix)) {
+      console.error(
+        `${schemaFile}: $id "${schema.$id}" does not start with "${idPrefix}"`,
+      );
+      idFailed++;
+    }
+  }
+
+  const numChecked = eventSchemaFiles.length + otherSchemaFiles.length;
+  console.log(`${idFailed} schema ID problems in ${numChecked} schemas`);
+
+  return idFailed;
+}
+
 // Test conformance examples
 function testConformance() {
   console.log("\n==> Testing Conformance Files");
@@ -213,9 +275,10 @@ function testConformance() {
 // Main execution
 try {
   const schemaFailed = testSchemas();
+  const idFailed = testSchemaIds();
   const exampleFailed = testConformance();
 
-  const totalFailed = schemaFailed + exampleFailed;
+  const totalFailed = schemaFailed + idFailed + exampleFailed;
   process.exit(totalFailed);
 } catch (error) {
   console.error(`Fatal error: ${error.message}`);
