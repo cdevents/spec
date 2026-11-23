@@ -44,10 +44,10 @@
         "providerId": "",
         "namespace": "my-company",
         "groups": "platform/backend",
-        "type": "mr",
+        "type": "pr",
         "resourceId": "99"
       },
-      "expected": "cdevents:v0:gitlab::my-company:platform/backend:mr:99"
+      "expected": "cdevents:v0:gitlab::my-company:platform/backend:pr:99"
     },
     {
       "description": "Datadog alert, no provider-id",
