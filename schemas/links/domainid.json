@@ -10,6 +10,6 @@
     "cdevents:v0:github:org-a-github:xibz:cdevents-spec:pr:42",
     "cdevents:v0:jira::xibz:cdevents-project:issue:PROJ-123",
     "cdevents:v0:datadog::prod:api-monitors:alert:98765",
-    "cdevents:v0:gitlab::my-company:platform/backend:mr:99"
+    "cdevents:v0:gitlab::my-company:platform/backend:pr:99"
   ]
 }

@@ -210,12 +210,97 @@ function testConformance() {
   return exampleFailed;
 }
 
+// Test the domainId test vectors in conformance/formats/domainid.json, plus
+// the examples in the domainid schema, against the domainid schema and the
+// provider and resource type registries
+function testDomainIds() {
+  console.log("\n==> Testing Domain IDs");
+
+  let domainIdFailed = 0;
+  let numChecks = 0;
+
+  const ajv = createAjv();
+  const domainIdSchema = loadJSON(join(SCHEMAS_FOLDER, "links/domainid.json"));
+  const validateDomainId = ajv.compile(domainIdSchema);
+  const validateProvider = ajv.compile(
+    loadJSON(join(SCHEMAS_FOLDER, "registry/providers.json")),
+  );
+  const validateType = ajv.compile(
+    loadJSON(join(SCHEMAS_FOLDER, "registry/resource-types.json")),
+  );
+
+  // Checks one serialized domainId, returns a list of problems
+  const checkDomainId = (domainId) => {
+    const problems = [];
+    if (!validateDomainId(domainId)) {
+      problems.push("does not match the domainid schema");
+      return problems;
+    }
+    const [, , provider, , , , type] = domainId.split(":");
+    if (provider !== "" && !validateProvider(provider)) {
+      problems.push(`provider "${provider}" is not in the provider registry`);
+    }
+    if (!validateType(type)) {
+      problems.push(`type "${type}" is not in the resource type registry`);
+    }
+    return problems;
+  };
+
+  const report = (what, problems) => {
+    numChecks++;
+    if (problems.length > 0) {
+      console.error(`${what}: ${problems.join(", ")}`);
+      domainIdFailed++;
+    }
+  };
+
+  const vectors = loadJSON(join(EXAMPLES_FOLDER, "formats/domainid.json"));
+
+  for (const testCase of vectors.valid) {
+    const { provider, providerId, namespace, groups, type, resourceId } =
+      testCase.segments;
+    const serialized = [
+      "cdevents",
+      "v0",
+      provider,
+      providerId,
+      namespace,
+      groups,
+      type,
+      resourceId,
+    ].join(":");
+    const problems = checkDomainId(testCase.expected);
+    if (serialized !== testCase.expected) {
+      problems.push(`segments serialize to "${serialized}"`);
+    }
+    report(`valid case "${testCase.description}"`, problems);
+  }
+
+  for (const testCase of vectors.invalid) {
+    const problems = validateDomainId(testCase.input)
+      ? ["matches the domainid schema but should not"]
+      : [];
+    report(`invalid case "${testCase.description}"`, problems);
+  }
+
+  for (const example of domainIdSchema.examples ?? []) {
+    report(`domainid schema example "${example}"`, checkDomainId(example));
+  }
+
+  console.log(
+    `${numChecks - domainIdFailed} out of ${numChecks} domain ID checks passed`,
+  );
+
+  return domainIdFailed;
+}
+
 // Main execution
 try {
   const schemaFailed = testSchemas();
   const exampleFailed = testConformance();
+  const domainIdFailed = testDomainIds();
 
-  const totalFailed = schemaFailed + exampleFailed;
+  const totalFailed = schemaFailed + exampleFailed + domainIdFailed;
   process.exit(totalFailed);
 } catch (error) {
   console.error(`Fatal error: ${error.message}`);

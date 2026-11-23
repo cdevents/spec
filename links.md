@@ -711,7 +711,7 @@ Examples:
 - GitHub PR (org B's internal GitHub Enterprise): `cdevents:v0:github:org-b-github:xibz:cdevents-spec:pr:42`
 - Jira ticket: `cdevents:v0:jira::xibz:cdevents-project:issue:12345`
 - Datadog alert: `cdevents:v0:datadog::prod:api-monitors:alert:98765`
-- GitLab MR (nested groups): `cdevents:v0:gitlab::my-company:platform/backend:mr:99`
+- GitLab MR (nested groups): `cdevents:v0:gitlab::my-company:platform/backend:pr:99`
 
 ### Provider Validation
 
