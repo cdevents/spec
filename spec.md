@@ -63,7 +63,7 @@ Each CDEvent is structured into two mandatory parts:
   CDEvents, some of its content may vary from event to event, as described in
   the *vocabulary*
 
-plus two optional attributes `customData` and `customDataEncoding`, that host
+plus two optional attributes `customData` and `customDataContentType`, that host
 [*CDEvents custom data*](#cdevents-custom-data).
 
 The specification is structured in two main parts:
@@ -212,8 +212,8 @@ defined in the [vocabulary](#vocabulary):
   - `dev.cdeventsx.` types SHOULD be defined in a third party specification
 
 - Examples:
-  - `dev.cdevents.taskrun.started.0.2.0`
-  - `dev.cdevents.environment.created.0.2.0`
+  - `dev.cdevents.taskrun.started.0.3.0`
+  - `dev.cdevents.environment.created.0.3.0`
   - `dev.cdevents.<subject>.<predicate>.M.m.p`
   - `dev.cdeventsx.mytool-process.finished.0.1.0`
   - `dev.cdeventsx.<tool>-<subject>.<predicate>.M.m.p`
@@ -273,7 +273,7 @@ defined in the [vocabulary](#vocabulary):
 - Type: `String`
 - Description: The version of the CDEvents specification which the event
   uses. This enables the interpretation of the context. Compliant event
-  producers MUST use a value of `0.1.1` when referring to this version of the
+  producers MUST use a value of `0.6.0-draft` when referring to this version of the
   specification. For more details see [versioning](https://cdevents.dev/docs/primer/#versioning).
 
 - Constraints:
@@ -373,7 +373,7 @@ This is an example of a full CDEvent context, rendered in JSON format:
     "specversion": "0.6.0-draft",
     "id" : "A234-1234-1234",
     "source" : "/staging/tekton/",
-    "type" : "dev.cdevents.taskrun.started.0.2.0",
+    "type" : "dev.cdevents.taskrun.started.0.3.0",
     "timestamp" : "2018-04-05T17:31:00Z",
     "schemaUri":  "https://myorg.com/cdevents/schema/taskrun-started-1-1-0"
   }
@@ -416,14 +416,16 @@ defined in the [vocabulary](#vocabulary):
   - REQUIRED
 
 - Example:
-  - Considering the event type `dev.cdevents.taskrun.started.0.2.0`, an example of
+  - Considering the event type `dev.cdevents.taskrun.started.0.3.0`, an example of
     subject, serialized as JSON, is:
 
     ```json
-        "content" : {
-          "task": "my-task",
-          "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
-        }
+    {
+      "content" : {
+        "taskName": "my-task",
+        "uri": "https://cdevents.example.com/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+      }
+    }
     ```
 
 ### OPTIONAL Subject Attributes
@@ -450,14 +452,14 @@ The following example shows `context` and `subject` together, rendered as JSON.
       "specversion": "0.6.0-draft",
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
-      "type" : "dev.cdevents.taskrun.started.0.2.0",
+      "type" : "dev.cdevents.taskrun.started.0.3.0",
       "timestamp" : "2018-04-05T17:31:00Z"
    },
    "subject" : {
       "id": "my-taskrun-123",
       "content": {
-         "task": "my-task",
-         "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
+         "taskName": "my-task",
+         "uri": "https://cdevents.example.com/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
          "pipelineRun": {
             "id": "my-distributed-pipelinerun",
             "source": "/tenant1/tekton/"
@@ -586,7 +588,7 @@ dedicated document in the spec:
 - __[Continuous Integration](continuous-integration.md)__:
   includes events related to building software artifacts and packaging, releasing
   and managing software artifacts.
-- __[Testing](testing.md)__:
+- __[Testing](testing-events.md)__:
   includes events related to testing. Sometimes part of continuous
   integration, testing may take place in different stages of the workflow.
 - __[Continuous Deployment](continuous-deployment.md)__:
