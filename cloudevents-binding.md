@@ -88,11 +88,11 @@ In CloudEvents HTTP binary mode, the `Content-Type` HTTP header MUST be set to `
 
 Full example of a CDEvents transported through a CloudEvent in HTTP *binary* mode:
 
-```json
+```http
 POST /sink HTTP/1.1
 Host: cdevents.example.com
 ce-specversion: 1.0
-ce-type: dev.cdevents.taskrun.started.0.1.1
+ce-type: dev.cdevents.taskrun.started.0.3.0
 ce-time: 2018-04-05T17:31:00Z
 ce-id: A234-1234-1234
 ce-source: /staging/tekton/
@@ -105,14 +105,14 @@ Content-Length: nnnn
       "specversion": "0.6.0-draft",
       "id" : "A234-1234-1234",
       "source" : "/staging/tekton/",
-      "type" : "dev.cdevents.taskrun.started.0.1.1",
-      "timestamp" : "2018-04-05T17:31:00Z",
-   }
+      "type" : "dev.cdevents.taskrun.started.0.3.0",
+      "timestamp" : "2018-04-05T17:31:00Z"
+   },
    "subject" : {
       "id": "/namespace/taskrun-123",
       "content": {
-         "task": "my-task",
-         "uri": "/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123"
+         "taskName": "my-task",
+         "uri": "https://cdevents.example.com/apis/tekton.dev/v1beta1/namespaces/default/taskruns/my-taskrun-123",
          "pipelineRun": {
             "id": "/somewherelse/pipelinerun-123",
             "source": "/staging/jenkins/"
